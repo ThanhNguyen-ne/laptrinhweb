@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#main{
+
+}
+
+#header{
+    height:266px ;
+    background-image: url("/assets/image/pngtree-bird-s-nest-simple-pink-banner-picture-image_1069763.jpg");
+   
+   
+
+}
+.header_tren {
+    height:40px ;
+    width: 80%;
+    background-color:#003366;
+    color:white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+.info span, .login a{
+    
+    margin-right: 1em;
+}
+.login a{
+    margin-left: auto;
+    text-decoration: none; /* Xóa định dạng gạch chân */
+    color: inherit;
+}
+.header_giua img {
+    width: 80%;
+    height:186px ;
+    display: block; /* Để loại bỏ khoảng cách dư thừa */
+    margin: auto; /* Để căn giữa cả chiều ngang và chiều dọc */
+}
+.header_duoi{
+    width: 80%;
+    height:40px;
+    margin: auto;
+    background-color:#003366;
+}
+.header_trai{
+    
+}
+#nav{
+
+}
+#nav li{
+    display: inline;
+    position: relative;
+}
+#nav >li > a{
+    color:#fff;
+    text-decoration: none;
+    line-height: 40px;
+    padding: 0 24px;
+    display: inline-block;
+}
+#nav li a{
+    color:#fff;
+    text-decoration: none;
+    line-height: 40px;
+    padding: 0 24px;
+    display: inline-block;
+}
+#nav li:hover .subnav {
+    display: block;
+}
+#nav li:hover a{
+    color: black;
+    background-color: #40E0D0;
+}
+
+#nav .subnav{
+    display: none;
+    position: absolute;
+    background-color: #40E0D0;
+    box-shadow: 0 0 15px; 
+    
+    
+}
+#nav .subnav a{
+    color:white ;
+  
+}
+#slider{
+
+}
+
+content{
+
+}
+
+#footer{
+
+}
