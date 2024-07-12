@@ -18,7 +18,7 @@ iframe[seamless] {
     display: block;
 }
 
-#header {
+header {
     height: 266px;
     background-image: url("/assets/image/pngtree-bird-s-nest-simple-pink-banner-picture-image_1069763.jpg");
 
@@ -67,7 +67,14 @@ iframe[seamless] {
 
 .header_trai {}
 
-#nav {}
+#nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap; /* Ngăn chữ xuống hàng */
+    display: inline-block;
+    
+}
 
 #nav li {
     display: inline;
@@ -98,6 +105,7 @@ iframe[seamless] {
 #nav li:hover a {
     color: black;
     background-color: #40E0D0;
+    
 }
 
 #nav .subnav {
@@ -111,11 +119,33 @@ iframe[seamless] {
 
 #nav .subnav a {
     color: white;
-
+    border-radius: 30px;
 }
-
-#slider {}
-
-content {}
-
-#footer {}
+.search{
+    float:right;
+    line-height: 40px;
+    border-radius: 30px;
+    background-color: #fff;
+}
+.search .search-text{
+    border: none;
+    outline: none;
+    background: none;
+    /* padding: 10px 15px; */
+    font-size: 18px;
+    width: 0;
+    padding: 0px;
+    transition: all 0.25s ease-in-out;
+}
+ .search .btn{
+    background-color:white;
+    border: none;
+    padding: 15px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18;
+}
+.search:hover .search-text , .search .search-text:valid{
+    width: 300px;
+    padding: 10px 15px;
+}
