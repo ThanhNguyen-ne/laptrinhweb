@@ -9,62 +9,50 @@
   </head>
   <body>
     <header>
-    <div id="main">
-      
-        <div class="header_tren">
-          <div class="info">
-            <span>📞 Hotline: 092932067</span>
-            <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
+        <div id="main">
+          <div class="header_tren">
+            <div class="info">
+              <span>📞 Hotline: 092932067</span>
+              <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
+            </div>
+            <div class="login" align="right">
+              <a href="#">Đăng nhập Đăng ký</a>
+            </div>
           </div>
-          <div class="login" align="right">
-            <a href="#">Đăng nhập Đăng ký</a>
+          <div class="header_giua">
+            <img src="/assets/image/A1_new.jpg" />
           </div>
-        </div>
-        <div class="header_giua">
-          <img src="/assets/image/A1_new.jpg" />
-        </div>
-        <nav>
-          <div class="header_duoi">
-            <div>
-              
-              <ul id="nav">
-                <li><a href="#">Trang chủ</a></li>
-                <li>
-                  <a href="#"> Sản phẩm</a>
-                  <ul class="subnav">
-                    <li><a href="">Yến sào đảo yến thiên nhiên </a></li>
-                    <li><a href="">Thực phẩm Sanest Food</a></li>
-                    <li><a href="">Yến sào Sanvinest Khánh Hoà</a></li>
-                    <li><a href="">Yến sào Sanest</a></li>
-                    <li><a href="">Nước giải khát Sanna</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Kiểm tra đơn hàng</a></li>
-                <li><a href="#">Thông tin yến sào </a></li>
-                <li><a href="#">Liên hệ</a></li>
-              </ul>
+          <nav>
+            <div class="header_duoi">
+              <div class="content">
+                <ul id="nav">
+                  <li><a href="#">Trang chủ</a></li>
+                  <li>
+                    <a href="http://127.0.0.1:5500/pages/sanpham.html#"> Sản phẩm</a>
+                    <ul class="subnav">
+                      <li><a href="">Yến sào đảo yến thiên nhiên </a></li>
+                      <li><a href="">Thực phẩm Sanest Food</a></li>
+                      <li><a href="">Yến sào Sanvinest Khánh Hoà</a></li>
+                      <li><a href="">Yến sào Sanest</a></li>
+                      <li><a href="">Nước giải khát Sanna</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Kiểm tra đơn hàng</a></li>
+                  <li><a href="#">Thông tin yến sào </a></li>
+                  <li><a href="#">Liên hệ</a></li>
+                </ul>
                 <form action="" class="search">
-                    <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required>
-                    <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                  </form>
-
+                  <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required>
+                  <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+              </div>
             </div>
-            
-
-              
-            
-            </div>
-        </nav>
-     
-    </header>
+          </nav>
+        </div>
+      </header>
 
 
-    <!-- Content -->
-     <div class="content">
-
-     </div>
-    
-
+      
     <footer>
         <div class="footer-container">
             <div class="footer-section">
@@ -104,5 +92,17 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-Fo8sP+v+j7U4eG3Bw0n6eH7a3FjU9T2pG2h9RHNO9K4hU+e/Ec1TkM0Kx2BJ2yZq2F9hPZT/r4BlZHt8IzHoHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      window.addEventListener('scroll', function() {
+        var header = document.querySelector('.header_duoi');
+        var headerPosition = header.offsetTop;
+        if (window.pageYOffset > headerPosition) {
+          header.classList.add('fixed');
+        } else {
+          header.classList.remove('fixed');
+        }
+      });
+    </script>
   </body>
 </html>
