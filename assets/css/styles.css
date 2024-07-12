@@ -8,6 +8,12 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 #main {}
 
 iframe:focus {
@@ -21,9 +27,6 @@ iframe[seamless] {
 header {
     height: 266px;
     background-image: url("/assets/image/pngtree-bird-s-nest-simple-pink-banner-picture-image_1069763.jpg");
-
-
-
 }
 
 .header_tren {
@@ -45,7 +48,6 @@ header {
 .login a {
     margin-left: auto;
     text-decoration: none;
-    /* Xóa định dạng gạch chân */
     color: inherit;
 }
 
@@ -53,9 +55,7 @@ header {
     width: 80%;
     height: 186px;
     display: block;
-    /* Để loại bỏ khoảng cách dư thừa */
     margin: auto;
-    /* Để căn giữa cả chiều ngang và chiều dọc */
 }
 
 .header_duoi {
@@ -65,15 +65,12 @@ header {
     background-color: #003366;
 }
 
-.header_trai {}
-
 #nav {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    white-space: nowrap; /* Ngăn chữ xuống hàng */
+    white-space: nowrap;
     display: inline-block;
-    
 }
 
 #nav li {
@@ -95,7 +92,6 @@ header {
     line-height: 40px;
     padding: 0 24px;
     display: inline-block;
-
 }
 
 #nav li:hover .subnav {
@@ -105,47 +101,123 @@ header {
 #nav li:hover a {
     color: black;
     background-color: #40E0D0;
-    
 }
 
 #nav .subnav {
     display: none;
     position: absolute;
     background-color: #40E0D0;
-    box-shadow: 0 0 15px; 
-    
-    
+    box-shadow: 0 0 15px;
 }
 
 #nav .subnav a {
     color: white;
     border-radius: 30px;
 }
-.search{
-    float:right;
+
+.search {
+    float: right;
     line-height: 40px;
     border-radius: 30px;
     background-color: #fff;
+    position: relative;
 }
-.search .search-text{
+
+.search .search-text {
     border: none;
     outline: none;
     background: none;
-    /* padding: 10px 15px; */
     font-size: 18px;
     width: 0;
     padding: 0px;
     transition: all 0.25s ease-in-out;
 }
- .search .btn{
-    background-color:white;
+
+.search .btn {
+    background-color: white;
     border: none;
-    padding: 15px 15px;
+    padding: 15px;
     cursor: pointer;
     border-radius: 50%;
-    font-size: 18;
+    font-size: 18px;
 }
-.search:hover .search-text , .search .search-text:valid{
+
+.search:hover .search-text, .search .search-text:focus {
     width: 300px;
     padding: 10px 15px;
+}
+
+.content {
+    flex: 1;
+}
+
+footer {
+    background-color: #219ebc;
+    color: white;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 200px;
+    line-height: 1.5;
+}
+
+.footer-section h4 {
+    margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section ul, .footer-section a {
+    margin: 5px 0;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-media img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.social-media a {
+    color: white;
+    text-decoration: none;
+}
+
+.social-media a:hover {
+    text-decoration: underline;
 }
