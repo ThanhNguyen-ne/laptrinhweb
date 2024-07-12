@@ -85,7 +85,7 @@ html{
     position: absolute;
     background-color: #40E0D0;
     box-shadow: 0 0 15px; 
-    
+    width: 500px;
     
 }
 #nav .subnav a{
