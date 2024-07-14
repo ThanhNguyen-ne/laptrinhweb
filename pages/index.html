@@ -26,7 +26,7 @@
             <div class="header_duoi">
               <div class="content">
                 <ul id="nav">
-                  <li><a href="#">Trang chủ</a></li>
+                  <li><a href="index.html">Trang chủ</a></li>
                   <li>
                     <a href="http://127.0.0.1:5500/pages/sanpham.html#"> Sản phẩm</a>
                     <ul class="subnav">
@@ -40,6 +40,7 @@
                   <li><a href="#">Kiểm tra đơn hàng</a></li>
                   <li><a href="#">Thông tin yến sào </a></li>
                   <li><a href="#">Liên hệ</a></li>
+                  <li><a href="#">Giỏ Hàng</a></li>
                 </ul>
                 <form action="" class="search">
                   <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required>
@@ -50,9 +51,43 @@
           </nav>
         </div>
       </header>
-
-
+      <div class="container">
+        <div class="sidebar">
+          <h3>DANH MỤC</h3>
+          <ul>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Yến đảo nguyên tổ</a></li>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Yến đảo tinh chế</a></li>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Tinh chất yến sào</a></li>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Yến sào Sanest</a></li>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Yến sào Sanvinest</a></li>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Tinh chất Yến sào Sanvinest</a></li>
+              <li><i class="fa-solid fa-arrow-right"></i><a href="#">Thực phẩm Sanest Foods</a></li>
+          </ul>
+      </div>
+        <div class="slider">
+          <div class="slides">
+              <div class="slide"><img src="/assets/image/slider_2.jng.jpg" alt="Slide 1"></div>
+              <div class="slide"><img src="/assets/image/slider2_3.jpg" alt="Slide 2"></div>
+              
+          </div>
+          <button class="prev" onclick="prevSlide()">&#10094;</button>
+          <button class="next" onclick="nextSlide()">&#10095;</button>
+          
+      </div>
+      <script src="/assets/scripts.js"></script>
       
+      </div>
+      
+      <div class="sanPhamBanChay">
+        <h3 >SẢN PHẨM BÁN CHẠY</h3> 
+        <div class="san-pham-item">
+          <img src="/assets/image/banner1.jpg" alt="Sản phẩm 1" />
+          <img src="/assets/image/banner2.jpg" alt="Sản phẩm 2" />
+          <img src="/assets/image/banner3.jpg" alt="Sản phẩm 3" />
+          adshasjdasd
+      </div>
+  
+     </div>
     <footer>
         <div class="footer-container">
             <div class="footer-section">
@@ -62,6 +97,11 @@
                 <p><i class="fas fa-phone"></i> 0942 69 55 77 <br>Thứ 2 - Chủ nhật: 7:00 - 21:00</p>
                 <p><i class="fas fa-envelope"></i> sales@yensaokhanhhoa.com.vn</p>
             </div>
+        
+
+
+
+
             <div class="footer-section">
                 <h4>DANH MỤC</h4>
                 <ul>
@@ -104,5 +144,6 @@
         }
       });
     </script>
+        
   </body>
 </html>
