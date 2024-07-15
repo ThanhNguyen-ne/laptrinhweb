@@ -11,7 +11,7 @@
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Yến Sào Khánh Hòa</title>
-        <link rel="stylesheet" href="/assets/css/styles.css" />
+        <link rel="stylesheet" href="/assets/css/stylessanpham.css" />
     </head>
     <body>
         <header>
@@ -33,15 +33,11 @@
                 </div>
                 <nav>
                     <div class="header_duoi">
-                        <div class="content">
+                        <div class="content-header">
                             <ul id="nav">
                                 <li><a href="index.html">Trang chủ</a></li>
                                 <li>
-                                    <a
-                                        href="http://127.0.0.1:5500/pages/sanpham.html#"
-                                    >
-                                        Sản phẩm</a
-                                    >
+                                    <a href="http://127.0.0.1:5500/pages/sanpham.html"> Sản phẩm</a>
                                     <ul class="subnav">
                                         <li>
                                             <a href=""
@@ -83,64 +79,38 @@
                 </nav>
             </div>
         </header>
-        <div class="container">
-            <div class="sidebar">
-                <h3>DANH MỤC</h3>
-                <ul>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Yến đảo nguyên tổ</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Yến đảo tinh chế</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Tinh chất yến sào</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Yến sào Sanest</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Yến sào Sanvinest</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Tinh chất Yến sào Sanvinest</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-arrow-right"></i
-                        ><a href="#">Thực phẩm Sanest Foods</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="slider">
-                <div class="slides">
-                    <div class="slide">
-                        <img
-                            src="/assets/image/slider_2.jng.jpg"
-                            alt="Slide 1"
-                        />
-                    </div>
-                    <div class="slide">
-                        <img src="/assets/image/slider2_3.jpg" alt="Slide 2" />
-                    </div>
-                </div>
-                <button class="prev" onclick="prevSlide()">&#10094;</button>
-                <button class="next" onclick="nextSlide()">&#10095;</button>
-            </div>
-            <script src="../assets/js/scripts.js"></script>
-        </div>
 
-        <div class="sanPhamBanChay">
-            <h3>SẢN PHẨM BÁN CHẠY</h3>
-            <div class="san-pham-item">
-                <img src="/assets/image/banner1.jpg" alt="Sản phẩm 1" />
-                <img src="/assets/image/banner2.jpg" alt="Sản phẩm 2" />
-                <img src="/assets/image/banner3.jpg" alt="Sản phẩm 3" />
+        <!-- Content -->
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> >
+            <a href="#">Hỗ trợ khách hàng</a>
+        </div>
+        <div class="content">
+            <h1>Hỗ trợ khách hàng</h1>
+            <div class="customer-support">
+                <img class="img"
+                    src="../assets/image/hotrokhachhang.jpg"
+                    alt="nhanvien"
+                    width="500px"
+                    height="500px"
+                />
+                <p>
+                    Chúng tôi luôn hướng đến phương châm hoạt động "Yến sào Khánh Hoà đồng hành cùng sức khoẻ cộng đồng”. Trung tâm tư vấn chăm sóc khách hàng - hỗ trợ tư vấn cho Quý khách hàng về các sản phẩm của công ty Yến sào Khánh Hòa, giúp bạn hiểu hơn về các thành phần, công dụng, cách sử dụng tổ yến, nước yến sào và các sản phẩm khác của công ty...
+                </p>
+                <div class="contact-info">
+                    <p>
+                        <strong>TRUNG TÂM CHĂM SÓC KHÁCH HÀNG CÔNG TY TNHH NHÀ NƯỚC MỘT THÀNH VIÊN YẾN SÀO KHÁNH HOÀ</strong>
+                    </p>
+                    <p>
+                        Địa chỉ: 77 Ngô Gia Tự - Tp Nha Trang - Tỉnh Khánh Hoà.
+                    </p>
+                    <p>Điện thoại: 0258.3818.222</p>
+                    <p>
+                        <strong>BP BÁN HÀNG TRỰC TUYẾN</strong>
+                        <p>Địa chỉ: 77 Ngô Gia Tự - Tp Nha Trang - Tỉnh Khánh Hoà.</p>
+                        <p>Điện thoại:  0258.6262266 - 0258.6262233 - 0258.6262299</p>
+                    </p>
+                </div>
             </div>
         </div>
         <footer>
@@ -164,7 +134,6 @@
                         sales@yensaokhanhhoa.com.vn
                     </p>
                 </div>
-
                 <div class="footer-section">
                     <h4>DANH MỤC</h4>
                     <ul>
@@ -203,12 +172,5 @@
                 </div>
             </div>
         </footer>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
-            integrity="sha512-Fo8sP+v+j7U4eG3Bw0n6eH7a3FjU9T2pG2h9RHNO9K4hU+e/Ec1TkM0Kx2BJ2yZq2F9hPZT/r4BlZHt8IzHoHQ=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
-        <script src="../assets/js/header.js"></script>
     </body>
 </html>
