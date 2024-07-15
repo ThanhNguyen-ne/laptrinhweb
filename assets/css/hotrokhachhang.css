@@ -14,16 +14,6 @@ body {
     min-height: 100vh;
 }
 
-#main {}
-
-iframe:focus {
-    outline: none;
-}
-
-iframe[seamless] {
-    display: block;
-}
-
 header {
     height: 266px;
     background-image: url("/assets/image/pngtree-bird-s-nest-simple-pink-banner-picture-image_1069763.jpg");
@@ -63,18 +53,14 @@ header {
     height: 40px;
     background-color: #003366;
     position: relative;
-    /* Giữ nguyên */
     z-index: 1000;
-    /* Đảm bảo rằng header_duoi luôn ở trên cùng */
     box-sizing: border-box;
-    /* Đảm bảo padding không làm tăng chiều rộng */
 }
 
 .header_duoi.fixed {
     position: fixed;
     top: 0;
     left: 0;
-    /* Đặt ở đầu trang */
     width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -87,8 +73,6 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-
-
 
 #nav {
     list-style-type: none;
@@ -175,11 +159,60 @@ header {
 
 .content {
     flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
+.breadcrumb {
+    padding: 10px 0;
+    color: #073998;
+}
 
-.img{
-    
+.breadcrumb a {
+    text-decoration: none;
+    color: #073998;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.content h1 {
+    color: #073998;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.customer-support {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.customer-support .img img {
+    width: 100%;
+    max-width: 500px; /* Adjust this value as needed */
+    height: auto;
+}
+
+.customer-support .info-text {
+    flex: 2;
+}
+
+.customer-support .info-text p {
+    color: #073998;
+    text-align: justify;
+}
+
+.contact-info p {
+    color: #073998;
+    margin-bottom: 10px;
+}
+
+.contact-info strong {
+    display: block;
+    margin-bottom: 5px;
 }
 
 footer {
@@ -188,6 +221,7 @@ footer {
     width: 100%;
     position: relative;
     bottom: 0;
+    padding: 20px 0;
 }
 
 .footer-container {
