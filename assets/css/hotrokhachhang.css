@@ -198,11 +198,13 @@ header {
 
 .customer-support .info-text {
     flex: 2;
+
 }
 
 .customer-support .info-text p {
     color: #073998;
     text-align: justify;
+    line-height: 1.5;
 }
 
 .contact-info p {
