@@ -458,10 +458,10 @@ footer {
     color: #000;
     margin-left: 187px;
     border-radius: 10px;
-   
+    text-align:center;
 }
-.sidebar h3 {
-    text-align: left;
+.sidebar h2 {
+    
     padding: 10px 20px;
     color: white;
     background-color: #1e88e5;
@@ -499,7 +499,7 @@ footer {
 .sanPhamBanChay h3{
     
     margin-top: 30%;
-    text-align: left;
+    text-align: center;
     padding: 10px 20px;
     color: white;
     background-color: #0412da;
