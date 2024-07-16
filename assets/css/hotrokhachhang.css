@@ -16,7 +16,7 @@ body {
 
 header {
     height: 266px;
-    background-image: url("/assets/image/pngtree-bird-s-nest-simple-pink-banner-picture-image_1069763.jpg");
+    background-color: #91e5fd;
 }
 
 .header_tren {
@@ -41,12 +41,23 @@ header {
     color: inherit;
 }
 
-.header_giua img {
-    width: 80%;
-    height: 186px;
-    display: block;
-    margin: auto;
+.header_giua {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Khoảng cách giữa các ảnh */
+    margin: 20px 0; /* Khoảng cách trên dưới của phần header_giua */
 }
+
+.header_giua img {
+    height: 146px; /* Chiều cao của ảnh, bạn có thể thay đổi theo ý muốn */
+}
+
+.header_giua .content-header-giua i {
+    width: 35px;
+    height: 24px; /* Chiều cao của ảnh, bạn có thể thay đổi theo ý muốn */
+}
+
 
 .header_duoi {
     width: 100%;
