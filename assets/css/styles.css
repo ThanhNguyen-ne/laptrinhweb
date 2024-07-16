@@ -157,9 +157,9 @@ header {
 .search .btn {
     background-color: white;
     border: none;
-    padding: 15px;
+    padding: 4px;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 100px;
     font-size: 18px;
 }
 
