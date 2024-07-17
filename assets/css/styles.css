@@ -574,14 +574,10 @@ footer {
 }
 
 .yennaothiennhien {
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-  
-    
+    margin:  auto;
 }
-
-
 .header1 {
     display: flex;
     justify-content: center;
@@ -590,7 +586,7 @@ footer {
 }
 
 .header1 img {
-    width: 80%;
+    width: 100%;
     height: auto;
 }
 
@@ -638,7 +634,7 @@ footer {
     margin: 10px;
     padding: 20px;
     text-align: center;
-    width: 220px;
+    width: 280px;
 }
 
 .product1 img {
@@ -660,13 +656,14 @@ footer {
 }
 
 .yensaosanest {
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
   
     
 }
 .yensaosanviest {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
