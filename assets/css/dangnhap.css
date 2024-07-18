@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    margin: auto;
+    animation: fadeIn 0.5s;
+    overflow: hidden;
+    /* Ensure content does not overflow */
+}
+
+.title {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin: 10px 0 30px;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 1px;
+}
+
+.input {
+    border-radius: 20px;
+    border: 1px solid #c0c0c0;
+    padding: 12px 15px;
+    font-size: 16px;
+}
+
+.page-link,
+.sign-up-link,
+.sign-in-link {
+    text-decoration: none;
+    text-align: right;
+    color: #747474;
+    cursor: pointer;
+}
+
+.page-link {
+    margin: 0;
+    margin-top: 10px;
+    /* Added margin to create space */
+}
+
+.form-btn {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background: teal;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    /* Added margin to create space */
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.google-login-button {
+    border-radius: 20px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    border: 2px solid #747474;
+}
+
+a {
+    text-decoration: none;
+}
+
+.sign-in-link a {
+    color: teal;
+}
+
+.sign-up-link a {
+    color: teal;
+}
+
+.sign-in-link a:hover {
+    color: #006666
+}
+
+.sign-up-link a:hover {
+    color: #006666;
+}
+
+button:hover {
+    background-color: #006666;
+}

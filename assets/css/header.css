@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+iframe:focus {
+    outline: none;
+}
+
+iframe[seamless] {
+    display: block;
+}
+
+header {
+    height: 266px;
+    background-image: url("/assets/image/pngtree-bird-s-nest-simple-pink-banner-picture-image_1069763.jpg");
+    position: relative;
+    z-index: 10; /* Ensure header is above background */
+}
+
+.header_tren {
+    height: 40px;
+    width: 80%;
+    background-color: #003366;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    z-index: 20; /* Ensure header content is above header background */
+}
+.info{
+    color: white;
+}
+.info span,
+.login a {
+    margin-right: 1em;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa hai nút */
+}
+
+.auth-buttons button {
+    width: auto;
+    background-color: #007bff; /* Nền màu cho nút */
+    color: white; /* Màu chữ cho nút */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-buttons button:hover {
+    background-color: #0056b3; /* Màu khi hover */
+}
+
+.header_giua img {
+    width: 80%;
+    height: 186px;
+    display: block;
+    margin: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.header_duoi {
+    width: 100%;
+    height: 40px;
+    background-color: #003366;
+    position: relative;
+    z-index: 15; /* Ensure nav is above other elements but below modals */
+    box-sizing: border-box;
+}
+
+.header_duoi.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header_duoi .content-header {
+    width: 80%;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+#nav li {
+    display: inline;
+    position: relative;
+}
+
+#nav>li>a {
+    color: #fff;
+    text-decoration: none;
+    line-height: 40px;
+    padding: 0 24px;
+    display: block;
+}
+
+#nav li a {
+    color: #fff;
+    text-decoration: none;
+    line-height: 40px;
+    padding: 0 24px;
+    display: inline-block;
+}
+
+#nav li:hover .subnav {
+    display: block;
+}
+
+#nav li:hover a {
+    color: black;
+    background-color: #40E0D0;
+}
+
+#nav .subnav {
+    display: none;
+    position: absolute;
+    background-color: #40E0D0;
+    box-shadow: 0 0 15px;
+}
+
+#nav .subnav a {
+    color: white;
+    border-radius: 30px;
+}
+
+.search {
+    float: right;
+    line-height: 40px;
+    border-radius: 30px;
+    background-color: #fff;
+    position: relative;
+}
+
+.search .search-text {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 18px;
+    width: 0;
+    padding: 0px;
+    transition: all 0.25s ease-in-out;
+}
+
+.search .btn {
+    background-color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+.search:hover .search-text,
+.search .search-text:focus {
+    width: 300px;
+    padding: 10px 15px;
+}
+
+.content {
+    flex: 1;
+}
+
+/* Style for login and signup buttons */
+.auth-buttons button {
+    background-color: #40E0D0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-buttons button:hover {
+    background-color: #008080;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top of all elements */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fff;
+    margin: auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; /* Max width for better appearance */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Box shadow for better appearance */
+    border-radius: 10px; /* Rounded corners */
+    animation: fadeIn 0.5s; /* Animation for appearing */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
