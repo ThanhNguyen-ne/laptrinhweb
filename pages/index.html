@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Yến Sào Khánh Hòa</title>
         <link rel="stylesheet" href="/assets/css/styles.css" />
+        <link rel="stylesheet" href="/assets/css/header.css">
     </head>
     <body>
         <header>
@@ -19,13 +20,26 @@
                 <div class="header_tren">
                     <div class="info">
                         <span>📞 Hotline: 092932067</span>
-                        <span
-                            >📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh
-                            Khánh Hòa</span
-                        >
+                        <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
                     </div>
-                    <div class="login" align="right">
-                        <a href="dangnhap.html">Đăng nhập </a> <a href="dangki.html"> Đăng kí </a>
+                    <div class="auth-buttons">
+                        <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
+                        <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
+                    </div>
+    
+                    <!-- The Modals -->
+                    <div id="loginModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                            <div id="loginModalBody"></div>
+                        </div>
+                    </div>
+    
+                    <div id="signupModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+                            <div id="signupModalBody"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="header_giua">
@@ -33,31 +47,17 @@
                 </div>
                 <nav>
                     <div class="header_duoi">
-                        <div class="content">
+                        <div class="content-header">
                             <ul id="nav">
                                 <li><a href="index.html">Trang chủ</a></li>
                                 <li>
-                                    <a
-                                        href="sanpham.html"
-                                    >
-                                        Sản phẩm</a
-                                    >
+                                    <a href="sanpham.html"> Sản phẩm</a>
                                     <ul class="subnav">
-                                        <li>
-                                            <a href=""
-                                                >Yến sào đảo yến thiên nhiên
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">Thực phẩm Sanest Food</a>
-                                        </li>
-                                        <li>
-                                            <a href=""
-                                                >Yến sào Sanvinest Khánh Hoà</a
-                                            >
-                                        </li>
+                                        <li><a href="">Yến sào đảo yến thiên nhiên</a></li>
+                                        <li><a href="">Thực phẩm Sanest Food</a></li>
+                                        <li><a href="">Yến sào Sanvinest Khánh Hoà</a></li>
                                         <li><a href="">Yến sào Sanest</a></li>
-                                       
+                                        <li><a href="">Nước giải khát Sanna</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Kiểm tra đơn hàng</a></li>
@@ -81,6 +81,7 @@
                 </nav>
             </div>
         </header>
+        <script src="../assets/js/dangnhap.js"></script>
         <div class="container1">
             <div class="sidebar">
                 <h2>DANH MỤC</h2>
