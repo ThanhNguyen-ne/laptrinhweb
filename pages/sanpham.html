@@ -143,7 +143,7 @@
                 <div class="product-list">
                     <h2>Tất cả sản phẩm</h2>
                     <div class="products">
-                        <div class="product-card">
+                        <div class="product-card"  onclick="showProductDetails('product1')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -158,6 +158,7 @@
                                 1,009,800đ <del>1,188,000đ</del>
                             </p>
                         </div>
+                        
                         <div class="product-card">
                             <div class="discount">-15%</div>
                             <img
@@ -355,48 +356,17 @@
             </div>
         </div>
         </div>
-        <!-- <div class="box-shadow">
-            <div class="tt_sp">
-                <img src="/assets/image/product/sanpham/untitled_0e6fde7e18f14b2b8254a91fc6a4645e.webp" alt="" >
-                <div class="select">
-                    <div class="add">
-                        <a href="#">
-                            <button >Thêm</button>
-                        </a>
-                    </div>
-                    <div class="buy">
-                        <a href="#">
-                            <button>Mua</button>
-                        </a>
-                    </div>
-                </div>
-                <a href="#" class="closeBox">X</a>
-                <div class="nd">
-                    <h3>THÔNG SỐ KỸ THUẬT</h3>
-                        <ul >
-                            <li >Loại card đồ họa: NVIDIA GeForce RTX 3050 4GB GDDR6</li>
-                            <li>Dung lượng: RAM 8GB</li>
-                            <li>Loại RAM DDR5 4800MHz (up to 32GB)</li>
-                            <li>Số khe ram: 1x 8GB</li>
-                            <li>Ổ cứng: 512GB SSD M.2 PCIe</li>
-                            <li>Kích thước màn hình: 16.1 inches</li>
-                            <li>Công nghệ màn hình: Tần số quét 144 Hz Viền 
-                                siêu mỏng  Màn hình chống chói Độ sáng 250 nits Độ phủ màu 45% NTSC</li>
-                            <li>Pin: 70Wh</li>
-                            <li>Hệ điều hành: Windows 11 Home</li>
-                            <li>Độ phân giải màn hình: 1920 x 1080 pixels (FullHD)</li>
-                            <li>Cổng giao tiếp: 3x USB 3.1 Gen1 Type-A
-                                1x USB 3.1 Gen1 Type-C (DisplayPort 1.4) hỗ trợ sạc
-                                1x HDMI 2.1
-                                1x Đầu đọc thẻ Multi SD
-                                1x Mic-in/ Headphone-out combo jack
-                                1x RJ45</li>
-                        </ul>     
-                    </div>
-                </div>
-            </div>
-        </div> -->
         
+        <div id="productDetails" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeProductDetails()">&times;</span>
+                <img id="productImage" src="" alt="Product Image">
+                <p id="productName"></p>
+                <p id="productPrice"></p>
+                <button onclick="addToCart()">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+        <script src="../assets/js/sanpham.js"></script>
         <footer>
             <div class="footer-container">
                 <div class="footer-section">
@@ -470,4 +440,6 @@
         <script src="../assets/js/header.js"></script>
         <script src="../assets/js/sort.js"></script>
     </body>
+   
+   
 </html>
