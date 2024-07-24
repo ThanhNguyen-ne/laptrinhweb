@@ -11,6 +11,7 @@ function showProductDetails(productId) {
             price: '23,760,000đ',
             image: '/assets/image/yskh_026.jpg'
         },
+        
         // Thêm các sản phẩm khác ở đây
     };
 
