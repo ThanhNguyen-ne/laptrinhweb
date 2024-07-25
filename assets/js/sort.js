@@ -1,7 +1,7 @@
 document.getElementById("sortOptions").addEventListener("change", function () {
     let productList = document.querySelector(".product-list .products");
     let products = Array.from(
-        productList.getElementsByClassName("product-card")
+        productList.getElementsByClassName("productCard")
     );
 
     products.sort((a, b) => {

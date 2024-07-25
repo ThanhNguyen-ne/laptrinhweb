@@ -12,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
 }
 
 
@@ -30,6 +31,7 @@ iframe[seamless] {
 .breadcrumb {
     padding: 10px 20px;
     background-color: #e0e0e0;
+    background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
 }
 
 .breadcrumb a {
@@ -45,6 +47,7 @@ iframe[seamless] {
     display: flex;
     flex-wrap: wrap;
     margin: 20px;
+    background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
 }
 
 .sidebar {
@@ -56,9 +59,11 @@ iframe[seamless] {
     margin-right: 20px;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient( 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );
 }
 
 .main-content {
+    background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
     flex: 3;
     min-width: 600px;
     background-color: #fff;
@@ -84,23 +89,26 @@ iframe[seamless] {
 }
 
 .products {
+    
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.product-card {
+.productCard {
     flex: 1 1 calc(33.333% - 20px);
-    background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient( 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );   
     padding: 20px;
+    padding: 10px;
     text-align: center;
     position: relative;
 }
 
 
-.product-card .discount {
+
+.productCard .discount {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -110,23 +118,27 @@ iframe[seamless] {
     border-radius: 4px;
 }
 
-.product-card img {
+.productCard img {
     width: 100%;
     max-width: 200px;
     height: auto;
     margin-bottom: 10px;
+    transition: 0,5s;
+    
 }
-
-.product-card p {
+.productCard:hover img{
+    transform:  translate(0,-20px);
+}
+.productCard p {
     margin: 10px 0;
 }
 
-.product-card .price {
+.productCard .price {
     color: #ff6347;
     font-weight: bold;
 }
 
-.product-card del {
+.productCard del {
     color: #ccc;
 }
 
@@ -304,4 +316,21 @@ footer {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+.listPage {
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+}
+.listPage li{
+    background-color: white;
+    padding: 15px;
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.listPage .active{
+    background-color: rgb(49, 140, 182);
+    color: white;
 }

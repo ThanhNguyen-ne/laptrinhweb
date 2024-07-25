@@ -27,7 +27,7 @@ function showProductDetails(productId) {
 function closeProductDetails() {
     document.getElementById('productDetails').style.display = 'none';
 }
-
 function addToCart() {
     alert('Đã thêm vào giỏ hàng');
 }
+
