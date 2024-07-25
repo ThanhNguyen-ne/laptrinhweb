@@ -6,11 +6,307 @@ function showProductDetails(productId) {
             price: '37,800,000đ',
             image: '/assets/image/yskh_024.jpg'
         },
+        'product': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
         'product2': {
             name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
             price: '23,760,000đ',
             image: '/assets/image/yskh_026.jpg'
         },
+        'product3': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product4': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+        'product2': {
+            name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',
+            price: '23,760,000đ',
+            image: '/assets/image/yskh_026.jpg'
+        },
+
         
         // Thêm các sản phẩm khác ở đây
     };
