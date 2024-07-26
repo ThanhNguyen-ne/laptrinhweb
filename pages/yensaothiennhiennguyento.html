@@ -354,7 +354,24 @@
                 </div>
             </div>
         </div>
-        
+        <div id="productDetails" class="modal1">
+            <div class="modal-content1">
+                <div class="modal-content5">
+                    <img id="productImage" src="" alt="Product Image">
+                    <div class="product-info">
+                        <p id="productName" class="product-name"></p>
+                        <p id="description" class="product-description"></p>
+                        <p id="productPrice" class="product-price"></p>
+                        
+                    </div>    
+                    <span class="close" onclick="closeProductDetails()">&times;</span>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart()">Thêm vào giỏ hàng</button>
+                </div> 
+            </div>
+        </div>
+        <script src="../assets/js/sanpham.js"></script>
         <footer>
             <div class="footer-container">
                 <div class="footer-section">
@@ -429,21 +446,7 @@
         <script src="../assets/js/sort.js"></script>
     </body>
     
-    <div id="productDetails" class="modal1">
-        <div class="modal-content1">
-            <div class="modal-content5">   
-                <img id="productImage" src="" alt="Product Image">
-                <div>
-                    <p id="productName"></p>
-                    <p id="productPrice"></p>
-                </div>    
-                <span class="close" onclick="closeProductDetails()">&times;</span>
-            </div>
-            <div class="add">
-                <button onclick="addToCart()">Thêm vào giỏ hàng</button>
-            </div> 
-        </div>
-    </div>
+   
     
-    <script src="../assets/js/sanpham.js"></script>
+   
 </html>
