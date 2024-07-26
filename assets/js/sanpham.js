@@ -5,7 +5,7 @@ function showProductDetails(productId) {
             name: 'Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g - 024',
             price: '37,800,000đ',
             image: '/assets/image/yskh_024.jpg',
-            description :'qeqweqweweq'
+            description :'qeqweqweweq ưqeqwnheqweqweqwe'
         },
         'product': {
             name: 'Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026',

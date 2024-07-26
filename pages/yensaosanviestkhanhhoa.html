@@ -147,7 +147,7 @@
                 <div class="product-list">
                     <h2>Yến sào Sanvinest Khánh Hòa</h2>
                     <div class="products">
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product15')">
                             
                             <img
                                 class="img-pro"
@@ -161,7 +161,7 @@
                                 2,308,500đ 
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product16')">
                             
                             <img
                             src="/assets/image/q160_7e71defed4054c8da70240dada86b807.jpg"
@@ -172,7 +172,7 @@
                             </p>
                             <p class="price">6,796,900đ </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product17')">
                             
                             <img
                             src="/assets/image/q650_fefa4292fffd46a5988f035460f1f458.jpg"
@@ -183,7 +183,7 @@
                             </p>
                             <p class="price">3,103,650đ </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product18')">
                             
                             <img
                             src="/assets/image/2011_c5841feb5c404b46ba9976eb7b039439.jpg"
@@ -196,7 +196,7 @@
                                 34,400đ 
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product19')">
                             
                             <img
                                 src="../assets/image/product/sanpham/untitled_0e6fde7e18f14b2b8254a91fc6a4645e.webp"
@@ -210,7 +210,7 @@
                             </p>
                         </div>
                         
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product20')">
                             
                             <img
                                 src="../assets/image/product/sanpham/untitled_f80e0c02aa534b6cb7f02f43c1bdbd21.webp"
@@ -221,7 +221,7 @@
                             </p>
                             <p class="price">263,200đ </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product21')">
                             
                             <img
                                 class="img-pro"
@@ -235,7 +235,7 @@
                                 220,000đ 
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product22')">
                             
                             <img
                                 class="img-pro"
@@ -249,7 +249,7 @@
                                 35,400đ 
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product23')">
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
@@ -263,7 +263,7 @@
                                 8,900đ 
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product24')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -277,7 +277,7 @@
                                 323,000đ <del>380,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product25')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -291,7 +291,7 @@
                                 640,900đ <del>754,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product26')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -305,7 +305,7 @@
                                 513,400đ <del>604,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product27')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -319,7 +319,7 @@
                                 673,200đ  <del>792,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product28')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -333,7 +333,7 @@
                                 513,400đ <del>604,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard">
+                        <div class="productCard"  onclick="showProductDetails('product29')">
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro" src="/assets/image/product/sanpham/6_2eab4c94d1a046edb89711e94a015ad7.webp"
@@ -354,7 +354,22 @@
             </div>
         </div>
         </div>
-        
+        <div id="productDetails" class="modal1">
+            <div class="modal-content1">
+                <div class="modal-content5">
+                    <img id="productImage" src="" alt="Product Image">
+                    <div class="product-info">
+                        <p id="productName" class="product-name"></p>
+                        <p id="productPrice" class="product-price"></p>
+                        <p id="description" class="product-description"></p>
+                    </div>    
+                    <span class="close" onclick="closeProductDetails()">&times;</span>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart()">Thêm vào giỏ hàng</button>
+                </div> 
+            </div>
+        </div>
         
         <footer>
             <div class="footer-container">
