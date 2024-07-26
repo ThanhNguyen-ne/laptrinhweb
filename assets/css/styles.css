@@ -164,8 +164,9 @@ body{
 }
 
 footer {
-    background-color: #219ebc;
-    color: white;
+    background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
+
+    color: blACK;
     width: 100%;
     position: relative;
     bottom: 0;
@@ -208,7 +209,7 @@ footer {
 
 .footer-section ul li a {
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .footer-section ul li a:hover {
@@ -228,7 +229,7 @@ footer {
 }
 
 .social-media a {
-    color: white;
+    color: BLACK;
     text-decoration: none;
 }
 
