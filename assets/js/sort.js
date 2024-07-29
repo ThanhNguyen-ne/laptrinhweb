@@ -1,20 +1,27 @@
 document.querySelector('.sort select').addEventListener('change', function () {
-    const productList = document.querySelector('.product-list .products');
-    const products = Array.from(productList.children);
+    const sortBy = this.value;
+    sortProducts(sortBy);
+});
 
-    if (this.value === 'price_asc') {
-        products.sort((a, b) => {
-            const priceA = parseInt(a.querySelector('.price').innerText.replace(/[^0-9]/g, ''));
-            const priceB = parseInt(b.querySelector('.price').innerText.replace(/[^0-9]/g, ''));
-            return priceA - priceB;
-        });
-    } else if (this.value === 'price_desc') {
-        products.sort((a, b) => {
-            const priceA = parseInt(a.querySelector('.price').innerText.replace(/[^0-9]/g, ''));
-            const priceB = parseInt(b.querySelector('.price').innerText.replace(/[^0-9]/g, ''));
-            return priceB - priceA;
-        });
+function sortProducts(sortBy) {
+    const productsContainer = document.querySelector('.product-list .products');
+    const products = Array.from(productsContainer.getElementsByClassName('productCard'));
+
+    let sortedProducts;
+    if (sortBy === 'price_asc') {
+        sortedProducts = products.sort((a, b) => parsePrice(a) - parsePrice(b));
+    } else if (sortBy === 'price_desc') {
+        sortedProducts = products.sort((a, b) => parsePrice(b) - parsePrice(a));
+    } else {
+        sortedProducts = products;
     }
 
-    products.forEach(product => productList.appendChild(product));
-});
+    productsContainer.innerHTML = '';
+    sortedProducts.forEach(product => productsContainer.appendChild(product));
+}
+
+function parsePrice(product) {
+    const priceText = product.querySelector('.price').textContent;
+    const price = parseFloat(priceText.replace(/[^\d.-]/g, ''));
+    return price;
+}

@@ -10,10 +10,13 @@
             referrerpolicy="no-referrer"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg">
+        <link
+            rel="icon"
+            href="/assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg"
+        />
         <title>Sản Phẩm</title>
         <link rel="stylesheet" href="/assets/css/test.css" />
-
+        <link rel="stylesheet" href="/assets/css/cart.css" />
     </head>
     <body>
         <header>
@@ -21,24 +24,39 @@
                 <div class="header_tren">
                     <div class="info">
                         <span>📞 Hotline: 092932067</span>
-                        <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
+                        <span
+                            >📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh
+                            Khánh Hòa</span
+                        >
                     </div>
                     <div class="auth-buttons">
-                        <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
-                        <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
+                        <button id="loginBtn" onclick="showLoginModal()">
+                            Đăng nhập
+                        </button>
+                        <button id="signupBtn" onclick="showSignupModal()">
+                            Đăng kí
+                        </button>
                     </div>
-    
+
                     <!-- The Modals -->
                     <div id="loginModal" class="modal">
                         <div class="modal-content">
-                            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                            <span
+                                class="close"
+                                onclick="closeModal('loginModal')"
+                                >&times;</span
+                            >
                             <div id="loginModalBody"></div>
                         </div>
                     </div>
-    
+
                     <div id="signupModal" class="modal">
                         <div class="modal-content">
-                            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+                            <span
+                                class="close"
+                                onclick="closeModal('signupModal')"
+                                >&times;</span
+                            >
                             <div id="signupModalBody"></div>
                         </div>
                     </div>
@@ -54,15 +72,36 @@
                                 <li>
                                     <a href="sanpham.html"> Sản phẩm</a>
                                     <ul class="subnav">
-                                        <li><a href="yensaothiennhiennguyento.html">Yến sào đảo yến thiên nhiên</a></li>
-                                        <li><a href="thucphamsanestfood.html">Thực phẩm Sanest Food</a></li>
-                                        <li><a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hoà</a></li>
-                                        <li><a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a></li>
-                                        <li><a href="tinhchatyensao.html">Tinh chất yến sào</a></li>
-                                        
+                                        <li>
+                                            <a
+                                                href="yensaothiennhiennguyento.html"
+                                                >Yến sào đảo yến thiên nhiên</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="thucphamsanestfood.html"
+                                                >Thực phẩm Sanest Food</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="yensaosanviestkhanhhoa.html"
+                                                >Yến sào Sanvinest Khánh Hoà</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="yensaosanestkhanhhoa.html"
+                                                >Yến sào Sanest</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="tinhchatyensao.html"
+                                                >Tinh chất yến sào</a
+                                            >
+                                        </li>
                                     </ul>
                                 </li>
-                                
+
                                 <li><a href="#">Thông tin</a></li>
                                 <li><a href="#">Liên hệ</a></li>
                                 <li><a href="#">Giỏ Hàng</a></li>
@@ -92,15 +131,6 @@
 
         <div class="content">
             <div class="sidebar">
-                <div class="price-filter">
-                    <h4>Giá sản phẩm</h4>
-                    <input type="range" class="slider" min="0" max="30000000" />
-                    <div class="price-values">
-                        <span>0đ</span>
-                        <span>30,000,000đ</span>
-                    </div>
-                    <button class="btn">Lọc giá</button>
-                </div>
                 <div class="featured-products">
                     <h4>Sản phẩm nổi bật</h4>
                     <ul>
@@ -132,10 +162,9 @@
                         </li>
                     </ul>
                 </div>
-                
             </div>
             <div class="main-content">
-                <div class="head-content">
+                <div class="product-list">
                     <h2>Tất cả sản phẩm</h2>
                     <div class="sort">
                         <select>
@@ -144,73 +173,87 @@
                             <option value="price_desc">Giá giảm dần</option>
                         </select>
                     </div>
-                </div>
-                <div class="product-list">
                     <div class="products">
-                        <div class="productCard" onclick="showProductDetails('product1')">
-                            
+                        <div class="productCard" onclick="showProductDetails('1')">
                             <img
-                                class="img-pro"
                                 src="/assets/image/yskh_024.jpg"
-                                alt="Product 4"
+                                alt="Product 1"
                             />
-                            <p>
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g - 024
+                            <p class="name">
+                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
+                                024
                             </p>
-                            <p class="price">
-                                37,800,000₫
-                            </p>
+                            <p class="price">37,800,000₫</p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="1"
+                                data-product-name="Product 1"
+                                data-product-price="37800000"
+                                data-product-image="../assets/image/yskh_024.jpg"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product2')">
-                            
-                            <img
-                            src="/assets/image/yskh_026.jpg"
-                           
-                            />
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product2')"
+                        >
+                            <img src="/assets/image/yskh_026.jpg" />
                             <p>
-                                Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026
+                                Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G
+                                - 026
                             </p>
                             <p class="price">23,760,000₫</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product')"
+                        >
                             <img
-                            src="/assets/image/_024s.jpg"
+                                src="/assets/image/_024s.jpg"
                                 alt="Product 6"
                             />
                             <p>
-                                Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà tặng - 024S
+                                Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà
+                                tặng - 024S
                             </p>
-                            <p class="price">19,170,000₫
+                            <p class="price">19,170,000₫</p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product3')">
-                            
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product3')"
+                        >
                             <img
-                            src="/assets/image/tp1_9547ae75719143bea6c155e98e1fc816.jpg"
+                                src="/assets/image/tp1_9547ae75719143bea6c155e98e1fc816.jpg"
                                 alt="Product 7"
                             />
                             <p>
-                                Yến sao đảo yến thiên nhiên Khánh Hòa hộp 100G - TP1
+                                Yến sao đảo yến thiên nhiên Khánh Hòa hộp 100G -
+                                TP1
                             </p>
-                            <p class="price">
-                                13,500,000₫
-                            </p>
+                            <p class="price">13,500,000₫</p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product4')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product4')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/yskh_026s.webp"
                                 alt="Product 8"
                             />
                             <p>
-                                Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp quà tặng - 026S
+                                Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp
+                                quà tặng - 026S
                             </p>
-                            <p class="price">
-                                12,150,000đ
-                            </p>
+                            <p class="price">12,150,000đ</p>
                         </div>
-                        
-                        <div class="productCard" onclick="showProductDetails('product5')">
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product5')"
+                        >
                             <div class="discount">-8%</div>
                             <img
                                 src="../assets/image/product/sanpham/014_b790244e32e145c8a21efdee64b8d456.webp"
@@ -219,23 +262,27 @@
                             <p>
                                 Yến sào đảo thiên nhiên tinh chế hộp 100G - 014
                             </p>
-                            <p class="price">6,568,452đ <del>7,128,000đ</del></p>
+                            <p class="price">
+                                6,568,452đ <del>7,128,000đ</del>
+                            </p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product6')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product6')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
                                 src="../assets/image/product/sanpham/011_ebce11cb07a744fa8d61dbe83c2f130c.webp"
                                 alt="Product 10"
                             />
-                            <p>
-                                Yến sào đảo thiên nhiên tinh chế hộp 3G - 011
-                            </p>
-                            <p class="price">
-                                220,590đ <del>232,200đ</del>
-                            </p>
+                            <p>Yến sào đảo thiên nhiên tinh chế hộp 3G - 011</p>
+                            <p class="price">220,590đ <del>232,200đ</del></p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product7')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product7')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
@@ -249,21 +296,23 @@
                                 3,385,800đ <del>3.564,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product8')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product8')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
                                 src="../assets/image/product/sanpham/011_ebce11cb07a744fa8d61dbe83c2f130c.webp"
                                 alt="Product 12"
                             />
-                            <p>
-                                Yến sào đảo thiên nhiên tinh chế hộp 5G - 012
-                            </p>
-                            <p class="price">
-                                359,100đ <del>378,000đ</del>
-                            </p>
+                            <p>Yến sào đảo thiên nhiên tinh chế hộp 5G - 012</p>
+                            <p class="price">359,100đ <del>378,000đ</del></p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product9')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product9')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
@@ -271,13 +320,15 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Yến sào đảo thiên nhiên tinh chế hộp quà tặng 2 hộp 3G - 011G2
+                                Yến sào đảo thiên nhiên tinh chế hộp quà tặng 2
+                                hộp 3G - 011G2
                             </p>
-                            <p class="price">
-                                482,220đ <del>507,600đ</del>
-                            </p>
+                            <p class="price">482,220đ <del>507,600đ</del></p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product10')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product10')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
@@ -285,13 +336,15 @@
                                 alt="Product 14"
                             />
                             <p>
-                                Yến sào đảo thiên nhiên tinh chế hộp quà tặng 2 hộp 5G - 012G2
+                                Yến sào đảo thiên nhiên tinh chế hộp quà tặng 2
+                                hộp 5G - 012G2
                             </p>
-                            <p class="price">
-                                759,240đ <del>799,200đ</del>
-                            </p>
+                            <p class="price">759,240đ <del>799,200đ</del></p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product11')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product11')"
+                        >
                             <div class="discount">-8%</div>
                             <img
                                 class="img-pro"
@@ -299,13 +352,17 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà tặng 100G - 014G
+                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà
+                                tặng 100G - 014G
                             </p>
                             <p class="price">
                                 6,926,731đ <del>7,516,800đ</del>
                             </p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product12')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product12')"
+                        >
                             <div class="discount">-8%</div>
                             <img
                                 class="img-pro"
@@ -313,13 +370,17 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà tặng 100G - 014GS
+                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà
+                                tặng 100G - 014GS
                             </p>
                             <p class="price">
                                 7,294,963đ <del>7,916,400đ</del>
                             </p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product13')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product13')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
@@ -327,128 +388,151 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà tặng 3G - 011G
+                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà
+                                tặng 3G - 011G
                             </p>
-                            <p class="price" >
-                                1,159,380đ  <del>1,220,400đ</del>
+                            <p class="price">
+                                1,159,380đ <del>1,220,400đ</del>
                             </p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product14')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product14')"
+                        >
                             <div class="discount">-5%</div>
                             <img
-                                class="img-pro" src="/assets/image/product/sanpham/yskh_014g.webp"
+                                class="img-pro"
+                                src="/assets/image/product/sanpham/yskh_014g.webp"
                                 alt="Product 13"
                             />
                             <p>
-                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà tặng 50G - 015G
+                                Yến sào đảo thiên nhiên tinh chế mẫu hộp quà
+                                tặng 50G - 015G
                             </p>
                             <p class="price">
-                                3,734,640đ  <del>3,931,200đ</del>
+                                3,734,640đ <del>3,931,200đ</del>
                             </p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product15')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product15')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/q150_42b932ad40724f34a9230042878f5122.jpg"
                                 alt="Product 4"
                             />
                             <p>
-                                Hộp quà tặng Yến sào Nguyên tổ 50g Sanvinest Khánh Hòa Chính hiệu - Q150
+                                Hộp quà tặng Yến sào Nguyên tổ 50g Sanvinest
+                                Khánh Hòa Chính hiệu - Q150
                             </p>
-                            <p class="price">
-                                2,308,500đ 
-                            </p>
+                            <p class="price">2,308,500đ</p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product16')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product16')"
+                        >
                             <img
-                            src="/assets/image/q160_7e71defed4054c8da70240dada86b807.jpg"
+                                src="/assets/image/q160_7e71defed4054c8da70240dada86b807.jpg"
                                 alt="Product 5"
                             />
                             <p>
-                                Hộp quà tặng Yến sào Sanvinest Khánh Hòa Chính hiệu. Tổ Yến sào Tinh chế 100g - Q610
+                                Hộp quà tặng Yến sào Sanvinest Khánh Hòa Chính
+                                hiệu. Tổ Yến sào Tinh chế 100g - Q610
                             </p>
-                            <p class="price">6,796,900đ </p>
+                            <p class="price">6,796,900đ</p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product17')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product17')"
+                        >
                             <img
-                            src="/assets/image/q650_fefa4292fffd46a5988f035460f1f458.jpg"
+                                src="/assets/image/q650_fefa4292fffd46a5988f035460f1f458.jpg"
                                 alt="Product 6"
                             />
                             <p>
-                                Hộp quà tặng Yến sào Sanvinest Khánh Hòa Chính hiệu. Tổ Yến sào Tinh chế 50g - Q650
+                                Hộp quà tặng Yến sào Sanvinest Khánh Hòa Chính
+                                hiệu. Tổ Yến sào Tinh chế 50g - Q650
                             </p>
-                            <p class="price">3,103,650đ </p>
+                            <p class="price">3,103,650đ</p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product18')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product18')"
+                        >
                             <img
-                            src="/assets/image/2011_c5841feb5c404b46ba9976eb7b039439.jpg"
+                                src="/assets/image/2011_c5841feb5c404b46ba9976eb7b039439.jpg"
                                 alt="Product 7"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanvinest  trẻ em lọ 62ml, hộp 1 lọ - 2011
+                                Nước yến sào Khánh Hòa Sanvinest trẻ em lọ 62ml,
+                                hộp 1 lọ - 2011
                             </p>
-                            <p class="price">
-                                34,400đ 
-                            </p>
+                            <p class="price">34,400đ</p>
                         </div>
-                        <div class="productCard" onclick="showProductDetails('product19')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product19')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/untitled_0e6fde7e18f14b2b8254a91fc6a4645e.webp"
                                 alt="Product 8"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanvinest Đông Trùng Hạ Thảo lọ 70ml - 208
+                                Nước yến sào Khánh Hòa Sanvinest Đông Trùng Hạ
+                                Thảo lọ 70ml - 208
                             </p>
-                            <p class="price">
-                                42,300đ 
-                            </p>
+                            <p class="price">42,300đ</p>
                         </div>
-                        
-                        <div class="productCard" onclick="showProductDetails('product20')">
-                            
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product20')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/untitled_f80e0c02aa534b6cb7f02f43c1bdbd21.webp"
                                 alt="Product 9"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanvinest Đông Trùng Hạ Thảo lọ 70ml hộp 6 lọ- 208H6
+                                Nước yến sào Khánh Hòa Sanvinest Đông Trùng Hạ
+                                Thảo lọ 70ml hộp 6 lọ- 208H6
                             </p>
-                            <p class="price">263,200đ </p>
+                            <p class="price">263,200đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product21')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product21')"
+                        >
                             <img
                                 class="img-pro"
                                 src="../assets/image/product/sanpham//hop_6_lo_102_fd7dbb1807c0459288946f908705f6b9.webp"
                                 alt="Product 10"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanvinest không đường lọ 70ml, hộp 6 lọ - 102H6
+                                Nước yến sào Khánh Hòa Sanvinest không đường lọ
+                                70ml, hộp 6 lọ - 102H6
                             </p>
-                            <p class="price">
-                                220,000đ 
-                            </p>
+                            <p class="price">220,000đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product22')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product22')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/101_678512918f8343ff96395b3e653a0bfe.webp"
                                 alt="Product 11"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanvinest lọ 70ml, hộp 1 lọ - 101
+                                Nước yến sào Khánh Hòa Sanvinest lọ 70ml, hộp 1
+                                lọ - 101
                             </p>
-                            <p class="price">
-                                35,400đ 
-                            </p>
+                            <p class="price">35,400đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product23')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product23')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
@@ -458,11 +542,12 @@
                             <p>
                                 Nước yến sào Khánh Hòa Sanvinest lon 190ML - 121
                             </p>
-                            <p class="price">
-                                8,900đ 
-                            </p>
+                            <p class="price">8,900đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product24')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product24')"
+                        >
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -470,13 +555,15 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho mọi lứa tuổi hộp 10 túi 20ml - TC503H10
+                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho
+                                mọi lứa tuổi hộp 10 túi 20ml - TC503H10
                             </p>
-                            <p class="price">
-                                323,000đ <del>380,000đ</del>
-                            </p>
+                            <p class="price">323,000đ <del>380,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product25')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product25')"
+                        >
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -484,13 +571,15 @@
                                 alt="Product 14"
                             />
                             <p>
-                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho mọi lứa tuổi hộp 20 túi 20ml - TC503H20
+                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho
+                                mọi lứa tuổi hộp 20 túi 20ml - TC503H20
                             </p>
-                            <p class="price">
-                                640,900đ <del>754,000đ</del>
-                            </p>
+                            <p class="price">640,900đ <del>754,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product26')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product26')"
+                        >
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -498,13 +587,15 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Nước Yến sào Sanvinest không đường lon 190ml, khay 30 lon - 125K30
+                                Nước Yến sào Sanvinest không đường lon 190ml,
+                                khay 30 lon - 125K30
                             </p>
-                            <p class="price">
-                                513,400đ <del>604,000đ</del>
-                            </p>
+                            <p class="price">513,400đ <del>604,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product27')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product27')"
+                        >
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -512,13 +603,16 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho mọi lứa tuổi hộp quà tặng 20 túi 20ml - QTC503H20
+                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho
+                                mọi lứa tuổi hộp quà tặng 20 túi 20ml -
+                                QTC503H20
                             </p>
-                            <p class="price">
-                                673,200đ  <del>792,000đ</del>
-                            </p>
+                            <p class="price">673,200đ <del>792,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product28')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product28')"
+                        >
                             <div class="discount">-15%</div>
                             <img
                                 class="img-pro"
@@ -526,224 +620,256 @@
                                 alt="Product 13"
                             />
                             <p>
-                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho người cao tuổi Hộp quà tặng 15 túi 20ml- QTC502H15
+                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho
+                                người cao tuổi Hộp quà tặng 15 túi 20ml-
+                                QTC502H15
                             </p>
-                            <p class="price">
-                                513,400đ <del>604,000đ</del>
-                            </p>
+                            <p class="price">513,400đ <del>604,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product29')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product29')"
+                        >
                             <div class="discount">-15%</div>
                             <img
-                                class="img-pro" src="/assets/image/product/sanpham/6_2eab4c94d1a046edb89711e94a015ad7.webp"
+                                class="img-pro"
+                                src="/assets/image/product/sanpham/6_2eab4c94d1a046edb89711e94a015ad7.webp"
                                 alt="Product 13"
                             />
                             <p>
-                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho người cao tuổi hộp 20 túi 20ml- TC502H20
+                                Tinh chất Yến sào Khánh Hòa Sanvinest dành cho
+                                người cao tuổi hộp 20 túi 20ml- TC502H20
                             </p>
-                            <p class="price">
-                                640,900đ <del>754,000đ</del>
-                            </p>
+                            <p class="price">640,900đ <del>754,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product30')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product30')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/sanest_hop6lo_700_d5d0df7e74c34ad3ae33205677052db9.jpg"
                                 alt="Product 4"
                             />
                             <p>
-                                Nước Yến Sào Khánh Hòa Nhân Sâm Fucoidan 70ml, Hộp 6 Lọ - 700H6
+                                Nước Yến Sào Khánh Hòa Nhân Sâm Fucoidan 70ml,
+                                Hộp 6 Lọ - 700H6
                             </p>
-                            <p class="price">
-                                280,800đ 
+                            <p class="price">280,800đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product31')">
-                            
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product31')"
+                        >
                             <img
-                            img src="/assets/image/sanest_lo700.jpg"
+                                img
+                                src="/assets/image/sanest_lo700.jpg"
                                 alt="Product 5"
                             />
                             <p>
-                                Nước Yến Sào Khánh Hòa Nhân Sâm Fucoidan 70ml,lọ(New) - 700
+                                Nước Yến Sào Khánh Hòa Nhân Sâm Fucoidan
+                                70ml,lọ(New) - 700
                             </p>
-                            <p class="price">44,200đ </p>
+                            <p class="price">44,200đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product32')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product32')"
+                        >
                             <img
-                            src="/assets/image/sanest_lo770.jpg"
+                                src="/assets/image/sanest_lo770.jpg"
                                 alt="Product 6"
                             />
                             <p>
-                                Nước Yến Sào Khánh Hòa Sanest Collagen 70ml 1 lọ - 770
+                                Nước Yến Sào Khánh Hòa Sanest Collagen 70ml 1 lọ
+                                - 770
                             </p>
                             <p class="price">35,400đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product33')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product33')"
+                        >
                             <img
-                            src="/assets/image/sanest_770hop6lo.jpg"
+                                src="/assets/image/sanest_770hop6lo.jpg"
                                 alt="Product 7"
                             />
                             <p>
-                                Nước Yến Sào Khánh Hòa Sanest Collagen 70ml hộp 6 lọ - 770H6
+                                Nước Yến Sào Khánh Hòa Sanest Collagen 70ml hộp
+                                6 lọ - 770H6
                             </p>
-                            <p class="price">
-                                218,000đ 
-                            </p>
+                            <p class="price">218,000đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product34')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product34')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/a_fca85d54924b477b9977ab92f02b8d08.webp"
                                 alt="Product 8"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanest dành cho trẻ em đóng lon 190 ml, hộp 6 lon - 0162H6
+                                Nước yến sào Khánh Hòa Sanest dành cho trẻ em
+                                đóng lon 190 ml, hộp 6 lon - 0162H6
                             </p>
-                            <p class="price">
-                                53,100đ 
-                            </p>
+                            <p class="price">53,100đ</p>
                         </div>
-                        
-                        <div class="productCard"  onclick="showProductDetails('product35')">
-                            
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product35')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/005h6_832cc1018d3846d4a219f0077c04ff11.webp"
                                 alt="Product 9"
                             />
                             <p>
-                                Nước yến sào Sanest đông trùng hạ thảo 70ml, hộp 6 lọ - 005H6
+                                Nước yến sào Sanest đông trùng hạ thảo 70ml, hộp
+                                6 lọ - 005H6
                             </p>
-                            <p class="price">263,200đ 
+                            <p class="price">263,200đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product36')">
-                          
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product36')"
+                        >
                             <img
                                 class="img-pro"
                                 src="../assets/image/product/sanpham/12_3b4c3aff6fdf4b27b91ffff28b021376.webp"
                                 alt="Product 10"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanest kid lon 190ML, khay 30 lon - 0162K30
+                                Nước yến sào Khánh Hòa Sanest kid lon 190ML,
+                                khay 30 lon - 0162K30
                             </p>
-                            <p class="price">
-                                257,300đ 
-                            </p>
+                            <p class="price">257,300đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product37')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product37')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/thung_30_-_0162_-_24-8-2020_5dbb0e1af4794d57acc4940ef4bddfb7_large_51745978569c4a68afb1fb08b5f4a5d3.webp"
                                 alt="Product 11"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanest kid lon 190ML, thùng 30 lon - 0162T30
+                                Nước yến sào Khánh Hòa Sanest kid lon 190ML,
+                                thùng 30 lon - 0162T30
                             </p>
-                            <p class="price">
-                                259,200đ 
-                            </p>
+                            <p class="price">259,200đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product38')">
-                           
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product38')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/caotuoikhongduong_e980982f3b734934b3bdfd77010a27f8.webp"
                                 alt="Product 12"
                             />
                             <p>
-                                Nước Yến Sào Khánh Hòa Sanest không đường dành cho người cao tuổi 70ml - Hộp 6 Lọ - 096H6
+                                Nước Yến Sào Khánh Hòa Sanest không đường dành
+                                cho người cao tuổi 70ml - Hộp 6 Lọ - 096H6
                             </p>
-                            <p class="price">
-                                220,000đ 
-                            </p>
+                            <p class="price">220,000đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product39')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product39')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/caotuoikhongduong_e980982f3b734934b3bdfd77010a27f8.webp"
                                 alt="Product 13"
                             />
                             <p>
-                                Nước Yến Sào Khánh Hòa Sanest dành cho người cao tuổi 70ml - Hộp 6 Lọ - 095H6
+                                Nước Yến Sào Khánh Hòa Sanest dành cho người cao
+                                tuổi 70ml - Hộp 6 Lọ - 095H6
                             </p>
-                            <p class="price">
-                                218,000đ 
-                            </p>
+                            <p class="price">218,000đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product40')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product40')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham//096_1c8798c49a1c4bd7955ecbc0734aa0ad.webp"
                                 alt="Product 14"
                             />
                             <p>
-                                Nước Yến sào Khánh Hòa Sanest không đường dành cho người cao tuổi 70 ml - Hộp 1 lọ 096
+                                Nước Yến sào Khánh Hòa Sanest không đường dành
+                                cho người cao tuổi 70 ml - Hộp 1 lọ 096
                             </p>
-                            <p class="price">
-                                35,400đ 
-                            </p>
+                            <p class="price">35,400đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product41')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product41')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham//095_09fc5d0d843944d7a16cac2692485d34.webp"
                                 alt="Product 13"
                             />
                             <p>
-                                Nước Yến sào Khánh Hòa Sanest dành cho người cao tuổi 70ml - Hộp 1 lọ 095
+                                Nước Yến sào Khánh Hòa Sanest dành cho người cao
+                                tuổi 70ml - Hộp 1 lọ 095
                             </p>
-                            <p class="price">
-                                35,400đ 
-                            </p>
+                            <p class="price">35,400đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product42')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product42')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/122t30_6c42efa35e5e472295552b34da77d0b4_large_fccf3a6883444d65b8f3cf517fbf5abe.jpg"
                                 alt="Product 13"
                             />
                             <p>
-                                Nước Yến sào Sanvinest không đường lon 190ml, thùng 30 lon - 125T30
+                                Nước Yến sào Sanvinest không đường lon 190ml,
+                                thùng 30 lon - 125T30
                             </p>
-                            <p class="price">
-                                259,200đ 
-                            </p>
+                            <p class="price">259,200đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product43')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product43')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/001h12_800_538_4c80337caf954dc7af4a45bb9cfa1d9e.webp"
                                 alt="Product 13"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanest lon 190ML, hộp 12 lon - 001H12
+                                Nước yến sào Khánh Hòa Sanest lon 190ML, hộp 12
+                                lon - 001H12
                             </p>
-                            <p class="price">
-                                106,100đ 
-                            </p>
+                            <p class="price">106,100đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product44')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product44')"
+                        >
                             <img
-                                class="img-pro" src="/assets/image/product/sanpham/001k30.webp"
+                                class="img-pro"
+                                src="/assets/image/product/sanpham/001k30.webp"
                                 alt="Product 13"
                             />
                             <p>
-                                Nước yến sào Khánh Hòa Sanest lon 190ml, khay 30 lon - 001K30
+                                Nước yến sào Khánh Hòa Sanest lon 190ml, khay 30
+                                lon - 001K30
                             </p>
-                            <p class="price">
-                                257,300đ 
-                            </p>
+                            <p class="price">257,300đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product45')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product45')"
+                        >
                             <div class="discount">-10%</div>
                             <img
                                 class="img-pro"
@@ -751,150 +877,166 @@
                                 alt="Product 4"
                             />
                             <p>
-                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 2 HỘP 20 GÓI 5 GRAM - 031G
+                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 2
+                                HỘP 20 GÓI 5 GRAM - 031G
                             </p>
                             <p class="price">
                                 1,360,800đ <del>1,512,000đ</del>
                             </p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product46')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product46')"
+                        >
                             <div class="discount">-10%</div>
                             <img
                                 src="../assets/image/product/sanpham/z3955337939918_bd2220b255837b6cde7fa2db4593a165_3e70a906e7ba46829547df28efd6a184.webp"
                                 alt="Product 5"
                             />
                             <p>
-                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 20 GÓI 5 GRAM - 028
+                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 20
+                                GÓI 5 GRAM - 028
                             </p>
                             <p class="price">631,800đ <del>702,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product47')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product47')"
+                        >
                             <div class="discount">-10%</div>
                             <img
                                 src="../assets/image/product/sanpham/z3955337934951_9f822651ca86197d6389648ea6675180_d6e16733552440dfb769ceee93c911ad.webp"
                                 alt="Product 6"
                             />
                             <p>
-                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 30 GÓI 5 GRAM - 029G
+                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 30
+                                GÓI 5 GRAM - 029G
                             </p>
                             <p class="price">923,400đ <del>1,026,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product48')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product48')"
+                        >
                             <div class="discount">-10%</div>
                             <img
                                 src="../assets/image/product/sanpham/027_46377142da3b4f4b9d60189e2e338950.webp"
                                 alt="Product 7"
                             />
                             <p>
-                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 5 GÓI 5 GRAM - 027
+                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 5
+                                GÓI 5 GRAM - 027
                             </p>
-                            <p class="price">
-                                145,800đ <del>162,000đ</del>
-                            </p>
+                            <p class="price">145,800đ <del>162,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product49')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product49')"
+                        >
                             <div class="discount">-15%</div>
                             <img
                                 src="../assets/image/product/sanpham/z3955337968029_9af6618a530ffe63f805b9cc1efcb158_858ceaf95ca24c6aabfa774bb1c68873.webp"
                                 alt="Product 8"
                             />
                             <p>
-                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 6 HỘP 5 GÓI 5 GRAM - 030G
+                                TINH CHẤT YẾN SÀO THIÊN NHIÊN KHÁNH HÒA - HỘP 6
+                                HỘP 5 GÓI 5 GRAM - 030G
                             </p>
-                            <p class="price">
-                                972,000đ <del>1,080,000đ</del>
-                            </p>
+                            <p class="price">972,000đ <del>1,080,000đ</del></p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product50')">
-                           
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product50')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/hl1k.jpg"
                                 alt="Product 4"
                             />
-                            <p>
-                                Hạt điều lạt hộp 1KG
-                            </p>
-                            <p class="price">
-                                395,700đ
-                            </p>
+                            <p>Hạt điều lạt hộp 1KG</p>
+                            <p class="price">395,700đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product51')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product51')"
+                        >
                             <img
-                            src="/assets/image/hop_dieu_muoi_1000g.jpg"
+                                src="/assets/image/hop_dieu_muoi_1000g.jpg"
                                 alt="Product 5"
                             />
-                            <p>
-                                Hạt điều chiên Sanest Foods (muối) hộp 1KG
-                            </p>
-                            <p class="price">392,800đ </p>
+                            <p>Hạt điều chiên Sanest Foods (muối) hộp 1KG</p>
+                            <p class="price">392,800đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product52')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product52')"
+                        >
                             <img
-                            src="/assets/image/hop_dieu_muoi_454g.jpg"
+                                src="/assets/image/hop_dieu_muoi_454g.jpg"
                                 alt="Product 6"
                             />
                             <p>
-                                Hạt điều chiên Sanest Foods (muối) hộp 454G - MH454
+                                Hạt điều chiên Sanest Foods (muối) hộp 454G -
+                                MH454
                             </p>
-                            <p class="price">184,600đ </p>
+                            <p class="price">184,600đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product53')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product53')"
+                        >
                             <img
-                            src="/assets/image/1_52144ef2d79b4fffa2a5d06e8b90d833.jpg"
+                                src="/assets/image/1_52144ef2d79b4fffa2a5d06e8b90d833.jpg"
                                 alt="Product 7"
                             />
-                            <p>
-                                Hạt điều muối lụa hộp 400G - LM400
-                            </p>
-                            <p class="price">
-                                159,100đ 
-                            </p>
+                            <p>Hạt điều muối lụa hộp 400G - LM400</p>
+                            <p class="price">159,100đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product54')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product54')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/hop_dieu_muoi_300g_mat_dung.webp"
                                 alt="Product 8"
                             />
-                            <p>
-                                Nhân điều muối hộp 300G - MH300
-                            </p>
-                            <p class="price">
-                                119,800đ
-                            </p>
+                            <p>Nhân điều muối hộp 300G - MH300</p>
+                            <p class="price">119,800đ</p>
                         </div>
-                        
-                        <div class="productCard"  onclick="showProductDetails('product55')">
-                            
+
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product55')"
+                        >
                             <img
                                 src="../assets/image/product/sanpham/hop_dieu_muoi_100g_1.webp"
                                 alt="Product 9"
                             />
                             <p>
-                                Hạt điều chiên muối Sanest Foods hộp 100G - MH100
+                                Hạt điều chiên muối Sanest Foods hộp 100G -
+                                MH100
                             </p>
-                            <p class="price">51,100đ </p>
+                            <p class="price">51,100đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product56')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product56')"
+                        >
                             <img
                                 class="img-pro"
                                 src="../assets/image/product/sanpham/dieu_muoi_100g.webp"
                                 alt="Product 10"
                             />
                             <p>
-                                Hạt điều chiên muối Sanest Foods túi 100G - MT100
+                                Hạt điều chiên muối Sanest Foods túi 100G -
+                                MT100
                             </p>
-                            <p class="price">
-                                47,200đ 
-                            </p>
+                            <p class="price">47,200đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product57')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product57')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham//dieu_muoi_50g.webp"
@@ -903,82 +1045,84 @@
                             <p>
                                 Hạt điều chiên muối Sanest Foods túi 50G - MT50
                             </p>
-                            <p class="price">
-                                26,600đ 
-                            </p>
+                            <p class="price">26,600đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product58')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product58')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham/z3979830090602_8046aa557673e17f4f59258894a3aaf0_2955ab05371740aa93923b150fb29871.webp"
                                 alt="Product 12"
                             />
-                            <p>
-                                Bánh yến sào đường ăn kiêng hộp 12 cái - H12K
-                            </p>
-                            <p class="price">
-                                90,000đ 
-                            </p>
+                            <p>Bánh yến sào đường ăn kiêng hộp 12 cái - H12K</p>
+                            <p class="price">90,000đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product59')">
-                            
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product59')"
+                        >
                             <img
                                 class="img-pro"
                                 src="/assets/image/product/sanpham//z3979830080738_aecad8ceca3494d7ea7fab5d612de71d_fb6c3306867449c7978d3035861b7581.webp"
                                 alt="Product 13"
                             />
-                            <p>
-                                Bánh Yến sào Sanest Cake hộp 12 cái - H12
-                            </p>
-                            <p class="price">
-                                88,400đ 
-                            </p>
+                            <p>Bánh Yến sào Sanest Cake hộp 12 cái - H12</p>
+                            <p class="price">88,400đ</p>
                         </div>
-                        <div class="productCard"  onclick="showProductDetails('product60')">
+                        <div
+                            class="productCard"
+                            onclick="showProductDetails('product60')"
+                        >
                             <div class="discount">-5%</div>
                             <img
                                 class="img-pro"
-                                src="/assets/image/product/sanpham//z3979830080738_aecad8ceca3494d7ea7fab5d612de71d_fb6c3306867449c7978d3035861b7581.webp"                                alt="Product 14"
+                                src="/assets/image/product/sanpham//z3979830080738_aecad8ceca3494d7ea7fab5d612de71d_fb6c3306867449c7978d3035861b7581.webp"
+                                alt="Product 14"
                             />
-                            <p>
-                                Bánh Yến sào Sanest Cake hộp 20 cái - H20
-                            </p>
-                            <p class="price">
-                                132,600đ 
-                            </p>
+                            <p>Bánh Yến sào Sanest Cake hộp 20 cái - H20</p>
+                            <p class="price">132,600đ</p>
                         </div>
-                        
+                        <div id="cartSidebar">
+                            <div class="cart-header">
+                                <span>Giỏ hàng</span>
+                                <span class="close" onclick="toggleCartSidebar()"
+                                    >X</span
+                                >
+                            </div>
+                            <div class="cart-items">
+                                <!-- Items sẽ được thêm vào đây -->
+                            </div>
+                            <div class="total">Tổng tiền: 0 VND</div>
+                        </div>
                     </div>
-                    
-                    
-                
                 </div>
-                
-                <ul class="listPage"> </ul>
+
+                <ul class="listPage"></ul>
                 <script src="/assets/js/listPage.js"></script>
             </div>
-            
+
             <div id="productDetails" class="modal1">
                 <div class="modal-content1">
                     <div class="modal-content5">
-                        <img id="productImage" src="" alt="Product Image">
+                        <img id="productImage" src="" alt="Product Image" />
                         <div class="product-info">
                             <p id="productName" class="product-name"></p>
                             <p id="description" class="product-description"></p>
                             <p id="productPrice" class="product-price"></p>
-                            
-                        </div>    
-                        <span class="close" onclick="closeProductDetails()">&times;</span>
+                        </div>
+                        <span class="close" onclick="closeProductDetails()"
+                            >&times;</span
+                        >
                     </div>
                     <div class="add">
                         <button onclick="addToCart()">Thêm vào giỏ hàng</button>
-                    </div> 
+                    </div>
                 </div>
             </div>
-            
-        
-        
+        </div>
+
         <footer>
             <div class="footer-container">
                 <div class="footer-section">
@@ -1005,7 +1149,12 @@
                     <ul>
                         <li><a href="#">Trang chủ</a></li>
                         <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="http://127.0.0.1:5500/pages/hotrokhachhang.html">Hỗ trợ khách hàng</a></li>
+                        <li>
+                            <a
+                                href="http://127.0.0.1:5500/pages/hotrokhachhang.html"
+                                >Hỗ trợ khách hàng</a
+                            >
+                        </li>
                         <li><a href="#">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img
@@ -1040,20 +1189,21 @@
                         </li>
                     </ul>
                 </div>
-            </div>            
+            </div>
         </footer>
 
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
-            integrity="sha512-Fo8sP+v+j7U4eG3Bw0n6eH7a3FjU9T2pG2h9RHNO9K4hU+e/Ec1TkM0Kx2BJ2yZq2F9hPZT/r4BlZHt8IzHoHQ=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
         <script src="../assets/js/header.js"></script>
         <script src="../assets/js/sort.js"></script>
-        <script src="../assets/js/sanpham.js"></script>
-        
+        <script src="../assets/js/cart.js"></script>
+        <script>
+            document.querySelectorAll(".productCard").forEach((card) => {
+                card.addEventListener("mouseenter", () => {
+                    card.querySelector(".add-to-cart").style.display = "block";
+                });
+                card.addEventListener("mouseleave", () => {
+                    card.querySelector(".add-to-cart").style.display = "none";
+                });
+            });
+        </script>
     </body>
-   
-   
 </html>
