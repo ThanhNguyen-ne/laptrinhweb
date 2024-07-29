@@ -15,9 +15,9 @@
             href="/assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg"
         />
         <title>Sản Phẩm</title>
-        <link rel="stylesheet" href="/assets/css/stylessanpham.css" />
-        <link rel="stylesheet" href="/assets/css/header.css" />
-        <link rel="stylesheet" href="../assets/css/footer.css" />
+
+        <link rel="stylesheet" href="../assets/css/test.css" />
+        <link rel="stylesheet" href="../assets/css/cart.css" />
     </head>
     <body>
         <header>
@@ -132,15 +132,6 @@
 
         <div class="content">
             <div class="sidebar">
-                <div class="price-filter">
-                    <h4>Giá sản phẩm</h4>
-                    <input type="range" class="slider" min="0" max="30000000" />
-                    <div class="price-values">
-                        <span>0đ</span>
-                        <span>30,000,000đ</span>
-                    </div>
-                    <button class="btn">Lọc giá</button>
-                </div>
                 <div class="featured-products">
                     <h4>Sản phẩm nổi bật</h4>
                     <ul>
@@ -174,7 +165,7 @@
                 </div>
             </div>
             <div class="main-content">
-                <div class="head-content">
+                <div class="product-list">
                     <h2>Tất cả sản phẩm</h2>
                     <div class="sort">
                         <select>
@@ -183,94 +174,134 @@
                             <option value="price_desc">Giá giảm dần</option>
                         </select>
                     </div>
-                </div>
-                <div class="product-list">
                     <div class="products">
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product1')"
-                        >
+                        <div class="productCard" id="product1">
                             <img
-                                class="img-pro"
                                 src="/assets/image/yskh_024.jpg"
-                                alt="Product 4"
+                                alt="Product 1"
                             />
-                            <p>
+                            <p class="name">
                                 Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
                                 024
                             </p>
                             <p class="price">37,800,000₫</p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="1"
+                                data-product-name="Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g - 024"
+                                data-product-price="37800000"
+                                data-product-image="../assets/image/yskh_024.jpg"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product2')"
-                        >
-                            <img src="/assets/image/yskh_026.jpg" />
-                            <p>
+                        <div class="productCard" id="product2">
+                            <img
+                                src="../assets/image/yskh_026.jpg"
+                                alt="Product 2"
+                            />
+                            <p class="name">
                                 Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G
                                 - 026
                             </p>
                             <p class="price">23,760,000₫</p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="2"
+                                data-product-name="Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp quà tặng - 026S"
+                                data-product-price="23760000"
+                                data-product-image="/assets/image/yskh_026.jpg"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product')"
-                        >
+                        <div class="productCard" id="product3">
                             <img
                                 src="/assets/image/_024s.jpg"
-                                alt="Product 6"
+                                alt="Product 3"
                             />
-                            <p>
+                            <p class="name">
                                 Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà
                                 tặng - 024S
                             </p>
                             <p class="price">19,170,000₫</p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="3"
+                                data-product-name="                                Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà
+                            tặng - 024S"
+                                data-product-price="19170000"
+                                data-product-image="/assets/image/_024s.jpg"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
 
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product3')"
-                        >
+                        <div class="productCard" id="product4">
                             <img
                                 src="/assets/image/tp1_9547ae75719143bea6c155e98e1fc816.jpg"
-                                alt="Product 7"
+                                alt="Product 4"
                             />
-                            <p>
+                            <p class="name">
                                 Yến sao đảo yến thiên nhiên Khánh Hòa hộp 100G -
                                 TP1
                             </p>
                             <p class="price">13,500,000₫</p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="4"
+                                data-product-name="                                Yến sao đảo yến thiên nhiên Khánh Hòa hộp 100G -
+                            TP1"
+                                data-product-price="13500000"
+                                data-product-image="/assets/image/tp1_9547ae75719143bea6c155e98e1fc816.jpg"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product4')"
-                        >
+                        <div class="productCard" id="product5">
                             <img
                                 src="../assets/image/product/sanpham/yskh_026s.webp"
-                                alt="Product 8"
+                                alt="Product 5"
                             />
-                            <p>
+                            <p class="name">
                                 Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp
                                 quà tặng - 026S
                             </p>
                             <p class="price">12,150,000đ</p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="5"
+                                data-product-name="                                Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp
+                            quà tặng - 026S"
+                                data-product-price="12150000"
+                                data-product-image="../assets/image/product/sanpham/yskh_026s.webp"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
 
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product5')"
-                        >
+                        <div class="productCard" id="product6">
                             <div class="discount">-8%</div>
                             <img
                                 src="../assets/image/product/sanpham/014_b790244e32e145c8a21efdee64b8d456.webp"
-                                alt="Product 9"
+                                alt="Product 6"
                             />
-                            <p>
+                            <p class="name">
                                 Yến sào đảo thiên nhiên tinh chế hộp 100G - 014
                             </p>
                             <p class="price">
                                 6,568,452đ <del>7,128,000đ</del>
                             </p>
+                            <button
+                                class="add-to-cart"
+                                data-product-id="6"
+                                data-product-name="                                Yến sào đảo thiên nhiên tinh chế hộp 100G - 014
+                            "
+                                data-product-price="6568452"
+                                data-product-image="/assets/image/product/sanpham/014_b790244e32e145c8a21efdee64b8d456.webp"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
                         </div>
                         <div
                             class="productCard"
@@ -1092,7 +1123,18 @@
                         </div>
                     </div>
                 </div>
-
+                <div id="cartSidebar">
+                    <div class="cart-header">
+                        <span>Giỏ hàng</span>
+                        <span class="close" onclick="toggleCartSidebar()"
+                            >X</span
+                        >
+                    </div>
+                    <div class="cart-items">
+                        <!-- Items sẽ được thêm vào đây -->
+                    </div>
+                    <div class="total">Tổng tiền: 0 VND</div>
+                </div>
                 <ul class="listPage"></ul>
                 <script src="/assets/js/listPage.js"></script>
             </div>
