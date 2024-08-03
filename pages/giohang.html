@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yến Sào Khánh Hòa</title>
     <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
+    <link rel="stylesheet" href="/assets/css/test1.css" />
 </head>
 
 <body>
@@ -63,7 +65,7 @@
                             <li><a href="#">Kiểm tra đơn hàng</a></li>
                             <li><a href="#">Thông tin yến sào </a></li>
                             <li><a href="#">Liên hệ</a></li>
-                            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                            <li><a href="#">Giỏ Hàng</a></li>
                         </ul>
                         <form action="" class="search">
                             <input
@@ -81,6 +83,76 @@
             </nav>
         </div>
     </header>
+
+    <main>
+        <div class="cart-container">
+            <h1>Giỏ Hàng</h1>
+            <div class="cart-items">
+                <!-- Repeat this block for each product in the cart -->
+                <div class="cart-item">
+                    <img src="/assets/image/sample-product.jpg" alt="Product Image" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">Tên Sản Phẩm</h3>
+                        <p class="product-description">Mô tả ngắn về sản phẩm</p>
+                        <div class="quantity-controls">
+                            <button class="decrease-quantity" onclick="decreaseQuantity()">-</button>
+                            <input type="number" class="product-quantity" value="1" min="1" readonly>
+                            <button class="increase-quantity" onclick="increaseQuantity()">+</button>
+                        </div>
+                        <p class="product-price">Giá: 100,000 VNĐ</p>
+                        <button class="remove-item" onclick="removeItem()">Xóa</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <h2>Tổng kết</h2>
+                <p>Tổng số sản phẩm: <span id="total-items">1</span></p>
+                <p>Tổng tiền: <span id="total-price">100,000 VNĐ</span></p>
+                <button class="checkout-button">Thanh toán</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>LIÊN HỆ</h4>
+                <p>Thông tin sinh viên</p>
+                <p> 2251120246 - Nguyễn Võ Thành</p>
+                <p> 2251120259 - Nguyễn Quốc Tùng</p>
+                <p>GV hướng dẫn : Mai Thanh Thảo</p>
+            </div>
+            <div class="footer-section">
+                <h4>DANH MỤC</h4>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="sanpham.html">Sản phẩm</a></li>
+                    <li><a href="hotrokhachhang.html">Hỗ trợ khách hàng</a></li>
+                    <li><a href="#">Kiểm tra đơn hàng</a></li>
+                </ul>
+                <img src="/assets/image/logoSaleNoti.png" alt="" width="150px">
+            </div>
+            <div class="footer-section">
+                <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+                <ul>
+                    <li><a href="#">Tìm kiếm</a></li>
+                    <li><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li><a href="#">Chính sách đổi hàng</a></li>
+                    <li><a href="#">Phương thức thanh toán</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Phương thức vận chuyển</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>KẾT NỐI VỚI YẾN SÀO KHÁNH HÒA</h4>
+                <div class="social-media">
+                    <img src="/assets/image/yensaokhanhhoa.jpg" alt="Yến sào Khánh Hòa" width="150px">
+                    <a href="#">facebook.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script src="../assets/js/dangnhap.js"></script>
+    <script src="../assets/js/cart.js"></script>
 </body>
 </html>

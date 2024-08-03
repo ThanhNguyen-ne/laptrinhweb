@@ -100,7 +100,8 @@
                                 </li>
                                 <li><a href="#">Thông tin</a></li>
                                 <li><a href="#">Liên hệ</a></li>
-                                <li><a href="#">Giỏ Hàng</a></li>
+                                <li><a href="#" id="cartBtn">Giỏ Hàng</a></li>
+
                             </ul>
                             <form action="" class="search">
                                 <input
@@ -307,7 +308,10 @@
                     <div class="total">Tổng tiền: 0 VND</div>
                 </div>
             </div>
+
+            
         </div>
+
 
         <footer>
             <div class="footer-container">
@@ -352,15 +356,16 @@
         <!-- <script src="/assets/js/sanpham2.js"></script> -->
         <script src="/assets/js/cart.js"></script>
         <script src="/assets/js/sort.js"></script>
-        <script>
-            document.querySelectorAll(".productCard").forEach((card) => {
-                card.addEventListener("mouseenter", () => {
-                    card.querySelector(".add-to-cart").style.display = "block";
-                });
-                card.addEventListener("mouseleave", () => {
-                    card.querySelector(".add-to-cart").style.display = "none";
-                });
-            });
-        </script>
+        <div id="modalOverlay"></div>
+        <div id="productDetailsModal">
+            <div id="productDetails">
+                <img id="productImage" src="" alt="Product Image">
+                <h2 id="productName">Tên sản phẩm</h2>
+                <p id="productPrice">Giá sản phẩm</p>
+                <p id="description">Mô tả sản phẩm</p>
+                <button id="addToCartButton" class="add-to-cart">Add to Cart</button>
+                <button id="closeProductDetails" class="close-btn">Close</button>
+            </div>
+        </div>
     </body>
 </html>

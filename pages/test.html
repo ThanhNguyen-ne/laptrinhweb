@@ -19,311 +19,158 @@
         <link rel="stylesheet" href="/assets/css/cart.css" />
     </head>
     <body>
-        <header>
-            <div id="main">
-                <div class="header_tren">
-                    <div class="info">
-                        <span>📞 Hotline: 092932067</span>
-                        <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
-                    </div>
-                    <div class="auth-buttons">
-                        <button id="loginBtn" onclick="showLoginModal()">
-                            Đăng nhập
-                        </button>
-                        <button id="signupBtn" onclick="showSignupModal()">
-                            Đăng kí
-                        </button>
-                    </div>
-                    <div id="loginModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-                            <div id="loginModalBody"></div>
-                        </div>
-                    </div>
-                    <div id="signupModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal('signupModal')">&times;</span>
-                            <div id="signupModalBody"></div>
-                        </div>
-                    </div>
+        <div class="main-content">
+            <div class="product-list">
+                <h2>Tất cả sản phẩm</h2>
+                <div class="sort">
+                    <select>
+                        <option value="default">Mặc định</option>
+                        <option value="price_asc">Giá tăng dần</option>
+                        <option value="price_desc">Giá giảm dần</option>
+                    </select>
                 </div>
-                <div class="header_giua">
-                    <img src="/assets/image/A1_new.jpg" />
-                </div>
-                <nav>
-                    <div class="header_duoi">
-                        <div class="content-header">
-                            <ul id="nav">
-                                <li><a href="index.html">Trang chủ</a></li>
-                                <li>
-                                    <a href="sanpham.html">Sản phẩm</a>
-                                    <ul class="subnav">
-                                        <li>
-                                            <a href="yensaothiennhiennguyento.html">Yến sào đảo yến thiên nhiên</a>
-                                        </li>
-                                        <li>
-                                            <a href="thucphamsanestfood.html">Thực phẩm Sanest Food</a>
-                                        </li>
-                                        <li>
-                                            <a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hoà</a>
-                                        </li>
-                                        <li>
-                                            <a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a>
-                                        </li>
-                                        <li>
-                                            <a href="tinhchatyensao.html">Tinh chất yến sào</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Thông tin</a></li>
-                                <li><a href="#">Liên hệ</a></li>
-                                <li><a href="#">Giỏ Hàng</a></li>
-                            </ul>
-                            <form action="" class="search">
-                                <input
-                                    type="text"
-                                    class="search-text"
-                                    placeholder="Tìm kiếm sản phẩm"
-                                    required
-                                />
-                                <button class="btn">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <script src="../assets/js/dangnhap.js"></script>
-        <div class="breadcrumb">
-            <a href="index.html">Trang chủ</a> >
-            <a href="sanpham.html">Tất cả sản phẩm</a>
-        </div>
-        <div class="content">
-            <div class="sidebar">
-                <div class="featured-products">
-                    <h4>Sản phẩm nổi bật</h4>
-                    <ul>
-                        <li>
-                            <img
-                                src="../assets/image/product/sanphamnoibat/noibat1.webp"
-                                alt="noibat1"
-                            />
-                            <p>
-                                Nước Yến sào Khánh Hòa Sanest lọ 70ml, Hộp 8 lọ
-                            </p>
-                            <span>289,700đ</span>
-                        </li>
-                        <li>
-                            <img
-                                src="../assets/image/product/sanphamnoibat/noibat2.webp"
-                                alt="noibat2"
-                            />
-                            <p>Yến sào đảo thiên nhiên tinh chế hộp 100G</p>
-                            <span>6,568,452đ</span>
-                        </li>
-                        <li>
-                            <img
-                                src="../assets/image/product/sanphamnoibat/noibat3.webp"
-                                alt="noibat3"
-                            />
-                            <p>Yến sào Sanvinest Khánh Hòa chính hiệu</p>
-                            <span>3,693,600đ</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="main-content">
-                <div class="product-list">
-                    <h2>Tất cả sản phẩm</h2>
-                    <div class="sort">
-                        <select>
-                            <option value="default">Mặc định</option>
-                            <option value="price_asc">Giá tăng dần</option>
-                            <option value="price_desc">Giá giảm dần</option>
-                        </select>
-                    </div>
-                    <div class="products">
-                        <div
-                            class="productCard"
-                            id="product1"
+                <div class="products">
+                    <div
+                        class="productCard"
+                        id="product1"
+                    >
+                        <img
+                            src="/assets/image/yskh_024.jpg"
+                            alt="Product 1"
+                        />
+                        <p class="name">
+                            Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
+                            024
+                        </p>
+                        <p class="price">37,800,000₫</p>
+                        <button
+                            class="add-to-cart"
+                            data-product-id="1"
+                            data-product-name="Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g - 024"
+                            data-product-price="37800000"
+                            data-product-image="../assets/image/yskh_024.jpg"
                         >
-                            <img
-                                src="/assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="1"
-                                data-product-name="Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g - 024"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product2">
-                            <img
-                                src="../assets/image/yskh_026.jpg"
-                                alt="Product 2"
-                            />
-                            <p class="name">
-                                Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp
-                                quà tặng - 026S
-                            </p>
-                            <p class="price">12,150,000đ</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="2"
-                                data-product-name="Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp quà tặng - 026S"
-                                data-product-price="12150000"
-                                data-product-image="/assets/image/yskh_026.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product3">
-                            <img
-                                src="/assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="3"
-                                data-product-name="Product 1"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product4">
-                            <img
-                                src="/assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="4"
-                                data-product-name="Product 1"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product5">
-                            <img
-                                src="../assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="5"
-                                data-product-name="Product 1"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product6">
-                            <img
-                                src="../assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="6"
-                                data-product-name="Product 1"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product7">
-                            <img
-                                src="../assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="7"
-                                data-product-name="Product 1"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="productCard" id="product8">
-                            <img
-                                src="../assets/image/yskh_024.jpg"
-                                alt="Product 1"
-                            />
-                            <p class="name">
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
-                            <button
-                                class="add-to-cart"
-                                data-product-id="8"
-                                data-product-name="Product 1"
-                                data-product-price="37800000"
-                                data-product-image="../assets/image/yskh_024.jpg"
-                            >
-                                Thêm vào giỏ hàng
-                            </button>
-                        </div>
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                    <div class="productCard" id="product2">
+                        <img
+                            src="../assets/image/yskh_026.jpg"
+                            alt="Product 2"
+                        />
+                        <p class="name">
+                            Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp
+                            quà tặng - 026S
+                        </p>
+                        <p class="price">12,150,000đ</p>
+                        <button
+                            class="add-to-cart"
+                            data-product-id="2"
+                            data-product-name="Yến hồng đảo yến thiên nhiên Khánh Hòa mẫu hộp quà tặng - 026S"
+                            data-product-price="12150000"
+                            data-product-image="/assets/image/yskh_026.jpg"
+                        >
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                    <div class="productCard" id="product3">
+                        <img
+                            src="/assets/image/yskh_024.jpg"
+                            alt="Product 1"
+                        />
+                        <p class="name">
+                            Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
+                            024
+                        </p>
+                        <p class="price">37,800,000₫</p>
+                        <button
+                            class="add-to-cart"
+                            data-product-id="3"
+                            data-product-name="Product 1"
+                            data-product-price="37800000"
+                            data-product-image="../assets/image/yskh_024.jpg"
+                        >
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                    <div class="productCard" id="product4">
+                        <img
+                            src="/assets/image/yskh_024.jpg"
+                            alt="Product 1"
+                        />
+                        <p class="name">
+                            Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
+                            024
+                        </p>
+                        <p class="price">37,800,000₫</p>
+                        <button
+                            class="add-to-cart"
+                            data-product-id="4"
+                            data-product-name="Product 1"
+                            data-product-price="37800000"
+                            data-product-image="../assets/image/yskh_024.jpg"
+                        >
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                    <div class="productCard" id="product5">
+                        <img
+                            src="/assets/image/yskh_024.jpg"
+                            alt="Product 5"
+                        />
+                        <p class="name">
+                            Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
+                            024
+                        </p>
+                        <p class="price">38,800,000₫</p>
+                        <button
+                            class="add-to-cart"
+                            data-product-id="5"
+                            data-product-name="Product 1"
+                            data-product-price="37800000"
+                            data-product-image="/assets/image/yskh_024.jpg"
+                        >
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+
+                    <div class="productCard" id="product6">
+                        <img
+                            src="/assets/image/yskh_024.jpg"
+                            alt="Product 1"
+                        />
+                        <p class="name">
+                            Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
+                            024
+                        </p>
+                        <p class="price">37,800,000₫</p>
+                        <button
+                            class="add-to-cart"
+                            data-product-id="6"
+                            data-product-name="Product 6"
+                            data-product-price="37800000"
+                            data-product-image="/assets/image/yskh_024.jpg"
+                        >
+                            Thêm vào giỏ hàng
+                        </button>
                     </div>
                 </div>
-                <div class="pagination">
-                    <ul>
-                        <li><a href="#">&#60;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">&#62;</a></li>
-                    </ul>
+            </div>
+            <div id="cartSidebar">
+                <div class="cart-header">
+                    <span>Giỏ hàng</span>
+                    <span class="close" onclick="toggleCartSidebar()"
+                        >X</span
+                    >
                 </div>
+                <div class="cart-items">
+                    <!-- Items sẽ được thêm vào đây -->
+                </div>
+                <div class="total">Tổng tiền: 0 VND</div>
             </div>
         </div>
-        <footer>
-            <p>Copyright © 2022 Company Name</p>
-        </footer>
+    </div>
+    <script src="/assets/js/cart.js"></script>
         <script>
             function showLoginModal() {
                 document.getElementById("loginModal").style.display = "block";
