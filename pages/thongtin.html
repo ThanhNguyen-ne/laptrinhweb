@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Yến sào TT</title>
+        
+        <link rel="stylesheet" href="/assets/css/header.css">
+            <link rel="icon" href="/assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg">
+            <link rel="stylesheet" href="../assets/css/footer.css">
+            
+    </head>
+    <body>
+        <header>
+            <div id="main">
+                <div class="header_tren">
+                    <div class="info">
+                        <span>📞 Hotline: 092932067</span>
+                        <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
+                    </div>
+                    <div class="auth-buttons">
+                        <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
+                        <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
+                    </div>
+    
+                    <!-- The Modals -->
+                    <div id="loginModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                            <div id="loginModalBody"></div>
+                        </div>
+                    </div>
+    
+                    <div id="signupModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+                            <div id="signupModalBody"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_giua">
+                    <img src="/assets/image/A1_new.jpg" />
+                </div>
+                <nav>
+                    <div class="header_duoi">
+                        <div class="content-header">
+                            <ul id="nav">
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li>
+                                    <a href="sanpham.html"> Sản phẩm</a>
+                                    <ul class="subnav">
+                                        <li><a href="yensaothiennhiennguyento.html">Yến sào đảo yến thiên nhiên</a></li>
+                                        <li><a href="thucphamsanestfood.html">Thực phẩm Sanest Food</a></li>
+                                        <li><a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hoà</a></li>
+                                        <li><a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a></li>
+                                        <li><a href="tinhchatyensao.html">Tinh chất yến sào</a></li>
+                                        
+                                    </ul>
+                                </li>
+                                
+                                <li><a href="#">Thông tin</a></li>
+                                <li><a href="#">Liên hệ</a></li>
+                                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                            </ul>
+                            <form action="" class="search">
+                                <input
+                                    type="text"
+                                    class="search-text"
+                                    placeholder="Tìm kiếm sản phẩm "
+                                    required
+                                />
+                                <button class="btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <script src="../assets/js/dangnhap.js"></script>
+        </header>
+        <style>
+            body {
+                
+                margin: 0px;
+                padding: 0px;
+            }
+.container4 {
+    width: 100%;
+    margin:  auto;
+}
+.container > article{
+    min-height:834px; 
+    width:100%; 
+    background-color:white; 
+    float:left; 
+}
+iframe[name=page] {
+    width: 100%;
+    min-height: 1000px;
+  }
+  
+                   
+        </style>
+        <div class="container4">
+            <article>
+                <iframe name="page" src="thongtin1.html" frameborder="0"></iframe>
+            </article>
+
+        </div>
+        
+                
+                <footer>
+                    <div class="footer-container">
+                        <div class="footer-section">
+                            <h4>LIÊN HỆ</h4>
+                            <p>Thông tin sinh viên</p>
+                            <p></i> 2251120246 - Nguyễn Võ Thành</p>
+                            <p></i> 2251120259 - Nguyễn Quốc Tùng</p>
+                            <p>GV hướng dẫn : Mai Thanh Thảo</p>
+                        </div>
+                        <div class="footer-section">
+                            <h4>DANH MỤC</h4>
+                            <ul>
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="sanpham.html">Sản phẩm</a></li>
+                                <li><a href="hotrokhachhang.html">Hỗ trợ khách hàng</a></li>
+                                <li><a href="#">Kiểm tra đơn hàng</a></li>
+                            </ul>
+                            <img src="/assets/image/logoSaleNoti.png" alt="" width="150px">
+                        </div>
+                        <div class="footer-section">
+                            <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+                            <ul>
+                                <li><a href="#">Tìm kiếm</a></li>
+                                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                                <li><a href="#">Chính sách đổi hàng</a></li>
+                                <li><a href="#">Phương thức thanh toán</a></li>
+                                <li><a href="#">Chính sách bảo mật</a></li>
+                                <li><a href="#">Phương thức vận chuyển</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h4>KẾT NỐI VỚI YẾN SÀO KHÁNH HÒA</h4>
+                            <div class="social-media">
+                                <img src="/assets/image/yensaokhanhhoa.jpg" alt="Yến sào Khánh Hòa" width="150px">
+                                <a href="#">facebook.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+                    integrity="sha512-Fo8sP+v+j7U4eG3Bw0n6eH7a3FjU9T2pG2h9RHNO9K4hU+e/Ec1TkM0Kx2BJ2yZq2F9hPZT/r4BlZHt8IzHoHQ=="
+                    crossorigin="anonymous"
+                    referrerpolicy="no-referrer"
+                ></script>
+                <script src="../assets/js/header.js"></script>
+
+            </div>
+        </div>
+    </body>
+</html>
