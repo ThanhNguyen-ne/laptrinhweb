@@ -161,31 +161,43 @@ header {
     border-radius: 30px;
     background-color: #fff;
     position: relative;
+    display: flex;
+    align-items: center; /* Center the content vertically */
 }
 
 .search .search-text {
     border: none;
     outline: none;
     background: none;
-    font-size: 18px;
+    font-size: 14px; /* Smaller font size */
     width: 0;
-    padding: 0px;
-    transition: all 0.25s ease-in-out;
+    padding: 0;
+    transition: width 0.25s ease-in-out;
 }
 
 .search .btn {
     background-color: white;
     border: none;
-    padding: 4px;
+    padding: 5px;
     cursor: pointer;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .search:hover .search-text,
 .search .search-text:focus {
-    width: 300px;
-    padding: 10px 15px;
+    width: 200px; /* Smaller width */
+    padding: 5px 10px; /* Adjust padding */
+}
+
+.header_duoi .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_duoi .content-header .search {
+    margin-left: auto;
 }
 
 .content {

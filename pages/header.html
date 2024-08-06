@@ -20,24 +20,36 @@
             <div class="header_tren">
                 <div class="info">
                     <span>📞 Hotline: 092932067</span>
-                    <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
+                    <span
+                        >📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh
+                        Khánh Hòa</span
+                    >
                 </div>
                 <div class="auth-buttons">
-                    <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
-                    <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
+                    <button id="loginBtn" onclick="showLoginModal()">
+                        Đăng nhập
+                    </button>
+                    <button id="signupBtn" onclick="showSignupModal()">
+                        Đăng kí
+                    </button>
                 </div>
-
-                <!-- The Modals -->
                 <div id="loginModal" class="modal">
                     <div class="modal-content">
-                        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                        <span
+                            class="close"
+                            onclick="closeModal('loginModal')"
+                            >&times;</span
+                        >
                         <div id="loginModalBody"></div>
                     </div>
                 </div>
-
                 <div id="signupModal" class="modal">
                     <div class="modal-content">
-                        <span class="close" onclick="closeModal('signupModal')">&times;</span>
+                        <span
+                            class="close"
+                            onclick="closeModal('signupModal')"
+                            >&times;</span
+                        >
                         <div id="signupModalBody"></div>
                     </div>
                 </div>
@@ -51,25 +63,46 @@
                         <ul id="nav">
                             <li><a href="index.html">Trang chủ</a></li>
                             <li>
-                                <a href="#"> Sản phẩm</a>
+                                <a href="sanpham.html">Sản phẩm</a>
                                 <ul class="subnav">
-                                    <li><a href="">Yến sào đảo yến thiên nhiên</a></li>
-                                    <li><a href="">Thực phẩm Sanest Food</a></li>
-                                    <li><a href="">Yến sào Sanvinest Khánh Hoà</a></li>
-                                    <li><a href="">Yến sào Sanest</a></li>
-                                    <li><a href="">Nước giải khát Sanna</a></li>
+                                    <li>
+                                        <a
+                                            href="yensaothiennhiennguyento.html"
+                                            >Yến sào đảo yến thiên nhiên</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a href="thucphamsanestfood.html"
+                                            >Thực phẩm Sanest Food</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="yensaosanviestkhanhhoa.html"
+                                            >Yến sào Sanvinest Khánh Hoà</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a href="yensaosanestkhanhhoa.html"
+                                            >Yến sào Sanest</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a href="tinhchatyensao.html"
+                                            >Tinh chất yến sào</a
+                                        >
+                                    </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Kiểm tra đơn hàng</a></li>
-                            <li><a href="#">Thông tin yến sào </a></li>
-                            <li><a href="#">Liên hệ</a></li>
-                            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                            <li><a href="thongtin.html">Thông tin</a></li>
+                            <li><a href="giohang.html" id="cartBtn">Giỏ Hàng</a></li>
+
                         </ul>
                         <form action="" class="search">
                             <input
                                 type="text"
                                 class="search-text"
-                                placeholder="Tìm kiếm sản phẩm "
+                                placeholder="Tìm kiếm sản phẩm"
                                 required
                             />
                             <button class="btn">

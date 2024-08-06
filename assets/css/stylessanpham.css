@@ -282,3 +282,33 @@ body {
     background-color: rgb(49, 140, 182);
     color: white;
 }
+.modal1 {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    right: 25%;
+    top: 20%;
+    width: 50%;
+    height: auto;
+   
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content1 {
+    background-color: wheat;
+    margin:  auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100% ; /* Độ rộng cố định */
+    z-index: 1000;
+    text-align: center;
+    position: relative;
+}
+.modal-content1 img{
+
+    width: 40%;
+    height: auto;
+}
+.modal-content5 {
+    display: flex;
+}
