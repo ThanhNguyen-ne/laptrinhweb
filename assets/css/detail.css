@@ -1,0 +1,56 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.detail9-container{
+    width: 70%;
+    margin: 80px auto 50px;
+}
+.detail9{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.detail9-image{
+    width: 800px;
+    margin: 15px;
+}
+.detail9-image img{
+    width: 100%;
+}
+.detail9-info{
+    margin: 0 10px;
+
+}
+.detail9-info h2{
+    font-size: 35px;
+    margin: 15px 0;
+}
+.detail9-info p{
+    font-size: 17px;
+    line-height: 25px;
+    letter-spacing: 0.7px;
+}
+.detail9-info .detail9-price{
+    font-size: 20px;
+    margin: 20px;
+    font-weight: bold;
+}
+.btn-add{
+    cursor: pointer;
+    padding: 15px 50px;
+    font-size:  17px;
+    font-weight: bold;
+    width: 20%;
+    border-radius: 10px;
+    background-color: #536493;
+    color: white;
+    display: block;
+    margin: 0 auto 30px;
+    transition: all .3s;
+
+}
+.btn-add:hover{
+    background-color: #134B70;
+}

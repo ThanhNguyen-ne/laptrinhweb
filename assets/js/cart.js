@@ -143,7 +143,7 @@ function showNotification(message) {
 
 // Xử lý thanh toán
 function checkout() {
-    alert("Thanh toán thành công!");
+    window.location.href = 'checkout.html';
     // Add any additional checkout logic here
 }
 

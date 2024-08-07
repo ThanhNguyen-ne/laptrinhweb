@@ -5,12 +5,11 @@ let productList = []; // Biến để lưu danh sách sản phẩm
 
 const getData = async () => {
     try {
-        const response = await fetch('../assets/js/data.json'); // Kiểm tra lại đường dẫn
+        const response = await fetch('../assets/js/nguyento.json'); // Kiểm tra lại đường dẫn
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-
         if (data) {
             productList = data; // Lưu danh sách sản phẩm
             loadItem(); // Hiển thị sản phẩm
@@ -27,11 +26,10 @@ function loadItem() {
 
     products.innerHTML = productList.slice(beginGet, endGet).map(item => {
         return `
-        <div class="productCard" id="${item.id}">
-          <a href="detail.html?id=${item.id}">  <img src="${item.img}" alt="${item.title}" /></a>
+        <div class="productCard">
+            <img src="${item.img}" alt="${item.title}" />
             <p class="name">${item.title}</p>
             <p class="price">${item.price}</p>
-            
         </div>
         `;
     }).join('');
