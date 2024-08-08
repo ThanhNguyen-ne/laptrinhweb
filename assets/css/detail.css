@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 .detail9-container{
-    width: 70%;
+    width: 80%;
     margin: 80px auto 50px;
 }
 .detail9{
@@ -13,7 +13,7 @@
     align-items: center;
 }
 .detail9-image{
-    width: 800px;
+    width: 1000px;
     margin: 15px;
 }
 .detail9-image img{
