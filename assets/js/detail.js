@@ -29,6 +29,7 @@ const getDetailProduct = async () => {
                         </div>
                     </div>
                 </div>
+                <button class="btn-add" id="addToCart">Add to cart</button>
                 
             `;
         } else {
