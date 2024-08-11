@@ -1,6 +1,4 @@
 const detailContainer = document.querySelector('.detail9-container');
-const btnAddCart = document.getElementById('addToCart');
-const cartIcon = document.querySelector('.cart');
 
 const getDetailProduct = async () => {
     const path = new URLSearchParams(window.location.search);
@@ -65,7 +63,7 @@ const getDetailProduct = async () => {
                     cart.push({ id: product.id, count: 1 });
                     localStorage.setItem('cart', JSON.stringify(cart));
                 }
-                window.location.href = 'giohang.html';
+                window.location.href = 'checkout.html'; // Chuyển hướng đến trang thanh toán
             });
 
             // Hiển thị các sản phẩm tương tự, chỉ lấy 6 sản phẩm

@@ -1,42 +1,105 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
 
+.checkout-container {
+    width: 80%;
+    margin: 50px auto;
 }
-body{
-    width: 100vw;
-    height: 100vh;
-    display:flex;
-    justify-content: center   ;
-    align-items: center;
 
-}
-a{
-    text-decoration: none;
-    color: white;
-}
-.order-confirm{
-    display: flex;
-    flex-direction: column;
-    gap:20px;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border: 1px solid #a7a7c4;
-    border-radius: 10px;
-    width: 50%;
-}
-.order-confirm a{
-    padding:8px 20px;
-    background-color: #134B70;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    width: 200px;
+h2 {
     text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #333;
 }
-.order-confirm a:hover{
-    background-color: #536493;
 
+.cart-summary-container,
+.checkout-form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.cart-summary-container h3,
+.checkout-form-container h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-item-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-title {
+    font-size: 18px;
+    color: #333;
+}
+
+.cart-item-price {
+    font-size: 18px;
+    color: #ff4500;
+}
+
+.total-price {
+    font-size: 22px;
+    text-align: right;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #ff4500;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #536493;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #134b70;
 }

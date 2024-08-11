@@ -95,7 +95,7 @@ let totalProducts = async () => {
                 <h2>Tổng giá tiền: <span id="total">${total.toLocaleString()}₫</span></h2>
             </div>
             <div class="product-checkout">
-                <a href="#" class="checkout">Thanh toán</a>
+                <a href="checkout.html" class="checkout">Thanh toán</a>
             </div>
             <button onclick="clearCart()" class="removeAll">Xóa giỏ hàng</button>
         `;
