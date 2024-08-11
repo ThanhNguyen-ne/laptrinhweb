@@ -4,108 +4,41 @@ let limit = 12;
 let productList = []; // Biến để lưu danh sách sản phẩm
 
 const getData = async () => {
-    const response = await fetch("../assets/js/data.json"); // Kiểm tra lại đường dẫn
+    const response = await fetch("../assets/js/data.json");
     const data = await response.json();
 
     if (data) {
-        products.innerHTML = data
-            .map((item) => {
-                return `
+        productList = data; // Lưu sản phẩm vào biến productList
+        loadItem();
+    }
+};
+
+function loadItem() {
+    let beginGet = limit * (thisPage - 1);
+    let endGet = limit * thisPage;
+    products.innerHTML = productList.slice(beginGet, endGet)
+        .map((item) => {
+            return `
             <div class="productCard" id="${item.id}">
                 <a href="detail.html?id=${item.id}">  
                 <img src="${item.img}" alt="${item.title}" /></a>
                 <p class="name">${item.title}</p>
                 <p class="price">${item.price}</p>
-              
-          </div>
+            </div>
             `;
-            })
-            .join("");
-    }
-};
-
-// function loadItem() {
-//     const beginGet = limit * (thisPage - 1);
-//     const endGet = limit * thisPage;
-
-//     products.innerHTML = productList
-//         .slice(beginGet, endGet)
-//         .map((item) => {
-//             return `
-// <div class="productCard" id="${item.id}">
-//   <a href="detail.html?id=${item.id}">  <img src="${item.img}" alt="${item.title}" /></a>
-//     <p class="name">${item.title}</p>
-//     <p class="price">${item.price}</p>
-
-// </div>
-//         `;
-//         })
-//         .join("");
-
-//     listPage(); // Cập nhật phân trang
-// }
-
-// function listPage() {
-//     const count = Math.ceil(productList.length / limit);
-//     const listPageElement = document.querySelector(".listPage");
-//     listPageElement.innerHTML = ""; // Xóa nội dung cũ
-
-//     // Thêm nút "PREV"
-//     if (thisPage > 1) {
-//         const prev = document.createElement("li");
-//         prev.innerText = "PREV";
-//         prev.setAttribute("onclick", "changePage(" + (thisPage - 1) + ")");
-//         listPageElement.appendChild(prev);
-//     }
-
-//     // Tạo các nút trang
-//     for (let i = 1; i <= count; i++) {
-//         const newPage = document.createElement("li");
-//         newPage.innerText = i;
-//         newPage.setAttribute("onclick", "changePage(" + i + ")");
-//         if (i === thisPage) {
-//             newPage.classList.add("active");
-//         }
-//         listPageElement.appendChild(newPage);
-//     }
-
-//     // Thêm nút "NEXT"
-//     if (thisPage < count) {
-//         const next = document.createElement("li");
-//         next.innerText = "NEXT";
-//         next.setAttribute("onclick", "changePage(" + (thisPage + 1) + ")");
-//         listPageElement.appendChild(next);
-//     }
-// }
-
-// function changePage(i) {
-//     thisPage = i;
-//     loadItem(); // Cập nhật sản phẩm hiển thị trên trang mới
-// }
-
-let list = document.querySelectorAll(".products .productCard");
-
-function loadItem() {
-    let beginGet = limit * (thisPage - 1);
-    let endGet = limit * thisPage - 1;
-    list.forEach((productCard, key) => {
-        if (key >= beginGet && key <= endGet) {
-            productCard.style.display = "block";
-        } else {
-            productCard.style.display = "none";
-        }
-    });
+        })
+        .join("");
     listPage();
 }
-loadItem();
+
 function listPage() {
-    let count = Math.ceil(list.length / limit);
+    let count = Math.ceil(productList.length / limit);
     document.querySelector(".listPage").innerHTML = "";
 
     if (thisPage != 1) {
         let prev = document.createElement("li");
         prev.innerText = "PREV";
-        prev.setAttribute("onclick", "changePage(" + (thisPage - 1) + ")");
+        prev.setAttribute("onclick", `changePage(${thisPage - 1})`);
         document.querySelector(".listPage").appendChild(prev);
     }
 
@@ -115,14 +48,14 @@ function listPage() {
         if (i == thisPage) {
             newPage.classList.add("active");
         }
-        newPage.setAttribute("onclick", "changePage(" + i + ")");
+        newPage.setAttribute("onclick", `changePage(${i})`);
         document.querySelector(".listPage").appendChild(newPage);
     }
 
     if (thisPage != count) {
         let next = document.createElement("li");
         next.innerText = "NEXT";
-        next.setAttribute("onclick", "changePage(" + (thisPage + 1) + ")");
+        next.setAttribute("onclick", `changePage(${thisPage + 1})`);
         document.querySelector(".listPage").appendChild(next);
     }
 }
@@ -131,5 +64,6 @@ function changePage(i) {
     thisPage = i;
     loadItem();
 }
+
 // Khởi động việc lấy dữ liệu
 getData();

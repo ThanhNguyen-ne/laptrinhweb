@@ -1,57 +1,122 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-.detail9-container{
+
+.detail9-container {
     width: 80%;
     margin: 80px auto 50px;
 }
-.detail9{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.detail9-image{
-    width: 1000px;
-    margin: 15px;
-}
-.detail9-image img{
-    width: 100%;
-    
-}
-.detail9-info{
-    margin: 0 10px;
 
+.detail9 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
-.detail9-info h2{
-    font-size: 35px;
-    margin: 15px 0;
+
+.detail9-image {
+    width: 45%;
+    margin-right: 20px;
 }
-.detail9-info p{
-    font-size: 17px;
-    line-height: 25px;
-    letter-spacing: 0.7px;
+
+.detail9-image img {
+    width: 100%;
+    border-radius: 8px;
 }
-.detail9-info .detail9-price{
-    font-size: 20px;
-    margin: 20px;
+
+.detail9-info {
+    width: 50%;
+}
+
+.detail9-price {
+    font-size: 28px;
+    color: red;
     font-weight: bold;
+    margin-bottom: 20px;
 }
-.btn-add{
+
+.detail9-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.detail9-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-add, .btn-buy {
     cursor: pointer;
-    padding: 15px 50px;
-    font-size:  17px;
+    padding: 15px 30px;
+    font-size: 17px;
     font-weight: bold;
-    width: 20%;
     border-radius: 10px;
     background-color: #536493;
     color: white;
-    display: block;
-    margin: 0 auto 30px;
-    transition: all .3s;
-
+    transition: all 0.3s;
+    text-align: center;
 }
-.btn-add:hover{
-    background-color: #134B70;
+
+.btn-buy {
+    background-color: #ff6347;
+}
+
+.btn-add:hover, .btn-buy:hover {
+    opacity: 0.85;
+}
+
+.similar-products-container {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.similar-products-container h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.similar-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-card {
+    width: 30%;
+    margin: 15px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-card h4 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.product-card p {
+    font-size: 16px;
+    color: #ff4500;
+    margin-bottom: 10px;
+}
+
+.btn-detail {
+    text-decoration: none;
+    background-color: #536493;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.btn-detail:hover {
+    background-color: #134b70;
 }
