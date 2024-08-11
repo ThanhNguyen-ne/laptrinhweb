@@ -21,7 +21,7 @@ const getDetailProduct = async () => {
                     </div>
                     <div class="detail9-info">
                         <div class="detail9-price">
-                            <span>${product.price}₫</span>
+                            <span>${product.price}</span>
                         </div>
                         <p class="detail9-description">${product.description}</p>
                         <div class="detail9-actions">

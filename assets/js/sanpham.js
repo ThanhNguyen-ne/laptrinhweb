@@ -24,6 +24,14 @@ function loadItem() {
                 <img src="${item.img}" alt="${item.title}" /></a>
                 <p class="name">${item.title}</p>
                 <p class="price">${item.price}</p>
+                <div class="product-buttons">
+                    <button class="btn-cart" onclick="addToCart(${item.id})">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                    <button class="btn-buy" onclick="redirectToCheckout(${item.id})">
+                        Mua ngay
+                    </button>
+                </div>
             </div>
             `;
         })
@@ -63,6 +71,24 @@ function listPage() {
 function changePage(i) {
     thisPage = i;
     loadItem();
+}
+
+// Hàm để thêm sản phẩm vào giỏ hàng
+function addToCart(productId) {
+    // Hiển thị thông báo
+    alert("Sản phẩm của bạn đã được thêm vào giỏ hàng!");
+    
+    // Thêm sản phẩm vào trang giohang.html
+    // Đây là một ví dụ đơn giản, thực tế bạn sẽ cần lưu dữ liệu sản phẩm vào LocalStorage hoặc gửi lên server
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const product = productList.find(p => p.id === productId);
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Hàm để chuyển hướng đến trang checkout
+function redirectToCheckout(productId) {
+    window.location.href = 'checkout.html';
 }
 
 // Khởi động việc lấy dữ liệu
