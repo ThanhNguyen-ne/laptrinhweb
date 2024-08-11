@@ -72,6 +72,7 @@ function updateCart() {
     `;
 }
 
+
 // Hiển thị thông báo
 function showNotification(message) {
     const notification = document.createElement('div');
