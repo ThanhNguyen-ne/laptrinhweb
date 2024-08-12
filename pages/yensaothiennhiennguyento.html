@@ -90,18 +90,20 @@
         <script src="../assets/js/dangnhap.js"></script>
         <!-- Content -->
         <div class="breadcrumb">
+            <h3>
             <a href="index.html">Trang chủ</a> >
-            <a href="sanpham.html">Tất cả sản phẩm</a> >
-            <a href="yensaothiennhiennguyento.html"
-                >Yến sào thiên nhiên nguyên tổ</a
-            >
+
+            </h3>
+            <h3>
+            <a href="sanpham.html">Tất cả sản phẩm</a>
+
+            </h3>
         </div>
 
         <div class="content">
             <div class="sidebar">
-                
                 <div class="featured-products">
-                    <h4>Sản phẩm nổi bật</h4>
+                    <h2>Sản phẩm nổi bật</h4>
                     <ul>
                         <a href="detail.html?id=1" style="text-decoration:none;color:black ;" > <li>
                             <img src="/assets/image/yskh_024.jpg" >
@@ -112,17 +114,11 @@
                         </li></a>
                         <a href="detail.html?id=3" style="text-decoration:none;color:black ;" ><li>
                            <img src="../assets/image/_024s.jpg" /> 
-                                 
-                                
-                            
                             <p>Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà tặng - 024S</p>
                             <span>19,170,000₫</span>
                         </li></a>
                         <a href="detail.html?id=2" style="text-decoration:none;color:black ;" ><li>
                            <img src="../assets/image/yskh_026.jpg" />
-                                
-                               
-                            
                             <p>Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026</p>
                             <span>23,760,000₫</span>
                         </li></a>
@@ -130,39 +126,51 @@
                 </div>
             </div>
             <div class="main-content">
-                <div class="sort">
-                    <select>
-                        <option value="default">Mặc định</option>
-                        <option value="price_asc">Giá tăng dần</option>
-                        <option value="price_desc">Giá giảm dần</option>
-                    </select>
-                </div>
                 <div class="product-list">
-                    <h2>Yến sào thiên nhiên nguyên tổ</h2>
-                    <div class="products">
-                        <div
-                            class="productCard"
-                            onclick="showProductDetails('product1')"
-                        >
-                            <img
-                                class="img-pro"
-                                src="/assets/image/yskh_024.jpg"
-                                alt="Product 4"
-                            />
-                            <p>
-                                Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g -
-                                024
-                            </p>
-                            <p class="price">37,800,000₫</p>
+                    <div class="header-product-list">
+                        <h2 class="product-title">Yến sào đảo yến thiên nhiên</h2>
+                        <div class="sort-container">
+                            <label for="sort" class="sort-label">Sắp xếp:</label>
+                            <select id="sort" class="sort-select">
+                                <option value="default">Mặc định</option>
+                                <option value="price_asc">Giá tăng dần</option>
+                                <option value="price_desc">Giá giảm dần</option>
+                            </select>
                         </div>
-                          
+                    </div>
+
+                    <div class="products">
+                        <a href="detail.html"> </a>
                     </div>
 
                     <ul class="listPage"></ul>
-                    
+                    <script src="/assets/js/thiennhiennguyento.js"></script>
+                </div>
+
+                <div id="productDetails" class="modal1">
+                    <div class="modal-content1">
+                        <div class="modal-content5">
+                            <img id="productImage" src="" alt="Product Image" />
+                            <div class="product-info">
+                                <p id="productName" class="product-name"></p>
+                                <p
+                                    id="description"
+                                    class="product-description"
+                                ></p>
+                                <p id="productPrice" class="product-price"></p>
+                            </div>
+                            <span class="close" onclick="closeProductDetails()"
+                                >&times;</span
+                            >
+                        </div>
+                        <div class="add">
+                            <button onclick="addToCart()">
+                                Thêm vào giỏ hàng
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <script src="../assets/js/thiennhiennguyento.js"></script>
         </div>
         
         

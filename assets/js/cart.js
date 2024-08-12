@@ -53,6 +53,7 @@ const renderCartItem = async () => {
     totalProducts();
 };
 
+
 let incrementQuantity = (id) => {
     let searchIndex = cart.findIndex((itemCart) => itemCart.id === id);
 

@@ -87,17 +87,22 @@
         </header>
         <script src="../assets/js/dangnhap.js"></script>
         <!-- Content -->
+        <!-- Content -->
         <div class="breadcrumb">
+            <h3>
             <a href="index.html">Trang chủ</a> >
-            <a href="sanpham.html">Tất cả sản phẩm</a> >
-            <a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hòa</a>
+
+            </h3>
+            <h3>
+            <a href="sanpham.html">Tất cả sản phẩm</a>
+
+            </h3>
         </div>
 
         <div class="content">
             <div class="sidebar">
-                
                 <div class="featured-products">
-                    <h4>Sản phẩm nổi bật</h4>
+                    <h2>Sản phẩm nổi bật</h4>
                     <ul>
                         <a href="detail.html?id=1" style="text-decoration:none;color:black ;" > <li>
                             <img src="/assets/image/yskh_024.jpg" >
@@ -108,17 +113,11 @@
                         </li></a>
                         <a href="detail.html?id=3" style="text-decoration:none;color:black ;" ><li>
                            <img src="../assets/image/_024s.jpg" /> 
-                                 
-                                
-                            
                             <p>Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà tặng - 024S</p>
                             <span>19,170,000₫</span>
                         </li></a>
                         <a href="detail.html?id=2" style="text-decoration:none;color:black ;" ><li>
                            <img src="../assets/image/yskh_026.jpg" />
-                                
-                               
-                            
                             <p>Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026</p>
                             <span>23,760,000₫</span>
                         </li></a>
@@ -126,26 +125,51 @@
                 </div>
             </div>
             <div class="main-content">
-                <div class="sort">
-                    <select>
-                        <option value="default">Mặc định</option>
-                        <option value="price_asc">Giá tăng dần</option>
-                        <option value="price_desc">Giá giảm dần</option>
-                    </select>
-                </div>
                 <div class="product-list">
-                    <h2>Yến sào Sanvinest Khánh Hòa</h2>
-                    <div class="products">
-                        
-                        
+                    <div class="header-product-list">
+                        <h2 class="product-title">Yến sào Sanvinest Khánh Hoà</h2>
+                        <div class="sort-container">
+                            <label for="sort" class="sort-label">Sắp xếp:</label>
+                            <select id="sort" class="sort-select">
+                                <option value="default">Mặc định</option>
+                                <option value="price_asc">Giá tăng dần</option>
+                                <option value="price_desc">Giá giảm dần</option>
+                            </select>
+                        </div>
                     </div>
-                    <ul class="listPage"> </ul>
+                    <div class="products">
+                        <a href="detail.html"> </a>
+                    </div>
+
+                    <ul class="listPage"></ul>
                     <script src="/assets/js/sanviest.js"></script>
-                
+                </div>
+
+                <div id="productDetails" class="modal1">
+                    <div class="modal-content1">
+                        <div class="modal-content5">
+                            <img id="productImage" src="" alt="Product Image" />
+                            <div class="product-info">
+                                <p id="productName" class="product-name"></p>
+                                <p
+                                    id="description"
+                                    class="product-description"
+                                ></p>
+                                <p id="productPrice" class="product-price"></p>
+                            </div>
+                            <span class="close" onclick="closeProductDetails()"
+                                >&times;</span
+                            >
+                        </div>
+                        <div class="add">
+                            <button onclick="addToCart()">
+                                Thêm vào giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-        
         
         <footer>
             <div class="footer-container">

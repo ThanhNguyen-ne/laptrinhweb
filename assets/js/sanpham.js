@@ -75,23 +75,53 @@ function changePage(i) {
 // Hàm để thêm sản phẩm vào giỏ hàng
 function addToCart(event, productId) {
     event.stopPropagation(); // Ngăn chặn việc chuyển hướng đến trang chi tiết khi nhấn vào nút
-    alert("Sản phẩm của bạn đã được thêm vào giỏ hàng!");
-    
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const product = productList.find(p => p.id === productId);
-    cart.push(product);
+
+    // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
+    const existingProductIndex = cart.findIndex(item => item.id === productId);
+    if (existingProductIndex !== -1) {
+        // Nếu sản phẩm đã tồn tại, tăng số lượng
+        cart[existingProductIndex].count += 1;
+    } else {
+        // Nếu sản phẩm chưa tồn tại, thêm sản phẩm vào giỏ hàng
+        cart.push({ ...product, count: 1 });
+    }
+    
     localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Hiển thị thông báo nhỏ
+    showNotification("Sản phẩm đã được thêm vào giỏ hàng!");
 }
 
-// Hàm để chuyển hướng đến trang checkout
 function redirectToCheckout(event, productId) {
     event.stopPropagation(); // Ngăn chặn việc chuyển hướng đến trang chi tiết khi nhấn vào nút
+
+    // Thêm sản phẩm vào giỏ hàng trước khi chuyển hướng
+    addToCart(event, productId);
+
+    // Chuyển hướng đến trang thanh toán
     window.location.href = 'checkout.html';
 }
 
-// Hàm để chuyển hướng đến trang chi tiết sản phẩm
 function redirectToDetail(productId) {
     window.location.href = `detail.html?id=${productId}`;
+}
+
+function showNotification(message) {
+    // Tạo một thông báo mới
+    const notification = document.createElement("div");
+    notification.className = "notification";
+    notification.innerText = message;
+
+    // Thêm thông báo vào body
+    document.body.appendChild(notification);
+
+    // Loại bỏ thông báo sau 3 giây
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 // Khởi động việc lấy dữ liệu

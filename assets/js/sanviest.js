@@ -4,77 +4,125 @@ let limit = 12;
 let productList = []; // Biến để lưu danh sách sản phẩm
 
 const getData = async () => {
-    try {
-        const response = await fetch('../assets/js/data.json'); // Kiểm tra lại đường dẫn
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
+    const response = await fetch("../assets/js/data.json");
+    const data = await response.json();
 
-        if (data) {
-            // Lọc sản phẩm có id từ 1 tới 7
-            productList = data.filter(item => item.id >= 16 && item.id <= 30);
-            loadItem(); // Hiển thị sản phẩm
-            listPage(); // Cập nhật phân trang
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
+    if (data) {
+        productList = data.filter(item => item.id >= 16 && item.id <= 30); // Lưu sản phẩm vào biến productList
+        loadItem();
     }
 };
 
-function loadItem() {
-    const beginGet = limit * (thisPage - 1);
-    const endGet = limit * thisPage;
 
-    products.innerHTML = productList.slice(beginGet, endGet).map(item => {
-        return `
-        <div class="productCard" id="${item.id}">
-          <a href="detail.html?id=${item.id}">  <img src="${item.img}" alt="${item.title}" /></a>
-            <p class="name">${item.title}</p>
-            <p class="price">${item.price}</p>
-        </div>
-        `;
-    }).join('');
-    
-    listPage(); // Cập nhật phân trang
+function loadItem() {
+    let beginGet = limit * (thisPage - 1);
+    let endGet = limit * thisPage;
+    products.innerHTML = productList.slice(beginGet, endGet)
+        .map((item) => {
+            return `
+            <div class="productCard" id="${item.id}" onclick="redirectToDetail(${item.id})">
+                <img src="${item.img}" alt="${item.title}" />
+                <p class="name">${item.title}</p>
+                <p class="price">${item.price}</p>
+                <div class="product-buttons">
+                    <button class="btn-cart" onclick="addToCart(event, ${item.id})">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                    <button class="btn-buy" onclick="redirectToCheckout(event, ${item.id})">
+                        Mua ngay
+                    </button>
+                </div>
+            </div>
+            `;
+        })
+        .join("");
+    listPage();
 }
 
 function listPage() {
-    const count = Math.ceil(productList.length / limit);
-    const listPageElement = document.querySelector('.listPage');
-    listPageElement.innerHTML = ''; // Xóa nội dung cũ
+    let count = Math.ceil(productList.length / limit);
+    document.querySelector(".listPage").innerHTML = "";
 
-    // Thêm nút "PREV"
-    if (thisPage > 1) {
-        const prev = document.createElement('li');
-        prev.innerText = 'PREV';
-        prev.setAttribute('onclick', "changePage(" + (thisPage - 1) + ")");
-        listPageElement.appendChild(prev);
+    if (thisPage != 1) {
+        let prev = document.createElement("li");
+        prev.innerText = "TRƯỚC";
+        prev.setAttribute("onclick", `changePage(${thisPage - 1})`);
+        document.querySelector(".listPage").appendChild(prev);
     }
 
-    // Tạo các nút trang
     for (let i = 1; i <= count; i++) {
-        const newPage = document.createElement('li');
+        let newPage = document.createElement("li");
         newPage.innerText = i;
-        newPage.setAttribute('onclick', "changePage(" + i + ")");
-        if (i === thisPage) {
-            newPage.classList.add('active');
+        if (i == thisPage) {
+            newPage.classList.add("active");
         }
-        listPageElement.appendChild(newPage);
+        newPage.setAttribute("onclick", `changePage(${i})`);
+        document.querySelector(".listPage").appendChild(newPage);
     }
 
-    // Thêm nút "NEXT"
-    if (thisPage < count) {
-        const next = document.createElement('li');
-        next.innerText = 'NEXT';
-        next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
-        listPageElement.appendChild(next);
+    if (thisPage != count) {
+        let next = document.createElement("li");
+        next.innerText = "SAU";
+        next.setAttribute("onclick", `changePage(${thisPage + 1})`);
+        document.querySelector(".listPage").appendChild(next);
     }
 }
 
 function changePage(i) {
     thisPage = i;
-    loadItem(); // Cập nhật sản phẩm hiển thị trên trang mới
+    loadItem();
+}
+
+// Hàm để thêm sản phẩm vào giỏ hàng
+function addToCart(event, productId) {
+    event.stopPropagation(); // Ngăn chặn việc chuyển hướng đến trang chi tiết khi nhấn vào nút
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const product = productList.find(p => p.id === productId);
+
+    // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
+    const existingProductIndex = cart.findIndex(item => item.id === productId);
+    if (existingProductIndex !== -1) {
+        // Nếu sản phẩm đã tồn tại, tăng số lượng
+        cart[existingProductIndex].count += 1;
+    } else {
+        // Nếu sản phẩm chưa tồn tại, thêm sản phẩm vào giỏ hàng
+        cart.push({ ...product, count: 1 });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Hiển thị thông báo nhỏ
+    showNotification("Sản phẩm đã được thêm vào giỏ hàng!");
+}
+
+function redirectToCheckout(event, productId) {
+    event.stopPropagation(); // Ngăn chặn việc chuyển hướng đến trang chi tiết khi nhấn vào nút
+
+    // Thêm sản phẩm vào giỏ hàng trước khi chuyển hướng
+    addToCart(event, productId);
+
+    // Chuyển hướng đến trang thanh toán
+    window.location.href = 'checkout.html';
+}
+
+function redirectToDetail(productId) {
+    window.location.href = `detail.html?id=${productId}`;
+}
+
+function showNotification(message) {
+    // Tạo một thông báo mới
+    const notification = document.createElement("div");
+    notification.className = "notification";
+    notification.innerText = message;
+
+    // Thêm thông báo vào body
+    document.body.appendChild(notification);
+
+    // Loại bỏ thông báo sau 3 giây
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 // Khởi động việc lấy dữ liệu
