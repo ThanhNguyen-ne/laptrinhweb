@@ -340,3 +340,76 @@ button {
     background-color: #007bff;
     color: white;
 }
+
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* CSS cho phần sắp xếp sản phẩm */
+.header-product-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #CAE9FF; /* Màu nền nhẹ nhàng */
+}
+
+.product-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+}
+
+.sort-label {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+}
+
+.sort-select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background-color: #A2D4F8;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sort-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.sort-select option {
+    padding: 10px;
+    font-size: 16px;
+}
+

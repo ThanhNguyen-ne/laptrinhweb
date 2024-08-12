@@ -1,4 +1,4 @@
-document.querySelector('.sort select').addEventListener('change', function () {
+document.querySelector('.sort-select').addEventListener('change', function () {
     const sortBy = this.value;
     sortProducts(sortBy);
 });
