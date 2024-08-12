@@ -26,9 +26,9 @@ iframe[seamless] {
 
 /* Cải thiện phần header */
 header {
-    height: 266px;
+    height: fit-content;
     /* background: linear-gradient(90deg, #003366 0%, #004080 100%); */
-    background-color: #1B4965;
+    background-color: rgb(173, 216, 230);
     position: relative;
     z-index: 10;
 }
@@ -88,8 +88,9 @@ header {
 }
 
 .header_giua img {
-    width: 80%;
-    height: 186px;
+    width: 8%;
+    height: auto;
+    
     display: block;
     margin: auto;
     position: relative;
@@ -269,4 +270,40 @@ header {
     to {
         opacity: 1;
     }
+}
+.header_giua {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 80px; /* Adjust padding as needed */
+    background-color: rgb(173, 216, 230); /* Match the background color */
+}
+
+.header_giua img {
+    width: 8%;
+    height: auto;
+}
+
+.header_giua .search {
+    flex-grow: 1; /* Allow the search bar to grow and fill available space */
+    margin: 0 20px; /* Adjust margin between logo and search bar */
+    width: 50%;
+}
+
+.header_giua .cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #62B6CB;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.header_giua .cart-button i {
+    color: white;
+    font-size: 20px;
 }
