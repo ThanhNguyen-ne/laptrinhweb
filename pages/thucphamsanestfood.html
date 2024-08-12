@@ -10,12 +10,14 @@
             referrerpolicy="no-referrer"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg">
+        <link
+            rel="icon"
+            href="/assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg"
+        />
         <title>Thực Phẩm Sanest Foods</title>
-        <link rel="stylesheet" href="/assets/css/stylessanpham.css" />
-        <link rel="stylesheet" href="/assets/css/header.css">
-        <link rel="stylesheet" href="../assets/css/footer.css">
-
+        <link rel="stylesheet" href="/assets/css/sanpham.css" />
+        <link rel="stylesheet" href="/assets/css/header.css" />
+        <link rel="stylesheet" href="../assets/css/footer.css" />
     </head>
     <body>
         <header>
@@ -23,24 +25,39 @@
                 <div class="header_tren">
                     <div class="info">
                         <span>📞 Hotline: 092932067</span>
-                        <span>📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh Khánh Hòa</span>
+                        <span
+                            >📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh
+                            Khánh Hòa</span
+                        >
                     </div>
                     <div class="auth-buttons">
-                        <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
-                        <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
+                        <button id="loginBtn" onclick="showLoginModal()">
+                            Đăng nhập
+                        </button>
+                        <button id="signupBtn" onclick="showSignupModal()">
+                            Đăng kí
+                        </button>
                     </div>
-    
+
                     <!-- The Modals -->
                     <div id="loginModal" class="modal">
                         <div class="modal-content">
-                            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                            <span
+                                class="close"
+                                onclick="closeModal('loginModal')"
+                                >&times;</span
+                            >
                             <div id="loginModalBody"></div>
                         </div>
                     </div>
-    
+
                     <div id="signupModal" class="modal">
                         <div class="modal-content">
-                            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+                            <span
+                                class="close"
+                                onclick="closeModal('signupModal')"
+                                >&times;</span
+                            >
                             <div id="signupModalBody"></div>
                         </div>
                     </div>
@@ -56,18 +73,46 @@
                                 <li>
                                     <a href="sanpham.html"> Sản phẩm</a>
                                     <ul class="subnav">
-                                        <li><a href="yensaothiennhiennguyento.html">Yến sào đảo yến thiên nhiên</a></li>
-                                        <li><a href="thucphamsanestfood.html">Thực phẩm Sanest Food</a></li>
-                                        <li><a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hoà</a></li>
-                                        <li><a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a></li>
-                                        <li><a href="tinhchatyensao.html">Tinh chất yến sào</a></li>
-                                        
+                                        <li>
+                                            <a
+                                                href="yensaothiennhiennguyento.html"
+                                                >Yến sào đảo yến thiên nhiên</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="thucphamsanestfood.html"
+                                                >Thực phẩm Sanest Food</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="yensaosanviestkhanhhoa.html"
+                                                >Yến sào Sanvinest Khánh Hoà</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="yensaosanestkhanhhoa.html"
+                                                >Yến sào Sanest</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="tinhchatyensao.html"
+                                                >Tinh chất yến sào</a
+                                            >
+                                        </li>
                                     </ul>
                                 </li>
-                                
+
                                 <li><a href="thongtin.html">Thông tin</a></li>
                                 <li><a href="#">Liên hệ</a></li>
-                                <li><a class="cart" href="giohang.html"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                                <li>
+                                    <a class="cart" href="giohang.html"
+                                        ><i
+                                            class="fa-solid fa-cart-shopping"
+                                        ></i>
+                                        Giỏ Hàng</a
+                                    >
+                                </li>
                             </ul>
                             <form action="" class="search">
                                 <input
@@ -95,15 +140,6 @@
 
         <div class="content">
             <div class="sidebar">
-                <div class="price-filter">
-                    <h4>Giá sản phẩm</h4>
-                    <input type="range" class="slider" min="0" max="30000000" />
-                    <div class="price-values">
-                        <span>0đ</span>
-                        <span>30,000,000đ</span>
-                    </div>
-                    <button class="btn">Lọc giá</button>
-                </div>
                 <div class="featured-products">
                     <h4>Sản phẩm nổi bật</h4>
                     <ul>
@@ -137,28 +173,49 @@
                 </div>
             </div>
             <div class="main-content">
-                <div class="sort">
-                    <select>
-                        <option value="default">Mặc định</option>
-                        <option value="price_asc">Giá tăng dần</option>
-                        <option value="price_desc">Giá giảm dần</option>
-                    </select>
-                </div>
                 <div class="product-list">
-                    <h2>Thực phẩm Sanest Foods</h2>
-                    <div class="products">
-                        
-                        
-                        
+                    <h2>Thực phẩm Sanest Food</h2>
+                    <div class="sort">
+                        <select>
+                            <option value="default">Mặc định</option>
+                            <option value="price_asc">Giá tăng dần</option>
+                            <option value="price_desc">Giá giảm dần</option>
+                        </select>
                     </div>
-                    <ul class="listPage"> </ul>
+                    <div class="products">
+                        <a href="detail.html"> </a>
+                    </div>
+
+                    <ul class="listPage"></ul>
                     <script src="/assets/js/thucpham.js"></script>
-                
+                </div>
+
+                <div id="productDetails" class="modal1">
+                    <div class="modal-content1">
+                        <div class="modal-content5">
+                            <img id="productImage" src="" alt="Product Image" />
+                            <div class="product-info">
+                                <p id="productName" class="product-name"></p>
+                                <p
+                                    id="description"
+                                    class="product-description"
+                                ></p>
+                                <p id="productPrice" class="product-price"></p>
+                            </div>
+                            <span class="close" onclick="closeProductDetails()"
+                                >&times;</span
+                            >
+                        </div>
+                        <div class="add">
+                            <button onclick="addToCart()">
+                                Thêm vào giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-        
-        
+
         <footer>
             <div class="footer-container">
                 <div class="footer-section">
@@ -185,7 +242,12 @@
                     <ul>
                         <li><a href="#">Trang chủ</a></li>
                         <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="http://127.0.0.1:5500/pages/hotrokhachhang.html">Hỗ trợ khách hàng</a></li>
+                        <li>
+                            <a
+                                href="http://127.0.0.1:5500/pages/hotrokhachhang.html"
+                                >Hỗ trợ khách hàng</a
+                            >
+                        </li>
                         <li><a href="#">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img
@@ -220,23 +282,25 @@
                         </li>
                     </ul>
                 </div>
-            </div>   
+            </div>
             <div id="productDetails" class="modal1">
                 <div class="modal-content1">
                     <div class="modal-content5">
-                        <img id="productImage" src="" alt="Product Image">
+                        <img id="productImage" src="" alt="Product Image" />
                         <div class="product-info">
                             <p id="productName" class="product-name"></p>
                             <p id="productPrice" class="product-price"></p>
                             <p id="description" class="product-description"></p>
-                        </div>    
-                        <span class="close" onclick="closeProductDetails()">&times;</span>
+                        </div>
+                        <span class="close" onclick="closeProductDetails()"
+                            >&times;</span
+                        >
                     </div>
                     <div class="add">
                         <button onclick="addToCart()">Thêm vào giỏ hàng</button>
-                    </div> 
+                    </div>
                 </div>
-            </div>         
+            </div>
         </footer>
 
         <script
@@ -247,5 +311,7 @@
         ></script>
         <script src="../assets/js/header.js"></script>
         <script src="../assets/js/sort.js"></script>
+        <script src="../assets/js/cart.js"></script>
+        <script src="../assets/js/sanpham.js"></script>
     </body>
 </html>

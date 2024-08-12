@@ -47,7 +47,8 @@
     gap: 10px;
 }
 
-.btn-add, .btn-buy {
+.btn-add,
+.btn-buy {
     cursor: pointer;
     padding: 15px 30px;
     font-size: 17px;
@@ -63,7 +64,8 @@
     background-color: #ff6347;
 }
 
-.btn-add:hover, .btn-buy:hover {
+.btn-add:hover,
+.btn-buy:hover {
     opacity: 0.85;
 }
 

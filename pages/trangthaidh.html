@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Trạng Thái Đơn Hàng</title>
+        <link rel="stylesheet" href="/assets/css/header.css">
+        <link rel="stylesheet" href="../assets/css/footer.css">
+        <link rel="stylesheet" href="/assets/css/sanpham.css" />
+        <link rel="stylesheet" href="/assets/css/trangthai.css" />
+    </head>
+    <body>
+        <header>
+            <div id="main">
+                <div class="header_tren">
+                    <div class="info">
+                        <span>📞 Hotline: 092932067</span>
+                        <span
+                            >📍 Địa chỉ: 248 Thống Nhất, Tp Nha Trang, Tỉnh
+                            Khánh Hòa</span
+                        >
+                    </div>
+                    <div class="auth-buttons">
+                        <button id="loginBtn" onclick="showLoginModal()">
+                            Đăng nhập
+                        </button>
+                        <button id="signupBtn" onclick="showSignupModal()">
+                            Đăng kí
+                        </button>
+                    </div>
+                </div>
+                <div class="header_giua">
+                    <img src="/assets/image/A1_new.jpg" />
+                </div>
+                <nav>
+                    <div class="header_duoi">
+                        <div class="content-header">
+                            <ul id="nav">
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="sanpham.html">Sản phẩm</a></li>
+                                <li><a href="thongtin.html">Thông tin</a></li>
+                                <li><a href="lienhe.html">Liên hệ</a></li>
+                                <li><a href="giohang.html">Giỏ Hàng</a></li>
+                                <li class="active"><a href="trangthaidh.html">Trạng Thái Đơn Hàng</a></li>
+                            </ul>
+                            <form action="" class="search">
+                                <input
+                                    type="text"
+                                    class="search-text"
+                                    placeholder="Tìm kiếm sản phẩm "
+                                    required
+                                />
+                                <button class="btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="order-status">
+                <h2>Kiểm Tra Trạng Thái Đơn Hàng</h2>
+                <form id="orderStatusForm">
+                    <label for="orderID">Mã Đơn Hàng:</label>
+                    <input type="text" id="orderID" name="orderID" placeholder="Nhập mã đơn hàng" required />
+
+                    <button type="submit">Kiểm Tra</button>
+                </form>
+
+                <div id="orderResult" class="order-result">
+                    <!-- Kết quả kiểm tra trạng thái đơn hàng sẽ hiển thị ở đây -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h4>LIÊN HỆ</h4>
+                    <p>Thông tin sinh viên</p>
+                    <p>2251120246 - Nguyễn Võ Thành</p>
+                    <p>2251120259 - Nguyễn Quốc Tùng</p>
+                    <p>GV hướng dẫn : Mai Thanh Thảo</p>
+                </div>
+                <div class="footer-section">
+                    <h4>DANH MỤC</h4>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="sanpham.html">Sản phẩm</a></li>
+                        <li><a href="hotrokhachhang.html">Hỗ trợ khách hàng</a></li>
+                        <li><a href="trangthaidh.html">Kiểm tra đơn hàng</a></li>
+                    </ul>
+                    <img src="/assets/image/logoSaleNoti.png" alt="" width="150px" />
+                </div>
+                <div class="footer-section">
+                    <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+                    <ul>
+                        <li><a href="#">Tìm kiếm</a></li>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Chính sách đổi hàng</a></li>
+                        <li><a href="#">Phương thức thanh toán</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Phương thức vận chuyển</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>KẾT NỐI VỚI YẾN SÀO KHÁNH HÒA</h4>
+                    <div class="social-media">
+                        <img src="/assets/image/yensaokhanhhoa.jpg" alt="Yến sào Khánh Hòa" width="150px" />
+                        <a href="#">facebook.com</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="../assets/js/dangnhap.js"></script>
+        <script src="../assets/js/orderStatus.js"></script>
+    </body>
+</html>

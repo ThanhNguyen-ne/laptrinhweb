@@ -1,0 +1,56 @@
+/* Styles for order status page */
+.order-status {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.order-status h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+.order-status form {
+    margin-bottom: 20px;
+}
+
+.order-status label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.order-status input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.order-status button {
+    padding: 10px 20px;
+    background-color: #40E0D0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-status button:hover {
+    background-color: #008080;
+}
+
+.order-result {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+}
