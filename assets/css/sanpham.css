@@ -9,6 +9,7 @@ html {
 }
 
 body {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -23,7 +24,8 @@ body {
     align-items: center;
     gap: 5px;
     border-radius: 5px;
-        margin-left: 150px;
+    margin-left: 150px;
+    margin-top: 10px;
 
 }
 
@@ -46,7 +48,7 @@ body {
 .content {
     display: flex;
     flex-wrap: wrap;
-    margin: 20px;
+    /* margin: 20px; */
 }
 
 .sidebar {
@@ -173,9 +175,9 @@ body {
     margin-bottom: 20px;
 }
 
-.price-filter h4,
-.featured-products h4 {
-    margin-bottom: 10px;
+.featured-products h2 {
+    margin-top: 13px;
+    margin-bottom: 35px;
 }
 
 .slider {

@@ -53,7 +53,7 @@
     padding: 10px 15px;
     border-radius: 20px;
     border: none;
-    background: teal;
+    background: #5FA8D3;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -68,37 +68,26 @@
     margin-top: 20px;
 }
 
-.google-login-button {
-    border-radius: 20px;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 14px;
-    border: 2px solid #747474;
-}
-
 a {
     text-decoration: none;
 }
 
 .sign-in-link a {
-    color: teal;
+    color: #5FA8D3;
 }
 
 .sign-up-link a {
-    color: teal;
+    color: #5FA8D3;
 }
 
 .sign-in-link a:hover {
-    color: #006666
+    color: #5FA8D3
 }
 
 .sign-up-link a:hover {
-    color: #006666;
+    color: #5FA8D3;
 }
 
 button:hover {
-    background-color: #006666;
+    background-color: #5FA8D3;
 }
