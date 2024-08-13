@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("analytics.css"); /* Import the common styles */
+
+.settings-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+    margin-top: 24px;
+}
+
+.settings-section {
+    padding: 24px;
+    background: var(--light);
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.settings-section .input-group {
+    margin-bottom: 16px;
+}
+
+.settings-section .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.settings-section .input-group input[type="text"],
+.settings-section .input-group input[type="email"],
+.settings-section .input-group input[type="password"],
+.settings-section .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.settings-section .input-group input[type="checkbox"] {
+    width: auto;
+    height: auto;
+}
+
+.settings-section .btn.save-btn {
+    background: var(--primary);
+    color: var(--light);
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.settings-section .btn.save-btn:hover {
+    background: var(--dark-primary);
+}

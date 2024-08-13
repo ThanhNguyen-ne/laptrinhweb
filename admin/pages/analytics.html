@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/admin/assets/css/analytics.css" />
+        <title>Phân tích</title>
+    </head>
+
+    <body>
+        <!-- Sidebar -->
+
+        <div class="sidebar">
+            <a href="#" class="logo">
+                <i class="bx bxl-twitter"></i>
+                <div class="logo-name"><span>Yến sào</span>TT</div>
+            </a>
+            <ul class="side-menu">
+
+                <li>
+                    <a href="store.html"
+                        ><i class="bx bx-store-alt"></i>Cửa hàng</a
+                    >
+                </li>
+                <li class="active">
+                    <a href="analytics.html"
+                        ><i class="bx bx-analyse"></i>Phân tích</a
+                    >
+                </li>
+                <li>
+                    <a href="feedback.html"
+                        ><i class="bx bx-message-square-dots"></i>Phản hồi</a
+                    >
+                </li>
+                <li>
+                    <a href="users.html"
+                        ><i class="bx bx-group"></i>Người dùng</a
+                    >
+                </li>
+                <li>
+                    <a href="settings.html"><i class="bx bx-cog"></i>Cài đặt</a>
+                </li>
+            </ul>
+            <ul class="side-menu">
+                <li>
+                    <a href="#" class="logout">
+                        <i class="bx bx-log-out-circle"></i>
+                        Đăng xuất
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- End of Sidebar -->
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Navbar -->
+            <nav>
+                <i class="bx bx-menu"></i>
+                <form action="#">
+                    <div class="form-input">
+                        <input type="search" placeholder="Tìm kiếm..." />
+                        <button class="search-btn" type="submit">
+                            <i class="bx bx-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <input type="checkbox" id="theme-toggle" hidden />
+                <label for="theme-toggle" class="theme-toggle"></label>
+                <a href="#" class="notif">
+                    <i class="bx bx-bell"></i>
+                    <span class="count">12</span>
+                </a>
+                <a href="#" class="profile">
+                    <img src="/admin/assets/images/logohdeader.webp" />
+                </a>
+            </nav>
+            <!-- End of Navbar -->
+
+            <main>
+                <div class="header">
+                    <div class="left">
+                        <h1>Bảng điều khiển</h1>
+                        <ul class="breadcrumb">
+                            <li><a href="#">Phân tích</a></li>
+                            /
+                            <li><a href="#" class="active">Cửa hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Insights -->
+                <ul class="insights">
+                    <li>
+                        <i class="bx bx-calendar-check"></i>
+                        <span class="info">
+                            <h3>1,074</h3>
+                            <p>Đơn hàng đã thanh toán</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bx bx-show-alt"></i>
+                        <span class="info">
+                            <h3>3,944</h3>
+                            <p>Lượt truy cập</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bx bx-line-chart"></i>
+                        <span class="info">
+                            <h3>14,721</h3>
+                            <p>Tìm kiếm</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bx bx-dollar-circle"></i>
+                        <span class="info">
+                            <h3>$6,742</h3>
+                            <p>Tổng doanh thu</p>
+                        </span>
+                    </li>
+                </ul>
+                <!-- End of Insights -->
+
+                <div class="bottom-data">
+                    <div class="orders">
+                        <div class="header">
+                            <i class="bx bx-receipt"></i>
+                            <h3>Đơn hàng gần đây</h3>
+                            <i class="bx bx-filter"></i>
+                            <i class="bx bx-search"></i>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Người dùng</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/admin/assets/images/logohdeader.webp" />
+                                        <p>Nguyễn Quốc Tùng</p>
+                                    </td>
+                                    <td>01-08-2024</td>
+                                    <td>
+                                        <span class="status completed"
+                                            >Hoàn thành</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="/admin/assets/images/logohdeader.webp" />
+                                        <p>Nguyễn Quốc Tùng</p>
+                                    </td>
+                                    <td>01-08-2024</td>
+                                    <td>
+                                        <span class="status pending"
+                                            >Chờ xử lý</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="/admin/assets/images/logohdeader.webp" />
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>01-08-2024</td>
+                                    <td>
+                                        <span class="status process"
+                                            >Đang xử lý</span
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script src="/admin/assets/js/analytics.js"></script>
+    </body>
+</html>

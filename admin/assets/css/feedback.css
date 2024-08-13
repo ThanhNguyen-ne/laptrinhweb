@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("analytics.css"); /* Import the common styles */
+
+.feedback-table {
+    margin-top: 24px;
+}
+
+.feedback-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.feedback-table table th,
+.feedback-table table td {
+    padding: 12px;
+    border: 1px solid var(--grey);
+    text-align: left;
+}
+
+.feedback-table table th {
+    background: var(--light-primary);
+}
+
+.feedback-table table td {
+    background: var(--light);
+}
+
+.feedback-table table tr:hover {
+    background: var(--grey);
+}
+
+.feedback-table table .actions {
+    display: flex;
+    grid-gap: 10px;
+}
+
+.feedback-table table .actions .btn {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.feedback-table table .actions .delete-btn {
+    background: var(--danger);
+    color: var(--light);
+}

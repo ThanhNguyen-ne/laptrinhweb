@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("analytics.css"); /* Import the common styles */
+
+.content main .header .btn {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: var(--primary);
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.user-table {
+    margin-top: 24px;
+}
+
+.user-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table table th,
+.user-table table td {
+    padding: 12px;
+    border: 1px solid var(--grey);
+    text-align: left;
+}
+
+.user-table table th {
+    background: var(--light-primary);
+}
+
+.user-table table td {
+    background: var(--light);
+}
+
+.user-table table tr:hover {
+    background: var(--grey);
+}
+
+.user-table table .actions {
+    display: flex;
+    grid-gap: 10px;
+}
+
+.user-table table .actions .btn {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.user-table table .actions .edit-btn {
+    background: var(--primary);
+    color: var(--light);
+}
+
+.user-table table .actions .delete-btn {
+    background: var(--danger);
+    color: var(--light);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: var(--light);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid var(--grey);
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close {
+    color: var(--danger);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--dark);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--grey);
+    border-radius: 4px;
+}
+
+.btn.submit-btn {
+    background: var(--primary);
+    color: var(--light);
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn.submit-btn:hover {
+    background: var(--dark-primary);
+}
