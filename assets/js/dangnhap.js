@@ -1,172 +1,170 @@
-function showLoginModal() {
-    var modal = document.getElementById('loginModal');
-    var modalBody = document.getElementById('loginModalBody');
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'dangnhap.html', true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            modalBody.innerHTML = xhr.responseText;
-            modal.style.display = 'flex';
+document.addEventListener('DOMContentLoaded', function() {
+
+    const emailToggleBtn = document.getElementById('emailToggle');
+    const phoneToggleBtn = document.getElementById('phoneToggle');
+    const emailLoginForm = document.getElementById('emailLoginForm');
+    const phoneLoginForm = document.getElementById('phoneLoginForm');
+    const regForm = document.querySelector('.form');
+
+    function toggleForm(showEmail) {
+        if (showEmail) {
+            emailLoginForm.style.display = 'block';
+            phoneLoginForm.style.display = 'none';
+            emailToggleBtn.classList.add('active');
+            phoneToggleBtn.classList.remove('active');
+        } else {
+            emailLoginForm.style.display = 'none';
+            phoneLoginForm.style.display = 'block';
+            emailToggleBtn.classList.remove('active');
+            phoneToggleBtn.classList.add('active');
         }
-    };
-    xhr.send();
-}
+    }
 
-function showSignupModal() {
-    var modal = document.getElementById('signupModal');
-    var modalBody = document.getElementById('signupModalBody');
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'dangki.html', true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            modalBody.innerHTML = xhr.responseText;
-            modal.style.display = 'flex';
+    function showLoginModal(modalId, modalContentUrl) {
+        const modal = document.getElementById(modalId);
+        const modalBody = modal.querySelector('.modal-body');
+
+        fetch(modalContentUrl)
+            .then(response => response.text())
+            .then(html => {
+                modalBody.innerHTML = html;
+                modal.style.display = 'flex';
+            })
+            .catch(error => console.error('Error fetching modal content:', error));
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'none';
+    }
+
+    function validateRegistrationForm() {
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const fullName = document.getElementById('regFullName').value.trim();
+        const username = document.getElementById('regUsername').value.trim();
+        const password = document.getElementById('regPassWord').value.trim();
+        const address = document.getElementById('regAddress').value.trim();
+
+        const emailError = document.getElementById('emailError');
+        const phoneError = document.getElementById('phoneError');
+        const fullNameError = document.getElementById('fullnameError');
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
+        const addressError = document.getElementById('addressError');
+        const regMessage = document.getElementById('regMessage');
+
+        emailError.innerText = '';
+        phoneError.innerText = '';
+        fullNameError.innerText = '';
+        usernameError.innerText = '';
+        passwordError.innerText = '';
+        addressError.innerText = '';
+        regMessage.innerText = '';
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const hasError = false;
+
+        if (email && !email.match(emailRegex)) {
+            emailError.innerText = 'Vui lòng nhập email hợp lệ.';
+            hasError = true;
         }
-    };
-    
-    xhr.send();
 
-}
+        if (phone && !phone.match(/^\d{10}$/)) {
+            phoneError.innerText = 'Số điện thoại phải có đúng 10 chữ số.';
+            hasError = true;
+        }
 
-function closeModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "none";
-}
+        if (!fullName) {
+            fullNameError.innerText = 'Vui lòng nhập họ và tên.';
+            hasError = true;
+        }
 
-// Switch to signup modal from login modal
-function switchToSignup() {
-    closeModal('loginModal');
-    showSignupModal();
-}
+        if (!username) {
+            usernameError.innerText = 'Vui lòng nhập tên đăng nhập.';
+            hasError = true;
+        }
 
-// Switch to login modal from signup modal
-function switchToLogin() {
-    closeModal('signupModal');
-    showLoginModal();
-}
+        if (password.length < 8) {
+            passwordError.innerText = 'Mật khẩu phải có ít nhất 8 ký tự.';
+            hasError = true;
+        } else if (!/[a-z]/.test(password)) {
+            passwordError.innerText = 'Mật khẩu phải có ít nhất một chữ thường.';
+            hasError = true;
+        } else if (!/[A-Z]/.test(password)) {
+            passwordError.innerText = 'Mật khẩu phải có ít nhất một chữ in hoa.';
+            hasError = true;
+        } else if (!/[0-9]/.test(password)) {
+            passwordError.innerText = 'Mật khẩu phải có ít nhất một chữ số.';
+            hasError = true;
+        }
 
-function register(event) {
-    event.preventDefault();
+        if (!address) {
+            addressError.innerText = 'Vui lòng nhập địa chỉ.';
+            hasError = true;
+        }
 
-    // Lấy giá trị từ các input
-    let username = document.getElementById('regUsername').value.trim();
-    let password = document.getElementById('regPassWord').value.trim();
-    let email = document.getElementById('regEmail').value.trim();
-    let fullname = document.getElementById('regFullName').value.trim();
-    let phone = document.getElementById('regPhone').value.trim();
-
-    // Các phần tử để hiển thị lỗi
-    let emailError = document.getElementById('emailError');
-    let phoneError = document.getElementById('phoneError');
-    let fullnameError = document.getElementById('fullnameError');
-    let usernameError = document.getElementById('usernameError');
-    let passwordError = document.getElementById('passwordError');
-    let regMessage = document.getElementById('regMessage');
-
-    // Biểu thức regex kiểm tra các điều kiện mật khẩu
-    let lowerCaseLetter = /[a-z]/g;
-    let upperCaseLetter = /[A-Z]/g;
-    let numbers = /[0-9]/g;
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Xóa các thông báo lỗi trước đó
-    emailError.innerText = '';
-    phoneError.innerText = '';
-    fullnameError.innerText = '';
-    usernameError.innerText = '';
-    passwordError.innerText = '';
-    regMessage.innerText = '';
-
-    // Biến chứa thông báo lỗi
-    let hasError = false;
-
-    // Kiểm tra nếu các trường bắt buộc bị bỏ trống hoặc không hợp lệ
-    if (!email.match(emailRegex)) {
-        emailError.innerText = "Vui lòng nhập email hợp lệ.";
-        hasError = true;
-    }
-    if (!phone.match(/^\d{10}$/)) {
-        phoneError.innerText = "Số điện thoại phải có đúng 10 chữ số.";
-        hasError = true;
-    }
-    if (!fullname) {
-        fullnameError.innerText = "Vui lòng nhập họ và tên.";
-        hasError = true;
-    }
-    if (!username) {
-        usernameError.innerText = "Vui lòng nhập tên đăng nhập.";
-        hasError = true;
-    }
-    if (password.length < 8) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất 8 ký tự.";
-        hasError = true;
-    }
-    if (!password.match(lowerCaseLetter)) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất một chữ thường.";
-        hasError = true;
-    }
-    if (!password.match(upperCaseLetter)) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất một chữ in hoa.";
-        hasError = true;
-    }
-    if (!password.match(numbers)) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất một chữ số.";
-        hasError = true;
+        return !hasError;
     }
 
-    // Nếu có lỗi, dừng quá trình đăng ký
-    if (hasError) {
-        return;
-    }
-
-    // Kiểm tra và lưu thông tin người dùng
-    let user = {
-        username: username,
-        password: password,
-        fullname: fullname,
-        email: email,
-    };
-
-    let users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : {};
-
-    if (users[username]) {
-        regMessage.innerText = 'Tên người dùng đã tồn tại.';
-        regMessage.style.color = 'red';
-    } else {
-        users[username] = user;
-        localStorage.setItem('users', JSON.stringify(users));
-        regMessage.innerText = "Đăng ký thành công!";
-        regMessage.style.color = 'green';
-    }
-}
-
-
-function login(event) {
+    function register(event) {
         event.preventDefault();
 
-        let username = document.getElementById('loginUsername').value.trim();
-        let password = document.getElementById('loginPassword').value.trim();
-        let loginMessage = document.getElementById('loginMessage');
+        if (!validateRegistrationForm()) {
+            return;
+        }
 
-        let users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : {};
+        const user = {
+            email: document.getElementById('regEmail').value.trim(),
+            phone: document.getElementById('regPhone').value.trim(),
+            fullname: document.getElementById('regFullName').value.trim(),
+            username: document.getElementById('regUsername').value.trim(),
+            password: document.getElementById('regPassWord').value.trim(),
+            address: document.getElementById('regAddress').value.trim()
+        };
 
-        // Kiểm tra thông tin đăng nhập
-        if (!username || !password) {
-            loginMessage.innerText = "Vui lòng nhập tên người dùng và mật khẩu.";
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+
+        if (users[user.username]) {
+            document.getElementById('regMessage').innerText = 'Tên người dùng đã tồn tại.';
+            document.getElementById('regMessage').style.color = 'red';
+        } else {
+            users[user.username] = user;
+            localStorage.setItem('users', JSON.stringify(users));
+            document.getElementById('regMessage').innerText = 'Đăng ký thành công!';
+            document.getElementById('regMessage').style.color = 'green';
+        }
+    }
+
+    function login(event) {
+        event.preventDefault();
+
+        const usernameOrPhone = document.getElementById('loginEmail').value.trim() || document.getElementById('loginPhone').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        const loginMessage = document.getElementById('loginMessage');
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+
+        if (!usernameOrPhone || !password) {
+            loginMessage.innerText = 'Vui lòng nhập thông tin đăng nhập và mật khẩu.';
             loginMessage.style.color = 'red';
             return;
         }
 
-        if (users[username] && users[username].password === password) {
-            loginMessage.innerText = "Đăng nhập thành công!";
+        if (users[usernameOrPhone] && users[usernameOrPhone].password === password) {
+            loginMessage.innerText = 'Đăng nhập thành công!';
             loginMessage.style.color = 'green';
-            // Chuyển hướng đến trang chính hoặc thực hiện hành động sau khi đăng nhập thành công
-            window.location.href = 'index.html'; // Ví dụ: chuyển hướng đến trang chính
-            alert("Đăng nhập thành công")
+            window.location.href = 'index.html';
         } else {
-            loginMessage.innerText = "Tên người dùng hoặc mật khẩu không đúng.";
+            loginMessage.innerText = 'Tên người dùng hoặc mật khẩu không đúng.';
             loginMessage.style.color = 'red';
         }
     }
+
+    // Event listeners
+    regForm.addEventListener('submit', register);
+    emailToggleBtn.addEventListener('click', () => toggleForm(true));
+    phoneToggleBtn.addEventListener('click', () => toggleForm(false));
+
+    // Initialize with email form visible
+    toggleForm(true);
+});

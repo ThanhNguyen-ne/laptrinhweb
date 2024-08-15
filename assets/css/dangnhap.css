@@ -1,98 +1,133 @@
-
 .form-container {
     width: 100%;
-    max-width: 500px;
-    background-color: #fff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    max-width: 400px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     box-sizing: border-box;
-    padding: 20px 30px;
-    margin: auto;
-    animation: fadeIn 0.5s;
+    padding: 30px;
+    margin: 50px auto;
+    animation: fadeIn 0.5s ease-in-out;
     overflow: hidden;
-    /* Ensure content does not overflow */
 }
 
 .title {
     text-align: center;
-    margin: 10px 0 30px;
-    font-size: 28px;
-    font-weight: 800;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    margin-bottom: 1px;
+    gap: 16px;
+    margin-bottom: 10px;
 }
 
 .input {
-    border-radius: 20px;
-    border: 1px solid #c0c0c0;
-    padding: 12px 15px;
-    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
 }
-#regPassWord ,#regUsername ,#regFullName ,#regEmail, #regPhone,#loginUsername,#loginPassword{
-    border-radius: 20px;
-    border: 1px solid #c0c0c0;
-    padding: 12px 15px;
-    font-size: 16px;
+
+.input:focus {
+    border-color: #5FA8D3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(95, 168, 211, 0.5);
 }
+
 .page-link,
 .sign-up-link,
 .sign-in-link {
     text-decoration: none;
-    text-align: right;
-    color: #747474;
+    color: #5FA8D3;
+    font-size: 14px;
     cursor: pointer;
 }
 
 .page-link {
-    margin: 0;
     margin-top: 10px;
-    /* Added margin to create space */
+    text-align: right;
 }
 
 .form-btn {
-    padding: 10px 15px;
-    border-radius: 20px;
+    padding: 12px;
+    border-radius: 8px;
     border: none;
     background: #5FA8D3;
     color: white;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 10px;
-    /* Added margin to create space */
+    transition: background-color 0.3s ease-in-out;
 }
 
-.buttons-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+.form-btn:hover {
+    background-color: #4895c5;
 }
 
 a {
     text-decoration: none;
 }
 
-.sign-in-link a {
-    color: #5FA8D3;
-}
-
+.sign-in-link a,
 .sign-up-link a {
     color: #5FA8D3;
 }
 
-.sign-in-link a:hover {
-    color: #5FA8D3
-}
-
+.sign-in-link a:hover,
 .sign-up-link a:hover {
-    color: #5FA8D3;
+    color: #4895c5;
 }
 
-button:hover {
-    background-color: #5FA8D3;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error message styling */
+.error-message {
+    color: #ff4d4f;
+    font-size: 14px;
+    margin-top: 5px;
+    background-color: #fff1f0;
+    border: 1px solid #ffa39e;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Toggle Button Styles */
+.toggle-btn {
+    width: 50%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #f5f5f5;
+    color: #333;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.toggle-btn.active {
+    background: #5FA8D3;
+    color: white;
+}
+
+.toggle-btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
