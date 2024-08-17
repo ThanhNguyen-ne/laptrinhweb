@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Checkout</title>
     <link rel="stylesheet" href="../assets/css/checkout2.css">
     <link rel="stylesheet" href="../assets/css/header.css">
@@ -70,46 +74,54 @@
         </div>
     </header>
     <script src="../assets/js/header.js"></script>
-    <div class="container">
-        <h1>Thanh toán</h1>
 
-        <div id="cartItems"></div>
-        <div class="total">
-            Tổng cộng: <span id="totalAmount">0₫</span>
+    <div class="checkout-container">
+        <h1 class="checkout-title">Thanh toán</h1>
+
+        <div class="checkout-wrapper">
+            <div class="checkout-left">
+                <div id="cartItems"></div>
+                <div class="checkout-total">
+                    Tổng cộng: <span id="totalAmount">0₫</span>
+                </div>
+            </div>
+
+            <div class="checkout-right">
+                <form id="checkoutForm">
+                    <div class="checkout-form-group">
+                        <label for="name">Tên của bạn:</label>
+                        <input type="text" id="name">
+                        <div id="nameError" class="checkout-error-message"></div>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email">
+                        <div id="emailError" class="checkout-error-message"></div>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="address">Địa chỉ:</label>
+                        <input type="text" id="address">
+                        <div id="addressError" class="checkout-error-message"></div>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="phone">Số điện thoại:</label>
+                        <input type="text" id="phone">
+                        <div id="phoneError" class="checkout-error-message"></div>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="paymentMethod">Phương thức thanh toán:</label>
+                        <select id="paymentMethod">
+                            <option value="creditCard">Thẻ tín dụng</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="cod">Thanh toán khi nhận hàng</option>
+                        </select>
+                    </div>
+                    <button class="checkout-btn" type="submit">Xác nhận thanh toán</button>
+                </form>
+            </div>
         </div>
-
-        <form id="checkoutForm">
-            <div class="form-group">
-                <label for="name">Tên của bạn:</label>
-                <input type="text" id="name">
-                <div id="nameError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email">
-                <div id="emailError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-                <label for="address">Địa chỉ:</label>
-                <input type="text" id="address">
-                <div id="addressError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-                <label for="phone">Số điện thoại:</label>
-                <input type="text" id="phone">
-                <div id="phoneError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-                <label for="paymentMethod">Phương thức thanh toán:</label>
-                <select id="paymentMethod">
-                    <option value="creditCard">Thẻ tín dụng</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="cod">Thanh toán khi nhận hàng</option>
-                </select>
-            </div>
-            <button type="submit">Xác nhận thanh toán</button>
-        </form>
     </div>
+
     <footer>
         <div class="footer-container">
             <div class="footer-section">

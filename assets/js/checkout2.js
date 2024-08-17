@@ -10,25 +10,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
 
         if (cart.length > 0) {
-            cartItemsContainer.innerHTML = cart.map((itemCart) => {
-                const product = data.find((item) => item.id === itemCart.id);
-                const itemTotal = parseFloat(product.price.replace(/,/g, "")) * itemCart.count;
-                totalAmount += itemTotal;
+            cartItemsContainer.innerHTML = cart
+                .map((itemCart) => {
+                    const product = data.find(
+                        (item) => item.id === itemCart.id
+                    );
+                    const itemTotal =
+                        parseFloat(product.price.replace(/,/g, "")) *
+                        itemCart.count;
+                    totalAmount += itemTotal;
 
-                return `
-                    <div class="cart-item">
-                        <img class="cart-item-img" src="${product.img}" alt="${product.title}">
-                        <div class="cart-item-details">
-                            <div class="cart-item-title">${product.title} x ${itemCart.count}</div>
-                            <div class="cart-item-price">${itemTotal.toLocaleString()}₫</div>
+                    return `
+                        <div class="cart-item">
+                            <img class="cart-item-img" src="${
+                                product.img
+                            }" alt="${product.title}">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${
+                                    product.title
+                                } x ${itemCart.count}</div>
+                                <div class="cart-item-price">${itemTotal.toLocaleString()}₫</div>
+                            </div>
                         </div>
-                    </div>
-                `;
-            }).join("");
+                    `;
+                })
+                .join("");
 
             totalAmountElement.textContent = `${totalAmount.toLocaleString()}₫`;
         } else {
-            cartItemsContainer.innerHTML = "<p>Giỏ hàng của bạn đang trống.</p>";
+            cartItemsContainer.innerHTML =
+                "<p>Giỏ hàng của bạn đang trống.</p>";
         }
     };
 
@@ -53,15 +64,24 @@ document.addEventListener("DOMContentLoaded", () => {
             hasError = true;
         }
         if (!email) {
-            showError("emailError", "Bạn cần nhập email để thực hiện thanh toán.");
+            showError(
+                "emailError",
+                "Bạn cần nhập email để thực hiện thanh toán."
+            );
             hasError = true;
         }
         if (!address) {
-            showError("addressError", "Bạn cần nhập địa chỉ để thực hiện thanh toán.");
+            showError(
+                "addressError",
+                "Bạn cần nhập địa chỉ để thực hiện thanh toán."
+            );
             hasError = true;
         }
         if (!phone) {
-            showError("phoneError", "Bạn cần nhập số điện thoại để thực hiện thanh toán.");
+            showError(
+                "phoneError",
+                "Bạn cần nhập số điện thoại để thực hiện thanh toán."
+            );
             hasError = true;
         } else if (!/^\d{10}$/.test(phone)) {
             showError("phoneError", "Bạn cần nhập đúng số điện thoại (10 số).");
