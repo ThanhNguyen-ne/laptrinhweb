@@ -1,20 +1,6 @@
-
 body{
     background-color: #CAE9FF;
-}
-
-.breadcrumb {
-    padding: 10px 0;
-    font-size: 14px;
-}
-
-.breadcrumb a {
-    text-decoration: none;
-    color: #219ebc;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
+    margin-top: 3%;
 }
 
 /* Định dạng cho phần main-content */
@@ -163,6 +149,15 @@ body{
     font-size: 12px;
 }
 
+.yensaosanest,
+.yensaosanviest,
+.thucpham,
+.tinhchatyensao,
+.yennaothiennhien {
+    width: 100%;
+    max-width: 1200px;
+    margin:  auto;
+}
 
 .container1{
     display: flex;
@@ -214,6 +209,7 @@ body{
 .next {
     right: 10px;
 }
+
 .sidebar {
     display: flex 1;
     height: 337px;
@@ -224,11 +220,12 @@ body{
     border-radius: 10px;
     text-align:center;
 }
+
 .sidebar li {
     display: inline;
     position: relative;
-
 }
+
 .sidebar .Sanest{
     display: none;
     position: absolute;
@@ -238,62 +235,68 @@ body{
     padding: 5px 10px;
     z-index: 1000; /* Đảm bảo menu con luôn nằm trên cùng */
     width: 200px; /* Đặt chiều rộng cho menu con */
-
 }
+
 .sidebar .Sanest a{
     color: white;
     border-radius: 30px;
-    
-
 }
+
 .sidebar li:hover a{
     color: black;
     background-color:#b3e5fc;
 }
+
 .sidebar li:hover .Sanest{
     display: block;
 }
+
 .sidebar h2 {
-    
     padding: 10px 20px;
     color: white;
     background-color: #1e88e5;
     border-radius: 10px 10px 0 0;
     margin: -10px -10px 10px -10px;
 }
+
 .sidebar ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
+
 .sidebar ul li {
     padding: 10px 20px;
     border-bottom: 1px solid #fff;
     display: flex;
     align-items: center;
 }
+
 .sidebar ul li a {
     color: #1e88e5;
     text-decoration: none;
     flex-grow: 1;
 }
+
 .sidebar ul li a:hover {
     text-decoration: underline;
 }
+
 .sidebar ul li img {
     width: 16px;
     height: 16px;
     margin-right: 10px;
 }
+
 .container {
     display: flex;
-    
 }
+
 .sanPhamBanChay {
-  
     width: 80%;
-   margin: auto;
+    margin: auto;
 }
+
 .sanPhamBanChay .title {
     margin-top: 2%;
     text-align: left;
@@ -317,7 +320,6 @@ body{
 }
 
 .product {
-    
     margin: 1em;
     padding: 1em;
     text-align: center;
@@ -332,11 +334,6 @@ body{
     margin-bottom: 1em;
 }
 
-.yennaothiennhien {
-    width: 100%;
-    max-width: 1200px;
-    margin:  auto;
-}
 .header1 {
     display: flex;
     justify-content: center;
@@ -358,8 +355,8 @@ body{
     background-color: #1e88e5;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 50%;
-    
 }
+
 .title-bar {
     display: flex;
     align-items: center;
@@ -377,17 +374,17 @@ body{
 }
 
 .title-bar::before {
-    margin-right: 10px;
+    padding-right: 20px;
 }
+
 .products1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
 }
 
 .product1 {
-    background-color: #ffffff;
+    background-color: #A2D4F8; /* Đổi màu nền giống với sanpham.html */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -395,40 +392,88 @@ body{
     padding: 20px;
     text-align: center;
     width: 280px;
-    background-image: linear-gradient( 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% ); 
-    
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* Thêm hiệu ứng hover, làm mờ và hiển thị nút "Mua ngay" và "Giỏ hàng" */
 .product1:hover {
-    transform:  translate(0,-20px);
+    transform: translateY(-10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .product1 img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.product-name1 {
-    font-size: 18px;
-    color: #333333;
-    margin: 10px 0;
+.product1:hover img {
+    opacity: 0.5;
+    transform: scale(1.1);
 }
 
-.product-price1 {
-    font-size: 20px;
-    color: #e60000;
+.product-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    padding-bottom: 25%;
+}
+
+.product-buttons .btn-cart,
+.product-buttons .btn-buy {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.product-buttons .btn-cart {
+    background-color: #007bff;
+}
+
+.product-buttons .btn-buy {
+    background-color: #28a745;
+}
+
+.product1:hover .product-buttons {
+    display: flex;
+}
+
+.product-price1{
+    color: #ff6347;
     font-weight: bold;
 }
 
-.yensaosanest {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  
-    
+/* CSS cho thông báo */
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
 }
-.yensaosanviest {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
 }

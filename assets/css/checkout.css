@@ -5,8 +5,15 @@
 }
 
 .checkout-container {
-    width: 80%;
+    display: flex;
+    width: 90%;
     margin: 50px auto;
+    gap: 30px;
+}
+
+.left-panel,
+.right-panel {
+    width: 48%;
 }
 
 h2 {

@@ -41,25 +41,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const name = document.getElementById("name").value;
         const address = document.getElementById("address").value;
         const phone = document.getElementById("phone").value;
+        const province = document.getElementById("province").value;
+        const district = document.getElementById("district").value;
+        const ward = document.getElementById("ward").value;
         const paymentMethod = document.getElementById("paymentMethod").value;
 
         if (cart.length > 0) {
             const orderDetails = {
                 name,
                 address,
+                province,
+                district,
+                ward,
                 phone,
                 paymentMethod,
                 cart,
                 totalAmount
             };
 
-            // Xử lý logic thanh toán tại đây
             console.log("Order Details:", orderDetails);
-
-            // Sau khi xử lý thanh toán thành công
             alert("Đơn hàng của bạn đã được xác nhận!");
-            localStorage.removeItem("cart");  // Xóa giỏ hàng
-            window.location.href = "index.html";  // Điều hướng về trang chủ
+            localStorage.removeItem("cart");
+            window.location.href = "index.html";
         } else {
             alert("Giỏ hàng của bạn đang trống!");
         }

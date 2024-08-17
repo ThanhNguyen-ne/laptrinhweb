@@ -20,9 +20,9 @@
         <header>
             <div id="main">
                 <div class="header_tren">
-                    
+    
                     <div class="info">
-                        <span><i class="fa-solid fa-phone"></i>  Hotline: 0123456789</span>
+                        <span><i class="fa-solid fa-phone"></i> Hotline: 0123456789</span>
                         <span><i class="fa-solid fa-location-dot"></i> Địa chỉ: 70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh</span>
                     </div>
                     <div class="auth-buttons">
@@ -45,28 +45,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="header_giua">
-                    <a href="index.html">
-                        <img src="../assets/image/index/logohdeader.webp" alt="Logo" />
-                    </a>
-                    <form action="" class="search">
-                        <input
-                            type="text"
-                            class="search-text"
-                            placeholder="Tìm kiếm sản phẩm "
-                            required
-                        />
-                        <button class="btn">
-                            <a href="giohang.html"> <i class="fa-solid fa-cart-shopping"></i></a>
-                        </button>
-                    </form>
-                    <button class="cart-button">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </button>
-                </div>
                 <nav>
                     <div class="header_duoi">
                         <div class="content-header">
+                            <a href="index.html">
+                                <img src="../assets/image/index/logohdeader.webp" alt="Logo" class="logo" />
+                            </a>
                             <ul id="nav">
                                 <li><a href="index.html">Trang chủ</a></li>
                                 <li>
@@ -82,6 +66,10 @@
                                 <li><a href="thongtin.html">Thông tin</a></li>
                                 <li><a class="cart" href="giohang.html"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
                             </ul>
+                            <form action="" class="search">
+                                <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required />
+                                <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
                         </div>
                     </div>
                 </nav>
@@ -90,48 +78,41 @@
 
         <main>
             <div class="checkout-container">
-                <h2>Thanh Toán</h2>
-                <div class="cart-summary-container">
-                    <h3>Giỏ Hàng Của Bạn</h3>
-                    <div id="cartItems"></div>
-                    <div class="total-price">
-                        Tổng cộng: <span id="totalAmount">0₫</span>
+                <div class="left-panel">
+                    <div class="cart-summary-container">
+                        <h3>Giỏ Hàng Của Bạn</h3>
+                        <div id="cartItems"></div>
+                        <div class="total-price">
+                            Tổng cộng: <span id="totalAmount">0₫</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="checkout-form-container">
-                    <h3>Thông Tin Giao Hàng</h3>
-                    <form id="checkoutForm">
-                        <div class="form-group">
-                            <label for="name">Tên:</label>
-                            <input type="text" id="name" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Địa Chỉ:</label>
-                            <input type="text" id="address" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Số Điện Thoại:</label>
-                            <input type="tel" id="phone" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="paymentMethod"
-                                >Phương Thức Thanh Toán:</label
-                            >
-                            <select id="paymentMethod" required>
-                                <option value="cod">
-                                    Thanh toán khi nhận hàng (COD)
-                                </option>
-                                <option value="creditCard">Thẻ tín dụng</option>
-                                <option value="bankTransfer">
-                                    Chuyển khoản ngân hàng
-                                </option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            Xác Nhận Thanh Toán
-                        </button>
-                    </form>
+                <div class="right-panel">
+                    <div class="checkout-form-container">
+                        <h3>Thông Tin Giao Hàng</h3>
+                        <form id="checkoutForm">
+                            <div class="form-group">
+                                <label for="name">Tên:</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Địa Chỉ:</label>
+                                <input type="text" id="address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số Điện Thoại:</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMethod">Phương Thức Thanh Toán:</label>
+                                <select id="paymentMethod" required>
+                                    <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+                                    <option value="bankTransfer">Thẻ ngân hàng</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-submit">Xác Nhận Thanh Toán</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </main>

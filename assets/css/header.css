@@ -14,7 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 180px; /* Tăng khoảng trống phía trên để không bị che nội dung */
+    padding-top: 120px; /* Giảm khoảng trống phía trên */
 }
 
 iframe:focus {
@@ -32,7 +32,6 @@ header {
     width: 100%;
     z-index: 100;
     transition: background-color 0.3s ease-in-out;
-    background-color: rgb(173, 216, 230);
 }
 
 .header_tren {
@@ -42,7 +41,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 20px; /* Thêm padding cho toàn bộ phần header trên */
+    padding: 8px 20px;
     position: relative;
     z-index: 20;
 }
@@ -61,7 +60,6 @@ header {
     gap: 10px;
 }
 
-/* Đặt lại nút Đăng nhập và Đăng ký với màu sắc mới và vị trí hợp lý */
 .auth-buttons button {
     background: #5fa8d3;
     color: white;
@@ -89,97 +87,30 @@ header {
     transform: scale(0.98);
 }
 
-.header_giua {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    background-color: rgb(173, 216, 230);
-}
-
-.header_giua img {
-    width: 80px; /* Điều chỉnh kích thước logo */
-    height: 80px;
-    border-radius: 50%; /* Bo tròn logo */
-}
-
-.header_giua .search {
-    flex-grow: 1;
-    margin: 0 20px;
-    width: 40%; /* Giảm chiều rộng của thanh tìm kiếm */
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border-radius: 20px; /* Bo tròn thanh tìm kiếm */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 5px 15px; /* Thêm padding */
-}
-
-.header_giua .search .search-text {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 16px;
-    padding: 5px;
-    flex-grow: 1;
-    transition: width 0.25s ease-in-out;
-}
-
-.header_giua .search .btn {
-    background-color: #5fa8d3;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 16px;
-    color: white;
-}
-
-.header_giua .search .btn i {
-    color: white;
-}
-
-.header_giua .cart-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: #62b6cb;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.header_giua .cart-button i {
-    color: white;
-    font-size: 20px;
-}
-
 .header_duoi {
     width: 100%;
     background-color: #62b6cb;
     position: relative;
     z-index: 15;
     box-sizing: border-box;
-}
-
-.header_duoi.fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
 }
 
 .header_duoi .content-header {
-    width: 80%;
-    margin: auto;
-    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.header_duoi .logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-left: 70%;
 }
 
 #nav {
@@ -231,7 +162,7 @@ header {
 }
 
 #nav .subnav a {
-    color: white;
+    color: black;
     padding: 10px 20px;
     text-decoration: none;
     display: block;
@@ -240,6 +171,41 @@ header {
 
 #nav .subnav a:hover {
     background-color: #008080;
+}
+
+.header_duoi .search {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 5px 15px;
+    width: 40%; /* Giữ chiều rộng 40% */
+    margin-right: 5%;
+}
+
+.header_duoi .search .search-text {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    padding: 5px;
+    flex-grow: 1;
+    transition: width 0.25s ease-in-out;
+}
+
+.header_duoi .search .btn {
+    background-color: #5fa8d3;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 16px;
+    color: white;
+}
+
+.header_duoi .search .btn i {
+    color: white;
 }
 
 .content {
