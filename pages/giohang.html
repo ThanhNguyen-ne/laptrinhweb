@@ -22,7 +22,6 @@
         <header>
             <div id="main">
                 <div class="header_tren">
-    
                     <div class="info">
                         <span><i class="fa-solid fa-phone"></i> Hotline: 0123456789</span>
                         <span><i class="fa-solid fa-location-dot"></i> Địa chỉ: 70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh</span>
@@ -31,7 +30,7 @@
                         <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
                         <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
                     </div>
-    
+
                     <!-- The Modals -->
                     <div id="loginModal" class="modal">
                         <div class="modal-content">
@@ -39,7 +38,7 @@
                             <div id="loginModalBody"></div>
                         </div>
                     </div>
-    
+
                     <div id="signupModal" class="modal">
                         <div class="modal-content">
                             <span class="close" onclick="closeModal('signupModal')">&times;</span>
@@ -82,27 +81,17 @@
         <main>
             <div class="container">
                 <div class="cart-container">
-                    <div class="cart-part">
-                        <div class="cart-img">
-                            <img
-                                src="../assets/image/hop_dieu_muoi_1000g.jpg" alt = "${search.title}"
-                            />
-                        </div>
-                        <div class="cart-desc">
-                            <h3>yensaokhanhhoa</h3>
-                        </div>
-                        <div class="cart-quantity">
-                            <input type="number" id="quantity" min="0" />
-                        </div>
-                        <div class="cart-price">
-                            <h4> 2000</h4>
-                        </div>
-                        <div class="cart-total"><h4>4000</h4></div>
-                        <div class="cart-remove">
-                            <button >Remove</button>
-                        </div>
+                    <div class="cart-header">
+                        <div class="header-img">Hình ảnh</div>
+                        <div class="header-desc">Tên sản phẩm</div>
+                        <div class="header-quantity">Số lượng</div>
+                        <div class="header-price">Giá</div>
+                        <div class="header-total">Tổng</div>
+                        <div class="header-remove">Xóa</div>
                     </div>
-                    
+                    <div class="cart-content">
+                        <!-- Các sản phẩm trong giỏ hàng sẽ được thêm tại đây -->
+                    </div>
                 </div>
                 <div class="cart-summary">
                     <div class="product-total">
@@ -123,7 +112,7 @@
                     <p>Thông tin sinh viên</p>
                     <p>2251120246 - Nguyễn Võ Thành</p>
                     <p>2251120259 - Nguyễn Quốc Tùng</p>
-                    <p>GV hướng dẫn : Mai Thanh Thảo</p>
+                    <p>GV hướng dẫn: Mai Thanh Thảo</p>
                 </div>
                 <div class="footer-section">
                     <h4>DANH MỤC</h4>

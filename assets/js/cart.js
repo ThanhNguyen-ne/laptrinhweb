@@ -1,5 +1,5 @@
 let container = document.querySelector(".container");
-let cartContainer = document.querySelector(".cart-container");
+let cartContainer = document.querySelector(".cart-content");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let cartSummary = document.querySelector(".cart-summary");
 
@@ -52,7 +52,6 @@ const renderCartItem = async () => {
 
     totalProducts();
 };
-
 
 let incrementQuantity = (id) => {
     let searchIndex = cart.findIndex((itemCart) => itemCart.id === id);
