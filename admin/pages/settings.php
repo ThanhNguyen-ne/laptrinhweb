@@ -7,7 +7,7 @@
             href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="/admin/assets/css/settings.css" />
+        <link rel="stylesheet" href="../assets/css/settings.css" />
         <title>Cài đặt</title>
     </head>
 
@@ -78,7 +78,7 @@
                     <span class="count">1</span>
                 </a>
                 <a href="#" class="profile">
-                    <img src="/admin/assets/images/logohdeader.webp" />
+                    <img src="../assets/images/logohdeader.webp" />
                 </a>
             </nav>
             <!-- End of Navbar -->
@@ -173,6 +173,6 @@
             </main>
         </div>
 
-        <script src="/admin/assets/js/settings.js"></script>
+        <script src="../assets/js/settings.js"></script>
     </body>
 </html>

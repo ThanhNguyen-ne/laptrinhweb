@@ -7,8 +7,8 @@
             href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="/admin/assets/css/store.css" />
-        <title>Cửa hàng</title>
+        <link rel="stylesheet" href="../assets/css/feedback.css" />
+        <title>Phản hồi</title>
     </head>
 
     <body>
@@ -19,17 +19,18 @@
                 <div class="logo-name"><span>Yến sào</span>TT</div>
             </a>
             <ul class="side-menu">
-
-                <li class="active">
-                    <a href="#"><i class="bx bx-store-alt"></i>Cửa hàng</a>
+                <li>
+                    <a href="store.php"
+                        ><i class="bx bx-store-alt"></i>Cửa hàng</a
+                    >
                 </li>
                 <li>
                     <a href="analytics.php"
                         ><i class="bx bx-analyse"></i>Phân tích</a
                     >
                 </li>
-                <li>
-                    <a href="feedback.php"
+                <li class="active">
+                    <a href="#"
                         ><i class="bx bx-message-square-dots"></i>Phản hồi</a
                     >
                 </li>
@@ -62,7 +63,7 @@
                     <div class="form-input">
                         <input
                             type="search"
-                            placeholder="Tìm kiếm sản phẩm..."
+                            placeholder="Tìm kiếm phản hồi..."
                         />
                         <button class="search-btn" type="submit">
                             <i class="bx bx-search"></i>
@@ -73,10 +74,10 @@
                 <label for="theme-toggle" class="theme-toggle"></label>
                 <a href="#" class="notif">
                     <i class="bx bx-bell"></i>
-                    <span class="count">3</span>
+                    <span class="count">7</span>
                 </a>
                 <a href="#" class="profile">
-                    <img src="/admin/assets/images/logohdeader.webp" />
+                    <img src="../assets/images/logohdeader.webp" />
                 </a>
             </nav>
             <!-- End of Navbar -->
@@ -84,27 +85,24 @@
             <main>
                 <div class="header">
                     <div class="left">
-                        <h1>Quản lí Cửa hàng</h1>
+                        <h1>Phản hồi</h1>
                         <ul class="breadcrumb">
-                            <li><a href="#">Cửa hàng</a></li>
+                            <li><a href="#">Phản hồi</a></li>
                             /
-                            <li><a href="#" class="active">Sản phẩm</a></li>
+                            <li><a href="#" class="active">Tin nhắn</a></li>
                         </ul>
                     </div>
-                    <a href="#" class="btn add-product-btn">
-                        <i class="bx bx-plus"></i>
-                        <span>Thêm Sản phẩm</span>
-                    </a>
                 </div>
 
-                <!-- Product Table -->
-                <div class="product-table">
+                <!-- Feedback Table -->
+                <div class="feedback-table">
                     <table>
                         <thead>
                             <tr>
-                                <th>Tên sản phẩm</th>
-                                <th>Giá</th>
-                                <th>Trạng thái</th>
+                                <th>Tên người gửi</th>
+                                <th>Email</th>
+                                <th>Nội dung</th>
+                                <th>Thời gian</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -116,32 +114,6 @@
             </main>
         </div>
 
-        <!-- Add/Edit Product Modal -->
-        <div class="modal" id="productModal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Thêm sản phẩm</h2>
-                <form id="productForm">
-                    <div class="input-group">
-                        <label for="productName">Tên sản phẩm</label>
-                        <input type="text" id="productName" required />
-                    </div>
-                    <div class="input-group">
-                        <label for="productPrice">Giá</label>
-                        <input type="number" id="productPrice" required />
-                    </div>
-                    <div class="input-group">
-                        <label for="productStatus">Trạng thái</label>
-                        <select id="productStatus" required>
-                            <option value="Còn hàng">Còn hàng</option>
-                            <option value="Hết hàng">Hết hàng</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn submit-btn">Lưu</button>
-                </form>
-            </div>
-        </div>
-
-        <script src="/admin/assets/js/store.js"></script>
+        <script src="../assets/js/feedback.js"></script>
     </body>
 </html>

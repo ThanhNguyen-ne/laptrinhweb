@@ -7,7 +7,8 @@
             href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="/admin/assets/css/analytics.css" />
+        <link rel="stylesheet" href="../assets/css/analytics.css" />
+
         <title>Phân tích</title>
     </head>
 
@@ -76,7 +77,7 @@
                     <span class="count">12</span>
                 </a>
                 <a href="#" class="profile">
-                    <img src="/admin/assets/images/logohdeader.webp" />
+                    <img src="../assets/images/logohdeader.webp" />
                 </a>
             </nav>
             <!-- End of Navbar -->
@@ -145,7 +146,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <img src="/admin/assets/images/logohdeader.webp" />
+                                        <img src="../assets/images/logohdeader.webp" />
                                         <p>Nguyễn Quốc Tùng</p>
                                     </td>
                                     <td>01-08-2024</td>
@@ -157,7 +158,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/admin/assets/images/logohdeader.webp" />
+                                        <img src="../assets/images/logohdeader.webp" />
                                         <p>Nguyễn Quốc Tùng</p>
                                     </td>
                                     <td>01-08-2024</td>
@@ -169,7 +170,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img src="/admin/assets/images/logohdeader.webp" />
+                                        <img src="../assets/images/logohdeader.webp" />
                                         <p>John Doe</p>
                                     </td>
                                     <td>01-08-2024</td>
@@ -186,6 +187,6 @@
             </main>
         </div>
 
-        <script src="/admin/assets/js/analytics.js"></script>
+        <script src="../assets/js/analytics.js"></script>
     </body>
 </html>

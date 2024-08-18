@@ -7,7 +7,7 @@
             href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="/admin/assets/css/users.css" />
+        <link rel="stylesheet" href="../assets/css/users.css" />
         <title>Người dùng</title>
     </head>
 
@@ -76,7 +76,7 @@
                     <span class="count">2</span>
                 </a>
                 <a href="#" class="profile">
-                    <img src="/admin/assets/images/logohdeader.webp" />
+                    <img src="../assets/images/logohdeader.webp" />
                 </a>
             </nav>
             <!-- End of Navbar -->
@@ -142,6 +142,6 @@
             </div>
         </div>
 
-        <script src="/admin/assets/js/users.js"></script>
+        <script src="../assets/js/users.js"></script>
     </body>
 </html>
