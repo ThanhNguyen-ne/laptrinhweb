@@ -1,220 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Thông Tin</title>
-        <link  rel="icon" href="../assets/image/index/logohdeader.webp"/>
-        <link rel="stylesheet" href="../assets/css/sanpham.css" />
-        <link rel="stylesheet" href="../assets/css/header.css" />
-        <link rel="stylesheet" href="../assets/css/footer.css" />
-        <link rel="stylesheet" href="../assets/css/thongtin.css" />
-    </head>
 
-    <body>
-        <header>
-            <div id="main">
-                <div class="header_tren">
-    
-                    <div class="info">
-                        <span><i class="fa-solid fa-phone"></i> Hotline: 0123456789</span>
-                        <span><i class="fa-solid fa-location-dot"></i> Địa chỉ: 70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh</span>
-                    </div>
-                    <div class="auth-buttons">
-                        <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
-                        <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button>
-                    </div>
-    
-                    <!-- The Modals -->
-                    <div id="loginModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-                            <div id="loginModalBody"></div>
-                        </div>
-                    </div>
-    
-                    <div id="signupModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal('signupModal')">&times;</span>
-                            <div id="signupModalBody"></div>
-                        </div>
-                    </div>
-                </div>
-                <nav>
-                    <div class="header_duoi">
-                        <div class="content-header">
-                            <a href="index.php">
-                                <img src="../assets/image/index/logohdeader.webp" alt="Logo" class="logo" />
-                            </a>
-                            <ul id="nav">
-                                <li><a href="index.php">Trang chủ</a></li>
-                                <li>
-                                    <a href="sanpham.php"> Sản phẩm</a>
-                                    <ul class="subnav">
-                                        <li><a href="yensaothiennhiennguyento.php">Yến sào đảo yến thiên nhiên</a></li>
-                                        <li><a href="thucphamsanestfood.php">Thực phẩm Sanest Food</a></li>
-                                        <li><a href="yensaosanviestkhanhhoa.php">Yến sào Sanvinest Khánh Hoà</a></li>
-                                        <li><a href="yensaosanestkhanhhoa.php">Yến sào Sanest</a></li>
-                                        <li><a href="tinhchatyensao.php">Tinh chất yến sào</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="thongtin.php">Thông tin</a></li>
-                                <li><a class="cart" href="giohang.php"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
-                            </ul>
-                            <form action="" class="search">
-                                <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required />
-                                <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <script src="../assets/js/header.js"></script>
-        <main>
+<head>
+    <meta charset="UTF-8" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông Tin</title>
+    <link rel="icon" href="../assets/image/index/logohdeader.webp" />
+    <link rel="stylesheet" href="../assets/css/sanpham.css" />
+    <link rel="stylesheet" href="../assets/css/header.css" />
+    <link rel="stylesheet" href="../assets/css/footer.css" />
+    <link rel="stylesheet" href="../assets/css/thongtin.css" />
+</head>
 
-            <section id="gioi-thieu">
-                <h2>1. Giới Thiệu Cửa Hàng</h2>
-                <p>
-                    Cửa hàng Yến sào TT chuyên cung cấp các sản phẩm yến sào chất
-                    lượng cao từ Khánh Hòa.
-                </p>
-                <p>Web được thiết kế bởi 2 thành viên</p>
-                <p>2251120246 - Nguyễn Võ Thành</p>
-                <p>2251120260 - Nguyễn Quốc Tùng</p>
-            </section>
+<body>
+    <?php include("header.php"); ?>
 
-            <section id="san-pham">
-                <h2>2. Các Mặt Hàng Được Bán</h2>
-                <ul>
-                    <li>
-                        Yến Sào Khánh Hòa: Sản phẩm yến sào từ Khánh Hòa, nổi tiếng
-                        với chất lượng vượt trội.
-                    </li>
-                    <li>
-                        Tinh Chất Yến Sào: Tinh chất yến sào tinh khiết, dễ sử dụng
-                        và giàu dinh dưỡng.
-                    </li>
-                    <li>
-                        Yến Sào Nguyên Tổ: Yến sào nguyên tổ giữ nguyên hình dáng tự
-                        nhiên, phù hợp cho những ai thích tự chế biến.
-                    </li>
-                    <li>
-                        Yến Sào Sanest: Thương hiệu yến sào Sanest uy tín, được
-                        nhiều người tin dùng.
-                    </li>
-                    <li>
-                        Yến Sào Sanviest: Sản phẩm yến sào Sanviest chất lượng cao,
-                        đảm bảo dinh dưỡng và an toàn.
-                    </li>
-                </ul>
-            </section>
+    <script src="../assets/js/header.js"></script>
+    <main>
 
-            <section id="chuc-nang">
-                <h2>3. Các Chức Năng Của Trang Web</h2>
-                <ul>
-                    <li>
-                        <b>Trang Chủ</b>: Giao diện thân thiện và hấp dẫn, hiển thị
-                        các sản phẩm nổi bật, khuyến mãi .
-                    </li>
-                    <li>
-                        <b>Sản Phẩm</b>: Danh sách toàn bộ sản phẩm yến sào, bao gồm
-                        hình ảnh, mô tả chi tiết, giá cả .
-                    </li>
-                    <li>
-                        <b>Danh Mục</b>: Phân loại sản phẩm theo các danh mục như
-                        yến sào Khánh Hòa, tinh chất yến sào, yến sào nguyên tổ, yến
-                        sào Sanest, yến sào Sanviest.
-                    </li>
-                    <li>
-                        <b>Giỏ Hàng</b>: Tính năng giỏ hàng cho phép khách hàng theo
-                        dõi các sản phẩm đã chọn và điều chỉnh số lượng theo ý muốn
-                        trước khi thanh toán.
-                    </li>
-                    <li>
-                        <b>Thanh Tìm Kiếm</b>: Tính năng tìm kiếm giúp khách hàng dễ
-                        dàng tìm thấy sản phẩm mong muốn bằng cách nhập từ khóa.
-                    </li>
-                    <li>
-                        <b>Bộ Lọc Sản Phẩm</b>: Tính năng lọc sản phẩm theo nhiều
-                        tiêu chí như giá cả giúp khách hàng dễ dàng lựa chọn sản
-                        phẩm phù hợp.
-                    </li>
-                    <li>
-                        <b>Đăng Ký và Đăng Nhập</b>: Chức năng đăng ký tài khoản mới
-                        và đăng nhập cho phép khách hàng quản lý thông tin cá nhân,
-                        lịch sử mua hàng và nhận thông tin khuyến mãi.
-                    </li>
-                    <li>
-                        <b>Đặt Hàng Trực Tuyến</b>: Khách hàng có thể dễ dàng đặt
-                        hàng trực tuyến qua giao diện thân thiện, nhanh chóng và bảo
-                        mật.
-                    </li>
-                    <li>
-                        <b>Thanh Toán An Toàn</b>: Hỗ trợ nhiều hình thức thanh toán
-                        như thẻ tín dụng, chuyển khoản ngân hàng, và các ví điện tử
-                        phổ biến.
-                    </li>
-                    <li>
-                        <b>Tư Vấn Khách Hàng</b>: Dịch vụ tư vấn trực tuyến hỗ trợ
-                        khách hàng giải đáp thắc mắc và lựa chọn sản phẩm phù hợp.
-                    </li>
-                    <li>
-                        <b>Theo Dõi Đơn Hàng</b>: Khách hàng có thể theo dõi tình
-                        trạng đơn hàng của mình từ lúc đặt hàng đến khi nhận hàng.
-                    </li>
-                </ul>
-            </section>
+        <section id="gioi-thieu">
+            <h2>1. Giới Thiệu Cửa Hàng</h2>
+            <p>
+                Cửa hàng Yến sào TT chuyên cung cấp các sản phẩm yến sào chất
+                lượng cao từ Khánh Hòa.
+            </p>
+            <p>Web được thiết kế bởi 2 thành viên</p>
+            <p>2251120246 - Nguyễn Võ Thành</p>
+            <p>2251120260 - Nguyễn Quốc Tùng</p>
+        </section>
+
+        <section id="san-pham">
+            <h2>2. Các Mặt Hàng Được Bán</h2>
+            <ul>
+                <li>
+                    Yến Sào Khánh Hòa: Sản phẩm yến sào từ Khánh Hòa, nổi tiếng
+                    với chất lượng vượt trội.
+                </li>
+                <li>
+                    Tinh Chất Yến Sào: Tinh chất yến sào tinh khiết, dễ sử dụng
+                    và giàu dinh dưỡng.
+                </li>
+                <li>
+                    Yến Sào Nguyên Tổ: Yến sào nguyên tổ giữ nguyên hình dáng tự
+                    nhiên, phù hợp cho những ai thích tự chế biến.
+                </li>
+                <li>
+                    Yến Sào Sanest: Thương hiệu yến sào Sanest uy tín, được
+                    nhiều người tin dùng.
+                </li>
+                <li>
+                    Yến Sào Sanviest: Sản phẩm yến sào Sanviest chất lượng cao,
+                    đảm bảo dinh dưỡng và an toàn.
+                </li>
+            </ul>
+        </section>
+
+        <section id="chuc-nang">
+            <h2>3. Các Chức Năng Của Trang Web</h2>
+            <ul>
+                <li>
+                    <b>Trang Chủ</b>: Giao diện thân thiện và hấp dẫn, hiển thị
+                    các sản phẩm nổi bật, khuyến mãi .
+                </li>
+                <li>
+                    <b>Sản Phẩm</b>: Danh sách toàn bộ sản phẩm yến sào, bao gồm
+                    hình ảnh, mô tả chi tiết, giá cả .
+                </li>
+                <li>
+                    <b>Danh Mục</b>: Phân loại sản phẩm theo các danh mục như
+                    yến sào Khánh Hòa, tinh chất yến sào, yến sào nguyên tổ, yến
+                    sào Sanest, yến sào Sanviest.
+                </li>
+                <li>
+                    <b>Giỏ Hàng</b>: Tính năng giỏ hàng cho phép khách hàng theo
+                    dõi các sản phẩm đã chọn và điều chỉnh số lượng theo ý muốn
+                    trước khi thanh toán.
+                </li>
+                <li>
+                    <b>Thanh Tìm Kiếm</b>: Tính năng tìm kiếm giúp khách hàng dễ
+                    dàng tìm thấy sản phẩm mong muốn bằng cách nhập từ khóa.
+                </li>
+                <li>
+                    <b>Bộ Lọc Sản Phẩm</b>: Tính năng lọc sản phẩm theo nhiều
+                    tiêu chí như giá cả giúp khách hàng dễ dàng lựa chọn sản
+                    phẩm phù hợp.
+                </li>
+                <li>
+                    <b>Đăng Ký và Đăng Nhập</b>: Chức năng đăng ký tài khoản mới
+                    và đăng nhập cho phép khách hàng quản lý thông tin cá nhân,
+                    lịch sử mua hàng và nhận thông tin khuyến mãi.
+                </li>
+                <li>
+                    <b>Đặt Hàng Trực Tuyến</b>: Khách hàng có thể dễ dàng đặt
+                    hàng trực tuyến qua giao diện thân thiện, nhanh chóng và bảo
+                    mật.
+                </li>
+                <li>
+                    <b>Thanh Toán An Toàn</b>: Hỗ trợ nhiều hình thức thanh toán
+                    như thẻ tín dụng, chuyển khoản ngân hàng, và các ví điện tử
+                    phổ biến.
+                </li>
+                <li>
+                    <b>Tư Vấn Khách Hàng</b>: Dịch vụ tư vấn trực tuyến hỗ trợ
+                    khách hàng giải đáp thắc mắc và lựa chọn sản phẩm phù hợp.
+                </li>
+                <li>
+                    <b>Theo Dõi Đơn Hàng</b>: Khách hàng có thể theo dõi tình
+                    trạng đơn hàng của mình từ lúc đặt hàng đến khi nhận hàng.
+                </li>
+            </ul>
+        </section>
 
 
-        </main>
+    </main>
 
-        <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h4>LIÊN HỆ</h4>
-                    <p>Thông tin sinh viên</p>
-                    <p>2251120246 - Nguyễn Võ Thành</p>
-                    <p>2251120259 - Nguyễn Quốc Tùng</p>
-                    <p>GV hướng dẫn : Mai Thanh Thảo</p>
-                </div>
-                <div class="footer-section">
-                    <h4>DANH MỤC</h4>
-                    <ul>
-                        <li><a href="index.php">Trang chủ</a></li>
-                        <li><a href="sanpham.php">Sản phẩm</a></li>
-                        <li>
-                            <a href="hotrokhachhang.php">Hỗ trợ khách hàng</a>
-                        </li>
-                        <li><a href="giohang.php">Kiểm tra đơn hàng</a></li>
-                    </ul>
-                    <img
-                        src="../assets/image/logoSaleNoti.png"
-                        alt=""
-                        width="150px"
-                    />
-                </div>
+    <?php include("footer.php"); ?>
 
-                <div class="footer-section">
-                    <h4>KẾT NỐI VỚI YẾN SÀO KHÁNH HÒA</h4>
-                    <div class="social-media">
-                        <img
-                            src="../assets/image/index/yensaokhanhhoa.jpg"
-                            alt="Yến sào Khánh Hòa"
-                            width="150px"
-                        />
-                        <a href="#">facebook.com</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <script src="../assets/js/dangnhap.js"></script>
-    </body>
+    <script src="../assets/js/dangnhap.js"></script>
+</body>
+
 </html>
