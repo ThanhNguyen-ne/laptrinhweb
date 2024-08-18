@@ -16,12 +16,13 @@ const renderCartItem = async () => {
                 let totalPrice = priceNumber * itemCart.count;
 
                 return `
+                    <hr>
                     <div class="cart-part">
                         <div class="cart-img">
                             <img src="../${search.img}" alt="${search.title}" />
                         </div>
                         <div class="cart-desc">
-                            <h3>${search.title}</h3>
+                            <p>${search.title}</p>
                         </div>
                         <div class="cart-quantity">
                             <button class="quantity-btn" onclick="decrementQuantity(${search.id})">-</button>
@@ -33,7 +34,7 @@ const renderCartItem = async () => {
                         </div>
                         <div class="cart-total"><h4>${totalPrice.toLocaleString('en-US')}₫</h4></div>
                         <div onclick="removeItem(${search.id})" class="cart-remove">
-                            <button>Xóa</button>
+                            <button><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
                 `;
@@ -69,7 +70,7 @@ let decrementQuantity = (id) => {
     if (searchIndex !== -1 && cart[searchIndex].count > 0) {
         cart[searchIndex].count -= 1;
         if (cart[searchIndex].count === 0) {
-            removeItem(id); // Tự động xóa sản phẩm nếu số lượng về 0
+            removeItem(id);
         } else {
             localStorage.setItem("cart", JSON.stringify(cart));
             renderCartItem();
@@ -85,7 +86,6 @@ let totalProducts = async () => {
         let total = cart
             .map((item) => {
                 let search = data.find((itemData) => itemData.id === item.id) || {};
-                
                 return item.count * parseFloat(search.price.replace(/,/g, '')) || 0;
             })
             .reduce((x, y) => x + y, 0);
