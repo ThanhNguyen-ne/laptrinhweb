@@ -384,7 +384,7 @@ body{
 }
 
 .product1 {
-    background-color: #A2D4F8; /* Đổi màu nền giống với sanpham.html */
+    background-color: #A2D4F8; /* Đổi màu nền giống với sanpham.php */
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

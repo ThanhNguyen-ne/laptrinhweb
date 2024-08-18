@@ -27,12 +27,12 @@
                 <div class="footer-section">
                     <h4>DANH MỤC</h4>
                     <ul>
-                        <li><a href="index.html">Trang chủ</a></li>
-                        <li><a href="sanpham.html">Sản phẩm</a></li>
+                        <li><a href="index.php">Trang chủ</a></li>
+                        <li><a href="sanpham.php">Sản phẩm</a></li>
                         <li>
-                            <a href="hotrokhachhang.html">Hỗ trợ khách hàng</a>
+                            <a href="hotrokhachhang.php">Hỗ trợ khách hàng</a>
                         </li>
-                        <li><a href="giohang.html">Kiểm tra đơn hàng</a></li>
+                        <li><a href="giohang.php">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img
                         src="../assets/image/logoSaleNoti.png"

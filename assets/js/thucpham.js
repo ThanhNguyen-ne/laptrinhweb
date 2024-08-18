@@ -103,11 +103,11 @@ function redirectToCheckout(event, productId) {
     addToCart(event, productId);
 
     // Chuyển hướng đến trang thanh toán
-    window.location.href = 'checkout.html';
+    window.location.href = 'checkout.php';
 }
 
 function redirectToDetail(productId) {
-    window.location.href = `detail.html?id=${productId}`;
+    window.location.href = `detail.php?id=${productId}`;
 }
 
 function showNotification(message) {

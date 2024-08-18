@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="checkout-cart-item-title">${
                                     product.title
                                 }</div>
-                                <div class="checkout-cart-item-quantity">Số lượng: ${itemCart.count}</div>
+                                <div class="checkout-cart-item-quantity">Số lượng: ${
+                                    itemCart.count
+                                }</div>
                                 <div class="checkout-cart-item-price">Thành tiền: ${itemTotal.toLocaleString()}₫</div>
                             </div>
                         </div>
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("Order Details:", orderDetails);
                 alert("Đơn hàng của bạn đã được xác nhận!");
                 localStorage.removeItem("cart");
-                window.location.href = "index.html";
+                window.location.href = "index.php";
             } else {
                 alert("Giỏ hàng của bạn đang trống!");
             }

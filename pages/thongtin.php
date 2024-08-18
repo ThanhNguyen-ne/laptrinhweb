@@ -50,23 +50,23 @@
                 <nav>
                     <div class="header_duoi">
                         <div class="content-header">
-                            <a href="index.html">
+                            <a href="index.php">
                                 <img src="../assets/image/index/logohdeader.webp" alt="Logo" class="logo" />
                             </a>
                             <ul id="nav">
-                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="index.php">Trang chủ</a></li>
                                 <li>
-                                    <a href="sanpham.html"> Sản phẩm</a>
+                                    <a href="sanpham.php"> Sản phẩm</a>
                                     <ul class="subnav">
-                                        <li><a href="yensaothiennhiennguyento.html">Yến sào đảo yến thiên nhiên</a></li>
-                                        <li><a href="thucphamsanestfood.html">Thực phẩm Sanest Food</a></li>
-                                        <li><a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hoà</a></li>
-                                        <li><a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a></li>
-                                        <li><a href="tinhchatyensao.html">Tinh chất yến sào</a></li>
+                                        <li><a href="yensaothiennhiennguyento.php">Yến sào đảo yến thiên nhiên</a></li>
+                                        <li><a href="thucphamsanestfood.php">Thực phẩm Sanest Food</a></li>
+                                        <li><a href="yensaosanviestkhanhhoa.php">Yến sào Sanvinest Khánh Hoà</a></li>
+                                        <li><a href="yensaosanestkhanhhoa.php">Yến sào Sanest</a></li>
+                                        <li><a href="tinhchatyensao.php">Tinh chất yến sào</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="thongtin.html">Thông tin</a></li>
-                                <li><a class="cart" href="giohang.html"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                                <li><a href="thongtin.php">Thông tin</a></li>
+                                <li><a class="cart" href="giohang.php"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
                             </ul>
                             <form action="" class="search">
                                 <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required />
@@ -188,12 +188,12 @@
                 <div class="footer-section">
                     <h4>DANH MỤC</h4>
                     <ul>
-                        <li><a href="index.html">Trang chủ</a></li>
-                        <li><a href="sanpham.html">Sản phẩm</a></li>
+                        <li><a href="index.php">Trang chủ</a></li>
+                        <li><a href="sanpham.php">Sản phẩm</a></li>
                         <li>
-                            <a href="hotrokhachhang.html">Hỗ trợ khách hàng</a>
+                            <a href="hotrokhachhang.php">Hỗ trợ khách hàng</a>
                         </li>
-                        <li><a href="giohang.html">Kiểm tra đơn hàng</a></li>
+                        <li><a href="giohang.php">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img
                         src="../assets/image/logoSaleNoti.png"

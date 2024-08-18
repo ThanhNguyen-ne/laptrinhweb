@@ -3,7 +3,7 @@ function showLoginModal() {
     var modalBody = document.getElementById("loginModalBody");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "dangnhap.html", true);
+    xhr.open("GET", "dangnhap.php", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
@@ -18,7 +18,7 @@ function showSignupModal() {
     var modalBody = document.getElementById("signupModalBody");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "dangki.html", true);
+    xhr.open("GET", "dangki.php", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
@@ -171,7 +171,7 @@ function login(event) {
         Object.values(users).some(user => user.phone === emailOrPhone && user.password === password)) {
         loginMessage.innerText = "Đăng nhập thành công!";
         loginMessage.style.color = "green";
-        window.location.href = "index.html";
+        window.location.href = "index.php";
         alert("Đăng nhập thành công");
     } else {
         loginMessage.innerText = "Thông tin hoặc mật khẩu không đúng.";

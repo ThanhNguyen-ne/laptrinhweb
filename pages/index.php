@@ -48,23 +48,23 @@
                 <nav>
                     <div class="header_duoi">
                         <div class="content-header">
-                            <a href="index.html">
+                            <a href="index.php">
                                 <img src="../assets/image/index/logohdeader.webp" alt="Logo" class="logo" />
                             </a>
                             <ul id="nav">
-                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="index.php">Trang chủ</a></li>
                                 <li>
-                                    <a href="sanpham.html"> Sản phẩm</a>
+                                    <a href="sanpham.php"> Sản phẩm</a>
                                     <ul class="subnav">
-                                        <li><a href="yensaothiennhiennguyento.html">Yến sào đảo yến thiên nhiên</a></li>
-                                        <li><a href="thucphamsanestfood.html">Thực phẩm Sanest Food</a></li>
-                                        <li><a href="yensaosanviestkhanhhoa.html">Yến sào Sanvinest Khánh Hoà</a></li>
-                                        <li><a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a></li>
-                                        <li><a href="tinhchatyensao.html">Tinh chất yến sào</a></li>
+                                        <li><a href="yensaothiennhiennguyento.php">Yến sào đảo yến thiên nhiên</a></li>
+                                        <li><a href="thucphamsanestfood.php">Thực phẩm Sanest Food</a></li>
+                                        <li><a href="yensaosanviestkhanhhoa.php">Yến sào Sanvinest Khánh Hoà</a></li>
+                                        <li><a href="yensaosanestkhanhhoa.php">Yến sào Sanest</a></li>
+                                        <li><a href="tinhchatyensao.php">Tinh chất yến sào</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="thongtin.html">Thông tin</a></li>
-                                <li><a class="cart" href="giohang.html"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                                <li><a href="thongtin.php">Thông tin</a></li>
+                                <li><a class="cart" href="giohang.php"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
                             </ul>
                             <form action="" class="search">
                                 <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required />
@@ -82,37 +82,37 @@
                 <ul>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="yensaothiennhiennguyento.html"
+                        ><a href="yensaothiennhiennguyento.php"
                             >Yến đảo nguyên tổ</a
                         >
                     </li>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="tinhchatyensao.html">Yến đảo tinh chế</a>
+                        ><a href="tinhchatyensao.php">Yến đảo tinh chế</a>
                     </li>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="tinhchatyensao.html">Tinh chất yến sào</a>
+                        ><a href="tinhchatyensao.php">Tinh chất yến sào</a>
                     </li>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="yensaosanestkhanhhoa.html">Yến sào Sanest</a>
+                        ><a href="yensaosanestkhanhhoa.php">Yến sào Sanest</a>
                     </li>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="yensaosanviestkhanhhoa.html"
+                        ><a href="yensaosanviestkhanhhoa.php"
                             >Yến sào Sanvinest</a
                         >
                     </li>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="tinhchatyensao.html"
+                        ><a href="tinhchatyensao.php"
                             >Tinh chất Yến sào Sanvinest</a
                         >
                     </li>
                     <li>
                         <i class="fa-solid fa-arrow-right"></i
-                        ><a href="thucphamsanestfood.html"
+                        ><a href="thucphamsanestfood.php"
                             >Thực phẩm Sanest Foods</a
                         >
                     </li>
@@ -121,14 +121,14 @@
             <div class="slider">
                 <div class="slides">
                     <div class="slide">
-                        <a href="yensaothiennhiennguyento.html"><img src="../assets/image/index/slider_2.jng.jpg"/></a>
+                        <a href="yensaothiennhiennguyento.php"><img src="../assets/image/index/slider_2.jng.jpg"/></a>
                     
                     </div>
                     <div class="slide">
-                        <a href="yensaosanviestkhanhhoa.html"><img src="../assets/image/index/slider2_3.jpg" alt="Slide 2" /></a>
+                        <a href="yensaosanviestkhanhhoa.php"><img src="../assets/image/index/slider2_3.jpg" alt="Slide 2" /></a>
                     </div>
                     <div class="slide">
-                        <a href="thucphamsanestfood.html"><img src="../assets/image/index/slider_3.webp" alt="Slide 2" /></a>
+                        <a href="thucphamsanestfood.php"><img src="../assets/image/index/slider_3.webp" alt="Slide 2" /></a>
                     </div>
                 </div>
                 <button class="prev" onclick="prevSlide()">&#10094;</button>
@@ -143,17 +143,17 @@
             </div>
             <div class="san-pham-item">
                 <div class="product">
-                    <a href="detail.html?id=31"
+                    <a href="detail.php?id=31"
                         ><img src="../assets/image/product/yensaonguyento/banner1.jpg" alt="Sản phẩm 1"
                     /></a>
                 </div>
                 <div class="product">
-                    <a href="detail.html?id=13">
+                    <a href="detail.php?id=13">
                         <img src="../assets/image/product/yensaonguyento/banner2.jpg" alt="Sản phẩm 2"
                     /></a>
                 </div>
                 <div class="product">
-                    <a href="detail.html?id=6">
+                    <a href="detail.php?id=6">
                         <img src="../assets/image/product/yensaonguyento/banner3.jpg" alt="Sản phẩm 3"
                     /></a>
                 </div>
@@ -165,7 +165,7 @@
                 <h2 class="tieude">YẾN SÀO THIÊN NHIÊN NGUYÊN TỔ</h2>
             </div>
             <div class="header1">
-                <a href="yensaothiennhiennguyento.html">
+                <a href="yensaothiennhiennguyento.php">
                     <img src="../assets/image/index/owl_col1_subtitle_img.jpg" alt="Yến Sào Khánh Hòa"/>
                 </a>
             </div>
@@ -227,7 +227,7 @@
                 <h2 class="tieude">THỰC PHẨM SANEST FOODS</h2>
             </div>
             <div class="header1">
-                <a href="thucphamsanestfood.html">
+                <a href="thucphamsanestfood.php">
                     <img src="../assets/image/index/owl_col3_subtitle_img.jpg" alt="Thực phẩm Sanest Foods"/>
                 </a>
             </div>
@@ -284,7 +284,7 @@
                 <h2 class="tieude">YẾN SÀO SANVIEST KHÁNH HÒA</h2>
             </div>
             <div class="header1">
-                <a href="yensaosanviestkhanhhoa.html">
+                <a href="yensaosanviestkhanhhoa.php">
                     <img src="../assets/image/index/owl_col4_subtitle_img.webp" alt="Yến Sào Sanviest"/>
                 </a>
             </div>
@@ -345,7 +345,7 @@
                 <h2 class="tieude">YẾN SÀO SANEST KHÁNH HÒA</h2>
             </div>
             <div class="header1">
-                <a href="yensaosanestkhanhhoa.html">
+                <a href="yensaosanestkhanhhoa.php">
                     <img src="../assets/image/index/owl_col3_subtitle_img.jpg" alt="Yến Sào Sanest"/>
                 </a>
             </div>
@@ -406,7 +406,7 @@
                 <h2 class="tieude">TINH CHẤT YẾN SÀO</h2>
             </div>
             <div class="header1">
-                <a href="yensaosanestkhanhhoa.html">
+                <a href="yensaosanestkhanhhoa.php">
                     <img src="../assets/image/index/owl_col3_subtitle_img.jpg" alt="Yến Sào Sanest"/>
                 </a>
             </div>
@@ -476,12 +476,12 @@
                 <div class="footer-section">
                     <h4>DANH MỤC</h4>
                     <ul>
-                        <li><a href="index.html">Trang chủ</a></li>
-                        <li><a href="sanpham.html">Sản phẩm</a></li>
+                        <li><a href="index.php">Trang chủ</a></li>
+                        <li><a href="sanpham.php">Sản phẩm</a></li>
                         <li>
-                            <a href="hotrokhachhang.html">Hỗ trợ khách hàng</a>
+                            <a href="hotrokhachhang.php">Hỗ trợ khách hàng</a>
                         </li>
-                        <li><a href="giohang.html">Kiểm tra đơn hàng</a></li>
+                        <li><a href="giohang.php">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img
                         src="../assets/image/logoSaleNoti.png"

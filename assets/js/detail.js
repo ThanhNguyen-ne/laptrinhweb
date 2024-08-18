@@ -63,7 +63,7 @@ const getDetailProduct = async () => {
                     cart.push({ id: product.id, count: 1 });
                     localStorage.setItem('cart', JSON.stringify(cart));
                 }
-                window.location.href = 'checkout.html'; // Chuyển hướng đến trang thanh toán
+                window.location.href = 'checkout.php'; // Chuyển hướng đến trang thanh toán
             });
 
             // Hiển thị các sản phẩm tương tự, chỉ lấy 6 sản phẩm
@@ -78,7 +78,7 @@ const getDetailProduct = async () => {
                         <img src="${item.img}" alt="${item.title}" />
                         <h4>${item.title}</h4>
                         <p>${item.price}</p>
-                        <a href="detail.html?id=${item.id}" class="btn-detail">Xem chi tiết</a>
+                        <a href="detail.php?id=${item.id}" class="btn-detail">Xem chi tiết</a>
                     </div>
                 `)
                 .join('');
