@@ -51,7 +51,7 @@ const getDetailProduct = async () => {
                 }
 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                showNotification("Sản phẩm đã được thêm vào giỏ hàng!");
             });
 
             // Thêm sự kiện cho nút "Mua ngay"
@@ -87,5 +87,19 @@ const getDetailProduct = async () => {
         console.error('Fetch error:', error);
     }
 };
+function showNotification(message) {
+    // Tạo một thông báo mới
+    const notification = document.createElement("div");
+    notification.className = "notification";
+    notification.innerText = message;
+
+    // Thêm thông báo vào body
+    document.body.appendChild(notification);
+
+    // Loại bỏ thông báo sau 3 giây
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
 
 getDetailProduct();

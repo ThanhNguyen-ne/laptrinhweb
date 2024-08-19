@@ -332,8 +332,8 @@
             <h2 class="tieude">TINH CHẤT YẾN SÀO</h2>
         </div>
         <div class="header1">
-            <a href="yensaosanestkhanhhoa.php">
-                <img src="../assets/image/index/owl_col3_subtitle_img.jpg" alt="Yến Sào Sanest" />
+            <a href="tinhchatyensao.php">
+                <img src="../assets/image/index/owl_col5_subtitle_img.webp" alt="Yến Sào Sanest" />
             </a>
         </div>
         <div class="products1">

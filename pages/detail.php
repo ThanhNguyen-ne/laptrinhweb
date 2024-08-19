@@ -20,6 +20,20 @@
 </head>
 
 <body>
+    <div class="breadcrumb">
+        <h3>
+            <a href="index.php">Trang chủ</a> >
+
+        </h3>
+        <h3>
+            <a href="sanpham.php">Tất cả sản phẩm</a> >
+
+        </h3>
+        <h3>
+            <a href="thucphamsanestfood.php">Chi tiết sản phẩm</a>
+
+        </h3>
+    </div>
     <?php include("header.php"); ?>
 
     <script src="../assets/js/dangnhap.js"></script>
