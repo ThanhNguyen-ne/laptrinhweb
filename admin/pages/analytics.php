@@ -3,58 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-            rel="stylesheet"
-        />
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../assets/css/analytics.css" />
-
         <title>Phân tích</title>
     </head>
 
     <body>
         <!-- Sidebar -->
-
-        <div class="sidebar">
-            <a href="#" class="logo">
-                <i class="bx bxl-twitter"></i>
-                <div class="logo-name"><span>Yến sào</span>TT</div>
-            </a>
-            <ul class="side-menu">
-
-                <li>
-                    <a href="store.php"
-                        ><i class="bx bx-store-alt"></i>Cửa hàng</a
-                    >
-                </li>
-                <li class="active">
-                    <a href="analytics.php"
-                        ><i class="bx bx-analyse"></i>Phân tích</a
-                    >
-                </li>
-                <li>
-                    <a href="feedback.php"
-                        ><i class="bx bx-message-square-dots"></i>Phản hồi</a
-                    >
-                </li>
-                <li>
-                    <a href="users.php"
-                        ><i class="bx bx-group"></i>Người dùng</a
-                    >
-                </li>
-                <li>
-                    <a href="settings.php"><i class="bx bx-cog"></i>Cài đặt</a>
-                </li>
-            </ul>
-            <ul class="side-menu">
-                <li>
-                    <a href="#" class="logout">
-                        <i class="bx bx-log-out-circle"></i>
-                        Đăng xuất
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <?php include("sidebar.php"); ?>
         <!-- End of Sidebar -->
 
         <!-- Main Content -->
@@ -94,33 +50,52 @@
                     </div>
                 </div>
 
+                <?php
+                include('db_connect.php');
+
+                // Lấy dữ liệu từ cơ sở dữ liệu
+                $orders_result = $conn->query("SELECT COUNT(order_id) AS total_orders FROM orders WHERE pay_status = 1");
+                $orders_paid = $orders_result->fetch_assoc()['total_orders'];
+
+                $views_result = $conn->query("SELECT SUM(views) AS total_views FROM site_statistics");
+                $total_views = $views_result->fetch_assoc()['total_views'];
+
+                $searches_result = $conn->query("SELECT SUM(searches) AS total_searches FROM site_statistics");
+                $total_searches = $searches_result->fetch_assoc()['total_searches'];
+
+                $revenue_result = $conn->query("SELECT SUM(amount) AS total_revenue FROM orders WHERE pay_status = 1");
+                $total_revenue = $revenue_result->fetch_assoc()['total_revenue'];
+
+                $conn->close();
+                ?>
+
                 <!-- Insights -->
                 <ul class="insights">
                     <li>
                         <i class="bx bx-calendar-check"></i>
                         <span class="info">
-                            <h3>1,074</h3>
+                            <h3><?php echo number_format($orders_paid); ?></h3>
                             <p>Đơn hàng đã thanh toán</p>
                         </span>
                     </li>
                     <li>
                         <i class="bx bx-show-alt"></i>
                         <span class="info">
-                            <h3>3,944</h3>
+                            <h3><?php echo number_format($total_views); ?></h3>
                             <p>Lượt truy cập</p>
                         </span>
                     </li>
                     <li>
                         <i class="bx bx-line-chart"></i>
                         <span class="info">
-                            <h3>14,721</h3>
+                            <h3><?php echo number_format($total_searches); ?></h3>
                             <p>Tìm kiếm</p>
                         </span>
                     </li>
                     <li>
                         <i class="bx bx-dollar-circle"></i>
                         <span class="info">
-                            <h3>$6,742</h3>
+                            <h3>$<?php echo number_format($total_revenue); ?></h3>
                             <p>Tổng doanh thu</p>
                         </span>
                     </li>
@@ -144,42 +119,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="../assets/images/logohdeader.webp" />
-                                        <p>Nguyễn Quốc Tùng</p>
-                                    </td>
-                                    <td>01-08-2024</td>
-                                    <td>
-                                        <span class="status completed"
-                                            >Hoàn thành</span
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../assets/images/logohdeader.webp" />
-                                        <p>Nguyễn Quốc Tùng</p>
-                                    </td>
-                                    <td>01-08-2024</td>
-                                    <td>
-                                        <span class="status pending"
-                                            >Chờ xử lý</span
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="../assets/images/logohdeader.webp" />
-                                        <p>John Doe</p>
-                                    </td>
-                                    <td>01-08-2024</td>
-                                    <td>
-                                        <span class="status process"
-                                            >Đang xử lý</span
-                                        >
-                                    </td>
-                                </tr>
+                                <?php
+                                include('db_connect.php');
+                                $recent_orders_result = $conn->query("SELECT orders.order_id, users.first_name, users.last_name, orders.order_date, orders.order_status FROM orders JOIN users ON orders.user_id = users.user_id ORDER BY orders.order_date DESC LIMIT 3");
+
+                                while ($order = $recent_orders_result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td><img src='../assets/images/logohdeader.webp' /><p>" . $order['first_name'] . " " . $order['last_name'] . "</p></td>";
+                                    echo "<td>" . date("d-m-Y", strtotime($order['order_date'])) . "</td>";
+                                    echo "<td><span class='status " . ($order['order_status'] == 1 ? 'completed' : ($order['order_status'] == 0 ? 'pending' : 'process')) . "'>" . ($order['order_status'] == 1 ? 'Hoàn thành' : ($order['order_status'] == 0 ? 'Chờ xử lý' : 'Đang xử lý')) . "</span></td>";
+                                    echo "</tr>";
+                                }
+
+                                $conn->close();
+                                ?>
                             </tbody>
                         </table>
                     </div>

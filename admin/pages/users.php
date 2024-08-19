@@ -13,44 +13,8 @@
 
     <body>
         <!-- Sidebar -->
-        <div class="sidebar">
-            <a href="#" class="logo">
-                <i class="bx bxl-twitter"></i>
-                <div class="logo-name"><span>Yến sào</span>TT</div>
-            </a>
-            <ul class="side-menu">
+        <?php include("sidebar.php"); ?>
 
-                <li>
-                    <a href="store.php"
-                        ><i class="bx bx-store-alt"></i>Cửa hàng</a
-                    >
-                </li>
-                <li>
-                    <a href="analytics.php"
-                        ><i class="bx bx-analyse"></i>Phân tích</a
-                    >
-                </li>
-                <li>
-                    <a href="feedback.php"
-                        ><i class="bx bx-message-square-dots"></i>Phản hồi</a
-                    >
-                </li>
-                <li class="active">
-                    <a href="#"><i class="bx bx-group"></i>Người dùng</a>
-                </li>
-                <li>
-                    <a href="settings.php"><i class="bx bx-cog"></i>Cài đặt</a>
-                </li>
-            </ul>
-            <ul class="side-menu">
-                <li>
-                    <a href="#" class="logout">
-                        <i class="bx bx-log-out-circle"></i>
-                        Đăng xuất
-                    </a>
-                </li>
-            </ul>
-        </div>
         <!-- End of Sidebar -->
 
         <!-- Main Content -->
@@ -131,7 +95,7 @@
                         <input type="email" id="userEmail" required />
                     </div>
                     <div class="input-group">
-                        <label for="userRole">Vai trò</label>
+                        <label for="userRole">Chỉnh sửa</label>
                         <select id="userRole" required>
                             <option value="Admin">Admin</option>
                             <option value="User">User</option>

@@ -29,9 +29,6 @@
                     <ul>
                         <li><a href="index.php">Trang chủ</a></li>
                         <li><a href="sanpham.php">Sản phẩm</a></li>
-                        <li>
-                            <a href="hotrokhachhang.php">Hỗ trợ khách hàng</a>
-                        </li>
                         <li><a href="giohang.php">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img

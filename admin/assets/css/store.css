@@ -17,6 +17,7 @@
 
 .product-table {
     margin-top: 24px;
+    overflow-x: auto;
 }
 
 .product-table table {
@@ -41,6 +42,13 @@
 
 .product-table table tr:hover {
     background: var(--grey);
+}
+
+.product-table table td img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .product-table table .actions {
@@ -79,7 +87,7 @@
 
 .modal-content {
     background-color: var(--light);
-    margin: 10% auto;
+    margin: 2% auto;
     padding: 20px;
     border: 1px solid var(--grey);
     width: 80%;
@@ -111,11 +119,16 @@
 }
 
 .input-group input,
-.input-group select {
+.input-group select,
+.input-group textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid var(--grey);
     border-radius: 4px;
+}
+
+.input-group input[type="file"] {
+    padding: 3px;
 }
 
 .btn.submit-btn {
@@ -129,4 +142,9 @@
 
 .btn.submit-btn:hover {
     background: var(--dark-primary);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
 }

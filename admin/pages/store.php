@@ -4,59 +4,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-        rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/store.css" />
     <title>Cửa hàng</title>
 </head>
 
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
-        <a href="#" class="logo">
-            <i class="bx bxl-twitter"></i>
-            <div class="logo-name"><span>Yến sào</span>TT</div>
-        </a>
-        <ul class="side-menu">
-
-            <li class="active">
-                <a href="#"><i class="bx bx-store-alt"></i>Cửa hàng</a>
-            </li>
-            <li>
-                <a href="analytics.php"><i class="bx bx-analyse"></i>Phân tích</a>
-            </li>
-            <li>
-                <a href="feedback.php"><i class="bx bx-message-square-dots"></i>Phản hồi</a>
-            </li>
-            <li>
-                <a href="users.php"><i class="bx bx-group"></i>Người dùng</a>
-            </li>
-            <li>
-                <a href="settings.php"><i class="bx bx-cog"></i>Cài đặt</a>
-            </li>
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="#" class="logout">
-                    <i class="bx bx-log-out-circle"></i>
-                    Đăng xuất
-                </a>
-            </li>
-        </ul>
-    </div>
+    <?php include("sidebar.php"); ?>
     <!-- End of Sidebar -->
 
     <!-- Main Content -->
     <div class="content">
         <!-- Navbar -->
-        <nav>
+        <nav class="navbar">
             <i class="bx bx-menu"></i>
             <form action="#">
                 <div class="form-input">
-                    <input
-                        type="search"
-                        placeholder="Tìm kiếm sản phẩm..." />
+                    <input type="search" placeholder="Tìm kiếm sản phẩm..." />
                     <button class="search-btn" type="submit">
                         <i class="bx bx-search"></i>
                     </button>
@@ -96,13 +61,32 @@
                     <thead>
                         <tr>
                             <th>Tên sản phẩm</th>
+                            <th>Mô tả</th>
                             <th>Giá</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
+                            <th>Số lượng</th>
+                            <th>Chỉnh sửa</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Dynamic rows will be inserted here by JS -->
+                        <?php
+                        include('db_connect.php');
+                        $products_result = $conn->query("SELECT * FROM product");
+
+                        while ($product = $products_result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $product['product_name'] . "</td>";
+                            echo "<td>" . $product['product_desc'] . "</td>";
+                            echo "<td>" . number_format($product['price']) . " VND</td>";
+                            echo "<td>" . $product['quantity_in_stock'] . "</td>";
+                            echo "<td class='actions'>
+                                    <button class='btn edit-btn' data-id='" . $product['product_id'] . "'>Sửa</button>
+                                    <button class='btn delete-btn' data-id='" . $product['product_id'] . "'>Xóa</button>
+                                  </td>";
+                            echo "</tr>";
+                        }
+
+                        $conn->close();
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -114,18 +98,30 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Thêm sản phẩm</h2>
-            <form id="productForm">
+            <form id="productForm" enctype="multipart/form-data">
+                <div class="input-group">
+                    <label for="productImage">Hình ảnh</label>
+                    <input type="file" id="productImage" accept="image/*" name="productImage" required />
+                </div>
                 <div class="input-group">
                     <label for="productName">Tên sản phẩm</label>
-                    <input type="text" id="productName" required />
+                    <input type="text" id="productName" name="productName" required />
+                </div>
+                <div class="input-group">
+                    <label for="productDescription">Mô tả</label>
+                    <textarea id="productDescription" name="productDescription" required></textarea>
                 </div>
                 <div class="input-group">
                     <label for="productPrice">Giá</label>
-                    <input type="number" id="productPrice" required />
+                    <input type="number" id="productPrice" name="productPrice" required />
+                </div>
+                <div class="input-group">
+                    <label for="productQuantity">Số lượng</label>
+                    <input type="number" id="productQuantity" name="productQuantity" required />
                 </div>
                 <div class="input-group">
                     <label for="productStatus">Trạng thái</label>
-                    <select id="productStatus" required>
+                    <select id="productStatus" name="productStatus" required>
                         <option value="Còn hàng">Còn hàng</option>
                         <option value="Hết hàng">Hết hàng</option>
                     </select>

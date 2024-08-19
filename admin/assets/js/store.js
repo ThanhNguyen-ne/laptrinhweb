@@ -1,3 +1,5 @@
+// Thêm các hàm AJAX để xử lý thêm, sửa, xóa sản phẩm từ cơ sở dữ liệu
+
 const productModal = document.getElementById("productModal");
 const productForm = document.getElementById("productForm");
 const closeModal = document.querySelector(".close");
@@ -5,30 +7,34 @@ const addProductBtn = document.querySelector(".add-product-btn");
 let editMode = false;
 let currentEditRow = null;
 
-const products = [
-    { name: "Sản phẩm A", price: 10000, status: "Còn hàng" },
-    { name: "Sản phẩm B", price: 15000, status: "Hết hàng" },
-];
+function loadProducts() {
+    fetch('get_products.php')
+    .then(response => response.json())
+    .then(data => {
+        renderProducts(data);
+    });
+}
 
-// Function to render products
-function renderProducts() {
+// Hàm để render sản phẩm
+function renderProducts(products) {
     const tbody = document.querySelector(".product-table tbody");
     tbody.innerHTML = "";
     products.forEach((product, index) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${product.name}</td>
+            <td>${product.product_name}</td>
+            <td>${product.product_desc}</td>
             <td>${product.price} VND</td>
-            <td>${product.status}</td>
+            <td>${product.quantity_in_stock}</td>
             <td class="actions">
-                <button class="btn edit-btn" data-index="${index}">Sửa</button>
-                <button class="btn delete-btn" data-index="${index}">Xóa</button>
+                <button class="btn edit-btn" data-id="${product.product_id}">Sửa</button>
+                <button class="btn delete-btn" data-id="${product.product_id}">Xóa</button>
             </td>
         `;
         tbody.appendChild(tr);
     });
 
-    // Add event listeners for edit and delete buttons
+    // Thêm sự kiện click cho nút sửa và xóa
     document.querySelectorAll(".edit-btn").forEach((btn) => {
         btn.addEventListener("click", handleEdit);
     });
@@ -38,7 +44,6 @@ function renderProducts() {
     });
 }
 
-// Open modal to add product
 addProductBtn.addEventListener("click", () => {
     productModal.style.display = "block";
     productForm.reset();
@@ -46,51 +51,64 @@ addProductBtn.addEventListener("click", () => {
     currentEditRow = null;
 });
 
-// Close modal
 closeModal.addEventListener("click", () => {
     productModal.style.display = "none";
 });
 
-// Handle form submit
 productForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = document.getElementById("productName").value;
-    const price = document.getElementById("productPrice").value;
-    const status = document.getElementById("productStatus").value;
+    const formData = new FormData(productForm);
 
+    let url = 'add_product.php';
     if (editMode && currentEditRow !== null) {
-        products[currentEditRow] = { name, price, status };
-    } else {
-        products.push({ name, price, status });
+        formData.append('product_id', currentEditRow);
+        url = 'edit_product.php';
     }
 
-    productModal.style.display = "none";
-    renderProducts();
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        productModal.style.display = "none";
+        loadProducts();
+    });
 });
 
-// Handle edit
 function handleEdit(e) {
-    const index = e.target.dataset.index;
-    const product = products[index];
-    document.getElementById("productName").value = product.name;
-    document.getElementById("productPrice").value = product.price;
-    document.getElementById("productStatus").value = product.status;
+    const productId = e.target.dataset.id;
+    fetch(`get_product.php?id=${productId}`)
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("productName").value = data.product_name;
+        document.getElementById("productDescription").value = data.product_desc;
+        document.getElementById("productPrice").value = data.price;
+        document.getElementById("productQuantity").value = data.quantity_in_stock;
+        document.getElementById("productStatus").value = data.status;
 
-    productModal.style.display = "block";
-    editMode = true;
-    currentEditRow = index;
+        productModal.style.display = "block";
+        editMode = true;
+        currentEditRow = productId;
+    });
 }
 
-// Handle delete
 function handleDelete(e) {
-    const index = e.target.dataset.index;
-    products.splice(index, 1);
-    renderProducts();
+    const productId = e.target.dataset.id;
+    if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+        fetch(`delete_product.php?id=${productId}`, {
+            method: 'GET'
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            loadProducts();
+        });
+    }
 }
 
-// Initial render
-renderProducts();
-
+window.onload = loadProducts;
 
 const toggler = document.getElementById("theme-toggle");
 

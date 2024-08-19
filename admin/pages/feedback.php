@@ -13,45 +13,8 @@
 
     <body>
         <!-- Sidebar -->
-        <div class="sidebar">
-            <a href="#" class="logo">
-                <i class="bx bxl-twitter"></i>
-                <div class="logo-name"><span>Yến sào</span>TT</div>
-            </a>
-            <ul class="side-menu">
-                <li>
-                    <a href="store.php"
-                        ><i class="bx bx-store-alt"></i>Cửa hàng</a
-                    >
-                </li>
-                <li>
-                    <a href="analytics.php"
-                        ><i class="bx bx-analyse"></i>Phân tích</a
-                    >
-                </li>
-                <li class="active">
-                    <a href="#"
-                        ><i class="bx bx-message-square-dots"></i>Phản hồi</a
-                    >
-                </li>
-                <li>
-                    <a href="users.php"
-                        ><i class="bx bx-group"></i>Người dùng</a
-                    >
-                </li>
-                <li>
-                    <a href="settings.php"><i class="bx bx-cog"></i>Cài đặt</a>
-                </li>
-            </ul>
-            <ul class="side-menu">
-                <li>
-                    <a href="#" class="logout">
-                        <i class="bx bx-log-out-circle"></i>
-                        Đăng xuất
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <?php include("sidebar.php"); ?>
+
         <!-- End of Sidebar -->
 
         <!-- Main Content -->
@@ -103,7 +66,7 @@
                                 <th>Email</th>
                                 <th>Nội dung</th>
                                 <th>Thời gian</th>
-                                <th>Hành động</th>
+                                <th>Xóa</th>
                             </tr>
                         </thead>
                         <tbody>

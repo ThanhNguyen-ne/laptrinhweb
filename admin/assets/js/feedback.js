@@ -1,26 +1,15 @@
-const feedbacks = [
-    {
-        name: "Nguyễn Quốc Tùng",
-        email: "tung@gmail.com",
-        message: "Tôi rất hài lòng với sản phẩm!",
-        time: "10-08-2024 10:30 AM",
-    },
-    {
-        name: "Nguyễn Quốc Tùng",
-        email: "tung@gmail.com",
-        message: "Dịch vụ hỗ trợ rất tốt.",
-        time: "10-08-2024 10:30 AM",
-    },
-    {
-        name: "Nguyễn Võ Thành",
-        email: "thanh@gmail.com",
-        message: "Tôi gặp vấn đề với sản phẩm.",
-        time: "10-08-2024 10:30 AM",
-    },
-];
+const feedbacks = [];
 
-// Function to render feedbacks
-function renderFeedbacks() {
+function loadFeedbacks() {
+    fetch('api.php?action=get_feedbacks')
+    .then(response => response.json())
+    .then(data => {
+        renderFeedbacks(data);
+    });
+}
+
+// Hàm để render feedbacks
+function renderFeedbacks(feedbacks) {
     const tbody = document.querySelector(".feedback-table tbody");
     tbody.innerHTML = "";
     feedbacks.forEach((feedback, index) => {
@@ -31,27 +20,34 @@ function renderFeedbacks() {
             <td>${feedback.message}</td>
             <td>${feedback.time}</td>
             <td class="actions">
-                <button class="btn delete-btn" data-index="${index}">Xóa</button>
+                <button class="btn delete-btn" data-id="${feedback.id}">Xóa</button>
             </td>
         `;
         tbody.appendChild(tr);
     });
 
-    // Add event listeners for delete buttons
+    // Thêm sự kiện click cho nút xóa
     document.querySelectorAll(".delete-btn").forEach((btn) => {
         btn.addEventListener("click", handleDelete);
     });
 }
 
-// Handle delete
+// Hàm xử lý xóa feedback
 function handleDelete(e) {
-    const index = e.target.dataset.index;
-    feedbacks.splice(index, 1);
-    renderFeedbacks();
+    const feedbackId = e.target.dataset.id;
+    if (confirm('Bạn có chắc chắn muốn xóa phản hồi này?')) {
+        fetch(`api.php?action=delete_feedback&id=${feedbackId}`, {
+            method: 'GET'
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            loadFeedbacks();
+        });
+    }
 }
 
-// Initial render
-renderFeedbacks();
+window.onload = loadFeedbacks;
 
 const toggler = document.getElementById("theme-toggle");
 
