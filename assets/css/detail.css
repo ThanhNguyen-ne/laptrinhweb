@@ -54,14 +54,14 @@
     font-size: 17px;
     font-weight: bold;
     border-radius: 10px;
-    background-color: #536493;
+    background-color: #007bff;
     color: white;
     transition: all 0.3s;
     text-align: center;
 }
 
 .btn-buy {
-    background-color: #ff6347;
+    background-color: #28a745;
 }
 
 .btn-add:hover,

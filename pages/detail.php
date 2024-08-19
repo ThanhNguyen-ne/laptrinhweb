@@ -13,13 +13,28 @@
     <title>Detail prodct</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
     <link rel="stylesheet" href="../assets/css/header.css" />
-    <link rel="stylesheet" href="../../assets/css/footer.css" />
-    <link rel="stylesheet" href="../../assets/css/detail.css" />
-    <link rel="stylesheet" href="../../assets/css/sanpham.css" />
+    <link rel="stylesheet" href="../assets/css/footer.css" />
+    <link rel="stylesheet" href="../assets/css/detail.css" />
+    <link rel="stylesheet" href="../assets/css/sanpham.css" />
+    
 
 </head>
 
 <body>
+    <div class="breadcrumb">
+        <h3>
+            <a href="index.php">Trang chủ</a> >
+
+        </h3>
+        <h3>
+            <a href="sanpham.php">Tất cả sản phẩm</a> >
+
+        </h3>
+        <h3>
+            <a href="thucphamsanestfood.php">Chi tiết sản phẩm</a>
+
+        </h3>
+    </div>
     <?php include("header.php"); ?>
 
     <script src="../assets/js/dangnhap.js"></script>
