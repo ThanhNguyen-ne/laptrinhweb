@@ -25,7 +25,6 @@ function showSignupModal() {
             modal.style.display = "flex";
         }
     };
-
     xhr.send();
 }
 
@@ -49,14 +48,12 @@ function switchToEmailLogin() {
     document.getElementById("loginPhone").style.display = "none";
     document.getElementById("emailTab").classList.add("active");
     document.getElementById("phoneTab").classList.remove("active");
+
+    document.getElementById("loginEmail").setAttribute("name", "loginEmail");
+    document.getElementById("loginPhone").removeAttribute("name");
 }
 
-function switchToPhoneLogin() {
-    document.getElementById("loginEmail").style.display = "none";
-    document.getElementById("loginPhone").style.display = "block";
-    document.getElementById("emailTab").classList.remove("active");
-    document.getElementById("phoneTab").classList.add("active");
-}
+
 
 function register(event) {
     event.preventDefault();
@@ -70,19 +67,15 @@ function register(event) {
     let emailError = document.getElementById("emailError");
     let phoneError = document.getElementById("phoneError");
     let fullnameError = document.getElementById("fullnameError");
-    let addressError = document.getElementById("addressError");
-    let passwordError = document.getElementById("passwordError");
+    let passwordError = document.getElementById("passwordError"); // Đảm bảo biến này đã khai báo
     let regMessage = document.getElementById("regMessage");
 
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let lowerCaseLetter = /[a-z]/g;
-    let upperCaseLetter = /[A-Z]/g;
-    let numbers = /[0-9]/g;
 
+    // Xóa phần kiểm tra lỗi địa chỉ
     emailError.innerText = "";
     phoneError.innerText = "";
     fullnameError.innerText = "";
-    addressError.innerText = "";
     passwordError.innerText = "";
     regMessage.innerText = "";
 
@@ -100,24 +93,8 @@ function register(event) {
         fullnameError.innerText = "Vui lòng nhập họ và tên.";
         hasError = true;
     }
-    if (!address) {
-        addressError.innerText = "Vui lòng nhập địa chỉ.";
-        hasError = true;
-    }
-    if (password.length < 8) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất 8 ký tự.";
-        hasError = true;
-    }
-    if (!password.match(lowerCaseLetter)) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất một chữ thường.";
-        hasError = true;
-    }
-    if (!password.match(upperCaseLetter)) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất một chữ in hoa.";
-        hasError = true;
-    }
-    if (!password.match(numbers)) {
-        passwordError.innerText = "Mật khẩu phải có ít nhất một chữ số.";
+    if (password.length < 6) {
+        passwordError.innerText = "Mật khẩu phải có ít nhất 6 ký tự.";
         hasError = true;
     }
 
@@ -125,56 +102,22 @@ function register(event) {
         return;
     }
 
-    let user = {
-        email: email,
-        phone: phone,
-        fullname: fullname,
-        address: address,
-        password: password,
+    // Gửi dữ liệu đăng ký tới server bằng Ajax
+    let formData = new FormData();
+    formData.append('Email', email);
+    formData.append('Phone', phone);
+    formData.append('Fullname', fullname);
+    formData.append('Address', address);
+    formData.append('Password', password);
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "dangki.php", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            regMessage.innerText = xhr.responseText;
+        } else {
+            regMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
+        }
     };
-
-    let users = localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users"))
-        : {};
-
-    if (users[email] || users[phone]) {
-        regMessage.innerText = "Người dùng đã tồn tại.";
-        regMessage.style.color = "red";
-    } else {
-        users[email] = user;
-        localStorage.setItem("users", JSON.stringify(users));
-        regMessage.innerText = "Đăng ký thành công!";
-        regMessage.style.color = "green";
-    }
-}
-
-function login(event) {
-    event.preventDefault();
-
-    let emailOrPhone = document.getElementById("loginEmail").style.display !== "none" ?
-        document.getElementById("loginEmail").value.trim() :
-        document.getElementById("loginPhone").value.trim();
-    let password = document.getElementById("loginPassword").value.trim();
-    let loginMessage = document.getElementById("loginMessage");
-
-    let users = localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users"))
-        : {};
-
-    if (!emailOrPhone || !password) {
-        loginMessage.innerText = "Vui lòng nhập thông tin và mật khẩu.";
-        loginMessage.style.color = "red";
-        return;
-    }
-
-    if ((users[emailOrPhone] && users[emailOrPhone].password === password) ||
-        Object.values(users).some(user => user.phone === emailOrPhone && user.password === password)) {
-        loginMessage.innerText = "Đăng nhập thành công!";
-        loginMessage.style.color = "green";
-        window.location.href = "index.php";
-        alert("Đăng nhập thành công");
-    } else {
-        loginMessage.innerText = "Thông tin hoặc mật khẩu không đúng.";
-        loginMessage.style.color = "red";
-    }
+    xhr.send(formData);
 }
