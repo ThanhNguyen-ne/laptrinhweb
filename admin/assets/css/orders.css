@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("analytics.css"); /* Import the common styles */
+
+.content main .header .btn {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: var(--primary);
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.order-table {
+    margin-top: 24px;
+    overflow-x: auto;
+}
+
+.order-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table table th,
+.order-table table td {
+    padding: 12px;
+    border: 1px solid var(--grey);
+    text-align: left;
+}
+
+.order-table table th {
+    background: var(--light-primary);
+    font-weight: 600;
+}
+
+.order-table table td {
+    background: var(--light);
+}
+
+.order-table table tr:hover {
+    background: var(--grey);
+}
+
+.order-table table .actions {
+    display: flex;
+    grid-gap: 10px;
+}
+
+.order-table table .actions .btn {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.order-table table .actions .delete-btn {
+    background: var(--danger);
+    color: var(--light);
+}
+
+/* Style for the order status dropdown */
+.order-table table .order-status {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--grey);
+    background: var(--light-primary);
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.order-table table .order-status:hover {
+    background: var(--dark-primary);
+    color: var(--light);
+}
+
+.order-table table .order-status option {
+    background: var(--light);
+    color: var(--dark);
+}
+
+/* Darker hover effect on delete button */
+.order-table table .actions .delete-btn:hover {
+    background: var(--dark-danger);
+}

@@ -3,10 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-            rel="stylesheet"
-        />
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../assets/css/feedback.css" />
         <title>Phản hồi</title>
     </head>
@@ -24,10 +21,7 @@
                 <i class="bx bx-menu"></i>
                 <form action="#">
                     <div class="form-input">
-                        <input
-                            type="search"
-                            placeholder="Tìm kiếm phản hồi..."
-                        />
+                        <input type="search" placeholder="Tìm kiếm phản hồi..." />
                         <button class="search-btn" type="submit">
                             <i class="bx bx-search"></i>
                         </button>

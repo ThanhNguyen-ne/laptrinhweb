@@ -6,26 +6,26 @@ let editMode = false;
 let currentEditRow = null;
 
 function loadUsers() {
-    fetch('get_users.php')
-    .then(response => response.json())
-    .then(data => {
-        renderUsers(data);
-    });
+    fetch("api.php?action=get_users")
+        .then((response) => response.json())
+        .then((data) => {
+            renderUsers(data);
+        });
 }
 
 // Hàm để render người dùng
 function renderUsers(users) {
     const tbody = document.querySelector(".user-table tbody");
     tbody.innerHTML = "";
-    users.forEach((user, index) => {
+    users.forEach((user) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${user.first_name} ${user.last_name}</td>
+            <td>${user.ho_ten}</td>
             <td>${user.email}</td>
-            <td>${user.role}</td>
+            <td>${user.vai_tro}</td>
             <td class="actions">
-                <button class="btn edit-btn" data-id="${user.user_id}">Sửa</button>
-                <button class="btn delete-btn" data-id="${user.user_id}">Xóa</button>
+                <button class="btn edit-btn" data-id="${user.id}">Sửa</button>
+                <button class="btn delete-btn" data-id="${user.id}">Xóa</button>
             </td>
         `;
         tbody.appendChild(tr);
@@ -56,50 +56,55 @@ userForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(userForm);
 
-    let url = 'add_user.php';
-    if (editMode && currentEditRow !== null) {
-        formData.append('user_id', currentEditRow);
-        url = 'edit_user.php';
+    let actionUrl = "api.php?action=add_user";
+    if (editMode) {
+        formData.append("userId", currentEditRow);
+        actionUrl = "api.php?action=update_user";
     }
 
-    fetch(url, {
-        method: 'POST',
-        body: formData
+    fetch(actionUrl, {
+        method: "POST",
+        body: formData,
     })
-    .then(response => response.text())
-    .then(data => {
-        console.log(data);
-        userModal.style.display = "none";
-        loadUsers();
-    });
+        .then((response) => response.text())
+        .then((data) => {
+            console.log(data);
+            userModal.style.display = "none";
+            loadUsers(); // Cập nhật lại danh sách người dùng sau khi thêm hoặc sửa
+        });
 });
 
 function handleEdit(e) {
     const userId = e.target.dataset.id;
-    fetch(`get_user.php?id=${userId}`)
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("userName").value = `${data.first_name} ${data.last_name}`;
-        document.getElementById("userEmail").value = data.email;
-        document.getElementById("userRole").value = data.role;
+    fetch(`api.php?action=get_user&id=${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const nameParts = data.ho_ten.split(' ');
+            const firstName = nameParts[0];
+            const lastName = nameParts.slice(1).join(' ');
 
-        userModal.style.display = "block";
-        editMode = true;
-        currentEditRow = userId;
-    });
+            document.getElementById("userFirstName").value = firstName;
+            document.getElementById("userLastName").value = lastName;
+            document.getElementById("userEmail").value = data.email;
+            document.getElementById("userRole").value = data.vai_tro;
+
+            userModal.style.display = "block";
+            editMode = true;
+            currentEditRow = userId;
+        });
 }
 
 function handleDelete(e) {
     const userId = e.target.dataset.id;
-    if (confirm('Bạn có chắc chắn muốn xóa người dùng này?')) {
-        fetch(`delete_user.php?id=${userId}`, {
-            method: 'GET'
+    if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+        fetch(`api.php?action=delete_user&id=${userId}`, {
+            method: "GET",
         })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            loadUsers();
-        });
+            .then((response) => response.text())
+            .then((data) => {
+                console.log(data);
+                loadUsers(); // Cập nhật lại danh sách người dùng sau khi xóa
+            });
     }
 }
 

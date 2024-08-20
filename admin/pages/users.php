@@ -3,10 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-            rel="stylesheet"
-        />
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../assets/css/users.css" />
         <title>Người dùng</title>
     </head>
@@ -14,7 +11,6 @@
     <body>
         <!-- Sidebar -->
         <?php include("sidebar.php"); ?>
-
         <!-- End of Sidebar -->
 
         <!-- Main Content -->
@@ -49,7 +45,7 @@
                 <div class="header">
                     <div class="left">
                         <h1>Quản lí Người dùng</h1>
-                        <ul class="breadcrumb">2
+                        <ul class="breadcrumb">
                             <li><a href="#">Người dùng</a></li>
                             /
                             <li><a href="#" class="active">Danh sách</a></li>
@@ -73,7 +69,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Dynamic rows will be inserted here by JS -->
+                            <!-- Dữ liệu người dùng sẽ được hiển thị ở đây qua JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -87,18 +83,26 @@
                 <h2>Thêm Người dùng</h2>
                 <form id="userForm">
                     <div class="input-group">
-                        <label for="userName">Tên người dùng</label>
-                        <input type="text" id="userName" required />
+                        <label for="userFirstName">Tên</label>
+                        <input type="text" id="userFirstName" name="userFirstName" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="userLastName">Họ</label>
+                        <input type="text" id="userLastName" name="userLastName" required />
                     </div>
                     <div class="input-group">
                         <label for="userEmail">Email</label>
-                        <input type="email" id="userEmail" required />
+                        <input type="email" id="userEmail" name="userEmail" required />
                     </div>
                     <div class="input-group">
-                        <label for="userRole">Chỉnh sửa</label>
-                        <select id="userRole" required>
+                        <label for="userPassword">Mật khẩu</label>
+                        <input type="password" id="userPassword" name="userPassword" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="userRole">Vai trò</label>
+                        <select id="userRole" name="userRole" required>
                             <option value="Admin">Admin</option>
-                            <option value="User">User</option>
+                            <option value="khach_hang">User</option>
                         </select>
                     </div>
                     <button type="submit" class="btn submit-btn">Lưu</button>

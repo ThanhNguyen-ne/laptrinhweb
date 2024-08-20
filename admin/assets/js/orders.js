@@ -1,0 +1,81 @@
+document.addEventListener("DOMContentLoaded", function () {
+    function loadOrders() {
+        fetch("api.php?action=get_orders")
+            .then((response) => response.json())
+            .then((data) => {
+                renderOrders(data);
+            });
+    }
+
+    function renderOrders(orders) {
+        const tbody = document.querySelector(".order-table tbody");
+        tbody.innerHTML = "";
+        orders.forEach((order) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${order.id}</td>
+                <td>${order.ho_ten}</td>
+                <td>${order.tong_tien} VND</td>
+                <td>${order.ngay_dat}</td>
+                <td>
+                    <select class="order-status" data-id="${order.id}">
+                        <option value="cho_xu_ly" ${order.trang_thai === "cho_xu_ly" ? "selected" : ""}>Chờ xử lý</option>
+                        <option value="dang_xu_ly" ${order.trang_thai === "dang_xu_ly" ? "selected" : ""}>Đang xử lý</option>
+                        <option value="hoan_thanh" ${order.trang_thai === "hoan_thanh" ? "selected" : ""}>Hoàn thành</option>
+                        <option value="da_huy" ${order.trang_thai === "da_huy" ? "selected" : ""}>Đã hủy</option>
+                    </select>
+                </td>
+                <td class="actions">
+                    <button class="btn delete-btn" data-id="${order.id}">Xóa</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // Thêm sự kiện thay đổi trạng thái đơn hàng
+        document.querySelectorAll(".order-status").forEach((select) => {
+            select.addEventListener("change", handleChangeStatus);
+        });
+
+        // Thêm sự kiện click cho nút xóa
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", handleDelete);
+        });
+    }
+
+    function handleChangeStatus(e) {
+        const orderId = e.target.dataset.id;
+        const orderStatus = e.target.value;
+
+        const formData = new FormData();
+        formData.append("orderId", orderId);
+        formData.append("orderStatus", orderStatus);
+
+        fetch("api.php?action=update_order_status", {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.text())
+            .then((data) => {
+                console.log(data);
+                loadOrders(); // Cập nhật lại danh sách đơn hàng sau khi thay đổi trạng thái
+            });
+    }
+
+    function handleDelete(e) {
+        const orderId = e.target.dataset.id;
+        if (confirm("Bạn có chắc chắn muốn xóa đơn hàng này?")) {
+            fetch(`api.php?action=delete_order&id=${orderId}`, {
+                method: "GET",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    loadOrders(); // Cập nhật lại danh sách đơn hàng sau khi xóa
+                });
+        }
+    }
+
+    // Khởi động bằng cách load các đơn hàng
+    loadOrders();
+});

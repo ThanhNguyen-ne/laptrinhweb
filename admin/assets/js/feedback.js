@@ -1,24 +1,22 @@
-const feedbacks = [];
-
 function loadFeedbacks() {
     fetch('api.php?action=get_feedbacks')
-    .then(response => response.json())
-    .then(data => {
-        renderFeedbacks(data);
-    });
+        .then(response => response.json())
+        .then(data => {
+            renderFeedbacks(data);
+        });
 }
 
 // Hàm để render feedbacks
 function renderFeedbacks(feedbacks) {
     const tbody = document.querySelector(".feedback-table tbody");
     tbody.innerHTML = "";
-    feedbacks.forEach((feedback, index) => {
+    feedbacks.forEach((feedback) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${feedback.name}</td>
+            <td>${feedback.ho_ten}</td>
             <td>${feedback.email}</td>
-            <td>${feedback.message}</td>
-            <td>${feedback.time}</td>
+            <td>${feedback.noi_dung}</td>
+            <td>${feedback.ngay_gui}</td>
             <td class="actions">
                 <button class="btn delete-btn" data-id="${feedback.id}">Xóa</button>
             </td>
@@ -39,11 +37,11 @@ function handleDelete(e) {
         fetch(`api.php?action=delete_feedback&id=${feedbackId}`, {
             method: 'GET'
         })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            loadFeedbacks();
-        });
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                loadFeedbacks();
+            });
     }
 }
 

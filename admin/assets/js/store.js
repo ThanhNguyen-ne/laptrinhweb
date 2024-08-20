@@ -1,121 +1,113 @@
-// Thêm các hàm AJAX để xử lý thêm, sửa, xóa sản phẩm từ cơ sở dữ liệu
+document.addEventListener('DOMContentLoaded', function () {
+    const productModal = document.getElementById("productModal");
+    const productForm = document.getElementById("productForm");
+    const closeModal = document.querySelector(".close");
+    const addProductBtn = document.querySelector(".add-product-btn");
+    let editMode = false;
+    let currentEditRow = null;
 
-const productModal = document.getElementById("productModal");
-const productForm = document.getElementById("productForm");
-const closeModal = document.querySelector(".close");
-const addProductBtn = document.querySelector(".add-product-btn");
-let editMode = false;
-let currentEditRow = null;
-
-function loadProducts() {
-    fetch('get_products.php')
-    .then(response => response.json())
-    .then(data => {
-        renderProducts(data);
-    });
-}
-
-// Hàm để render sản phẩm
-function renderProducts(products) {
-    const tbody = document.querySelector(".product-table tbody");
-    tbody.innerHTML = "";
-    products.forEach((product, index) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>${product.product_name}</td>
-            <td>${product.product_desc}</td>
-            <td>${product.price} VND</td>
-            <td>${product.quantity_in_stock}</td>
-            <td class="actions">
-                <button class="btn edit-btn" data-id="${product.product_id}">Sửa</button>
-                <button class="btn delete-btn" data-id="${product.product_id}">Xóa</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-
-    // Thêm sự kiện click cho nút sửa và xóa
-    document.querySelectorAll(".edit-btn").forEach((btn) => {
-        btn.addEventListener("click", handleEdit);
-    });
-
-    document.querySelectorAll(".delete-btn").forEach((btn) => {
-        btn.addEventListener("click", handleDelete);
-    });
-}
-
-addProductBtn.addEventListener("click", () => {
-    productModal.style.display = "block";
-    productForm.reset();
-    editMode = false;
-    currentEditRow = null;
-});
-
-closeModal.addEventListener("click", () => {
-    productModal.style.display = "none";
-});
-
-productForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const formData = new FormData(productForm);
-
-    let url = 'add_product.php';
-    if (editMode && currentEditRow !== null) {
-        formData.append('product_id', currentEditRow);
-        url = 'edit_product.php';
+    // Load sản phẩm từ cơ sở dữ liệu
+    function loadProducts() {
+        fetch("api.php?action=get_products")
+            .then((response) => response.json())
+            .then((data) => {
+                renderProducts(data);
+            });
     }
 
-    fetch(url, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        console.log(data);
-        productModal.style.display = "none";
-        loadProducts();
-    });
-});
+    // Hàm để render sản phẩm
+    function renderProducts(products) {
+        const tbody = document.querySelector(".product-table tbody");
+        tbody.innerHTML = "";
+        products.forEach((product) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><img src="../assets/images/${product.product_image}" alt="${product.ten_san_pham}" style="width: 50px; height: 50px;"></td>
+                <td>${product.ten_san_pham}</td>
+                <td>${product.mo_ta}</td>
+                <td>${product.gia} VND</td>
+                <td>${product.so_luong_ton}</td>
+                <td class="actions">
+                    <button class="btn edit-btn" data-id="${product.id}">Sửa</button>
+                    <button class="btn delete-btn" data-id="${product.id}">Xóa</button>
+                </td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+        });
 
-function handleEdit(e) {
-    const productId = e.target.dataset.id;
-    fetch(`get_product.php?id=${productId}`)
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("productName").value = data.product_name;
-        document.getElementById("productDescription").value = data.product_desc;
-        document.getElementById("productPrice").value = data.price;
-        document.getElementById("productQuantity").value = data.quantity_in_stock;
-        document.getElementById("productStatus").value = data.status;
+        // Thêm sự kiện click cho nút sửa và xóa
+        document.querySelectorAll(".edit-btn").forEach((btn) => {
+            btn.addEventListener("click", handleEdit);
+        });
 
-        productModal.style.display = "block";
-        editMode = true;
-        currentEditRow = productId;
-    });
-}
-
-function handleDelete(e) {
-    const productId = e.target.dataset.id;
-    if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-        fetch(`delete_product.php?id=${productId}`, {
-            method: 'GET'
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            loadProducts();
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", handleDelete);
         });
     }
-}
 
-window.onload = loadProducts;
+    addProductBtn.addEventListener("click", () => {
+        productModal.style.display = "block";
+        productForm.reset();
+        editMode = false;
+        currentEditRow = null;
+    });
 
-const toggler = document.getElementById("theme-toggle");
+    closeModal.addEventListener("click", () => {
+        productModal.style.display = "none";
+    });
 
-toggler.addEventListener("change", function () {
-    if (this.checked) {
-        document.body.classList.add("dark");
-    } else {
-        document.body.classList.remove("dark");
+    productForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(productForm);
+
+        let actionUrl = "api.php?action=add_product";
+        if (editMode) {
+            formData.append("productId", currentEditRow);
+            actionUrl = "api.php?action=update_product";
+        }
+
+        fetch(actionUrl, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.text())
+            .then((data) => {
+                console.log(data);
+                productModal.style.display = "none";
+                loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi thêm hoặc sửa
+            });
+    });
+
+    function handleEdit(e) {
+        const productId = e.target.dataset.id;
+        fetch(`api.php?action=get_product&id=${productId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                document.getElementById("productName").value = data.ten_san_pham;
+                document.getElementById("productDescription").value = data.mo_ta;
+                document.getElementById("productPrice").value = data.gia;
+                document.getElementById("productQuantity").value = data.so_luong_ton;
+
+                productModal.style.display = "block";
+                editMode = true;
+                currentEditRow = productId;
+            });
     }
+
+    function handleDelete(e) {
+        const productId = e.target.dataset.id;
+        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+            fetch(`api.php?action=delete_product&id=${productId}`, {
+                method: "GET",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi xóa
+                });
+        }
+    }
+
+    // Khởi động bằng cách load các sản phẩm
+    loadProducts();
 });

@@ -63,7 +63,8 @@
                 $searches_result = $conn->query("SELECT SUM(searches) AS total_searches FROM site_statistics");
                 $total_searches = $searches_result->fetch_assoc()['total_searches'];
 
-                $revenue_result = $conn->query("SELECT SUM(amount) AS total_revenue FROM orders WHERE pay_status = 1");
+                // Cập nhật truy vấn để lấy tổng giá trị từ bảng order_details
+                $revenue_result = $conn->query("SELECT SUM(price * quantity) AS total_revenue FROM order_details WHERE order_id IN (SELECT order_id FROM orders WHERE pay_status = 1)");
                 $total_revenue = $revenue_result->fetch_assoc()['total_revenue'];
 
                 $conn->close();

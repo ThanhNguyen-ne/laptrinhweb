@@ -60,6 +60,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Hình ảnh</th>
                             <th>Tên sản phẩm</th>
                             <th>Mô tả</th>
                             <th>Giá</th>
@@ -68,25 +69,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        include('db_connect.php');
-                        $products_result = $conn->query("SELECT * FROM product");
-
-                        while ($product = $products_result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $product['product_name'] . "</td>";
-                            echo "<td>" . $product['product_desc'] . "</td>";
-                            echo "<td>" . number_format($product['price']) . " VND</td>";
-                            echo "<td>" . $product['quantity_in_stock'] . "</td>";
-                            echo "<td class='actions'>
-                                    <button class='btn edit-btn' data-id='" . $product['product_id'] . "'>Sửa</button>
-                                    <button class='btn delete-btn' data-id='" . $product['product_id'] . "'>Xóa</button>
-                                  </td>";
-                            echo "</tr>";
-                        }
-
-                        $conn->close();
-                        ?>
+                        <!-- Dữ liệu sản phẩm sẽ được hiển thị ở đây qua JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -118,13 +101,6 @@
                 <div class="input-group">
                     <label for="productQuantity">Số lượng</label>
                     <input type="number" id="productQuantity" name="productQuantity" required />
-                </div>
-                <div class="input-group">
-                    <label for="productStatus">Trạng thái</label>
-                    <select id="productStatus" name="productStatus" required>
-                        <option value="Còn hàng">Còn hàng</option>
-                        <option value="Hết hàng">Hết hàng</option>
-                    </select>
                 </div>
                 <button type="submit" class="btn submit-btn">Lưu</button>
             </form>
