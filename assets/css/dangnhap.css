@@ -63,7 +63,8 @@
 #regFullName,
 #regEmail,
 #regPhone,
-#regAddress {
+#regAddress,
+.regiregi {
     border-radius: 20px;
     border: 1px solid #c0c0c0;
     padding: 12px 15px;

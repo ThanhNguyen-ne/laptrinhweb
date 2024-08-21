@@ -52,69 +52,101 @@ function switchToEmailLogin() {
     document.getElementById("loginEmail").setAttribute("name", "loginEmail");
     document.getElementById("loginPhone").removeAttribute("name");
 }
+function login(event) {
+    event.preventDefault();
 
+    let email = document.getElementById("loginEmail").value.trim();
+    let phone = document.getElementById("loginPhone").value.trim();
+    let password = document.getElementById("loginPassword").value.trim();
+    let loginMessage = document.getElementById("loginMessage");
 
+    let formData = new FormData();
+    if (email !== '') {
+        formData.append('loginEmail', email);
+    } else if (phone !== '') {
+        formData.append('loginPhone', phone);
+    }
+    formData.append('loginPassword', password);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "dangnhap.php", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            loginMessage.innerHTML = xhr.responseText;
+        } else {
+            loginMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
+        }
+    };
+    xhr.send(formData);
+}
 
 function register(event) {
     event.preventDefault();
 
-    let email = document.getElementById("regEmail").value.trim();
-    let phone = document.getElementById("regPhone").value.trim();
-    let fullname = document.getElementById("regFullName").value.trim();
-    let address = document.getElementById("regAddress").value.trim();
-    let password = document.getElementById("regPassWord").value.trim();
+    // Lấy giá trị từ các input
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("so_dien_thoai").value.trim();
+    let fullname = document.getElementById("ho_ten").value.trim();
+    let password = document.getElementById("mat_khau").value.trim();
 
+    // Các phần tử hiển thị lỗi
     let emailError = document.getElementById("emailError");
     let phoneError = document.getElementById("phoneError");
     let fullnameError = document.getElementById("fullnameError");
-    let passwordError = document.getElementById("passwordError"); // Đảm bảo biến này đã khai báo
-    let regMessage = document.getElementById("regMessage");
+    let passwordError = document.getElementById("passwordError");
+    let regMessage = document.getElementById("registerMessage");
 
+    // Biểu thức chính quy để kiểm tra định dạng email
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Xóa phần kiểm tra lỗi địa chỉ
+    // Xóa các thông báo lỗi trước đó
     emailError.innerText = "";
     phoneError.innerText = "";
     fullnameError.innerText = "";
     passwordError.innerText = "";
     regMessage.innerText = "";
 
+    // Biến kiểm tra lỗi
     let hasError = false;
 
+    // Kiểm tra định dạng email
     if (!email.match(emailRegex)) {
         emailError.innerText = "Vui lòng nhập email hợp lệ.";
         hasError = true;
     }
+    // Kiểm tra định dạng số điện thoại (10 chữ số)
     if (!phone.match(/^\d{10}$/)) {
         phoneError.innerText = "Số điện thoại phải có đúng 10 chữ số.";
         hasError = true;
     }
+    // Kiểm tra họ và tên không được để trống
     if (!fullname) {
         fullnameError.innerText = "Vui lòng nhập họ và tên.";
         hasError = true;
     }
+    // Kiểm tra mật khẩu có ít nhất 6 ký tự
     if (password.length < 6) {
         passwordError.innerText = "Mật khẩu phải có ít nhất 6 ký tự.";
         hasError = true;
     }
 
+    // Nếu có lỗi, không gửi form
     if (hasError) {
         return;
     }
 
-    // Gửi dữ liệu đăng ký tới server bằng Ajax
+    // Gửi dữ liệu đăng ký tới server bằng Ajax nếu không có lỗi
     let formData = new FormData();
-    formData.append('Email', email);
-    formData.append('Phone', phone);
-    formData.append('Fullname', fullname);
-    formData.append('Address', address);
-    formData.append('Password', password);
-    
+    formData.append('ho_ten', fullname);
+    formData.append('email', email);
+    formData.append('so_dien_thoai', phone);
+    formData.append('mat_khau', password);
+
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "dangki.php", true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            regMessage.innerText = xhr.responseText;
+            regMessage.innerHTML = xhr.responseText;
         } else {
             regMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
         }
