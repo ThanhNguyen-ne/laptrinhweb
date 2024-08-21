@@ -1,14 +1,11 @@
 <?php
-// Kết nối tới cơ sở dữ liệu và bắt đầu phiên
 include("../admin/pages/db_connect.php");
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập hay chưa
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $user_role = $_SESSION['user_role'];
 
-    // Truy vấn thông tin người dùng
     $query = "SELECT * FROM nguoi_dung WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $user_id);
@@ -17,7 +14,6 @@ if (isset($_SESSION['user_id'])) {
     $user = $result->fetch_assoc();
 }
 
-// Xử lý khi người dùng nhấn nút đăng xuất
 if (isset($_POST['dangxuat'])) {
     session_unset();
     session_destroy();
@@ -44,27 +40,15 @@ if (isset($_POST['dangxuat'])) {
             </div>
             <div class="auth-buttons">
                 <?php if (isset($user)) : ?>
-                    <span style="
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    color: #333;
-    background-color: #f0f0f0;
-    padding: 8px 12px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    
-    display: inline-block;
-    top:2px">
-    Xin chào, <?php echo htmlspecialchars($user['ho_ten']); ?>!
-</span>
-                    <form method="post" action="logout.php">
+                    <span style="font-family: Arial, sans-serif; font-size: 18px; color: #333; background-color: #f0f0f0; padding: 8px 12px; border-radius: 5px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); display: inline-block; top:2px">
+                        Xin chào, <?php echo htmlspecialchars($user['ho_ten']); ?>!
+                    </span>
+                    <form method="post" action="">
                         <button type="submit" name="dangxuat">Đăng xuất</button>
                     </form>
                 <?php else : ?>
-                    <button id="loginBtn" onclick="location.href='dangnhap.php'">Đăng nhập</button>
-                    <button id="signupBtn" onclick="location.href='dangki.php'">Đăng kí</button>
-                    <!-- <button id="loginBtn" onclick="showLoginModal()">Đăng nhập</button>
-                    <button id="signupBtn" onclick="showSignupModal()">Đăng kí</button> -->
+                    <button id="loginBtn">Đăng nhập</button>
+                    <button id="signupBtn">Đăng kí</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -98,3 +82,40 @@ if (isset($_POST['dangxuat'])) {
         </nav>
     </div>
 </header>
+
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeLoginModal">&times;</span>
+        <div id="loginModalBody">
+            <!-- Nội dung form đăng nhập sẽ được tải động tại đây -->
+        </div>
+    </div>
+</div>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeSignupModal">&times;</span>
+        <div id="signupModalBody">
+            <!-- Nội dung form đăng ký sẽ được tải động tại đây -->
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/dangnhap.js"></script>
+<script>
+    document.getElementById("loginBtn").onclick = function() {
+        showLoginModal();
+    };
+    document.getElementById("signupBtn").onclick = function() {
+        showSignupModal();
+    };
+
+    document.getElementById("closeLoginModal").onclick = function() {
+        closeModal("loginModal");
+    };
+    document.getElementById("closeSignupModal").onclick = function() {
+        closeModal("signupModal");
+    };
+</script>
+</body>
+</html>

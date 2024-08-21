@@ -49,9 +49,20 @@ function switchToEmailLogin() {
     document.getElementById("emailTab").classList.add("active");
     document.getElementById("phoneTab").classList.remove("active");
 
-    document.getElementById("loginEmail").setAttribute("name", "loginEmail");
+    document.getElementById("loginEmail").setAttribute("name", "Email");
     document.getElementById("loginPhone").removeAttribute("name");
 }
+
+function switchToPhoneLogin() {
+    document.getElementById("loginEmail").style.display = "none";
+    document.getElementById("loginPhone").style.display = "block";
+    document.getElementById("emailTab").classList.remove("active");
+    document.getElementById("phoneTab").classList.add("active");
+
+    document.getElementById("loginPhone").setAttribute("name", "Phone");
+    document.getElementById("loginEmail").removeAttribute("name");
+}
+
 function login(event) {
     event.preventDefault();
 
@@ -62,17 +73,23 @@ function login(event) {
 
     let formData = new FormData();
     if (email !== '') {
-        formData.append('loginEmail', email);
+        formData.append('Email', email);
     } else if (phone !== '') {
-        formData.append('loginPhone', phone);
+        formData.append('Phone', phone);
     }
-    formData.append('loginPassword', password);
+    formData.append('Password', password);
+    formData.append('dangnhap', true);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "dangnhap.php", true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            loginMessage.innerHTML = xhr.responseText;
+            let response = JSON.parse(xhr.responseText);
+            if (response.status === "success") {
+                window.location.href = response.redirect;
+            } else {
+                loginMessage.innerHTML = response.message;
+            }
         } else {
             loginMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
         }
@@ -83,70 +100,74 @@ function login(event) {
 function register(event) {
     event.preventDefault();
 
-    // Lấy giá trị từ các input
-    let email = document.getElementById("email").value.trim();
-    let phone = document.getElementById("so_dien_thoai").value.trim();
-    let fullname = document.getElementById("ho_ten").value.trim();
-    let password = document.getElementById("mat_khau").value.trim();
+    let email = document.getElementById("regEmail").value.trim();
+    let phone = document.getElementById("regPhone").value.trim();
+    let fullname = document.getElementById("regFullName").value.trim();
+    let address = document.getElementById("regAddress").value.trim();
+    let password = document.getElementById("regPassWord").value.trim();
 
-    // Các phần tử hiển thị lỗi
     let emailError = document.getElementById("emailError");
     let phoneError = document.getElementById("phoneError");
     let fullnameError = document.getElementById("fullnameError");
+    let addressError = document.getElementById("addressError");
     let passwordError = document.getElementById("passwordError");
-    let regMessage = document.getElementById("registerMessage");
+    let regMessage = document.getElementById("regMessage");
 
-    // Biểu thức chính quy để kiểm tra định dạng email
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Xóa các thông báo lỗi trước đó
     emailError.innerText = "";
     phoneError.innerText = "";
     fullnameError.innerText = "";
+    addressError.innerText = "";
     passwordError.innerText = "";
     regMessage.innerText = "";
 
-    // Biến kiểm tra lỗi
     let hasError = false;
 
-    // Kiểm tra định dạng email
     if (!email.match(emailRegex)) {
         emailError.innerText = "Vui lòng nhập email hợp lệ.";
         hasError = true;
     }
-    // Kiểm tra định dạng số điện thoại (10 chữ số)
     if (!phone.match(/^\d{10}$/)) {
         phoneError.innerText = "Số điện thoại phải có đúng 10 chữ số.";
         hasError = true;
     }
-    // Kiểm tra họ và tên không được để trống
     if (!fullname) {
         fullnameError.innerText = "Vui lòng nhập họ và tên.";
         hasError = true;
     }
-    // Kiểm tra mật khẩu có ít nhất 6 ký tự
+    if (!address) {
+        addressError.innerText = "Vui lòng nhập địa chỉ.";
+        hasError = true;
+    }
     if (password.length < 6) {
         passwordError.innerText = "Mật khẩu phải có ít nhất 6 ký tự.";
         hasError = true;
     }
 
-    // Nếu có lỗi, không gửi form
     if (hasError) {
         return;
     }
 
-    // Gửi dữ liệu đăng ký tới server bằng Ajax nếu không có lỗi
     let formData = new FormData();
-    formData.append('ho_ten', fullname);
-    formData.append('email', email);
-    formData.append('so_dien_thoai', phone);
-    formData.append('mat_khau', password);
+    formData.append('Fullname', fullname);
+    formData.append('Email', email);
+    formData.append('Phone', phone);
+    formData.append('Address', address);
+    formData.append('Password', password);
+    formData.append('dangki', true);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "dangki.php", true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            regMessage.innerHTML = xhr.responseText;
+            let response = JSON.parse(xhr.responseText);
+            if (response.status === "success") {
+                closeModal("signupModal");
+                showLoginModal();
+            } else {
+                regMessage.innerHTML = response.message;
+            }
         } else {
             regMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
         }
