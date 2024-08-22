@@ -84,7 +84,7 @@
             <form id="productForm" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="productImage">Hình ảnh</label>
-                    <input type="file" id="productImage" accept="image/*" name="productImage" required />
+                    <input type="file" id="productImage" accept="image/*" name="productImage" />
                 </div>
                 <div class="input-group">
                     <label for="productName">Tên sản phẩm</label>

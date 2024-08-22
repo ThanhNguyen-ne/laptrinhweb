@@ -83,16 +83,20 @@
                 <h2>Thêm Người dùng</h2>
                 <form id="userForm">
                     <div class="input-group">
-                        <label for="userFirstName">Tên</label>
-                        <input type="text" id="userFirstName" name="userFirstName" required />
+                        <label for="userFullName">Họ và Tên</label>
+                        <input type="text" id="userFullName" name="userFullName" required />
                     </div>
                     <div class="input-group">
-                        <label for="userLastName">Họ</label>
-                        <input type="text" id="userLastName" name="userLastName" required />
+                        <label for="userPhone">Số Điện Thoại</label>
+                        <input type="text" id="userPhone" name="userPhone" required />
                     </div>
                     <div class="input-group">
                         <label for="userEmail">Email</label>
                         <input type="email" id="userEmail" name="userEmail" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="userAddress">Địa Chỉ</label>
+                        <input type="text" id="userAddress" name="userAddress" required />
                     </div>
                     <div class="input-group">
                         <label for="userPassword">Mật khẩu</label>

@@ -79,13 +79,10 @@ function handleEdit(e) {
     fetch(`api.php?action=get_user&id=${userId}`)
         .then((response) => response.json())
         .then((data) => {
-            const nameParts = data.ho_ten.split(' ');
-            const firstName = nameParts[0];
-            const lastName = nameParts.slice(1).join(' ');
-
-            document.getElementById("userFirstName").value = firstName;
-            document.getElementById("userLastName").value = lastName;
+            document.getElementById("userFullName").value = data.ho_ten;
+            document.getElementById("userPhone").value = data.so_dien_thoai;
             document.getElementById("userEmail").value = data.email;
+            document.getElementById("userAddress").value = data.dia_chi;
             document.getElementById("userRole").value = data.vai_tro;
 
             userModal.style.display = "block";

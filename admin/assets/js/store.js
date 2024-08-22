@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Hàm để format giá theo kiểu Việt Nam
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(amount);
+    }
+
     // Hàm để render sản phẩm
     function renderProducts(products) {
         const tbody = document.querySelector(".product-table tbody");
@@ -22,17 +30,17 @@ document.addEventListener('DOMContentLoaded', function () {
         products.forEach((product) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td><img src="../assets/images/${product.product_image}" alt="${product.ten_san_pham}" style="width: 50px; height: 50px;"></td>
+                <td><img src="${product.hinh_anh}" alt="${product.ten_san_pham}" style="width: 50px; height: 50px;"></td>
                 <td>${product.ten_san_pham}</td>
                 <td>${product.mo_ta}</td>
-                <td>${product.gia} VND</td>
+                <td>${formatCurrency(product.gia)}</td>
                 <td>${product.so_luong_ton}</td>
                 <td class="actions">
                     <button class="btn edit-btn" data-id="${product.id}">Sửa</button>
                     <button class="btn delete-btn" data-id="${product.id}">Xóa</button>
                 </td>
             `;
-            tbody.insertBefore(tr, tbody.firstChild);
+            tbody.appendChild(tr);
         });
 
         // Thêm sự kiện click cho nút sửa và xóa

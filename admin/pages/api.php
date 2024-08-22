@@ -55,39 +55,6 @@ function deleteProduct($conn, $id) {
     echo "Sản phẩm đã được xóa thành công.";
 }
 
-// Hàm thêm người dùng
-function addUser($conn) {
-    $stmt = $conn->prepare("INSERT INTO nguoi_dung (ho_ten, email, mat_khau, vai_tro, ngay_dang_ky) VALUES (?, ?, ?, ?, NOW())");
-    $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
-    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
-    $stmt->bind_param("ssss", $full_name, $_POST['userEmail'], $hashed_password, $_POST['userRole']);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "Người dùng đã được thêm thành công.";
-}
-
-// Hàm cập nhật người dùng
-function updateUser($conn) {
-    $stmt = $conn->prepare("UPDATE nguoi_dung SET ho_ten=?, email=?, vai_tro=? WHERE id=?");
-    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
-    $stmt->bind_param("sssi", $full_name, $_POST['userEmail'], $_POST['userRole'], $_POST['userId']);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "Người dùng đã được cập nhật thành công.";
-}
-
-// Hàm xóa người dùng
-function deleteUser($conn, $id) {
-    $stmt = $conn->prepare("DELETE FROM nguoi_dung WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "Người dùng đã được xóa thành công.";
-}
-
 // Hàm lấy danh sách sản phẩm
 function getProducts($conn) {
     $result = $conn->query("SELECT * FROM san_pham");
@@ -109,6 +76,48 @@ function getProduct($conn, $id) {
     $product = $result->fetch_assoc();
     echo json_encode($product);
     $stmt->close();
+}
+
+// Hàm thêm người dùng
+function addUser($conn) {
+    $stmt = $conn->prepare("INSERT INTO nguoi_dung (ho_ten, email, mat_khau, vai_tro, ngay_dang_ky) VALUES (?, ?, ?, ?, NOW())");
+    $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
+    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
+    $stmt->bind_param("ssss", $full_name, $_POST['userEmail'], $hashed_password, $_POST['userRole']);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Người dùng đã được thêm thành công.";
+}
+
+// Hàm cập nhật người dùng
+function updateUser($conn) {
+    $stmt = $conn->prepare("UPDATE nguoi_dung SET ho_ten=?, email=?, vai_tro=? WHERE id=?");
+    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
+    $stmt->bind_param("sssi", $full_name, $_POST['userEmail'], $_POST['userRole'], $_POST['userId']);
+    $stmt->execute();
+
+    // Nếu mật khẩu được gửi lên (tức là có thay đổi mật khẩu)
+    if (!empty($_POST['userPassword'])) {
+        $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
+        $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
+        $stmt->bind_param("si", $hashed_password, $_POST['userId']);
+        $stmt->execute();
+    }
+
+    $stmt->close();
+    echo "Người dùng đã được cập nhật thành công.";
+}
+
+
+// Hàm xóa người dùng
+function deleteUser($conn, $id) {
+    $stmt = $conn->prepare("DELETE FROM nguoi_dung WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Người dùng đã được xóa thành công.";
 }
 
 // Hàm lấy danh sách người dùng

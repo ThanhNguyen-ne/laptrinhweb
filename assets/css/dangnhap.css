@@ -132,7 +132,8 @@ a {
     }
 }
 
-.sign-up-label{
+.sign-up-label,
+.sign-in-label{
     margin-top: 10px;
 }
 

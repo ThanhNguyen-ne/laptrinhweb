@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
     $email = trim($_POST['Email']);
     $so_dien_thoai = trim($_POST['Phone']);
     $dia_chi = trim($_POST['Address']);
-    $mat_khau = trim($_POST['Password']);
+    $mat_khau = password_hash(trim($_POST['Password']), PASSWORD_DEFAULT); // Mã hóa mật khẩu
 
     $query = "SELECT * FROM nguoi_dung WHERE email = ? OR so_dien_thoai = ?";
     $stmt = $conn->prepare($query);
@@ -37,15 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../assets/css/dangnhap.css" />
         <title>Đăng ký</title>
-        <style>
-            .error-message {
-                color: red;
-                font-size: 14px;
-            }
-        </style>
     </head>
     <body>
-        <div class="animate">
+        <div class="animate" align="center">
             <div class="form-container">
                 <p class="title">Tạo tài khoản</p>
                 <form id="registerForm" class="form" method="post" action="dangki.php" onsubmit="register(event)">

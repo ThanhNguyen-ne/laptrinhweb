@@ -69,13 +69,25 @@ function login(event) {
     let email = document.getElementById("loginEmail").value.trim();
     let phone = document.getElementById("loginPhone").value.trim();
     let password = document.getElementById("loginPassword").value.trim();
+
+    let emailError = document.getElementById("emailError");
+    let phoneError = document.getElementById("phoneError");
+    let passwordError = document.getElementById("passwordError");
     let loginMessage = document.getElementById("loginMessage");
+
+    emailError.innerText = "";
+    phoneError.innerText = "";
+    passwordError.innerText = "";
+    loginMessage.innerText = "";
 
     let formData = new FormData();
     if (email !== '') {
         formData.append('Email', email);
     } else if (phone !== '') {
         formData.append('Phone', phone);
+    } else {
+        loginMessage.innerText = "Vui lòng nhập email hoặc số điện thoại.";
+        return;
     }
     formData.append('Password', password);
     formData.append('dangnhap', true);
@@ -88,7 +100,15 @@ function login(event) {
             if (response.status === "success") {
                 window.location.href = response.redirect;
             } else {
-                loginMessage.innerHTML = response.message;
+                if (response.messages.email) {
+                    emailError.innerText = response.messages.email;
+                }
+                if (response.messages.phone) {
+                    phoneError.innerText = response.messages.phone;
+                }
+                if (response.messages.password) {
+                    passwordError.innerText = response.messages.password;
+                }
             }
         } else {
             loginMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";

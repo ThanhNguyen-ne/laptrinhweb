@@ -79,7 +79,7 @@
 
 .modal-content {
     background-color: var(--light);
-    margin: 10% auto;
+    margin: 3% auto;
     padding: 20px;
     border: 1px solid var(--grey);
     width: 80%;
@@ -129,4 +129,8 @@
 
 .btn.submit-btn:hover {
     background: var(--dark-primary);
+}
+
+#userForm{
+    margin-top: 3%;
 }

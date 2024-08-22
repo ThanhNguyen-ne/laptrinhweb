@@ -87,7 +87,7 @@
 
 .modal-content {
     background-color: var(--light);
-    margin: 2% auto;
+    margin: 3% auto;
     padding: 20px;
     border: 1px solid var(--grey);
     width: 80%;
@@ -147,4 +147,8 @@
 textarea {
     resize: vertical;
     min-height: 100px;
+}
+
+#productForm{
+    margin-top: 3%;
 }
