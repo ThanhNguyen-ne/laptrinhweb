@@ -40,9 +40,10 @@ if (isset($_POST['dangxuat'])) {
             </div>
             <div class="auth-buttons">
                 <?php if (isset($user)) : ?>
-                    <span style="font-family: Arial, sans-serif; font-size: 18px; color: #333; background-color: #f0f0f0; padding: 8px 12px; border-radius: 5px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); display: inline-block; top:2px">
-                        Xin chào, <?php echo htmlspecialchars($user['ho_ten']); ?>!
-                    </span>
+                    <!-- <a href="profile.php"><span style="font-family: Arial, sans-serif; font-size: 18px; color: #333; background-color: #f0f0f0; padding: 8px 12px; border-radius: 5px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); display: inline-block; top:2px">
+                        Xin chào, -->
+                        <button onclick="window.location.href='profile.php'"> <?php echo htmlspecialchars($user['ho_ten']); ?></button>
+                    </span> </a>
                     <form method="post" action="">
                         <button type="submit" name="dangxuat">Đăng xuất</button>
                     </form>
