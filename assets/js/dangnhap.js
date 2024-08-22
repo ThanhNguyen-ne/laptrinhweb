@@ -98,8 +98,9 @@ function login(event) {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.status === "success") {
-                showNotification("Đăng nhập thành công");
+                showNotification("Đăng nhập thành công!"); 
                 window.location.href = response.redirect;
+                
             } else {
                 if (response.messages.email) {
                     emailError.innerText = response.messages.email;
@@ -184,8 +185,9 @@ function register(event) {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.status === "success") {
+                showNotification("Đăng ký thành công!");
                 closeModal("signupModal");
-                showNotification("Đăng kí thành công");
+                
                 showLoginModal();
             } else {
                 regMessage.innerHTML = response.message;
@@ -208,5 +210,5 @@ function showNotification(message) {
     // Loại bỏ thông báo sau 3 giây
     setTimeout(() => {
         notification.remove();
-    }, 3000);
+    }, 5000);
 }
