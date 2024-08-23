@@ -23,17 +23,23 @@
 .product-table table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .product-table table th,
 .product-table table td {
     padding: 12px;
-    border: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
     text-align: left;
 }
 
 .product-table table th {
     background: var(--light-primary);
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
 }
 
 .product-table table td {
@@ -41,7 +47,7 @@
 }
 
 .product-table table tr:hover {
-    background: var(--grey);
+    background: var(--light-grey);
 }
 
 .product-table table td img {
@@ -71,6 +77,83 @@
 .product-table table .actions .delete-btn {
     background: var(--danger);
     color: var(--light);
+}
+
+/* Xóa modal */
+#confirmDeleteModal {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--light);
+    border: 1px solid var(--grey);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#confirmDeleteModal .modal-header {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#confirmDeleteModal .modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+#confirmDeleteModal .modal-actions .btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#confirmDeleteBtn {
+    background: var(--danger);
+    color: var(--light);
+}
+
+#cancelDeleteBtn {
+    background: var(--primary);
+    color: var(--light);
+}
+
+.toast {
+    visibility: hidden;
+    max-width: 50%;
+    margin: 0 auto;
+    background-color: var(--primary);
+    color: var(--light);
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1003;
+    left: 50%;
+    top: 20px;
+    font-size: 17px;
+    transform: translateX(-50%);
+}
+
+.toast.show {
+    visibility: visible;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%,
+    100% {
+        opacity: 0;
+        top: 0;
+    }
+    10%,
+    90% {
+        opacity: 1;
+        top: 20px;
+    }
 }
 
 .modal {
@@ -149,6 +232,6 @@ textarea {
     min-height: 100px;
 }
 
-#productForm{
+#productForm {
     margin-top: 3%;
 }

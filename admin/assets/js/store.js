@@ -3,8 +3,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const productForm = document.getElementById("productForm");
     const closeModal = document.querySelector(".close");
     const addProductBtn = document.querySelector(".add-product-btn");
+    const productTypeSelect = document.getElementById("productType");
+    const toast = document.getElementById("toast");
+    const confirmDeleteModal = document.getElementById("confirmDeleteModal");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+
     let editMode = false;
     let currentEditRow = null;
+    let productIdToDelete = null;
+
+    // Load danh sách loại sản phẩm
+    function loadProductTypes() {
+        fetch("api.php?action=get_product_types")
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach((type) => {
+                    const option = document.createElement("option");
+                    option.value = type.id;
+                    option.textContent = type.ten_loai;
+                    productTypeSelect.appendChild(option);
+                });
+            });
+    }
 
     // Load sản phẩm từ cơ sở dữ liệu
     function loadProducts() {
@@ -27,12 +48,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderProducts(products) {
         const tbody = document.querySelector(".product-table tbody");
         tbody.innerHTML = "";
-        products.forEach((product) => {
+        products.forEach((product, index) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
+                <td>${index + 1}</td>
                 <td><img src="${product.hinh_anh}" alt="${product.ten_san_pham}" style="width: 50px; height: 50px;"></td>
                 <td>${product.ten_san_pham}</td>
-                <td>${product.mo_ta}</td>
+                <td>${product.ten_loai}</td>
                 <td>${formatCurrency(product.gia)}</td>
                 <td>${product.so_luong_ton}</td>
                 <td class="actions">
@@ -69,9 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData(productForm);
 
         let actionUrl = "api.php?action=add_product";
+        let successMessage = "Thêm sản phẩm thành công!";
         if (editMode) {
             formData.append("productId", currentEditRow);
             actionUrl = "api.php?action=update_product";
+            successMessage = "Chỉnh sửa sản phẩm thành công!";
         }
 
         fetch(actionUrl, {
@@ -80,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then((response) => response.text())
             .then((data) => {
-                console.log(data);
+                showToast(successMessage);
                 productModal.style.display = "none";
                 loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi thêm hoặc sửa
             });
@@ -95,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("productDescription").value = data.mo_ta;
                 document.getElementById("productPrice").value = data.gia;
                 document.getElementById("productQuantity").value = data.so_luong_ton;
+                document.getElementById("productType").value = data.loai_san_pham_id;
 
                 productModal.style.display = "block";
                 editMode = true;
@@ -103,19 +128,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleDelete(e) {
-        const productId = e.target.dataset.id;
-        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
-            fetch(`api.php?action=delete_product&id=${productId}`, {
-                method: "GET",
-            })
-                .then((response) => response.text())
-                .then((data) => {
-                    console.log(data);
-                    loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi xóa
-                });
-        }
+        productIdToDelete = e.target.dataset.id;
+        confirmDeleteModal.style.display = "block";
     }
 
-    // Khởi động bằng cách load các sản phẩm
+    confirmDeleteBtn.addEventListener("click", () => {
+        fetch(`api.php?action=delete_product&id=${productIdToDelete}`, {
+            method: "GET",
+        })
+            .then((response) => response.text())
+            .then((data) => {
+                showToast("Xóa sản phẩm thành công!");
+                loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi xóa
+                confirmDeleteModal.style.display = "none";
+            });
+    });
+
+    cancelDeleteBtn.addEventListener("click", () => {
+        confirmDeleteModal.style.display = "none";
+    });
+
+    // Hàm hiển thị thông báo
+    function showToast(message) {
+        toast.textContent = message;
+        toast.className = "show";
+        setTimeout(() => {
+            toast.className = toast.className.replace("show", "");
+        }, 3000);
+    }
+
+    // Khởi động bằng cách load các loại sản phẩm và sản phẩm
+    loadProductTypes();
     loadProducts();
 });

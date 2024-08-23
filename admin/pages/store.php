@@ -34,7 +34,7 @@
                 <span class="count">3</span>
             </a>
             <a href="#" class="profile">
-                <img src="../assets/images/logohdeader.webp" />
+                <img src="/assets/image/index/logohdeader.webp" />
             </a>
         </nav>
         <!-- End of Navbar -->
@@ -60,9 +60,10 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Hình ảnh</th>
                             <th>Tên sản phẩm</th>
-                            <th>Mô tả</th>
+                            <th>Loại sản phẩm</th>
                             <th>Giá</th>
                             <th>Số lượng</th>
                             <th>Chỉnh sửa</th>
@@ -74,6 +75,18 @@
                 </table>
             </div>
         </main>
+        <!-- Add this inside the body, after the main content -->
+        <div id="confirmDeleteModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">Xác nhận xóa sản phẩm</div>
+                <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+                <div class="modal-actions">
+                    <button id="confirmDeleteBtn" class="btn">Xóa</button>
+                    <button id="cancelDeleteBtn" class="btn">Không</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Add/Edit Product Modal -->
@@ -95,6 +108,12 @@
                     <textarea id="productDescription" name="productDescription" required></textarea>
                 </div>
                 <div class="input-group">
+                    <label for="productType">Loại sản phẩm</label>
+                    <select id="productType" name="productType" required>
+                        <!-- Loại sản phẩm sẽ được nạp vào từ JavaScript -->
+                    </select>
+                </div>
+                <div class="input-group">
                     <label for="productPrice">Giá</label>
                     <input type="number" id="productPrice" name="productPrice" required />
                 </div>
@@ -102,10 +121,14 @@
                     <label for="productQuantity">Số lượng</label>
                     <input type="number" id="productQuantity" name="productQuantity" required />
                 </div>
+
                 <button type="submit" class="btn submit-btn">Lưu</button>
             </form>
         </div>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
     <script src="../assets/js/store.js"></script>
 </body>
