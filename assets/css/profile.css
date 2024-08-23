@@ -1,68 +1,106 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f4;
 }
 
-.form-container {
-    background-color: #ffffff;
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+h2 {
+    color: #333;
 }
 
-.title {
-    font-size: 24px;
-    font-weight: bold;
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info, .order-info, .update-form {
     margin-bottom: 20px;
-    color: #333333;
-    text-align: center;
 }
 
-.form input[type="text"],
-.form input[type="email"],
-.form input[type="password"] {
+.profile-info p, .update-form label {
+    margin: 10px 0;
+    padding: 5px;
+}
+h2{
+    margin: 10px 0;
+    padding: 5px;  
+}
+.update-form input, .update-form textarea, .update-form button {
     width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-.form input[type="text"]:focus,
-.form input[type="email"]:focus,
-.form input[type="password"]:focus {
-    border-color: #007BFF;
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
-}
-
-button[type="submit"] {
-    background-color: #007BFF;
-    color: white;
-    padding: 12px;
+.update-form button {
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    margin-top: 20px;
 }
 
-button[type="submit"]:hover {
+.update-form button:hover {
     background-color: #0056b3;
 }
 
-#updateMessage {
-    margin-top: 10px;
-    text-align: center;
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.logout-form {
+    margin-top: 20px;
+}
+
+.logout-form button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logout-form button:hover {
+    background-color: #c82333;
+}
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #5fa8d3;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
 }
