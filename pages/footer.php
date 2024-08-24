@@ -42,7 +42,7 @@
                     <h4>KẾT NỐI VỚI YẾN SÀO KHÁNH HÒA</h4>
                     <div class="social-media">
                         <img
-                            src="../assets/image/yensaokhanhhoa.jpg"
+                            src="../assets/image/index/yensaokhanhhoa.jpg"
                             alt="Yến sào Khánh Hòa"
                             width="150px"
                         />

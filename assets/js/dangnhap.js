@@ -27,7 +27,20 @@ function showSignupModal() {
     };
     xhr.send();
 }
+function showpassModal() {
+    var modal = document.getElementById("passModal");
+    var modalBody = document.getElementById("passModalBody");
 
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "quenpass.php", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            modalBody.innerHTML = xhr.responseText;
+            modal.style.display = "flex";
+        }
+    };
+    xhr.send();
+}
 function closeModal(modalId) {
     var modal = document.getElementById(modalId);
     modal.style.display = "none";
