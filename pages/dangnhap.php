@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                     <div id="passwordError" class="error-message"></div>
 
                     <div id="loginMessage"></div>
-                    <p class="page-link"><span class="page-link-label">Quên mật khẩu?</span></p>
+                    <a href="quenpass.php" class="page-link" ><span class="page-link-label">Quên mật khẩu?</span></a>
                     <button class="form-btn" type="submit">Đăng nhập</button>
                 </form>
                 <p class="sign-up-label">

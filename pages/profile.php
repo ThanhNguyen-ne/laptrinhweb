@@ -17,9 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $so_dien_thoai = $_POST['so_dien_thoai'];
         $dia_chi = $_POST['dia_chi'];
 
-        $sql_update = "UPDATE nguoi_dung SET ho_ten = ?, so_dien_thoai = ?, dia_chi = ? WHERE id = ?";
-        $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->bind_param("sssi", $ho_ten, $so_dien_thoai, $dia_chi, $user_id);
+        // Kiểm tra xem mật khẩu có được gửi hay không
+        if (!empty($_POST['mat_khau'])) {
+            $mat_khau = password_hash($_POST['mat_khau'], PASSWORD_DEFAULT); // Mã hóa mật khẩu
+            $sql_update = "UPDATE nguoi_dung SET ho_ten = ?, so_dien_thoai = ?, dia_chi = ?, mat_khau = ? WHERE id = ?";
+            $stmt_update = $conn->prepare($sql_update);
+            $stmt_update->bind_param("ssssi", $ho_ten, $so_dien_thoai, $dia_chi, $mat_khau, $user_id);
+        } else {
+            $sql_update = "UPDATE nguoi_dung SET ho_ten = ?, so_dien_thoai = ?, dia_chi = ? WHERE id = ?";
+            $stmt_update = $conn->prepare($sql_update);
+            $stmt_update->bind_param("sssi", $ho_ten, $so_dien_thoai, $dia_chi, $user_id);
+        }
 
         if ($stmt_update->execute()) {
             $update_success = true;
@@ -75,31 +83,31 @@ $result_orders = $stmt_orders->get_result();
     <div class="container">
         <h2>Thông tin tài khoản</h2>
         <div class="profile-info">
-            <p>Họ tên: <?php echo htmlspecialchars($user['ho_ten']); ?></p>
-            <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
-            <p>Số điện thoại: <?php echo htmlspecialchars($user['so_dien_thoai']); ?></p>
-           
-            <p>Địa chỉ: <?php echo htmlspecialchars($user['dia_chi']); ?></p>
-            
-        </div>
+    <p>Họ tên: <?php echo htmlspecialchars($user['ho_ten']); ?></p>
+    <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
+    <p>Số điện thoại: <?php echo htmlspecialchars($user['so_dien_thoai']); ?></p>
+    <p>Địa chỉ: <?php echo htmlspecialchars($user['dia_chi']); ?></p>
+  
+</div>
 
         <h2>Cập nhật thông tin cá nhân</h2>
-        <div class="update-form">
-            <form method="POST" action="">
-                <label for="ho_ten">Họ tên:</label>
-                <input type="text" name="ho_ten" value="<?php echo htmlspecialchars($user['ho_ten']); ?>" required><br>
+<div class="update-form">
+    <form method="POST" action="">
+        <label for="ho_ten">Họ tên:</label>
+        <input type="text" name="ho_ten" value="<?php echo htmlspecialchars($user['ho_ten']); ?>" required><br>
 
-                <label for="so_dien_thoai">Số điện thoại:</label>
-                <input type="text" name="so_dien_thoai" value="<?php echo htmlspecialchars($user['so_dien_thoai']); ?>"><br>
+        <label for="so_dien_thoai">Số điện thoại:</label>
+        <input type="text" name="so_dien_thoai" value="<?php echo htmlspecialchars($user['so_dien_thoai']); ?>"><br>
 
-                
+        <label for="dia_chi">Địa chỉ:</label>
+        <textarea name="dia_chi" required><?php echo htmlspecialchars($user['dia_chi']); ?></textarea><br>
 
-                <label for="dia_chi">Địa chỉ:</label>
-                <textarea name="dia_chi" required><?php echo htmlspecialchars($user['dia_chi']); ?></textarea><br>
+        <label for="mat_khau">Mật khẩu:</label>
+        <input type="password" name="mat_khau" placeholder="Nhập mật khẩu mới"><br>
 
-                <button type="submit">Cập nhật</button>
-            </form>
-        </div>
+        <button type="submit">Cập nhật</button>
+    </form>
+</div>
 
         <h2>Đơn hàng đã đặt</h2>
         <div class="order-info">
