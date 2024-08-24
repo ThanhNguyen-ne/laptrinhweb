@@ -6,43 +6,46 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalAmount = 0;
 
     const renderCartItems = async () => {
-        const response = await fetch("../assets/js/data.json");
-        const data = await response.json();
+        try {
+            const response = await fetch("../admin/pages/api.php");
+            const data = await response.json();
 
-        if (cart.length > 0) {
-            cartItemsContainer.innerHTML = cart
-                .map((itemCart) => {
-                    const product = data.find(
-                        (item) => item.id === itemCart.id
-                    );
-                    const itemTotal =
-                        parseFloat(product.price.replace(/,/g, "")) *
-                        itemCart.count;
-                    totalAmount += itemTotal;
+            if (cart.length > 0) {
+                cartItemsContainer.innerHTML = cart
+                    .map((itemCart) => {
+                        const product = data.find(
+                            (item) => item.id === itemCart.id
+                        );
+                        const itemTotal =
+                            parseFloat(product.gia) * itemCart.count;
+                        totalAmount += itemTotal;
 
-                    return `
-                        <div class="checkout-cart-item">
-                            <img class="checkout-cart-item-img" src="${
-                                product.img
-                            }" alt="${product.title}">
-                            <div class="checkout-cart-item-details">
-                                <div class="checkout-cart-item-title">${
-                                    product.title
-                                }</div>
-                                <div class="checkout-cart-item-quantity">Số lượng: ${
-                                    itemCart.count
-                                }</div>
-                                <div class="checkout-cart-item-price">Thành tiền: ${itemTotal.toLocaleString()}₫</div>
+                        return `
+                            <div class="checkout-cart-item">
+                                <img class="checkout-cart-item-img" src="${
+                                    product.hinh_anh
+                                }" alt="${product.ten_san_pham}">
+                                <div class="checkout-cart-item-details">
+                                    <div class="checkout-cart-item-title">${
+                                        product.ten_san_pham
+                                    }</div>
+                                    <div class="checkout-cart-item-quantity">Số lượng: ${
+                                        itemCart.count
+                                    }</div>
+                                    <div class="checkout-cart-item-price">Thành tiền: ${itemTotal.toLocaleString()}₫</div>
+                                </div>
                             </div>
-                        </div>
-                    `;
-                })
-                .join("");
+                        `;
+                    })
+                    .join("");
 
-            totalAmountElement.textContent = `${totalAmount.toLocaleString()}₫`;
-        } else {
-            cartItemsContainer.innerHTML =
-                "<p>Giỏ hàng của bạn đang trống.</p>";
+                totalAmountElement.textContent = `${totalAmount.toLocaleString()}₫`;
+            } else {
+                cartItemsContainer.innerHTML =
+                    "<p>Giỏ hàng của bạn đang trống.</p>";
+            }
+        } catch (error) {
+            console.error("Fetch error:", error);
         }
     };
 

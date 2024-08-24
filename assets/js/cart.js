@@ -5,55 +5,36 @@ let cartSummary = document.querySelector(".cart-summary");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let totalAmount = 0;
 
-const renderCartItem = async () => {
-    const response = await fetch("../assets/js/data.json");
-    const data = await response.json();
-
+// Hiển thị các sản phẩm trong giỏ hàng
+const renderCartItem = () => {
+    
+    totalAmount = 0; // Đặt lại tổng tiền về 0 trước khi tính toán lại
     if (cart.length > 0) {
         cartContainer.innerHTML = cart
             .map((itemCart) => {
-                const product = data.find((item) => item.id === itemCart.id);
-
-                if (!product) return "";
-
-                const priceNumber =
-                    parseFloat(product.price.replace(/,/g, "")) || 0;
-                const totalPrice = priceNumber * itemCart.count;
+                const totalPrice = itemCart.gia * itemCart.count;
                 totalAmount += totalPrice;
 
                 return `
                         <hr>
                         <div class="cart-part">
+                            <input type="checkbox" class="select-product" data-id="${itemCart.id}" onchange="calculateTotal()" checked>
                             <div class="cart-img">
-                                <img src="${product.img}" alt="${
-                    product.title
-                }" />
+                                <img src="../${itemCart.hinh_anh}" alt="${itemCart.ten_san_pham}" />
                             </div>
                             <div class="cart-desc">
-                                <p>${product.title}</p>
+                                <p>${itemCart.ten_san_pham}</p>
                             </div>
                             <div class="cart-quantity">
-                                <button class="quantity-btn" onclick="decrementQuantity(${
-                                    product.id
-                                })">-</button>
-                                <span id="quantity-${
-                                    product.id
-                                }" class="quantity-number">${
-                    itemCart.count
-                }</span>
-                                <button class="quantity-btn" onclick="incrementQuantity(${
-                                    product.id
-                                })">+</button>
+                                <button class="quantity-btn" onclick="decrementQuantity(${itemCart.id})">-</button>
+                                <span id="quantity-${itemCart.id}" class="quantity-number">${itemCart.count}</span>
+                                <button class="quantity-btn" onclick="incrementQuantity(${itemCart.id})">+</button>
                             </div>
                             <div class="cart-price">
-                                <h4>${priceNumber.toLocaleString("en-US")}₫</h4>
+                                <h4>${itemCart.gia.toLocaleString("vi-VN", { style: "currency", currency: "VND" })} ₫</h4>
                             </div>
-                            <div class="cart-total"><h4>${totalPrice.toLocaleString(
-                                "en-US"
-                            )}₫</h4></div>
-                            <div onclick="removeItem(${
-                                product.id
-                            })" class="cart-remove">
+                            <div class="cart-total"><h4>${totalPrice.toLocaleString("vi-VN", { style: "currency", currency: "VND" })} ₫</h4></div>
+                            <div onclick="removeItem(${itemCart.id})" class="cart-remove">
                                 <button><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
@@ -71,9 +52,10 @@ const renderCartItem = async () => {
             `;
     }
 
-    totalProducts();
+    calculateTotal(); // Cập nhật tổng tiền sau khi render xong
 };
 
+// Tăng số lượng sản phẩm trong giỏ hàng
 const incrementQuantity = (id) => {
     let searchIndex = cart.findIndex((itemCart) => itemCart.id === id);
 
@@ -84,6 +66,7 @@ const incrementQuantity = (id) => {
     }
 };
 
+// Giảm số lượng sản phẩm trong giỏ hàng
 const decrementQuantity = (id) => {
     let searchIndex = cart.findIndex((itemCart) => itemCart.id === id);
 
@@ -98,45 +81,35 @@ const decrementQuantity = (id) => {
     }
 };
 
-const totalProducts = async () => {
-    const response = await fetch("../assets/js/data.json");
-    const data = await response.json();
+// Tính tổng tiền của các sản phẩm trong giỏ hàng
+const calculateTotal = () => {
+    totalAmount = 0; // Đặt lại tổng tiền về 0 trước khi tính toán lại
+    const selectedProducts = document.querySelectorAll('.select-product:checked');
 
-    if (cart.length !== 0) {
-        let total = cart
-            .map((item) => {
-                const product = data.find(
-                    (itemData) => itemData.id === item.id
-                );
-                return (
-                    item.count * parseFloat(product.price.replace(/,/g, "")) ||
-                    0
-                );
-            })
-            .reduce((x, y) => x + y, 0);
+    selectedProducts.forEach(productCheckbox => {
+        const productId = parseInt(productCheckbox.dataset.id);
+        const product = cart.find(item => item.id === productId);
+        if (product) {
+            totalAmount += product.count * product.gia;
+        }
+    });
 
-        cartSummary.innerHTML = `
-                <div class="product-total">
-                    <h2>Tổng giá tiền: <span id="total">${total.toLocaleString()}₫</span></h2>
-                </div>
-                <div class="product-checkout">
-                    <a href="checkout.php" class="checkout">Thanh toán</a>
-                </div>
-                <button onclick="clearCart()" class="removeAll">Xóa giỏ hàng</button>
-            `;
-    }
+    document.getElementById('total').innerText = totalAmount.toLocaleString("vi-VN", { style: "currency", currency: "VND" }) + " ₫";
 };
 
+// Xóa sản phẩm khỏi giỏ hàng
 const removeItem = (id) => {
     cart = cart.filter((item) => item.id !== id);
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCartItem();
 };
 
+// Xóa toàn bộ giỏ hàng
 const clearCart = () => {
     cart = [];
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCartItem();
 };
 
+// Gọi hàm để hiển thị các sản phẩm trong giỏ hàng
 renderCartItem();

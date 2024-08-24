@@ -106,6 +106,22 @@ function getProduct($conn, $id) {
     $stmt->close();
 }
 
+// Hàm lấy danh sách sản phẩm tương tự
+function getSimilarProducts($conn, $type_id, $exclude_id) {
+    $stmt = $conn->prepare("SELECT * FROM san_pham WHERE id != ? AND id IN (SELECT san_pham_id FROM san_pham_loai WHERE loai_san_pham_id = ?) LIMIT 12");
+    $stmt->bind_param("ii", $exclude_id, $type_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $similar_products = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $similar_products[] = $row;
+    }
+
+    echo json_encode($similar_products);
+    $stmt->close();
+}
+
 // Hàm lấy danh sách loại sản phẩm
 function getProductTypes($conn) {
     $result = $conn->query("SELECT * FROM loai_san_pham");
@@ -116,6 +132,128 @@ function getProductTypes($conn) {
     }
 
     echo json_encode($productTypes);
+}
+
+// Hàm thêm người dùng
+function addUser($conn) {
+    $stmt = $conn->prepare("INSERT INTO nguoi_dung (ho_ten, email, mat_khau, vai_tro, ngay_dang_ky) VALUES (?, ?, ?, ?, NOW())");
+    $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
+    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
+    $stmt->bind_param("ssss", $full_name, $_POST['userEmail'], $hashed_password, $_POST['userRole']);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Người dùng đã được thêm thành công.";
+}
+
+// Hàm cập nhật người dùng
+function updateUser($conn) {
+    $stmt = $conn->prepare("UPDATE nguoi_dung SET ho_ten=?, email=?, vai_tro=? WHERE id=?");
+    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
+    $stmt->bind_param("sssi", $full_name, $_POST['userEmail'], $_POST['userRole'], $_POST['userId']);
+    $stmt->execute();
+
+    // Nếu mật khẩu được gửi lên (tức là có thay đổi mật khẩu)
+    if (!empty($_POST['userPassword'])) {
+        $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
+        $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
+        $stmt->bind_param("si", $hashed_password, $_POST['userId']);
+        $stmt->execute();
+    }
+
+    $stmt->close();
+    echo "Người dùng đã được cập nhật thành công.";
+}
+
+// Hàm xóa người dùng
+function deleteUser($conn, $id) {
+    $stmt = $conn->prepare("DELETE FROM nguoi_dung WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Người dùng đã được xóa thành công.";
+}
+
+// Hàm lấy danh sách người dùng
+function getUsers($conn) {
+    $result = $conn->query("SELECT * FROM nguoi_dung");
+    $users = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
+    }
+
+    echo json_encode($users);
+}
+
+// Hàm lấy thông tin một người dùng
+function getUser($conn, $id) {
+    $stmt = $conn->prepare("SELECT * FROM nguoi_dung WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    echo json_encode($user);
+    $stmt->close();
+}
+
+// Hàm lấy danh sách đơn hàng
+function getOrders($conn) {
+    $result = $conn->query("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
+                            FROM don_hang 
+                            JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id");
+    $orders = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $orders[] = $row;
+    }
+
+    echo json_encode($orders);
+}
+
+// Hàm cập nhật trạng thái đơn hàng
+function updateOrderStatus($conn) {
+    $stmt = $conn->prepare("UPDATE don_hang SET trang_thai = ? WHERE id = ?");
+    $stmt->bind_param("si", $_POST['orderStatus'], $_POST['orderId']);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Trạng thái đơn hàng đã được cập nhật thành công.";
+}
+
+// Hàm xóa đơn hàng
+function deleteOrder($conn, $id) {
+    $stmt = $conn->prepare("DELETE FROM don_hang WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Đơn hàng đã được xóa thành công.";
+}
+
+// Hàm lấy danh sách phản hồi
+function getFeedbacks($conn) {
+    $result = $conn->query("SELECT phan_hoi.id, nguoi_dung.ho_ten, nguoi_dung.email, phan_hoi.noi_dung, phan_hoi.ngay_gui 
+                            FROM phan_hoi 
+                            JOIN nguoi_dung ON phan_hoi.nguoi_dung_id = nguoi_dung.id");
+    $feedbacks = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $feedbacks[] = $row;
+    }
+
+    echo json_encode($feedbacks);
+}
+
+// Hàm xóa phản hồi
+function deleteFeedback($conn, $id) {
+    $stmt = $conn->prepare("DELETE FROM phan_hoi WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Phản hồi đã được xóa thành công.";
 }
 
 // Xử lý yêu cầu AJAX
@@ -145,6 +283,49 @@ if (isset($_GET['action'])) {
                 deleteProduct($conn, $_GET['id']);
             }
             break;
+        case 'get_users':
+            getUsers($conn);
+            break;
+        case 'get_user':
+            if (isset($_GET['id'])) {
+                getUser($conn, $_GET['id']);
+            }
+            break;
+        case 'add_user':
+            addUser($conn);
+            break;
+        case 'update_user':
+            updateUser($conn);
+            break;
+        case 'delete_user':
+            if (isset($_GET['id'])) {
+                deleteUser($conn, $_GET['id']);
+            }
+            break;
+        case 'get_orders':
+            getOrders($conn);
+            break;
+        case 'update_order_status':
+            updateOrderStatus($conn);
+            break;
+        case 'delete_order':
+            if (isset($_GET['id'])) {
+                deleteOrder($conn, $_GET['id']);
+            }
+            break;
+        case 'get_feedbacks':
+            getFeedbacks($conn);
+            break;
+        case 'delete_feedback':
+            if (isset($_GET['id'])) {
+                deleteFeedback($conn, $_GET['id']);
+            }
+            break;
+        case 'get_similar_products': // Trường hợp mới cho sản phẩm tương tự
+            if (isset($_GET['type_id']) && isset($_GET['exclude_id'])) {
+                getSimilarProducts($conn, $_GET['type_id'], $_GET['exclude_id']);
+            }
+            break;
         default:
             echo "Hành động không hợp lệ.";
             break;
@@ -153,4 +334,3 @@ if (isset($_GET['action'])) {
 
 $conn->close();
 ?>
-

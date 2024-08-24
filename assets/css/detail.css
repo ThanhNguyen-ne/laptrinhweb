@@ -2,66 +2,89 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
 .detail9-container {
     width: 80%;
-    margin: 80px auto 50px;
+    margin: 2% auto 2%;
 }
 
 .detail9 {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    background-color: #bde0fe;
+    padding: 5%;
+    gap: 40px;
 }
 
 .detail9-image {
-    width: 45%;
-    margin-right: 20px;
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .detail9-image img {
     width: 100%;
+    height: auto;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .detail9-info {
-    width: 50%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .detail9-price {
-    font-size: 28px;
-    color: red;
+    font-size: 32px;
+    color: #e74c3c;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.detail9-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .detail9-description {
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 30px;
+    color: #555;
 }
 
 .detail9-actions {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .btn-add,
 .btn-buy {
     cursor: pointer;
     padding: 15px 30px;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
-    border-radius: 10px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 8px;
     transition: all 0.3s;
     text-align: center;
+    border: none;
+}
+
+.btn-add {
+    background-color: #3498db;
+    color: white;
 }
 
 .btn-buy {
-    background-color: #28a745;
+    background-color: #2ecc71;
+    color: white;
 }
 
 .btn-add:hover,
@@ -70,55 +93,114 @@
 }
 
 .similar-products-container {
-    width: 80%;
-    margin: 50px auto;
+    margin: 50px 0;
 }
 
 .similar-products-container h3 {
     font-size: 28px;
     margin-bottom: 20px;
     text-align: center;
+    color: #333;
 }
 
 .similar-products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    gap: 20px;
+    justify-content: space-between;
 }
 
 .product-card {
-    width: 30%;
-    margin: 15px;
+    width: calc(33.333% - 20px);
+    background-color: #bde0fe;
+    padding: 15px;
+    border-radius: 8px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
 
 .product-card img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+    margin-bottom: 15px;
 }
 
 .product-card h4 {
     margin: 10px 0;
-    font-size: 18px;
+    font-size: 20px;
+    color: #333;
 }
 
 .product-card p {
-    font-size: 16px;
-    color: #ff4500;
-    margin-bottom: 10px;
+    font-size: 18px;
+    color: #e74c3c;
+    margin-bottom: 15px;
 }
 
-.btn-detail {
+.product-card a.btn-detail {
     text-decoration: none;
     background-color: #536493;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     display: inline-block;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
 }
 
-.btn-detail:hover {
+.product-card a.btn-detail:hover {
     background-color: #134b70;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* CSS styles for the similar products section and carousel */
+
+.similar-products-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.similar-products {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    width: 100%;
+}
+
+.nav-btn {
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #2980b9;
+}
+
+.product-card {
+    min-width: calc(100% / 6 - 20px);
+    display: none; /* Hide products initially */
+}
+
+.notification {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

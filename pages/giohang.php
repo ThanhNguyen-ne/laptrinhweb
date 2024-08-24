@@ -27,6 +27,7 @@
         <div class="container">
             <div class="cart-container">
                 <div class="cart-header">
+                    <div class="header-select">Chọn</div>
                     <div class="header-img">Hình ảnh</div>
                     <div class="header-desc">Tên sản phẩm</div>
                     <div class="header-quantity">Số lượng</div>
@@ -43,9 +44,9 @@
                     <h2>Tổng giá tiền: <span id="total"></span></h2>
                 </div>
                 <div class="product-checkout">
-                    <a href="#" class="checkout">Thanh toán</a>
+                    <a href="checkout.php" class="checkout">Thanh toán</a>
                 </div>
-                <button class="removeAll">Xóa giỏ hàng</button>
+                <button class="removeAll" onclick="clearCart()">Xóa giỏ hàng</button>
             </div>
         </div>
     </main>

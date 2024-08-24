@@ -10,9 +10,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-        rel="icon"
-        href="../assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg" />
+    <link rel="icon" href="../assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg" />
     <title>Sản Phẩm</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
     <link rel="stylesheet" href="../assets/css/header.css" />
@@ -25,55 +23,23 @@
 
     <script src="../assets/js/dangnhap.js"></script>
 
-    <!-- Content -->
     <div class="breadcrumb">
         <h3>
             <a href="index.php">Trang chủ</a> >
-
         </h3>
         <h3>
             <a href="sanpham.php">Tất cả sản phẩm</a>
-
         </h3>
     </div>
 
     <div class="content">
         <div class="sidebar">
             <div class="featured-products">
-                <h2>Sản phẩm nổi bật</h4>
-                    <ul>
-                        <a href="detail.php?id=1" style="text-decoration:none;color:black ;">
-                            <li>
-                                <img src="../assets/image/product/yensaonguyento/yskh_024.jpg">
-                                <p>
-                                    Yến huyết đảo thiên nhiên Khánh Hòa hộp 100g - 024
-                                </p>
-                                <span>37,800,000đ</span>
-                            </li>
-                        </a>
-                        <a href="detail.php?id=3" style="text-decoration:none;color:black ;">
-                            <li>
-                                <img src="../assets/image/product/yensaonguyento/_024s.jpg" />
-
-
-
-                                <p>Yến huyết đảo thiên nhiên Khánh Hòa mẫu hộp quà tặng - 024S</p>
-                                <span>19,170,000₫</span>
-                            </li>
-                        </a>
-                        <a href="detail.php?id=2" style="text-decoration:none;color:black ;">
-                            <li>
-                                <img src="../assets/image/product/yensaonguyento/yskh_026.jpg" />
-
-
-
-                                <p>Yến hồng đảo yến thiên nhiên Khánh Hòa hộp 100G - 026</p>
-                                <span>23,760,000₫</span>
-                            </li>
-                        </a>
-                    </ul>
+                <h2>Sản phẩm nổi bật</h2>
+                <ul id="featuredProducts"></ul>
             </div>
         </div>
+        
         <div class="main-content">
             <div class="product-list">
                 <div class="header-product-list">
@@ -88,34 +54,11 @@
                     </div>
                 </div>
 
-
                 <div class="products">
-                    <a href="detail.php"> </a>
+                    <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
                 </div>
 
                 <ul class="listPage"></ul>
-                <script src="../assets/js/sanpham.js"></script>
-            </div>
-
-            <div id="productDetails" class="modal1">
-                <div class="modal-content1">
-                    <div class="modal-content5">
-                        <img id="productImage" src="" alt="Product Image" />
-                        <div class="product-info">
-                            <p id="productName" class="product-name"></p>
-                            <p
-                                id="description"
-                                class="product-description"></p>
-                            <p id="productPrice" class="product-price"></p>
-                        </div>
-                        <span class="close" onclick="closeProductDetails()">&times;</span>
-                    </div>
-                    <div class="add">
-                        <button onclick="addToCart()">
-                            Thêm vào giỏ hàng
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
