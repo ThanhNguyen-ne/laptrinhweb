@@ -38,20 +38,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
             } elseif (!empty($so_dien_thoai)) {
                 $error_messages["phone"] = "Số điện thoại không tồn tại.";
             }
-        } elseif (!password_verify($mat_khau, $user['mat_khau'])) {
-            $error_messages["password"] = "Mật khẩu không đúng.";
         } else {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_role'] = $user['vai_tro'];
+            // Kiểm tra xem mật khẩu trong DB có được mã hóa hay chưa
+            if (password_verify($mat_khau, $user['mat_khau'])) {
+                // Mật khẩu đã mã hóa và trùng khớp
+                $is_authenticated = true;
+            } elseif ($mat_khau === $user['mat_khau']) {
+                // Mật khẩu chưa mã hóa và trùng khớp
+                $is_authenticated = true;
 
-            if ($user['vai_tro'] == 'admin') {
-                echo json_encode(["status" => "success", "redirect" => "../admin/pages/store.php"]);
-            } elseif ($user['vai_tro'] == 'khach_hang') {
-                echo json_encode(["status" => "success", "redirect" => "index.php"]);
+                // Cập nhật mật khẩu thành phiên bản mã hóa
+                $hashed_password = password_hash($mat_khau, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
+                $stmt->bind_param("si", $hashed_password, $user['id']);
+                $stmt->execute();
+                $stmt->close();
             } else {
-                echo json_encode(["status" => "error", "message" => "Vai trò người dùng không xác định."]);
+                // Mật khẩu không đúng
+                $is_authenticated = false;
+                $error_messages["password"] = "Mật khẩu không đúng.";
             }
-            exit();
+
+            if ($is_authenticated) {
+                session_regenerate_id(); // Bảo mật hơn khi tạo session mới
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_role'] = $user['vai_tro'];
+
+                if ($user['vai_tro'] == 'admin') {
+                    echo json_encode(["status" => "success", "redirect" => "../admin/pages/store.php"]);
+                } elseif ($user['vai_tro'] == 'khach_hang') {
+                    echo json_encode(["status" => "success", "redirect" => "index.php"]);
+                } else {
+                    echo json_encode(["status" => "error", "message" => "Vai trò người dùng không xác định."]);
+                }
+                exit();
+            }
         }
     }
 

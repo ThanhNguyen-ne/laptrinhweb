@@ -27,6 +27,7 @@ function showSignupModal() {
     };
     xhr.send();
 }
+
 function showpassModal() {
     var modal = document.getElementById("passModal");
     var modalBody = document.getElementById("passModalBody");
@@ -41,6 +42,7 @@ function showpassModal() {
     };
     xhr.send();
 }
+
 function closeModal(modalId) {
     var modal = document.getElementById(modalId);
     modal.style.display = "none";
@@ -211,6 +213,7 @@ function register(event) {
     };
     xhr.send(formData);
 }
+
 function showNotification(message) {
     // Tạo một thông báo mới
     const notification = document.createElement("div");
