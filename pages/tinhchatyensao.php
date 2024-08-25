@@ -13,8 +13,6 @@
     <title>Tinh Chất Yến Sào</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
     <link rel="stylesheet" href="../assets/css/sanpham.css" />
-    <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/footer.css">
 </head>
 
 <body>
@@ -60,23 +58,6 @@
 
                 <ul class="listPage"></ul>
                 <script src="../assets/js/tinhchat.js"></script>
-            </div>
-
-            <div id="productDetails" class="modal1">
-                <div class="modal-content1">
-                    <div class="modal-content5">
-                        <img id="productImage" src="" alt="Product Image" />
-                        <div class="product-info">
-                            <p id="productName" class="product-name"></p>
-                            <p id="description" class="product-description"></p>
-                            <p id="productPrice" class="product-price"></p>
-                        </div>
-                        <span class="close" onclick="closeProductDetails()">&times;</span>
-                    </div>
-                    <div class="add">
-                        <button onclick="addToCart()">Thêm vào giỏ hàng</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

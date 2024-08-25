@@ -96,6 +96,8 @@ function redirectToDetail(productId) {
     window.location.href = `detail.php?id=${productId}`;
 }
 
+// Giữ nguyên mã gốc của bạn ở đây ...
+
 function addToCart(event, productId) {
     event.stopPropagation();
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -112,8 +114,10 @@ function addToCart(event, productId) {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     showNotification("Sản phẩm đã được thêm vào giỏ hàng!");
-    renderCartItem();
+    renderCartItem(); // Thêm dòng này để đảm bảo giỏ hàng được cập nhật sau khi thêm sản phẩm
 }
+
+
 
 function redirectToCheckout(event, productId) {
     event.stopPropagation();

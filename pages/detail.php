@@ -12,8 +12,6 @@
         referrerpolicy="no-referrer" />
     <title>Chi tiết sản phẩm</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
-    <link rel="stylesheet" href="../assets/css/header.css" />
-    <link rel="stylesheet" href="../assets/css/footer.css" />
     <link rel="stylesheet" href="../assets/css/detail.css" />
     <link rel="stylesheet" href="../assets/css/sanpham.css" />
 </head>

@@ -10,8 +10,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Checkout</title>
     <link rel="stylesheet" href="../assets/css/checkout.css">
-    <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/sanpham.css">
 </head>
 

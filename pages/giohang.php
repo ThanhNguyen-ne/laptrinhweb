@@ -12,8 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yến Sào Khánh Hòa</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
-    <link rel="stylesheet" href="../assets/css/header.css" />
-    <link rel="stylesheet" href="../assets/css/footer.css" />
     <link rel="stylesheet" href="../assets/css/sanpham.css" />
     <link rel="stylesheet" href="../assets/css/cart.css" />
 </head>
@@ -27,7 +25,7 @@
         <div class="container">
             <div class="cart-container">
                 <div class="cart-header">
-                    <div class="header-select">Chọn</div>
+                    <div class="header-stt">STT</div> <!-- Thêm cột STT -->
                     <div class="header-img">Hình ảnh</div>
                     <div class="header-desc">Tên sản phẩm</div>
                     <div class="header-quantity">Số lượng</div>

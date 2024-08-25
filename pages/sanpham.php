@@ -13,8 +13,6 @@
     <link rel="icon" href="../assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg" />
     <title>Sản Phẩm</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
-    <link rel="stylesheet" href="../assets/css/header.css" />
-    <link rel="stylesheet" href="../assets/css/footer.css" />
     <link rel="stylesheet" href="../assets/css/sanpham.css" />
 </head>
 

@@ -256,6 +256,41 @@ function deleteFeedback($conn, $id) {
     echo "Phản hồi đã được xóa thành công.";
 }
 
+// Thêm vào api.php phần lưu trữ và lấy lại giỏ hàng từ cơ sở dữ liệu.
+
+function saveCart($conn, $userId, $cart) {
+    // Xóa giỏ hàng cũ của người dùng
+    $stmt = $conn->prepare("DELETE FROM gio_hang WHERE nguoi_dung_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $stmt->close();
+
+    // Lưu giỏ hàng mới
+    $stmt = $conn->prepare("INSERT INTO gio_hang (nguoi_dung_id, san_pham_id, so_luong) VALUES (?, ?, ?)");
+    foreach ($cart as $item) {
+        $stmt->bind_param("iii", $userId, $item['id'], $item['count']);
+        $stmt->execute();
+    }
+    $stmt->close();
+}
+
+function loadCart($conn, $userId) {
+    $stmt = $conn->prepare("SELECT san_pham.id, san_pham.ten_san_pham, san_pham.gia, san_pham.hinh_anh, gio_hang.so_luong 
+                            FROM san_pham 
+                            JOIN gio_hang ON san_pham.id = gio_hang.san_pham_id 
+                            WHERE gio_hang.nguoi_dung_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $cart = [];
+    while ($row = $result->fetch_assoc()) {
+        $cart[] = $row;
+    }
+    echo json_encode($cart);
+    $stmt->close();
+}
+
+
 // Xử lý yêu cầu AJAX
 if (isset($_GET['action'])) {
     $action = $_GET['action'];

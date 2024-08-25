@@ -11,13 +11,14 @@ const renderCartItem = () => {
     totalAmount = 0; // Đặt lại tổng tiền về 0 trước khi tính toán lại
     if (cart.length > 0) {
         cartContainer.innerHTML = cart
-            .map((itemCart) => {
+            .map((itemCart, index) => {
                 const totalPrice = itemCart.gia * itemCart.count;
                 totalAmount += totalPrice;
 
                 return `
                         <hr>
                         <div class="cart-part">
+                            <div class="cart-serial">${index + 1}</div> <!-- Số thứ tự -->
                             <input type="checkbox" class="select-product" data-id="${itemCart.id}" onchange="calculateTotal()" checked>
                             <div class="cart-img">
                                 <img src="../${itemCart.hinh_anh}" alt="${itemCart.ten_san_pham}" />

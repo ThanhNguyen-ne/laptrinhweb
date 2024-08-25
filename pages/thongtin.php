@@ -13,8 +13,6 @@
     <title>Thông Tin</title>
     <link rel="icon" href="../assets/image/index/logohdeader.webp" />
     <link rel="stylesheet" href="../assets/css/sanpham.css" />
-    <link rel="stylesheet" href="../assets/css/header.css" />
-    <link rel="stylesheet" href="../assets/css/footer.css" />
     <link rel="stylesheet" href="../assets/css/thongtin.css" />
 </head>
 
