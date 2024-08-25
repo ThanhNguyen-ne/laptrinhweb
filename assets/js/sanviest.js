@@ -30,7 +30,7 @@ function loadItem() {
             <div class="productCard" id="${item.id}" onclick="redirectToDetail(${item.id})">
                 <img src="../${item.hinh_anh}" alt="${item.ten_san_pham}" />
                 <p class="name">${item.ten_san_pham}</p>
-                <p class="price">${item.gia.toLocaleString("vi-VN", { style: "currency", currency: "VND" })} ₫</p>
+                 <p class="price">${parseFloat(item.gia).toLocaleString("vi-VN", { style: "currency", currency: "VND" })} </p>
                 <div class="product-buttons">
                     <button class="btn-cart" onclick="addToCart(event, ${item.id})">
                         <i class="fa-solid fa-cart-shopping"></i>
@@ -132,7 +132,10 @@ function loadFeaturedProducts() {
                 <li>
                     <img src="../${item.hinh_anh}" alt="${item.ten_san_pham}" />
                     <p>${item.ten_san_pham}</p>
-                    <span>${item.gia.toLocaleString("vi-VN", { style: "currency", currency: "VND" })} ₫</span>
+                    <span>${parseFloat(item.gia).toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                    })} </span>
                 </li>
             </a>
         `)

@@ -273,7 +273,6 @@ function saveCart($conn, $userId, $cart) {
     }
     $stmt->close();
 }
-
 function loadCart($conn, $userId) {
     $stmt = $conn->prepare("SELECT san_pham.id, san_pham.ten_san_pham, san_pham.gia, san_pham.hinh_anh, gio_hang.so_luong 
                             FROM san_pham 
@@ -289,6 +288,7 @@ function loadCart($conn, $userId) {
     echo json_encode($cart);
     $stmt->close();
 }
+
 
 
 // Xử lý yêu cầu AJAX
@@ -356,6 +356,11 @@ if (isset($_GET['action'])) {
                 deleteFeedback($conn, $_GET['id']);
             }
             break;
+        case 'load_cart': // Thêm hành động để tải giỏ hàng
+                if (isset($_GET['user_id'])) {
+                    loadCart($conn, $_GET['user_id']);
+                }
+                break;
         case 'get_similar_products': // Trường hợp mới cho sản phẩm tương tự
             if (isset($_GET['type_id']) && isset($_GET['exclude_id'])) {
                 getSimilarProducts($conn, $_GET['type_id'], $_GET['exclude_id']);

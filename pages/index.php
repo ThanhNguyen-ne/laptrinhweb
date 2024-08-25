@@ -54,7 +54,7 @@
                 </div>
                 <div class="slide">
                     <a href="yensaosanviestkhanhhoa.php"><img src="../assets/image/index/slider2_3.jpg" alt="Slide 2" /></a>
-                </div>
+                </div> 
                 <div class="slide">
                     <a href="thucphamsanestfood.php"><img src="../assets/image/index/slider_3.webp" alt="Slide 2" /></a>
                 </div>
