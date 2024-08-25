@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Xử lý cập nhật thông tin
-$update_success = false;
+$update_success = null;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['ho_ten'], $_POST['so_dien_thoai'], $_POST['dia_chi'])) {
         $ho_ten = $_POST['ho_ten'];
@@ -151,7 +151,7 @@ $result_orders = $stmt_orders->get_result();
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            <?php if (isset($update_success)): ?>
+            <?php if ($update_success !== null): ?>
                 <?php if ($update_success): ?>
                     showNotification("Cập nhật thông tin thành công!");
                 <?php else: ?>
