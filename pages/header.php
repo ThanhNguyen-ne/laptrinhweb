@@ -72,7 +72,7 @@ if (isset($_SESSION['user_id'])) {
                             </ul>
                         </li>
                         <li><a href="thongtin.php">Thông tin</a></li>
-                        <li><a class="cart" href="giohang.php"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
+                        <li><a class="cart" href="cart.php"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
                     </ul>
                     <form action="" class="search">
                         <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required>

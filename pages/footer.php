@@ -29,7 +29,7 @@
                     <ul>
                         <li><a href="index.php">Trang chủ</a></li>
                         <li><a href="sanpham.php">Sản phẩm</a></li>
-                        <li><a href="giohang.php">Kiểm tra đơn hàng</a></li>
+                        <li><a href="cart.php">Kiểm tra đơn hàng</a></li>
                     </ul>
                     <img
                         src="../assets/image/logoSaleNoti.png"

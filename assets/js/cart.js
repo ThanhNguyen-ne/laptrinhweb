@@ -1,4 +1,4 @@
-// Thay đổi URL API nếu cần
+// URL của API
 const apiUrl = '../admin/pages/api.php';
 
 // Hàm gửi yêu cầu AJAX
@@ -15,20 +15,42 @@ const sendRequest = async (url, method = 'GET', data = null) => {
 
     try {
         const response = await fetch(url, options);
+        const result = await response.json();
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
+        return result;
     } catch (error) {
         console.error('Error:', error);
         throw error;
     }
 };
 
-// Hàm hiển thị các sản phẩm trong giỏ hàng
-const renderCartItem = async () => {
+// Hàm để lấy userId
+const getUserId = async () => {
     try {
-        const cart = await loadCart();
+        const response = await sendRequest('cart.php?action=get_user_id');
+        return response.userId;
+    } catch (error) {
+        console.error('Failed to get userId:', error);
+        return null;
+    }
+};
+
+// Khởi tạo giỏ hàng
+const initializeCart = async () => {
+    const userId = await getUserId();
+    if (userId) {
+        await renderCartItem(userId);
+    } else {
+        console.error('User ID is not available.');
+    }
+};
+
+// Hàm hiển thị các sản phẩm trong giỏ hàng
+const renderCartItem = async (userId) => {
+    try {
+        const cart = await loadCart(userId);
         let totalAmount = 0;
 
         const cartContainer = document.querySelector(".cart-content");
@@ -83,9 +105,12 @@ const renderCartItem = async () => {
         console.error('Failed to render cart items:', error);
     }
 };
+
+// Thêm sản phẩm vào giỏ hàng
 const addToCart2 = async (productId, quantity) => {
     try {
-        const cart = await loadCart();
+        const userId = await getUserId();
+        const cart = await loadCart(userId);
         const itemIndex = cart.findIndex(item => item.id === productId);
 
         if (itemIndex !== -1) {
@@ -106,22 +131,24 @@ const addToCart2 = async (productId, quantity) => {
             }
         }
 
-        await saveCart(cart);
-        renderCartItem();
+        await saveCart(userId, cart);
+        renderCartItem(userId);
     } catch (error) {
         console.error('Failed to add item to cart:', error);
     }
 };
+
 // Tăng số lượng sản phẩm trong giỏ hàng
 const incrementQuantity = async (id) => {
     try {
-        const cart = await loadCart();
+        const userId = await getUserId();
+        const cart = await loadCart(userId);
         const itemIndex = cart.findIndex(item => item.id === id);
 
         if (itemIndex !== -1) {
             cart[itemIndex].so_luong += 1;
-            await saveCart(cart);
-            renderCartItem();
+            await saveCart(userId, cart);
+            renderCartItem(userId);
         }
     } catch (error) {
         console.error('Failed to increment quantity:', error);
@@ -131,7 +158,8 @@ const incrementQuantity = async (id) => {
 // Giảm số lượng sản phẩm trong giỏ hàng
 const decrementQuantity = async (id) => {
     try {
-        const cart = await loadCart();
+        const userId = await getUserId();
+        const cart = await loadCart(userId);
         const itemIndex = cart.findIndex(item => item.id === id);
 
         if (itemIndex !== -1 && cart[itemIndex].so_luong > 0) {
@@ -139,8 +167,8 @@ const decrementQuantity = async (id) => {
             if (cart[itemIndex].so_luong === 0) {
                 await removeItem(id);
             } else {
-                await saveCart(cart);
-                renderCartItem();
+                await saveCart(userId, cart);
+                renderCartItem(userId);
             }
         }
     } catch (error) {
@@ -151,7 +179,8 @@ const decrementQuantity = async (id) => {
 // Tính tổng tiền của các sản phẩm được chọn
 const calculateTotal = async () => {
     try {
-        const cart = await loadCart();
+        const userId = await getUserId();
+        const cart = await loadCart(userId);
         let totalAmount = 0;
         const selectedProducts = document.querySelectorAll('.select-product:checked');
 
@@ -170,7 +199,7 @@ const calculateTotal = async () => {
 };
 
 // Lưu giỏ hàng
-const saveCart = async (cart) => {
+const saveCart = async (userId, cart) => {
     try {
         await sendRequest(apiUrl + '?action=save_cart', 'POST', { user_id: userId, cart });
     } catch (error) {
@@ -179,7 +208,7 @@ const saveCart = async (cart) => {
 };
 
 // Tải giỏ hàng
-const loadCart = async () => {
+const loadCart = async (userId) => {
     try {
         return await sendRequest(apiUrl + '?action=load_cart&user_id=' + userId);
     } catch (error) {
@@ -191,10 +220,11 @@ const loadCart = async () => {
 // Xóa sản phẩm khỏi giỏ hàng
 const removeItem = async (id) => {
     try {
-        const cart = await loadCart();
+        const userId = await getUserId();
+        const cart = await loadCart(userId);
         const updatedCart = cart.filter(item => item.id !== id);
-        await saveCart(updatedCart);
-        renderCartItem();
+        await saveCart(userId, updatedCart);
+        renderCartItem(userId);
     } catch (error) {
         console.error('Failed to remove item:', error);
     }
@@ -203,13 +233,14 @@ const removeItem = async (id) => {
 // Xóa toàn bộ giỏ hàng
 const clearCart = async () => {
     try {
+        const userId = await getUserId();
         const emptyCart = [];
-        await saveCart(emptyCart);
-        renderCartItem();
+        await saveCart(userId, emptyCart);
+        renderCartItem(userId);
     } catch (error) {
         console.error('Failed to clear cart:', error);
     }
 };
 
-// Gọi hàm để hiển thị các sản phẩm trong giỏ hàng khi trang tải
-document.addEventListener('DOMContentLoaded', renderCartItem);
+// Khởi tạo giỏ hàng khi trang tải
+document.addEventListener('DOMContentLoaded', initializeCart);

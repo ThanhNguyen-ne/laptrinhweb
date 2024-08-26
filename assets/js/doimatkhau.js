@@ -6,11 +6,7 @@ document.getElementById("closeChangePasswordModal").onclick = function() {
     closeModal("changePasswordModal");
 };
 
-window.onclick = function(event) {
-    if (event.target == document.getElementById("changePasswordModal")) {
-        closeModal("changePasswordModal");
-    }
-};
+
 
 function showChangePasswordModal() {
     const xhr = new XMLHttpRequest();
