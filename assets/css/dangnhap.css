@@ -6,9 +6,10 @@
     border-radius: 10px;
     box-sizing: border-box;
     padding: 20px 30px;
-    margin: auto;
+    margin-top: 3%;
     animation: fadeIn 0.5s;
     overflow: hidden;
+    position: relative;
 }
 
 .title {
@@ -21,7 +22,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 10px;
 }
 
 .input {
@@ -29,6 +30,7 @@
     border: 1px solid #c0c0c0;
     padding: 12px 15px;
     font-size: 16px;
+    position: relative;
 }
 
 .tab-buttons {
@@ -59,16 +61,24 @@
 #loginEmail,
 #loginPhone,
 #loginPassword,
+#current_password,
+#new_password,
+#confirm_password,
 #regPassWord,
 #regFullName,
 #regEmail,
 #regPhone,
-#regAddress,
-.regiregi {
+#regAddress {
     border-radius: 20px;
     border: 1px solid #c0c0c0;
     padding: 12px 15px;
     font-size: 16px;
+    width: 100%;
+}
+
+#loginEmail,
+#loginPhone {
+    display: none;
 }
 
 .page-link,
@@ -143,6 +153,7 @@ a {
 #phoneTab{
     border-radius: 0 20px 20px 0;
 }
+
 .notification {
     position: fixed;
     top: 20px;
@@ -158,9 +169,16 @@ a {
     opacity: 0;
     animation: fadeInOut 3s forwards;
 }
+
 @keyframes fadeInOut {
     0% { opacity: 0; }
     10% { opacity: 1; }
     90% { opacity: 1; }
     100% { opacity: 0; }
+}
+
+/* Chỉnh sửa vị trí nhập liệu cho email và số điện thoại */
+#loginEmail.active,
+#loginPhone.active {
+    display: block;
 }

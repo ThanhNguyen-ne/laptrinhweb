@@ -8,6 +8,9 @@ function showLoginModal() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
             modal.style.display = "flex";
+            // Hiển thị phần nhập email mặc định
+            document.getElementById("loginEmail").style.display = "block";
+            document.getElementById("loginPhone").style.display = "none";
         }
     };
     xhr.send();
@@ -19,21 +22,6 @@ function showSignupModal() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "dangki.php", true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            modalBody.innerHTML = xhr.responseText;
-            modal.style.display = "flex";
-        }
-    };
-    xhr.send();
-}
-
-function showpassModal() {
-    var modal = document.getElementById("passModal");
-    var modalBody = document.getElementById("passModalBody");
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "quenpass.php", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
@@ -78,6 +66,7 @@ function switchToPhoneLogin() {
     document.getElementById("loginEmail").removeAttribute("name");
 }
 
+
 function login(event) {
     event.preventDefault();
 
@@ -115,7 +104,6 @@ function login(event) {
             if (response.status === "success") {
                 showNotification("Đăng nhập thành công!"); 
                 window.location.href = response.redirect;
-                
             } else {
                 if (response.messages.email) {
                     emailError.innerText = response.messages.email;
@@ -133,6 +121,7 @@ function login(event) {
     };
     xhr.send(formData);
 }
+
 
 function register(event) {
     event.preventDefault();
@@ -215,15 +204,12 @@ function register(event) {
 }
 
 function showNotification(message) {
-    // Tạo một thông báo mới
     const notification = document.createElement("div");
     notification.className = "notification";
     notification.innerText = message;
 
-    // Thêm thông báo vào body
     document.body.appendChild(notification);
 
-    // Loại bỏ thông báo sau 3 giây
     setTimeout(() => {
         notification.remove();
     }, 5000);

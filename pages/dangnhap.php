@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     $email = isset($_POST['Email']) ? trim($_POST['Email']) : '';
     $so_dien_thoai = isset($_POST['Phone']) ? trim($_POST['Phone']) : '';
     $mat_khau = trim($_POST['Password']);
-    
+
     $error_messages = ["email" => "", "phone" => "", "password" => ""];
     $user = null;
 
@@ -79,26 +79,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     echo json_encode(["status" => "error", "messages" => $error_messages]);
     exit();
 } else {
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../assets/css/dangnhap.css" />
         <title>Đăng nhập</title>
     </head>
-    <body>
-        <?php if ($message) : ?>
-            <div class="success-message" id="successMessage"><?php echo $message; ?></div>
-            <script>
-                document.getElementById("successMessage").style.display = "block";
-                setTimeout(function() {
-                    document.getElementById("successMessage").style.display = "none";
-                }, 3000);
-            </script>
-        <?php endif; ?>
 
+    <body>
         <div align="center">
             <div class="form-container">
                 <p class="title">Đăng nhập</p>
@@ -107,17 +99,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                     <button id="phoneTab" class="tab-button" onclick="switchToPhoneLogin()">Số Điện Thoại</button>
                 </div>
                 <form id="loginForm" class="form" method="post" action="dangnhap.php" onsubmit="login(event)">
-                    <input id="loginEmail" placeholder="Email" type="email" name="Email" />
+                    <input id="loginEmail" class="input" placeholder="Email" type="email" name="Email" />
+                    <input id="loginPhone" class="input" placeholder="Số Điện Thoại" type="text" name="Phone" />
                     <div id="emailError" class="error-message"></div>
-
-                    <input id="loginPhone" placeholder="Số Điện Thoại" type="text" name="Phone" style="display:none;" />
                     <div id="phoneError" class="error-message"></div>
 
-                    <input id="loginPassword" placeholder="Mật khẩu" type="password" name="Password" required />
+                    <input id="loginPassword" class="input" placeholder="Mật khẩu" type="password" name="Password" required />
                     <div id="passwordError" class="error-message"></div>
 
                     <div id="loginMessage"></div>
-                    <a href="quenpass.php" class="page-link" ><span class="page-link-label">Quên mật khẩu?</span></a>
+                    <a href="quenpass.php" class="page-link"><span class="page-link-label">Quên mật khẩu?</span></a>
                     <button class="form-btn" type="submit">Đăng nhập</button>
                 </form>
                 <p class="sign-up-label">
@@ -126,7 +117,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
             </div>
         </div>
     </body>
+
     </html>
-    <?php
+<?php
 }
 ?>

@@ -17,12 +17,6 @@ if (isset($_SESSION['user_id'])) {
     $user = $result->fetch_assoc();
 }
 
-if (isset($_POST['dangxuat'])) {
-    session_unset();
-    session_destroy();
-    header("Location: index.php");
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -43,13 +37,16 @@ if (isset($_POST['dangxuat'])) {
             </div>
             <div class="auth-buttons">
                 <?php if (isset($user)) : ?>
-                    <!-- <a href="profile.php"><span style="font-family: Arial, sans-serif; font-size: 18px; color: #333; background-color: #f0f0f0; padding: 8px 12px; border-radius: 5px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); display: inline-block; top:2px">
-                        Xin chào, -->
-                        <button onclick="window.location.href='profile.php'"> <?php echo htmlspecialchars($user['ho_ten']); ?></button>
-                    </span> </a>
-                    <form method="post" action="">
-                        <button type="submit" name="dangxuat">Đăng xuất</button>
-                    </form>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            <i class="fa-solid fa-user"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="profile.php">Tài khoản</a>
+                            <a href="donhang.php">Đơn hàng</a>
+                            <a href="dangxuat.php" class="dropdown-logout">Đăng xuất</a> <!-- Thay đổi thành thẻ a -->
+                        </div>
+                    </div>
                 <?php else : ?>
                     <button id="loginBtn">Đăng nhập</button>
                     <button id="signupBtn">Đăng kí</button>

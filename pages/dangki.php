@@ -29,28 +29,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
     }
     exit();
 } else {
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../assets/css/dangnhap.css" />
         <title>Đăng ký</title>
     </head>
+
     <body>
         <div class="animate" align="center">
             <div class="form-container">
                 <p class="title">Tạo tài khoản</p>
                 <form id="registerForm" class="form" method="post" action="dangki.php" onsubmit="register(event)">
+
+                    <input type="text" id="regFullName" placeholder="Họ và Tên" name="Fullname" required />
+                    <div id="fullnameError" class="error-message"></div>
+                    
                     <input type="email" id="regEmail" placeholder="Email" name="Email" required />
                     <div id="emailError" class="error-message"></div>
 
                     <input type="text" id="regPhone" placeholder="Số Điện Thoại" name="Phone" required />
                     <div id="phoneError" class="error-message"></div>
-
-                    <input type="text" id="regFullName" placeholder="Họ và Tên" name="Fullname" required />
-                    <div id="fullnameError" class="error-message"></div>
 
                     <input type="text" id="regAddress" placeholder="Địa chỉ" name="Address" required />
                     <div id="addressError" class="error-message"></div>
@@ -67,7 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
             </div>
         </div>
     </body>
+
     </html>
-    <?php
+<?php
 }
 ?>
