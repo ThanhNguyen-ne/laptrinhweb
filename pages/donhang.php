@@ -38,17 +38,42 @@ $result_orders = $stmt_orders->get_result();
         <div class="order-info">
             <table>
                 <tr>
-                    <th>Ngày đặt</th>
-                    <th>Tổng tiền</th>
+                    <th></th>
                     <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Thời gian đặt</th>
                     <th>Trạng thái</th>
                 </tr>
-                <?php while ($order = $result_orders->fetch_assoc()) { ?>
+                <?php
+                $i = 1;
+                while ($order = $result_orders->fetch_assoc()) { 
+                    // Chuyển đổi định dạng thời gian sang kiểu Việt Nam
+                    $ngay_dat = date("H:i:s - d/m/Y", strtotime($order['ngay_dat']));
+                    
+                    // Chuyển đổi trạng thái đơn hàng sang tiếng Việt
+                    switch ($order['trang_thai']) {
+                        case 'cho_xu_ly':
+                            $trang_thai = 'Chờ xử lý';
+                            break;
+                        case 'dang_xu_ly':
+                            $trang_thai = 'Đang xử lý';
+                            break;
+                        case 'hoan_thanh':
+                            $trang_thai = 'Hoàn thành';
+                            break;
+                        case 'da_huy':
+                            $trang_thai = 'Đã hủy';
+                            break;
+                        default:
+                            $trang_thai = 'Không xác định';
+                    }
+                ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($order['ngay_dat']); ?></td>
-                        <td><?php echo htmlspecialchars(number_format($order['tong_tien'], 2)); ?> VND</td>
+                        <td><?php echo $i++; ?></td>
                         <td><?php echo htmlspecialchars($order['san_pham']); ?></td>
-                        <td><?php echo htmlspecialchars($order['trang_thai']); ?></td>
+                        <td><?php echo htmlspecialchars(number_format($order['tong_tien'])); ?> </td>
+                        <td><?php echo htmlspecialchars($ngay_dat); ?></td>
+                        <td><?php echo htmlspecialchars($trang_thai); ?></td>
                     </tr>
                 <?php } ?>
             </table>
