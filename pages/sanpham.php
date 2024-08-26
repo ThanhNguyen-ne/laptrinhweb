@@ -47,9 +47,36 @@ if ($featured_result->num_rows > 0) {
     }
 }
 
+// Hàm thêm sản phẩm vào giỏ hàng trong cơ sở dữ liệu
+function addToCart($productId, $userId, $conn)
+{
+    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+    $check_query = "SELECT * FROM gio_hang WHERE san_pham_id = $productId AND nguoi_dung_id = $userId";
+    $check_result = $conn->query($check_query);
+
+    if ($check_result->num_rows > 0) {
+        // Nếu đã tồn tại, cập nhật số lượng
+        $update_query = "UPDATE gio_hang SET so_luong = so_luong + 1 WHERE san_pham_id = $productId AND nguoi_dung_id = $userId";
+        $conn->query($update_query);
+    } else {
+        // Nếu chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
+        $insert_query = "INSERT INTO gio_hang (nguoi_dung_id, san_pham_id, so_luong) VALUES ($userId, $productId, 1)";
+        $conn->query($insert_query);
+    }
+}
+
+// Kiểm tra yêu cầu thêm sản phẩm vào giỏ hàng
+if (isset($_GET['add_to_cart'])) {
+    $productId = (int)$_GET['add_to_cart'];
+    $userId = 1; // Thay bằng ID người dùng thực tế
+    addToCart($productId, $userId, $conn);
+    header("Location: sanpham.php");
+}
+
 // Đóng kết nối
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,100 +126,73 @@ $conn->close();
                     <div class="sort-container">
                         <label for="sort" class="sort-label">Sắp xếp:</label>
                         <select id="sort" class="sort-select" onchange="location = this.value;">
-                            <option value="sanpham.php?sort=default" <?= $sort == 'default' ? 'selected' : '' ?>>Mặc định</option> <option value="sanpham.php?sort=price_asc" <?= $sort == 'price_asc' ? 'selected' : '' ?>>Giá tăng dần</option> <option value="sanpham.php?sort=price_desc" <?= $sort == 'price_desc' ? 'selected' : '' ?>>Giá giảm dần</option> </select> </div> </div>
-                            <div class="products">
-                <?php if (!empty($productList)): ?>
-                    <?php foreach ($productList as $product): ?>
-                        <div class="productCard" id="<?= $product['id'] ?>" onclick="redirectToDetail(<?= $product['id'] ?>)">
-                            <img src="../<?= $product['hinh_anh'] ?>" alt="<?= $product['ten_san_pham'] ?>" />
-                            <p class="name"><?= $product['ten_san_pham'] ?></p>
-                            <p class="price"><?= number_format($product['gia'], 0, ',', '.') ?> VND</p>
-                            <div class="product-buttons">
-                                <button class="btn-cart" onclick="addToCart(event, <?= $product['id'] ?>)"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="btn-buy" onclick="redirectToCheckout(event, <?= $product['id'] ?>)">Mua ngay</button>
+                            <option value="sanpham.php?sort=default" <?= $sort == 'default' ? 'selected' : '' ?>>Mặc định</option>
+                            <option value="sanpham.php?sort=price_asc" <?= $sort == 'price_asc' ? 'selected' : '' ?>>Giá tăng dần</option>
+                            <option value="sanpham.php?sort=price_desc" <?= $sort == 'price_desc' ? 'selected' : '' ?>>Giá giảm dần</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="products">
+                    <?php if (!empty($productList)): ?>
+                        <?php foreach ($productList as $product): ?>
+                            <div class="productCard" id="<?= $product['id'] ?>" onclick="redirectToDetail(<?= $product['id'] ?>)">
+                                <img src="../<?= $product['hinh_anh'] ?>" alt="<?= $product['ten_san_pham'] ?>" />
+                                <p class="name"><?= $product['ten_san_pham'] ?></p>
+                                <p class="price"><?= number_format($product['gia'], 0, ',', '.') ?> VND</p>
+                                <div class="product-buttons">
+                                    <a href="sanpham.php?add_to_cart=<?= $product['id'] ?>" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                                    <button class="btn-buy" onclick="redirectToCheckout(event, <?= $product['id'] ?>)">Mua ngay</button>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>Không có sản phẩm nào.</p>
-                <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Không có sản phẩm nào.</p>
+                    <?php endif; ?>
+                </div>
+
+                <ul class="listPage">
+                    <?php
+                    // Pagination controls
+                    $count_query = "SELECT COUNT(*) as total FROM san_pham";
+                    $count_result = $conn->query($count_query);
+                    $total_products = $count_result->fetch_assoc()['total'];
+                    $total_pages = ceil($total_products / $limit);
+
+                    if ($thisPage > 1) {
+                        echo '<li onclick="changePage(' . ($thisPage - 1) . ')">TRƯỚC</li>';
+                    }
+
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        $active = $i == $thisPage ? 'class="active"' : '';
+                        echo '<li ' . $active . ' onclick="changePage(' . $i . ')">' . $i . '</li>';
+                    }
+
+                    if ($thisPage < $total_pages) {
+                        echo '<li onclick="changePage(' . ($thisPage + 1) . ')">SAU</li>';
+                    }
+                    ?>
+                </ul>
             </div>
-
-            <ul class="listPage">
-                <?php
-                // Pagination controls
-                $count_query = "SELECT COUNT(*) as total FROM san_pham";
-                $count_result = $conn->query($count_query);
-                $total_products = $count_result->fetch_assoc()['total'];
-                $total_pages = ceil($total_products / $limit);
-
-                if ($thisPage > 1) {
-                    echo '<li onclick="changePage(' . ($thisPage - 1) . ')">TRƯỚC</li>';
-                }
-
-                for ($i = 1; $i <= $total_pages; $i++) {
-                    $active = $i == $thisPage ? 'class="active"' : '';
-                    echo '<li ' . $active . ' onclick="changePage(' . $i . ')">' . $i . '</li>';
-                }
-
-                if ($thisPage < $total_pages) {
-                    echo '<li onclick="changePage(' . ($thisPage + 1) . ')">SAU</li>';
-                }
-                ?>
-            </ul>
         </div>
     </div>
-</div>
 
-<?php include("footer.php"); ?>
+    <?php include("footer.php"); ?>
 
-<script src="../assets/js/header.js"></script>
+    <script src="../assets/js/header.js"></script>
 
-<script>
-    function redirectToDetail(productId) {
-        window.location.href = 'detail.php?id=' + productId;
-    }
-
-    function changePage(page) {
-        window.location.href = 'sanpham.php?page=' + page + '&sort=<?= $sort ?>';
-    }
-
-    function addToCart(event, productId) {
-        event.stopPropagation();
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const product = <?= json_encode($productList) ?>.find((p) => p.id == productId);
-
-        const existingProductIndex = cart.findIndex(
-            (item) => item.id === productId
-        );
-        if (existingProductIndex !== -1) {
-            cart[existingProductIndex].count += 1;
-        } else {
-            cart.push({ ...product, count: 1 });
+    <script>
+        function redirectToDetail(productId) {
+            window.location.href = 'detail.php?id=' + productId;
         }
 
-        localStorage.setItem("cart", JSON.stringify(cart));
-        showNotification("Sản phẩm đã được thêm vào giỏ hàng!");
-        renderCartItem(); // Thêm dòng này để đảm bảo giỏ hàng được cập nhật sau khi thêm sản phẩm
-    }
+        function changePage(page) {
+            window.location.href = 'sanpham.php?page=' + page + '&sort=<?= $sort ?>';
+        }
 
-    function redirectToCheckout(event, productId) {
-        event.stopPropagation();
-        addToCart(event, productId);
-        window.location.href = 'checkout.php';
-    }
-
-    function showNotification(message) {
-        const notification = document.createElement("div");
-        notification.className = "notification";
-        notification.innerText = message;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-</script>
+        function redirectToCheckout(event, productId) {
+            event.stopPropagation();
+            window.location.href = 'checkout.php';
+        }
+    </script>
 </body>
- </html>
+</html>
