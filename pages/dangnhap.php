@@ -3,6 +3,8 @@ include("../admin/pages/db_connect.php");
 session_start();
 
 $message = "";
+$current_page = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
+
 if (isset($_GET['message']) && $_GET['message'] == 'success') {
     $message = "Đăng ký thành công!";
 }
@@ -39,22 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 $error_messages["phone"] = "Số điện thoại không tồn tại.";
             }
         } else {
-            // Kiểm tra xem mật khẩu trong DB có được mã hóa hay chưa
             if (password_verify($mat_khau, $user['mat_khau'])) {
-                // Mật khẩu đã mã hóa và trùng khớp
                 $is_authenticated = true;
             } elseif ($mat_khau === $user['mat_khau']) {
-                // Mật khẩu chưa mã hóa và trùng khớp
                 $is_authenticated = true;
-
-                // Cập nhật mật khẩu thành phiên bản mã hóa
                 $hashed_password = password_hash($mat_khau, PASSWORD_DEFAULT);
                 $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
                 $stmt->bind_param("si", $hashed_password, $user['id']);
                 $stmt->execute();
                 $stmt->close();
             } else {
-                // Mật khẩu không đúng
                 $is_authenticated = false;
                 $error_messages["password"] = "Mật khẩu không đúng.";
             }
@@ -67,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 if ($user['vai_tro'] == 'admin') {
                     echo json_encode(["status" => "success", "redirect" => "../admin/pages/store.php"]);
                 } elseif ($user['vai_tro'] == 'khach_hang') {
-                    echo json_encode(["status" => "success", "redirect" => "index.php"]);
+                    echo json_encode(["status" => "success", "redirect" => $current_page]);
                 } else {
                     echo json_encode(["status" => "error", "message" => "Vai trò người dùng không xác định."]);
                 }
@@ -110,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
 
                     <div id="loginMessage"></div>
                     <a href="quenpass.php" class="page-link"><span class="page-link-label">Quên mật khẩu?</span></a>
-                    <button class="form-btn" type="submit">Đăng nhập</button>
+                    <button class="form-btn" type="submit" name="dangnhap">Đăng nhập</button>
                 </form>
                 <p class="sign-up-label">
                     Chưa có tài khoản?<span class="sign-up-link"><a href="javascript:switchToSignup()"> Đăng kí</a></span>

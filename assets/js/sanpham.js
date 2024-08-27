@@ -48,9 +48,12 @@ document.querySelectorAll('.productCard').forEach(function(card) {
     });
 });
 
-// Không ngăn sự kiện click của các liên kết phân trang
-document.querySelectorAll('.listPage a').forEach(function(link) {
-    link.addEventListener('click', function(event) {
-        // Không ngăn chặn hành động mặc định của liên kết
+// Sự kiện click cho các liên kết phân trang
+document.querySelectorAll('.listPage li').forEach(function(li) {
+    li.addEventListener('click', function(event) {
+        const link = this.querySelector('a');
+        if (link) {
+            window.location.href = link.href;
+        }
     });
 });
