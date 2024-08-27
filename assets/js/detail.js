@@ -39,6 +39,12 @@ document.getElementById('addToCart').addEventListener('click', function() {
 });
 
 // Xử lý sự kiện mua ngay
-document.getElementById('buyNow').addEventListener('click', function() {
-    window.location.href = 'checkout.php';
+document.querySelectorAll('.productCard').forEach(function(card) {
+    card.addEventListener('click', function(event) {
+        // Nếu không phải nút mua hoặc giỏ hàng, thì mới chuyển trang
+        if (!event.target.closest('.btn-cart') && !event.target.closest('.btn-buy')) {
+            const productId = this.id;
+            window.location.href = 'detail.php?id=' + productId;
+        }
+    });
 });

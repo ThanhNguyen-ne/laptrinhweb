@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
                     <p class="detail-description"><?= nl2br(htmlspecialchars($product['mo_ta'])) ?></p>
                     <div class="detail-actions">
                         <button class="btn-add" id="addToCart" data-product-id="<?= $product['id'] ?>">Thêm vào giỏ hàng</button>
-                        <button class="btn-buy" id="buyNow">Mua</button>
+                        <button class="btn-buy" id="buyNow" onclick="window.location.href = 'checkout.php?id=<?= $product['id'] ?>'">Mua</button>
                     </div>
                 </div>
             </div>
