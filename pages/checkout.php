@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Chèn thông tin vào bảng don_hang, người dùng có thể là khách không đăng nhập
         $userIdOrNull = isset($userId) ? $userId : 'NULL';
         $orderQuery = "INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai)
-                       VALUES ($userIdOrNull, '{$productInfo['gia']}', 'cho_xu_ly')";
+                    VALUES ($userIdOrNull, '{$productInfo['gia']}', 'cho_xu_ly')";
         if ($conn->query($orderQuery) === TRUE) {
             // Lấy ID của đơn hàng vừa tạo
             $orderId = $conn->insert_id;
@@ -163,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script src="../assets/js/checkout.js"></script>
     <script>
-     function showNotification(message) {
+    function showNotification(message) {
             const notification = document.createElement("div");
             notification.className = "notification";
             notification.innerText = message;

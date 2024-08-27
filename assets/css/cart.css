@@ -194,3 +194,16 @@ main {
 hr {
     border-color: #ccc;
 }
+/* Add CSS for the select column */
+.cart-header, .cart-item {
+    display: grid;
+    grid-template-columns: 5% 5% 15% 30% 15% 10% 10% 10%; /* Adjust for the new select column */
+    align-items: center;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.header-select, .item-select {
+    text-align: center;
+}

@@ -23,6 +23,7 @@ $user_id = $_SESSION['user_id'];
         <div class="container">
             <div class="cart-container">
                 <div class="cart-header">
+                    <div class="header-select"><input type="checkbox" id="selectAll"></div>
                     <div class="header-stt">STT</div>
                     <div class="header-img">Hình ảnh</div>
                     <div class="header-desc">Tên sản phẩm</div>
@@ -50,8 +51,8 @@ $user_id = $_SESSION['user_id'];
                         $stt = 1;
                         while ($row = $cart_result->fetch_assoc()) {
                             $item_total = $row['gia'] * $row['so_luong'];
-                            $total_price += $item_total;
                             echo "<div class='cart-item' data-item-id='" . $row['id'] . "'>";
+                            echo "<div class='item-select'><input type='checkbox' class='select-item' data-price='$item_total'></div>";
                             echo "<div class='item-stt'>$stt</div>";
                             echo "<div class='item-img'><img src='../" . $row['hinh_anh'] . "' alt='" . $row['ten_san_pham'] . "' /></div>";
                             echo "<div class='item-desc'>" . $row['ten_san_pham'] . "</div>";
@@ -78,17 +79,15 @@ $user_id = $_SESSION['user_id'];
                     ?>
                 </div>
             </div>
-            <?php if ($cart_result->num_rows > 0) { ?>
-            <div class="cart-summary">
+            <div class="cart-summary" style="display:none;">
                 <div class="product-total">
-                    <h2>Tổng giá tiền: <span id="total"><?= number_format($total_price, 0, ',', '.') ?> ₫</span></h2>
+                    <h2>Tổng giá tiền: <span id="total">0 ₫</span></h2>
                 </div>
                 <div class="product-checkout">
                     <a href="checkout.php" class="checkout">Thanh toán</a>
                 </div>
                 <button class="removeAll" onclick="clearCart()">Xóa giỏ hàng</button>
             </div>
-            <?php } ?>
         </div>
     </main>
 

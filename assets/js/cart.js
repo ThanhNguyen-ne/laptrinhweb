@@ -22,6 +22,8 @@ function updateQuantity(itemId, change) {
                     const newTotal = price * newQuantity;
                     totalElement.textContent =
                         newTotal.toLocaleString("vi-VN") + " ₫";
+                    const checkbox = item.querySelector('.select-item');
+                    checkbox.dataset.price = newTotal;
                     updateTotal();
                 }
             });
@@ -49,12 +51,20 @@ function removeItem(itemId) {
 // Cập nhật tổng giá tiền sau khi số lượng thay đổi hoặc xóa sản phẩm
 function updateTotal() {
     let totalPrice = 0;
-    document.querySelectorAll(".item-total").forEach((total) => {
-        totalPrice += parseInt(total.textContent.replace(/\D/g, ""));
+    document.querySelectorAll(".select-item:checked").forEach((checkbox) => {
+        totalPrice += parseInt(checkbox.dataset.price);
     });
 
-    document.getElementById("total").textContent =
-        totalPrice.toLocaleString("vi-VN") + "₫";
+    const totalElement = document.getElementById("total");
+    totalElement.textContent =
+        totalPrice.toLocaleString("vi-VN") + " ₫";
+
+    const summaryElement = document.querySelector(".cart-summary");
+    if (totalPrice > 0) {
+        summaryElement.style.display = "block";
+    } else {
+        summaryElement.style.display = "none";
+    }
 }
 
 // Kiểm tra xem giỏ hàng có trống không
@@ -85,9 +95,30 @@ function clearCart() {
             }
         });
 }
+
+// Chọn tất cả các sản phẩm
+document.getElementById("selectAll").addEventListener("change", function() {
+    const checkboxes = document.querySelectorAll(".select-item");
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = this.checked;
+    });
+    updateTotal();
+});
+
+// Khi thay đổi trạng thái checkbox của sản phẩm
+document.querySelectorAll(".select-item").forEach((checkbox) => {
+    checkbox.addEventListener("change", updateTotal);
+});
+
+// Event delegation for dynamically added cart items
+document.addEventListener('change', function(e) {
+    if (e.target.classList.contains('select-item')) {
+        updateTotal();
+    }
+});
+
 document.querySelectorAll('.productCard').forEach(function(card) {
     card.addEventListener('click', function(event) {
-        // Nếu không phải nút mua hoặc giỏ hàng, thì mới chuyển trang
         if (!event.target.closest('.btn-cart') && !event.target.closest('.btn-buy')) {
             const productId = this.id;
             window.location.href = 'detail.php?id=' + productId;
