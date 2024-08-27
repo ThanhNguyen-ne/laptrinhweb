@@ -33,7 +33,7 @@ document.querySelectorAll('.btn-cart').forEach(function(button) {
 document.querySelectorAll('.btn-buy').forEach(function(button) {
     button.addEventListener('click', function(event) {
         event.stopPropagation(); // Ngăn không cho kích hoạt sự kiện click của thẻ cha
-        window.location.href = 'checkout.php';
+        window.location.href = this.getAttribute('data-url');
     });
 });
 

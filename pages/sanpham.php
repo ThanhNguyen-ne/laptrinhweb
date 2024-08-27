@@ -134,7 +134,6 @@ $conn->close();
                     <div class="sort-container">
                         <label for="sort" class="sort-label">Sắp xếp:</label>
                         <select id="sort" class="sort-select" onchange="location = this.value;">
-                            <option value="sanpham.php?sort=
                             <option value="sanpham.php?sort=default" <?= $sort == 'default' ? 'selected' : '' ?>>Mặc định</option>
                             <option value="sanpham.php?sort=price_asc" <?= $sort == 'price_asc' ? 'selected' : '' ?>>Giá tăng dần</option>
                             <option value="sanpham.php?sort=price_desc" <?= $sort == 'price_desc' ? 'selected' : '' ?>>Giá giảm dần</option>
@@ -150,7 +149,8 @@ $conn->close();
                                 <p class="price"><?= number_format($product['gia'], 0, ',', '.') ?> ₫</p>
                                 <div class="product-buttons">
                                     <a href="sanpham.php?add_to_cart=<?= $product['id'] ?>" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                                    <button class="btn-buy" onclick="redirectToCheckout(event, <?= $product['id'] ?>)">Mua ngay</button>
+                                    <button class="btn-buy" onclick="window.location.href = 'checkout.php?id=<?= $product['id'] ?>'">Mua ngay</button>
+
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -167,6 +167,7 @@ $conn->close();
                     $total_products = $count_result->fetch_assoc()['total'];
                     $total_pages = ceil($total_products / $limit);
 
+                    // Previous
                     // Previous page link
                     if ($thisPage > 1) {
                         echo '<li><a href="sanpham.php?page=' . ($thisPage - 1) . '&sort=' . $sort . '">TRƯỚC</a></li>';
