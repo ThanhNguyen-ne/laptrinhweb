@@ -109,46 +109,86 @@ body{
     gap: 20px;
 }
 
+/* Định dạng sản phẩm */
 .productCard {
-    background-color: white;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    width: calc(33.333% - 20px);
-    box-sizing: border-box;
+    flex: 1 1 calc(25% - 20px);
+    border-radius: 4px;
+    background-color: #A2D4F8;
+    padding: 10px;
+    text-align: center;
     position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    margin: 0 10px;
 }
 
 .productCard img {
+    transition: opacity 0.3s ease, transform 0.3s ease;
     width: 100%;
+    max-width: 180px;
     height: auto;
+    margin-bottom: 10px;
 }
 
 .productCard p {
     margin: 10px 0;
-    font-size: 14px;
 }
 
 .productCard .price {
-    color: #219ebc;
+    color: #ff6347;
+    font-weight: bold;
 }
 
 .productCard del {
-    color: #999;
-    font-size: 0.9em;
+    color: #ccc;
 }
 
-.discount {
+/* Ẩn nút giỏ hàng và mua ngay mặc định */
+.productCard .product-buttons {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: red;
-    color: white;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
 }
 
+.productCard .btn-cart,
+.productCard .btn-buy {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.productCard .btn-cart {
+    background-color: #007bff;
+}
+
+.productCard .btn-buy {
+    background-color: #28a745;
+}
+
+/* Hiển thị nút khi hover vào sản phẩm */
+.productCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.productCard:hover img {
+    opacity: 0.5;
+    transform: scale(1.1);
+}
+
+.productCard:hover .product-buttons {
+    display: flex;
+}
+
+/* Thêm phần thiết kế cho các sản phẩm liên quan */
 .yensaosanest,
 .yensaosanviest,
 .thucpham,
@@ -384,7 +424,7 @@ body{
 }
 
 .product1 {
-    background-color: #A2D4F8; /* Đổi màu nền giống với sanpham.php */
+    background-color: #A2D4F8; /* Đổi màu nền giống với sanpham.css */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 10px;
@@ -459,7 +499,7 @@ body{
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #4caf50;
+    background-color: #5fa8d3;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
