@@ -3,7 +3,7 @@
 include("../admin/pages/db_connect.php");
 
 $thongbao = "";
-if (isset($_POST['btn1'])) {
+if (isset($_POST['btnQuenMatKhau'])) {
     // Lấy email từ form và loại bỏ các thẻ HTML
     $email = trim(strip_tags($_POST['email']));
 
@@ -47,8 +47,8 @@ if (isset($_POST['btn1'])) {
                     $mail->isSMTP();
                     $mail->Host = 'smtp.gmail.com';
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'nguyenvothanh20044@gmail.com'; 
-                    $mail->Password = 'wpfpjrlsbbizpjwg'; 
+                    $mail->Username = '2251120259@ut.edu.vn'; 
+                    $mail->Password = '5846#CN22'; 
                     $mail->SMTPSecure = 'ssl'; 
                     $mail->Port = 465; 
                     $mail->CharSet = "UTF-8";
@@ -77,51 +77,79 @@ if (isset($_POST['btn1'])) {
         }
     }
 }
+
+echo json_encode(["message" => $thongbao]);
+exit();
 ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quên Mật Khẩu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/quenpass.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/dangnhap.css" />
+    <title>Quên mật khẩu</title>
 </head>
 
 <body>
-    <?php include("header.php"); ?>
-    <form action="quenpass.php" method="post" class="col-5 m-auto bg-secondary p-2 text-white">
-        <div class="form-group">
-            <h4 class="border-bottom pb-2">QUÊN MẬT KHẨU</h4>
-            <label for="email">Nhập email</label>
-            <input class="form-control" name="email" type="email" required>
+    <div align="center">
+        <div class="form-container">
+            <p class="title">Quên mật khẩu</p>
+            <form id="quenPassForm" class="form" method="post" action="quenpass.php" onsubmit="quenPass(event)">
+                <input id="quenPassEmail" class="input" placeholder="Email" type="email" name="email" required />
+                <div id="emailError" class="error-message"></div>
+                <div id="quenPassMessage"></div>
+                <button class="form-btn" type="submit" name="btnQuenMatKhau">Gửi yêu cầu</button>
+            </form>
         </div>
-        <div class="form-group">
-            <button type="submit" name="btn1" class="btn btn-primary">Gửi yêu cầu</button>
-        </div>
-    </form>
-   
+    </div>
 
-    <!-- Gọi hàm thông báo nếu có thông báo từ PHP -->
     <script>
+        function quenPass(event) {
+            event.preventDefault();
+
+            let email = document.getElementById("quenPassEmail").value.trim();
+            let emailError = document.getElementById("emailError");
+            let quenPassMessage = document.getElementById("quenPassMessage");
+
+            emailError.innerText = "";
+            quenPassMessage.innerText = "";
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                emailError.innerText = "Vui lòng nhập email hợp lệ.";
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append('email', email);
+            formData.append('btnQuenMatKhau', true);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "quenpass.php", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    let response = JSON.parse(xhr.responseText);
+                    quenPassMessage.innerText = response.message;
+                    showNotification(response.message);
+                } else {
+                    quenPassMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
+                }
+            };
+            xhr.send(formData);
+        }
+
         function showNotification(message) {
             const notification = document.createElement("div");
-            notification.className = "notification alert alert-info text-center mt-3";
+            notification.className = "notification";
             notification.innerText = message;
 
             document.body.appendChild(notification);
 
             setTimeout(() => {
                 notification.remove();
-            }, 3000);
+            }, 5000);
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            <?php if (!empty($thongbao)): ?>
-                showNotification("<?php echo $thongbao; ?>");
-            <?php endif; ?>
-        });
     </script>
-     <?php include("footer.php"); ?>
 </body>
+
 </html>

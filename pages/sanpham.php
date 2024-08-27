@@ -67,10 +67,18 @@ function addToCart($productId, $userId, $conn)
 
 // Kiểm tra yêu cầu thêm sản phẩm vào giỏ hàng
 if (isset($_GET['add_to_cart'])) {
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(["status" => "error", "message" => "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng."]);
+        exit();
+    }
+
     $productId = (int)$_GET['add_to_cart'];
-    $userId = 1; // Thay bằng ID người dùng thực tế
+    $userId = $_SESSION['user_id'];
     addToCart($productId, $userId, $conn);
-    header("Location: sanpham.php");
+
+    echo json_encode(["status" => "success", "message" => "Sản phẩm đã được thêm vào giỏ hàng."]);
+    exit();
 }
 
 // Đóng kết nối
@@ -111,7 +119,7 @@ $conn->close();
                             <li>
                                 <img src="../<?= $featured['hinh_anh'] ?>" alt="<?= $featured['ten_san_pham'] ?>" />
                                 <p><?= $featured['ten_san_pham'] ?></p>
-                                <span><?= number_format($featured['gia'], 0, ',', '.') ?> VND</span>
+                                <span><?= number_format($featured['gia'], 0, ',', '.') ?> ₫</span>
                             </li>
                         </a>
                     <?php endforeach; ?>
@@ -135,10 +143,10 @@ $conn->close();
                 <div class="products">
                     <?php if (!empty($productList)): ?>
                         <?php foreach ($productList as $product): ?>
-                            <div class="productCard" id="<?= $product['id'] ?>" onclick="redirectToDetail(<?= $product['id'] ?>)">
+                            <div class="productCard" id="<?= $product['id'] ?>">
                                 <img src="../<?= $product['hinh_anh'] ?>" alt="<?= $product['ten_san_pham'] ?>" />
                                 <p class="name"><?= $product['ten_san_pham'] ?></p>
-                                <p class="price"><?= number_format($product['gia'], 0, ',', '.') ?> VND</p>
+                                <p class="price"><?= number_format($product['gia'], 0, ',', '.') ?> ₫</p>
                                 <div class="product-buttons">
                                     <a href="sanpham.php?add_to_cart=<?= $product['id'] ?>" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
                                     <button class="btn-buy" onclick="redirectToCheckout(event, <?= $product['id'] ?>)">Mua ngay</button>
@@ -179,20 +187,7 @@ $conn->close();
     <?php include("footer.php"); ?>
 
     <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/sanpham.js"></script>
 
-    <script>
-        function redirectToDetail(productId) {
-            window.location.href = 'detail.php?id=' + productId;
-        }
-
-        function changePage(page) {
-            window.location.href = 'sanpham.php?page=' + page + '&sort=<?= $sort ?>';
-        }
-
-        function redirectToCheckout(event, productId) {
-            event.stopPropagation();
-            window.location.href = 'checkout.php';
-        }
-    </script>
 </body>
 </html>

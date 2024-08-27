@@ -1,3 +1,4 @@
+/* Cấu trúc cơ bản và định dạng */
 * {
     padding: 0;
     margin: 0;
@@ -7,7 +8,7 @@
 
 .detail9-container {
     width: 80%;
-    margin: 2% auto 2%;
+    margin: 2% auto;
 }
 
 .detail9 {
@@ -103,15 +104,39 @@
     color: #333;
 }
 
-.similar-products {
+.similar-products-navigation {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    align-items: center;
+    gap: 10px;
     justify-content: space-between;
 }
 
+.similar-products {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    width: 100%;
+}
+
+.nav-btn {
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #2980b9;
+}
+
 .product-card {
-    width: calc(33.333% - 20px);
+    min-width: calc(100% / 6 - 20px);
+    display: block;
     background-color: #bde0fe;
     padding: 15px;
     border-radius: 8px;
@@ -155,43 +180,6 @@
 
 .product-card:hover {
     transform: translateY(-5px);
-}
-
-/* CSS styles for the similar products section and carousel */
-
-.similar-products-navigation {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
-}
-
-.similar-products {
-    display: flex;
-    gap: 20px;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    width: 100%;
-}
-
-.nav-btn {
-    cursor: pointer;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 18px;
-    transition: background-color 0.3s;
-}
-
-.nav-btn:hover {
-    background-color: #2980b9;
-}
-
-.product-card {
-    min-width: calc(100% / 6 - 20px);
-    display: none; /* Hide products initially */
 }
 
 .notification {

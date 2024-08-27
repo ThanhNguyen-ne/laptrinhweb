@@ -39,32 +39,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 $error_messages["phone"] = "Số điện thoại không tồn tại.";
             }
         } else {
+            // Kiểm tra xem mật khẩu trong DB có được mã hóa hay chưa
             if (password_verify($mat_khau, $user['mat_khau'])) {
+                // Mật khẩu đã mã hóa và trùng khớp
                 $is_authenticated = true;
             } elseif ($mat_khau === $user['mat_khau']) {
+                // Mật khẩu chưa mã hóa và trùng khớp
                 $is_authenticated = true;
 
+                // Cập nhật mật khẩu thành phiên bản mã hóa
                 $hashed_password = password_hash($mat_khau, PASSWORD_DEFAULT);
                 $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
                 $stmt->bind_param("si", $hashed_password, $user['id']);
                 $stmt->execute();
                 $stmt->close();
             } else {
+                // Mật khẩu không đúng
                 $is_authenticated = false;
                 $error_messages["password"] = "Mật khẩu không đúng.";
             }
 
             if ($is_authenticated) {
-                session_regenerate_id(true);  // Bắt đầu phiên làm việc mới để ngăn chặn session fixation attacks
-                $_SESSION['user_id'] = $user['id'];  // Lưu đúng `user_id` vào session
+                session_regenerate_id(); // Tạo lại session ID để bảo mật
+                $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_role'] = $user['vai_tro'];
             
                 if ($user['vai_tro'] == 'admin') {
-                    header("Location: ../admin/pages/store.php");
+                    echo json_encode(["status" => "success", "redirect" => "../admin/pages/store.php"]);
                 } elseif ($user['vai_tro'] == 'khach_hang') {
-                    header("Location: index.php");
+                    echo json_encode(["status" => "success", "redirect" => "index.php"]);
                 } else {
-                    echo "Vai trò người dùng không xác định.";
+                    echo json_encode(["status" => "error", "message" => "Vai trò người dùng không xác định."]);
                 }
                 exit();
             }
@@ -76,45 +81,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     exit();
 } else {
 ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/css/dangnhap.css" />
-    <title>Đăng nhập</title>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../assets/css/dangnhap.css" />
+        <title>Đăng nhập</title>
+    </head>
 
-<body>
-    <div align="center">
-        <div class="form-container">
-            <p class="title">Đăng nhập</p>
-            <div class="tab-buttons">
-                <button id="emailTab" class="tab-button active" onclick="switchToEmailLogin()">Email</button>
-                <button id="phoneTab" class="tab-button" onclick="switchToPhoneLogin()">Số Điện Thoại</button>
+    <body>
+        <div align="center">
+            <div class="form-container">
+                <p class="title">Đăng nhập</p>
+                <div class="tab-buttons">
+                    <button id="emailTab" class="tab-button active" onclick="switchToEmailLogin()">Email</button>
+                    <button id="phoneTab" class="tab-button" onclick="switchToPhoneLogin()">Số Điện Thoại</button>
+                </div>
+                <form id="loginForm" class="form" method="post" action="dangnhap.php" onsubmit="login(event)">
+                    <input id="loginEmail" class="input" placeholder="Email" type="email" name="Email" />
+                    <input id="loginPhone" class="input" placeholder="Số Điện Thoại" type="text" name="Phone" />
+                    <div id="emailError" class="error-message"></div>
+                    <div id="phoneError" class="error-message"></div>
+
+                    <input id="loginPassword" class="input" placeholder="Mật khẩu" type="password" name="Password" required />
+                    <div id="passwordError" class="error-message"></div>
+
+                    <div id="loginMessage"></div>
+                    <a href="quenpass.php" class="page-link"><span class="page-link-label">Quên mật khẩu?</span></a>
+                    <button class="form-btn" type="submit">Đăng nhập</button>
+                </form>
+                <p class="sign-up-label">
+                    Chưa có tài khoản?<span class="sign-up-link"><a href="javascript:switchToSignup()"> Đăng kí</a></span>
+                </p>
             </div>
-            <form id="loginForm" class="form" method="post" action="dangnhap.php" onsubmit="login(event)">
-                <input id="loginEmail" class="input" placeholder="Email" type="email" name="Email" />
-                <input id="loginPhone" class="input" placeholder="Số Điện Thoại" type="text" name="Phone" />
-                <div id="emailError" class="error-message"></div>
-                <div id="phoneError" class="error-message"></div>
-
-                <input id="loginPassword" class="input" placeholder="Mật khẩu" type="password" name="Password" required />
-                <div id="passwordError" class="error-message"></div>
-
-                <div id="loginMessage"></div>
-                <a href="javascript:switchToQuenPass()" class="page-link"><span class="page-link-label">Quên mật khẩu?</span></a>
-                <button class="form-btn" type="submit">Đăng nhập</button>
-            </form>
-            <p class="sign-up-label">
-                Chưa có tài khoản?<span class="sign-up-link"><a href="javascript:switchToSignup()"> Đăng kí</a></span>
-            </p>
         </div>
-    </div>
-</body>
+    </body>
 
-</html>
+    </html>
 <?php
 }
 ?>

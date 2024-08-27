@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +61,6 @@
                         <label for="paymentMethod">Phương thức thanh toán:</label>
                         <select id="paymentMethod">
                             <option value="creditCard">Thẻ tín dụng</option>
-                            <option value="paypal">PayPal</option>
                             <option value="cod">Thanh toán khi nhận hàng</option>
                         </select>
                     </div>

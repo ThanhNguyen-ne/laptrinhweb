@@ -39,7 +39,8 @@ $user_id = $_SESSION['user_id'];
                     $cart_query = "SELECT gh.id, sp.ten_san_pham, sp.hinh_anh, sp.gia, gh.so_luong 
                                    FROM gio_hang gh
                                    JOIN san_pham sp ON gh.san_pham_id = sp.id
-                                   WHERE gh.nguoi_dung_id = ?";  // chỉ lấy dữ liệu của user_id hiện tại
+                                   WHERE gh.nguoi_dung_id = ?
+                                   ORDER BY gh.id DESC";  // Đảm bảo sản phẩm mới nhất xuất hiện đầu tiên
                     $stmt = $conn->prepare($cart_query);
                     $stmt->bind_param("i", $user_id);
                     $stmt->execute();
@@ -59,8 +60,8 @@ $user_id = $_SESSION['user_id'];
                                     <span class='quantity-number'>" . $row['so_luong'] . "</span>
                                     <button class='quantity-btn' onclick='updateQuantity(" . $row['id'] . ", 1)'>+</button>
                                   </div>";
-                            echo "<div class='item-price'>" . number_format($row['gia'], 0, ',', '.') . " VND</div>";
-                            echo "<div class='item-total'>" . number_format($item_total, 0, ',', '.') . " VND</div>";
+                            echo "<div class='item-price'>" . number_format($row['gia'], 0, ',', '.') . " ₫</div>";
+                            echo "<div class='item-total'>" . number_format($item_total, 0, ',', '.') . " ₫</div>";
                             echo "<div class='item-remove'><button onclick='removeItem(" . $row['id'] . ")'><i class='fa fa-trash'></i></button></div>";
                             echo "</div>";
                             $stt++;
@@ -80,7 +81,7 @@ $user_id = $_SESSION['user_id'];
             <?php if ($cart_result->num_rows > 0) { ?>
             <div class="cart-summary">
                 <div class="product-total">
-                    <h2>Tổng giá tiền: <span id="total"><?= number_format($total_price, 0, ',', '.') ?> VND</span></h2>
+                    <h2>Tổng giá tiền: <span id="total"><?= number_format($total_price, 0, ',', '.') ?> ₫</span></h2>
                 </div>
                 <div class="product-checkout">
                     <a href="checkout.php" class="checkout">Thanh toán</a>
