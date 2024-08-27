@@ -15,6 +15,34 @@ $user_id = $_SESSION['user_id'];
 $action = $_GET['action'];
 
 switch ($action) {
+    case 'add':
+        $product_id = $_GET['id'];
+        
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
+        $check_query = "SELECT * FROM gio_hang WHERE san_pham_id = ? AND nguoi_dung_id = ?";
+        $stmt = $conn->prepare($check_query);
+        $stmt->bind_param("ii", $product_id, $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng lên 1
+            $update_query = "UPDATE gio_hang SET so_luong = so_luong + 1 WHERE san_pham_id = ? AND nguoi_dung_id = ?";
+            $stmt = $conn->prepare($update_query);
+            $stmt->bind_param("ii", $product_id, $user_id);
+            $stmt->execute();
+        } else {
+            // Nếu sản phẩm chưa có trong giỏ hàng, thêm sản phẩm vào giỏ hàng với số lượng là 1
+            $insert_query = "INSERT INTO gio_hang (san_pham_id, nguoi_dung_id, so_luong) VALUES (?, ?, 1)";
+            $stmt = $conn->prepare($insert_query);
+            $stmt->bind_param("ii", $product_id, $user_id);
+            $stmt->execute();
+        }
+
+        $stmt->close();
+        echo json_encode(['success' => true]);
+        break;
+
     case 'update':
         $id = $_GET['id'];
         $quantity = $_GET['quantity'];
