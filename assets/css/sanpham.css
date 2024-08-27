@@ -344,6 +344,10 @@ button {
 }
 .listPage a{
     text-decoration: none;
+    color: #000;
+}
+.listPage a:active{
+    color: #000;
 }
 
 .notification {
