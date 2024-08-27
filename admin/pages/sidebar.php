@@ -25,7 +25,7 @@
     </ul>
     <ul class="side-menu">
         <li>
-            <a href="#" class="logout">
+            <a href="../../pages/dangxuat.php" class="logout">
                 <i class="bx bx-log-out-circle"></i>
                 Đăng xuất
             </a>

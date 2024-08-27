@@ -85,3 +85,12 @@ function clearCart() {
             }
         });
 }
+document.querySelectorAll('.productCard').forEach(function(card) {
+    card.addEventListener('click', function(event) {
+        // Nếu không phải nút mua hoặc giỏ hàng, thì mới chuyển trang
+        if (!event.target.closest('.btn-cart') && !event.target.closest('.btn-buy')) {
+            const productId = this.id;
+            window.location.href = 'detail.php?id=' + productId;
+        }
+    });
+});

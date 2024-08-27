@@ -29,7 +29,55 @@ if (isset($_SESSION['user_id'])) {
         $userInfo = $userResult->fetch_assoc();
     }
 }
+
+// Xử lý sau khi form được submit
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    $paymentMethod = $_POST['paymentMethod'];
+    $quantity = 1; // Số lượng cố định ở đây là 1, bạn có thể cập nhật nếu cần
+
+    // Bắt đầu giao dịch
+    $conn->begin_transaction();
+
+    try {
+        // Chèn thông tin vào bảng don_hang, người dùng có thể là khách không đăng nhập
+        $userIdOrNull = isset($userId) ? $userId : 'NULL';
+        $orderQuery = "INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai)
+                       VALUES ($userIdOrNull, '{$productInfo['gia']}', 'cho_xu_ly')";
+        if ($conn->query($orderQuery) === TRUE) {
+            // Lấy ID của đơn hàng vừa tạo
+            $orderId = $conn->insert_id;
+
+            // Chèn thông tin vào bảng chi_tiet_don_hang
+            $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban)
+                            VALUES ('$orderId', '$productId', '$quantity', '{$productInfo['gia']}')";
+            if ($conn->query($detailQuery) === TRUE) {
+                // Nếu thành công, cam kết giao dịch
+                $conn->commit();
+                echo "<script>alert('Đơn hàng của bạn đã được xác nhận!'); window.location.href = 'index.php';</script>";
+            } else {
+                // Nếu lỗi, hủy giao dịch
+                $conn->rollback();
+                echo "Lỗi: " . $detailQuery . "<br>" . $conn->error;
+            }
+        } else {
+            // Nếu lỗi, hủy giao dịch
+            $conn->rollback();
+            echo "Lỗi: " . $orderQuery . "<br>" . $conn->error;
+        }
+    } catch (Exception $e) {
+        // Nếu có ngoại lệ, hủy giao dịch
+        $conn->rollback();
+        echo "Lỗi: " . $e->getMessage();
+    }
+
+    exit();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,8 +97,6 @@ if (isset($_SESSION['user_id'])) {
 <body>
 
     <?php include("header.php"); ?>
-
-    <script src="../assets/js/header.js"></script>
 
     <div class="checkout-container">
         <h1 class="checkout-title">Thanh toán</h1>
@@ -79,30 +125,30 @@ if (isset($_SESSION['user_id'])) {
             </div>
 
             <div class="checkout-right">
-                <form id="checkoutForm">
+                <form id="checkoutForm" method="POST" action="">
                     <div class="checkout-form-group">
                         <label for="name">Họ và tên:</label>
-                        <input type="text" id="name" value="<?= $userInfo['ho_ten'] ?? '' ?>">
+                        <input type="text" id="name" name="name" value="<?= $userInfo['ho_ten'] ?? '' ?>">
                         <div id="nameError" class="checkout-error-message"></div>
                     </div>
                     <div class="checkout-form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" value="<?= $userInfo['email'] ?? '' ?>">
+                        <input type="email" id="email" name="email" value="<?= $userInfo['email'] ?? '' ?>">
                         <div id="emailError" class="checkout-error-message"></div>
                     </div>
                     <div class="checkout-form-group">
                         <label for="address">Địa chỉ:</label>
-                        <input type="text" id="address" value="<?= $userInfo['dia_chi'] ?? '' ?>">
+                        <input type="text" id="address" name="address" value="<?= $userInfo['dia_chi'] ?? '' ?>">
                         <div id="addressError" class="checkout-error-message"></div>
                     </div>
                     <div class="checkout-form-group">
                         <label for="phone">Số điện thoại:</label>
-                        <input type="text" id="phone" value="<?= $userInfo['so_dien_thoai'] ?? '' ?>">
+                        <input type="text" id="phone" name="phone" value="<?= $userInfo['so_dien_thoai'] ?? '' ?>">
                         <div id="phoneError" class="checkout-error-message"></div>
                     </div>
                     <div class="checkout-form-group">
                         <label for="paymentMethod">Phương thức thanh toán:</label>
-                        <select id="paymentMethod">
+                        <select id="paymentMethod" name="paymentMethod">
                             <option value="creditCard">Thẻ tín dụng</option>
                             <option value="cod">Thanh toán khi nhận hàng</option>
                         </select>
@@ -116,6 +162,19 @@ if (isset($_SESSION['user_id'])) {
     <?php include("footer.php"); ?>
 
     <script src="../assets/js/checkout.js"></script>
+    <script>
+     function showNotification(message) {
+            const notification = document.createElement("div");
+            notification.className = "notification";
+            notification.innerText = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+</script>
 </body>
 
 </html>
