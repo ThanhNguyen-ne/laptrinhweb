@@ -134,6 +134,7 @@ $conn->close();
                     <div class="sort-container">
                         <label for="sort" class="sort-label">Sắp xếp:</label>
                         <select id="sort" class="sort-select" onchange="location = this.value;">
+                            <option value="sanpham.php?sort=
                             <option value="sanpham.php?sort=default" <?= $sort == 'default' ? 'selected' : '' ?>>Mặc định</option>
                             <option value="sanpham.php?sort=price_asc" <?= $sort == 'price_asc' ? 'selected' : '' ?>>Giá tăng dần</option>
                             <option value="sanpham.php?sort=price_desc" <?= $sort == 'price_desc' ? 'selected' : '' ?>>Giá giảm dần</option>
@@ -166,17 +167,20 @@ $conn->close();
                     $total_products = $count_result->fetch_assoc()['total'];
                     $total_pages = ceil($total_products / $limit);
 
+                    // Previous page link
                     if ($thisPage > 1) {
-                        echo '<li onclick="changePage(' . ($thisPage - 1) . ')">TRƯỚC</li>';
+                        echo '<li><a href="sanpham.php?page=' . ($thisPage - 1) . '&sort=' . $sort . '">TRƯỚC</a></li>';
                     }
 
+                    // Page number links
                     for ($i = 1; $i <= $total_pages; $i++) {
                         $active = $i == $thisPage ? 'class="active"' : '';
-                        echo '<li ' . $active . ' onclick="changePage(' . $i . ')">' . $i . '</li>';
+                        echo '<li ' . $active . '><a href="sanpham.php?page=' . $i . '&sort=' . $sort . '">' . $i . '</a></li>';
                     }
 
+                    // Next page link
                     if ($thisPage < $total_pages) {
-                        echo '<li onclick="changePage(' . ($thisPage + 1) . ')">SAU</li>';
+                        echo '<li><a href="sanpham.php?page=' . ($thisPage + 1) . '&sort=' . $sort . '">SAU</a></li>';
                     }
                     ?>
                 </ul>

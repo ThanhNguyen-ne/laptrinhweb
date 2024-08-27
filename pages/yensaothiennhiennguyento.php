@@ -30,13 +30,11 @@ $query = "SELECT * FROM san_pham
 $result = $conn->query($query);
 
 // Kiểm tra kết quả truy vấn
+$productList = [];
 if ($result->num_rows > 0) {
-    $productList = [];
     while ($row = $result->fetch_assoc()) {
         $productList[] = $row;
     }
-} else {
-    echo "Không có sản phẩm nào.";
 }
 
 // Truy vấn sản phẩm nổi bật
@@ -44,16 +42,58 @@ $featured_query = "SELECT * FROM san_pham LIMIT 6";
 $featured_result = $conn->query($featured_query);
 
 // Kiểm tra kết quả truy vấn sản phẩm nổi bật
+$featuredProducts = [];
 if ($featured_result->num_rows > 0) {
-    $featuredProducts = [];
     while ($row = $featured_result->fetch_assoc()) {
         $featuredProducts[] = $row;
     }
 }
 
+// Hàm thêm sản phẩm vào giỏ hàng trong cơ sở dữ liệu
+function addToCart($productId, $userId, $conn) {
+    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+    $check_query = "SELECT * FROM gio_hang WHERE san_pham_id = ? AND nguoi_dung_id = ?";
+    $stmt = $conn->prepare($check_query);
+    $stmt->bind_param("ii", $productId, $userId);
+    $stmt->execute();
+    $check_result = $stmt->get_result();
+
+    if ($check_result->num_rows > 0) {
+        // Nếu đã tồn tại, cập nhật số lượng
+        $update_query = "UPDATE gio_hang SET so_luong = so_luong + 1 WHERE san_pham_id = ? AND nguoi_dung_id = ?";
+        $stmt = $conn->prepare($update_query);
+        $stmt->bind_param("ii", $productId, $userId);
+        $stmt->execute();
+    } else {
+        // Nếu chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
+        $insert_query = "INSERT INTO gio_hang (nguoi_dung_id, san_pham_id, so_luong) VALUES (?, ?, 1)";
+        $stmt = $conn->prepare($insert_query);
+        $stmt->bind_param("ii", $userId, $productId);
+        $stmt->execute();
+    }
+    $stmt->close();
+}
+
+// Kiểm tra yêu cầu thêm sản phẩm vào giỏ hàng
+if (isset($_GET['add_to_cart'])) {
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(["status" => "error", "message" => "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng."]);
+        exit();
+    }
+
+    $productId = (int)$_GET['add_to_cart'];
+    $userId = $_SESSION['user_id'];
+    addToCart($productId, $userId, $conn);
+
+    echo json_encode(["status" => "success", "message" => "Sản phẩm đã được thêm vào giỏ hàng."]);
+    exit();
+}
+
 // Đóng kết nối
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -66,9 +106,8 @@ $conn->close();
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon"
-        href="../assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg" />
-    <title>Yến Sào thiên nhiên nguyên tổ</title>
-    <link rel="icon" href="../assets/image/index/logohdeader.webp" />
+        href="../assets/image/z5660085257637_83416c363e7c8c6fd43750ccf58d9015.jpg">
+    <title>Yến Sào Thiên Nhiên Nguyên Tổ</title>
     <link rel="stylesheet" href="../assets/css/sanpham.css" />
 </head>
 
@@ -83,7 +122,7 @@ $conn->close();
             <a href="sanpham.php">Tất cả sản phẩm</a> >
         </h3>
         <h3>
-            <a href="yensaothiennhiennguyento.php">Yến sào thiên nhiên nguyên tổ</a>
+            <a href="yensaothiennhiennguyento.php">Yến sào Thiên nhiên nguyên tổ</a>
         </h3>
     </div>
 
@@ -104,11 +143,10 @@ $conn->close();
                 </ul>
             </div>
         </div>
-
         <div class="main-content">
             <div class="product-list">
                 <div class="header-product-list">
-                    <h2 class="product-title">Yến sào thiên nhiên nguyên tổ</h2>
+                    <h2 class="product-title">Yến sào Thiên nhiên nguyên tổ</h2>
                     <div class="sort-container">
                         <label for="sort" class="sort-label">Sắp xếp:</label>
                         <select id="sort" class="sort-select" onchange="location = this.value;">
@@ -140,24 +178,24 @@ $conn->close();
                 <ul class="listPage">
                     <?php
                     // Pagination controls
-                    $count_query = "SELECT COUNT(*) as total FROM san_pham 
-                                    INNER JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
-                                    WHERE san_pham_loai.loai_san_pham_id = 1";
-                    $count_result = $conn->query($count_query);
-                    $total_products = $count_result->fetch_assoc()['total'];
+                    $total_products_query = "SELECT COUNT(*) AS total FROM san_pham_loai WHERE loai_san_pham_id = 1";
+                    $total_products_result = $conn->query($total_products_query);
+                    $total_products = $total_products_result->fetch_assoc()['total'];
                     $total_pages = ceil($total_products / $limit);
 
                     if ($thisPage > 1) {
-                        echo '<li onclick="changePage(' . ($thisPage - 1) . ')">TRƯỚC</li>';
+                        echo '<li><a href="yensaothiennhiennguyento.php?page=' . ($thisPage - 1) . '&sort=' . $sort . '">TRƯỚC</a></li>';
                     }
 
+                    // Page number links
                     for ($i = 1; $i <= $total_pages; $i++) {
                         $active = $i == $thisPage ? 'class="active"' : '';
-                        echo '<li ' . $active . ' onclick="changePage(' . $i . ')">' . $i . '</li>';
+                        echo '<li ' . $active . '><a href="yensaothiennhiennguyento.php?page=' . $i . '&sort=' . $sort . '">' . $i . '</a></li>';
                     }
 
+                    // Next page link
                     if ($thisPage < $total_pages) {
-                        echo '<li onclick="changePage(' . ($thisPage + 1) . ')">SAU</li>';
+                        echo '<li><a href="yensaothiennhiennguyento.php?page=' . ($thisPage + 1) . '&sort=' . $sort . '">SAU</a></li>';
                     }
                     ?>
                 </ul>
@@ -170,35 +208,7 @@ $conn->close();
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/sanpham.js"></script>
 
-    <script>
-        function redirectToDetail(productId) {
-            window.location.href = 'detail.php?id=' + productId;
-        }
-
-        function changePage(page) {
-            window.location.href = 'yensaothiennhiennguyento.php?page=' + page + '&sort=<?= $sort ?>';
-        }
-
-        function redirectToCheckout(event, productId) {
-            event.stopPropagation();
-            window.location.href = 'checkout.php';
-        }
-
-        // Hiển thị thông báo khi thêm vào giỏ hàng
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('added')) {
-                const notification = document.createElement('div');
-                notification.className = 'notification';
-                notification.innerText = 'Sản phẩm đã được thêm vào giỏ hàng!';
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.remove();
-                }, 3000);
-            }
-        });
-    </script>
+    
 </body>
 
 </html>

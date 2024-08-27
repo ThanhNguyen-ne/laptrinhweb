@@ -342,6 +342,9 @@ button {
     background-color: #007bff;
     color: white;
 }
+.listPage a{
+    text-decoration: none;
+}
 
 .notification {
     position: fixed;
