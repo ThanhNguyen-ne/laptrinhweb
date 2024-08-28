@@ -41,7 +41,7 @@ $user_id = $_SESSION['user_id'];
                                    FROM gio_hang gh
                                    JOIN san_pham sp ON gh.san_pham_id = sp.id
                                    WHERE gh.nguoi_dung_id = ?
-                                   ORDER BY gh.id DESC";  // Đảm bảo sản phẩm mới nhất xuất hiện đầu tiên
+                                   ORDER BY gh.id DESC";
                     $stmt = $conn->prepare($cart_query);
                     $stmt->bind_param("i", $user_id);
                     $stmt->execute();
@@ -83,10 +83,15 @@ $user_id = $_SESSION['user_id'];
                 <div class="product-total">
                     <h2>Tổng giá tiền: <span id="total">0 ₫</span></h2>
                 </div>
-                <div class="product-checkout">
-                    <a href="checkout.php" class="checkout">Thanh toán</a>
-                </div>
-                <button class="removeAll" onclick="clearCart()">Xóa giỏ hàng</button>
+                <!-- Form gửi dữ liệu giỏ hàng đến checkout.php -->
+                <form id="cartForm" method="POST" action="checkout2.php">
+                    <input type="hidden" name="cart_items" id="cartItemsInput">
+                    <!-- Nút thanh toán -->
+                    <div class="product-checkout">
+                        <button type="submit" class="checkout">Thanh toán</button>
+                        <button class="removeAll" type="button" onclick="clearCart()">Xóa giỏ hàng</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
@@ -94,6 +99,25 @@ $user_id = $_SESSION['user_id'];
     <?php include("footer.php"); ?>
 
     <script src="../assets/js/cart.js"></script>
+    <script>
+    document.querySelector(".checkout").addEventListener("click", function() {
+        const selectedItems = [];
+        document.querySelectorAll('.select-item:checked').forEach(item => {
+            const cartItem = item.closest('.cart-item');
+            const itemId = cartItem.getAttribute('data-item-id');
+            const quantity = cartItem.querySelector('.quantity-number').textContent.trim();
+            const price = cartItem.querySelector('.item-price').textContent.trim().replace(/[₫,.]/g, '');
+            selectedItems.push({ id: itemId, quantity: parseInt(quantity), price: parseInt(price) });
+        });
+
+        if (selectedItems.length > 0) {
+            document.getElementById('cartItemsInput').value = JSON.stringify(selectedItems);
+        } else {
+            alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
+            return false;
+        }
+    });
+    </script>
 </body>
 
 </html>
