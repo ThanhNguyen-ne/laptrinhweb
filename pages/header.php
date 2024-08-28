@@ -25,6 +25,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yến Sào Khánh Hòa</title>
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/modern.css"> <!-- Liên kết tới CSS mới -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
@@ -45,12 +46,12 @@ if (isset($_SESSION['user_id'])) {
                             <div class="dropdown-content">
                                 <a href="profile.php">Tài khoản</a>
                                 <a href="donhang.php">Đơn hàng</a>
-                                <a href="dangxuat.php" class="dropdown-logout">Đăng xuất</a> <!-- Thay đổi thành thẻ a -->
+                                <a href="dangxuat.php" class="dropdown-logout">Đăng xuất</a>
                             </div>
                         </div>
                     <?php else : ?>
-                        <button id="loginBtn">Đăng nhập</button>
-                        <button id="signupBtn">Đăng kí</button>
+                        <button id="loginBtn" class="btn-primary">Đăng nhập</button>
+                        <button id="signupBtn" class="btn-secondary">Đăng kí</button>
                     <?php endif; ?>
                 </div>
             </div>
@@ -75,9 +76,9 @@ if (isset($_SESSION['user_id'])) {
                             <li><a href="thongtin.php">Thông tin</a></li>
                             <li><a href="cart.php" id="cartBtn" class="cart"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
                         </ul>
-                        <form action="" class="search">
-                            <input type="text" class="search-text" placeholder="Tìm kiếm sản phẩm " required>
-                            <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <form action="search.php" method="get" class="search">
+                            <input type="text" name="q" class="search-text" placeholder="Tìm kiếm sản phẩm " required>
+                            <button type="submit" class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </div>
                 </div>
@@ -111,7 +112,6 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
-
 
     <script>
         var isLoggedIn = <?= isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
