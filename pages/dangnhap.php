@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                     <div id="passwordError" class="error-message"></div>
 
                     <div id="loginMessage"></div>
-                    <a href="quenpass.php" class="page-link"><span class="page-link-label">Quên mật khẩu?</span></a>
+                    <a href="javascript:void(0);" onclick="showQuenPassModal()" class="page-link"><span class="page-link-label">Quên mật khẩu?</span></a>
                     <button class="form-btn" type="submit" name="dangnhap">Đăng nhập</button>
                 </form>
                 <p class="sign-up-label">

@@ -8,7 +8,6 @@ function showLoginModal() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
             modal.style.display = "flex";
-            // Hiển thị phần nhập email mặc định
             document.getElementById("loginEmail").style.display = "block";
             document.getElementById("loginPhone").style.display = "none";
         }
@@ -22,6 +21,22 @@ function showSignupModal() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "dangki.php", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            modalBody.innerHTML = xhr.responseText;
+            modal.style.display = "flex";
+        }
+    };
+    xhr.send();
+}
+
+function showQuenPassModal() {
+    closeModal("loginModal");
+    var modal = document.getElementById("quenPassModal");
+    var modalBody = document.getElementById("quenPassModalBody");
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "quenpass.php", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
@@ -66,7 +81,6 @@ function switchToPhoneLogin() {
     document.getElementById("loginEmail").removeAttribute("name");
 }
 
-
 function login(event) {
     event.preventDefault();
 
@@ -85,16 +99,16 @@ function login(event) {
     loginMessage.innerText = "";
 
     let formData = new FormData();
-    if (email !== '') {
-        formData.append('Email', email);
-    } else if (phone !== '') {
-        formData.append('Phone', phone);
+    if (email !== "") {
+        formData.append("Email", email);
+    } else if (phone !== "") {
+        formData.append("Phone", phone);
     } else {
         loginMessage.innerText = "Vui lòng nhập email hoặc số điện thoại.";
         return;
     }
-    formData.append('Password', password);
-    formData.append('dangnhap', true);
+    formData.append("Password", password);
+    formData.append("dangnhap", true);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "dangnhap.php", true);
@@ -102,7 +116,7 @@ function login(event) {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.status === "success") {
-                showNotification("Đăng nhập thành công!"); 
+                showNotification("Đăng nhập thành công!");
                 window.location.href = response.redirect;
             } else {
                 if (response.messages.email) {
@@ -121,7 +135,6 @@ function login(event) {
     };
     xhr.send(formData);
 }
-
 
 function register(event) {
     event.preventDefault();
@@ -176,12 +189,12 @@ function register(event) {
     }
 
     let formData = new FormData();
-    formData.append('Fullname', fullname);
-    formData.append('Email', email);
-    formData.append('Phone', phone);
-    formData.append('Address', address);
-    formData.append('Password', password);
-    formData.append('dangki', true);
+    formData.append("Fullname", fullname);
+    formData.append("Email", email);
+    formData.append("Phone", phone);
+    formData.append("Address", address);
+    formData.append("Password", password);
+    formData.append("dangki", true);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "dangki.php", true);
@@ -191,7 +204,7 @@ function register(event) {
             if (response.status === "success") {
                 showNotification("Đăng ký thành công!");
                 closeModal("signupModal");
-                
+
                 showLoginModal();
             } else {
                 regMessage.innerHTML = response.message;
@@ -214,3 +227,40 @@ function showNotification(message) {
         notification.remove();
     }, 5000);
 }
+
+function submitQuenPassForm(event) {
+    event.preventDefault();
+
+    let email = document.getElementById("quenPassEmail").value.trim();
+    let quenPassMessage = document.getElementById("quenPassMessage");
+
+    quenPassMessage.innerText = ""; // Xóa thông báo cũ
+
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("btnQuenMatKhau", true);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "quenpass.php", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.status === "success") {
+                quenPassMessage.innerText = response.message; // Hiển thị thông báo thành công
+                closeModal("quenPassModal");
+                showLoginModal();
+                showNotification("Yêu cầu đã được gửi đi"); // Hiển thị thông báo như mong muốn
+            } else {
+                quenPassMessage.innerText = response.message; // Hiển thị thông báo lỗi
+            }
+        } else {
+            quenPassMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
+        }
+    };
+    xhr.send(formData);
+}
+
+// Sử dụng hàm này khi form "Quên mật khẩu" được gửi đi
+document
+    .getElementById("quenPassForm")
+    .addEventListener("submit", submitQuenPassForm);

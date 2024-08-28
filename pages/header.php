@@ -86,22 +86,33 @@ if (isset($_SESSION['user_id'])) {
     </header>
 
     <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeLoginModal">&times;</span>
-            <div id="loginModalBody">
-                <!-- Nội dung form đăng nhập sẽ được tải động tại đây -->
-            </div>
+    <div class="modal-content">
+        <span class="close" id="closeLoginModal">&times;</span>
+        <div id="loginModalBody">
+            <!-- Nội dung form đăng nhập sẽ được tải động tại đây -->
         </div>
     </div>
+</div>
 
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeSignupModal">&times;</span>
-            <div id="signupModalBody">
-                <!-- Nội dung form đăng ký sẽ được tải động tại đây -->
-            </div>
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeSignupModal">&times;</span>
+        <div id="signupModalBody">
+            <!-- Nội dung form đăng ký sẽ được tải động tại đây -->
         </div>
     </div>
+</div>
+
+<div id="quenPassModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeQuenPassModal">&times;</span>
+        <div id="quenPassModalBody">
+            <!-- Nội dung form quên mật khẩu sẽ được tải động tại đây -->
+        </div>
+    </div>
+</div>
+
+
     <script>
         var isLoggedIn = <?= isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     </script>
@@ -120,6 +131,10 @@ if (isset($_SESSION['user_id'])) {
         };
         document.getElementById("closeSignupModal").onclick = function() {
             closeModal("signupModal");
+        };
+
+        document.getElementById("closeQuenPassModal").onclick = function() {
+            closeModal("quenPassModal");
         };
 
         // Kiểm tra đăng nhập trước khi vào giỏ hàng
