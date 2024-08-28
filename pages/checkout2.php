@@ -9,28 +9,20 @@ if (empty($cartItems)) {
     exit();
 }
 
-// Lấy thông tin chi tiết sản phẩm từ cơ sở dữ liệu
-foreach ($cartItems as $index => $item) {
-    $productId = $item['id'];
-    $productQuery = "SELECT ten_san_pham, hinh_anh FROM san_pham WHERE id = $productId";
-    $productResult = $conn->query($productQuery);
-    if ($productResult && $productResult->num_rows > 0) {
-        $productDetails = $productResult->fetch_assoc();
-        // Cập nhật tên và hình ảnh sản phẩm trong $cartItems
-        $cartItems[$index]['ten_san_pham'] = $productDetails['ten_san_pham'];
-        $cartItems[$index]['hinh_anh'] = '../' . $productDetails['hinh_anh'];
-    } else {
-        // Nếu không tìm thấy sản phẩm trong cơ sở dữ liệu, loại bỏ nó khỏi giỏ hàng
-        unset($cartItems[$index]);
-    }
-}
-
 // Tính tổng giá tiền chính xác dựa trên số lượng sản phẩm
 $totalPrice = 0;
 foreach ($cartItems as $item) {
     $totalPrice += $item['price'] * $item['quantity'];
 }
-
+$userInfo = null;
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+    $userQuery = "SELECT * FROM nguoi_dung WHERE id = $userId";
+    $userResult = $conn->query($userQuery);
+    if ($userResult && $userResult->num_rows > 0) {
+        $userInfo = $userResult->fetch_assoc();
+    }
+}
 // Xử lý sau khi người dùng xác nhận thanh toán
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_payment'])) {
     $name = $_POST['name'];
@@ -101,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_payment'])) {
                 <div class="checkout-items">
                     <?php foreach ($cartItems as $item): ?>
                         <div class="checkout-cart-item">
-                            <img src="<?= $item['hinh_anh'] ?>" alt="<?= $item['ten_san_pham'] ?>" class="checkout-cart-item-img">
+                            <img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>" class="checkout-cart-item-img">
                             <div class="checkout-cart-item-details">
-                                <p class="checkout-cart-item-title"><?= $item['ten_san_pham'] ?></p>
+                                <p class="checkout-cart-item-title"><?= $item['name'] ?></p>
                                 <p class="checkout-cart-item-quantity">Số lượng: <?= $item['quantity'] ?></p>
                                 <p class="checkout-cart-item-price"><?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?> ₫</p>
                             </div>

@@ -100,24 +100,33 @@ $user_id = $_SESSION['user_id'];
 
     <script src="../assets/js/cart.js"></script>
     <script>
-    document.querySelector(".checkout").addEventListener("click", function() {
-        const selectedItems = [];
-        document.querySelectorAll('.select-item:checked').forEach(item => {
-            const cartItem = item.closest('.cart-item');
-            const itemId = cartItem.getAttribute('data-item-id');
-            const quantity = cartItem.querySelector('.quantity-number').textContent.trim();
-            const price = cartItem.querySelector('.item-price').textContent.trim().replace(/[₫,.]/g, '');
-            selectedItems.push({ id: itemId, quantity: parseInt(quantity), price: parseInt(price) });
-        });
+document.querySelector(".checkout").addEventListener("click", function() {
+    const selectedItems = [];
+    document.querySelectorAll('.select-item:checked').forEach(item => {
+        const cartItem = item.closest('.cart-item');
+        const itemId = cartItem.getAttribute('data-item-id');
+        const quantity = cartItem.querySelector('.quantity-number').textContent.trim();
+        const price = cartItem.querySelector('.item-price').textContent.trim().replace(/[₫,.]/g, '');
+        const productName = cartItem.querySelector('.item-desc').textContent.trim();
+        const productImage = cartItem.querySelector('.item-img img').getAttribute('src');
 
-        if (selectedItems.length > 0) {
-            document.getElementById('cartItemsInput').value = JSON.stringify(selectedItems);
-        } else {
-            alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-            return false;
-        }
+        selectedItems.push({
+            id: itemId,
+            quantity: parseInt(quantity),
+            price: parseInt(price),
+            name: productName,
+            image: productImage
+        });
     });
-    </script>
+
+    if (selectedItems.length > 0) {
+        document.getElementById('cartItemsInput').value = JSON.stringify(selectedItems);
+    } else {
+        alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
+        return false;
+    }
+});
+</script>
 </body>
 
 </html>
