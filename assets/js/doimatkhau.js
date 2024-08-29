@@ -6,8 +6,6 @@ document.getElementById("closeChangePasswordModal").onclick = function() {
     closeModal("changePasswordModal");
 };
 
-
-
 function showChangePasswordModal() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "doimatkhau.php", true);
@@ -40,6 +38,26 @@ function changePassword(event) {
     newPasswordError.innerText = "";
     confirmPasswordError.innerText = "";
     passwordMessage.innerText = "";
+
+    let hasError = false;
+
+    if (!currentPassword) {
+        currentPasswordError.innerText = "Vui lòng nhập mật khẩu hiện tại.";
+        hasError = true;
+    }
+    if (!newPassword) {
+        newPasswordError.innerText = "Vui lòng nhập mật khẩu mới.";
+        hasError = true;
+    } else if (newPassword.length < 6) {
+        newPasswordError.innerText = "Mật khẩu mới phải có ít nhất 6 ký tự.";
+        hasError = true;
+    }
+    if (newPassword !== confirmPassword) {
+        confirmPasswordError.innerText = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
+        hasError = true;
+    }
+
+    if (hasError) return;
 
     let formData = new FormData();
     formData.append('current_password', currentPassword);

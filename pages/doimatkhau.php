@@ -24,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
 
         if (!$user || !password_verify($current_password, $user['mat_khau'])) {
             $error_messages["current_password"] = "Mật khẩu hiện tại không đúng.";
+        } elseif (strlen($new_password) < 6) {
+            $error_messages["new_password"] = "Mật khẩu mới phải có ít nhất 6 ký tự.";
         } elseif ($new_password !== $confirm_password) {
             $error_messages["confirm_password"] = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
         } else {
@@ -61,13 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
             <div class="form-container">
                 <p class="title">Đổi mật khẩu</p>
                 <form id="changePasswordForm" class="form" method="post" action="doimatkhau.php" onsubmit="changePassword(event)">
-                    <input type="password" id="current_password" placeholder="Mật khẩu hiện tại" name="current_password" required />
+                    <input type="password" id="current_password" placeholder="Mật khẩu hiện tại" name="current_password" />
                     <div id="currentPasswordError" class="error-message"></div>
 
-                    <input type="password" id="new_password" placeholder="Mật khẩu mới" name="new_password" required />
+                    <input type="password" id="new_password" placeholder="Mật khẩu mới" name="new_password" />
                     <div id="newPasswordError" class="error-message"></div>
 
-                    <input type="password" id="confirm_password" placeholder="Nhập lại mật khẩu mới" name="confirm_password" required />
+                    <input type="password" id="confirm_password" placeholder="Nhập lại mật khẩu mới" name="confirm_password" />
                     <div id="confirmPasswordError" class="error-message"></div>
 
                     <div id="passwordMessage"></div>

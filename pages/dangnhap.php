@@ -17,19 +17,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     $error_messages = ["email" => "", "phone" => "", "password" => ""];
     $user = null;
 
-    if (!empty($email)) {
+    if (empty($email) && empty($so_dien_thoai)) {
+        $error_messages["email"] = "Vui lòng nhập email hoặc số điện thoại.";
+    } elseif (!empty($email)) {
         $query = "SELECT * FROM nguoi_dung WHERE email = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("s", $email);
     } elseif (!empty($so_dien_thoai)) {
-        $query = "SELECT * FROM nguoi_dung WHERE so_dien_thoai = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("s", $so_dien_thoai);
-    } else {
-        $error_messages["email"] = "Vui lòng nhập email hoặc số điện thoại.";
+        if (!preg_match('/^\d{10}$/', $so_dien_thoai)) {
+            $error_messages["phone"] = "Vui lòng nhập đúng số điện thoại.";
+        } else {
+            $query = "SELECT * FROM nguoi_dung WHERE so_dien_thoai = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("s", $so_dien_thoai);
+        }
     }
 
-    if (!empty($stmt)) {
+    if (empty($mat_khau)) {
+        $error_messages["password"] = "Vui lòng nhập mật khẩu.";
+    }
+
+    if (empty($stmt) || array_filter($error_messages)) {
+        echo json_encode(["status" => "error", "messages" => $error_messages]);
+    } else {
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
@@ -69,7 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 }
                 exit();
             }
-            
         }
     }
 
@@ -101,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                     <div id="emailError" class="error-message"></div>
                     <div id="phoneError" class="error-message"></div>
 
-                    <input id="loginPassword" class="input" placeholder="Mật khẩu" type="password" name="Password" required />
+                    <input id="loginPassword" class="input" placeholder="Mật khẩu" type="password" name="Password" />
                     <div id="passwordError" class="error-message"></div>
 
                     <div id="loginMessage"></div>

@@ -8,8 +8,7 @@ function showLoginModal() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
             modal.style.display = "flex";
-            document.getElementById("loginEmail").style.display = "block";
-            document.getElementById("loginPhone").style.display = "none";
+            switchToEmailLogin(); // Mặc định hiển thị phần đăng nhập bằng email
         }
     };
     xhr.send();
@@ -21,22 +20,6 @@ function showSignupModal() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "dangki.php", true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            modalBody.innerHTML = xhr.responseText;
-            modal.style.display = "flex";
-        }
-    };
-    xhr.send();
-}
-
-function showQuenPassModal() {
-    closeModal("loginModal");
-    var modal = document.getElementById("quenPassModal");
-    var modalBody = document.getElementById("quenPassModalBody");
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "quenpass.php", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             modalBody.innerHTML = xhr.responseText;
@@ -98,14 +81,36 @@ function login(event) {
     passwordError.innerText = "";
     loginMessage.innerText = "";
 
-    let formData = new FormData();
-    if (email !== "") {
-        formData.append("Email", email);
-    } else if (phone !== "") {
-        formData.append("Phone", phone);
+    let isEmailLogin = document.getElementById("loginEmail").style.display === "block";
+    let hasError = false;
+
+    if (isEmailLogin) {
+        if (!email) {
+            emailError.innerText = "Vui lòng nhập email.";
+            hasError = true;
+        } 
     } else {
-        loginMessage.innerText = "Vui lòng nhập email hoặc số điện thoại.";
-        return;
+        if (!phone) {
+            phoneError.innerText = "Vui lòng nhập số điện thoại.";
+            hasError = true;
+        } else if (!/^\d{10}$/.test(phone)) {
+            phoneError.innerText = "Vui lòng nhập đúng số điện thoại.";
+            hasError = true;
+        }
+    }
+
+    if (!password) {
+        passwordError.innerText = "Vui lòng nhập mật khẩu.";
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    let formData = new FormData();
+    if (isEmailLogin) {
+        formData.append("Email", email);
+    } else {
+        formData.append("Phone", phone);
     }
     formData.append("Password", password);
     formData.append("dangnhap", true);
@@ -152,8 +157,7 @@ function register(event) {
     let passwordError = document.getElementById("passwordError");
     let regMessage = document.getElementById("regMessage");
 
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    // Reset all error messages
     emailError.innerText = "";
     phoneError.innerText = "";
     fullnameError.innerText = "";
@@ -163,30 +167,36 @@ function register(event) {
 
     let hasError = false;
 
-    if (!email.match(emailRegex)) {
-        emailError.innerText = "Vui lòng nhập email hợp lệ.";
-        hasError = true;
-    }
-    if (!phone.match(/^\d{10}$/)) {
-        phoneError.innerText = "Số điện thoại phải có đúng 10 chữ số.";
-        hasError = true;
-    }
+    // Check each field and update error messages
     if (!fullname) {
         fullnameError.innerText = "Vui lòng nhập họ và tên.";
+        hasError = true;
+    }
+    if (!email) {
+        emailError.innerText = "Vui lòng nhập email.";
+        hasError = true;
+    }
+    if (!phone) {
+        phoneError.innerText = "Vui lòng nhập số điện thoại.";
+        hasError = true;
+    } else if (!/^\d{10}$/.test(phone)) {
+        phoneError.innerText = "Vui lòng nhập đúng số điện thoại.";
         hasError = true;
     }
     if (!address) {
         addressError.innerText = "Vui lòng nhập địa chỉ.";
         hasError = true;
     }
-    if (password.length < 6) {
+    if (!password) {
+        passwordError.innerText = "Vui lòng nhập mật khẩu.";
+        hasError = true;
+    } else if (password.length < 6) {
         passwordError.innerText = "Mật khẩu phải có ít nhất 6 ký tự.";
         hasError = true;
     }
 
-    if (hasError) {
-        return;
-    }
+    // If there's any error, stop the form submission
+    if (hasError) return;
 
     let formData = new FormData();
     formData.append("Fullname", fullname);
@@ -216,6 +226,7 @@ function register(event) {
     xhr.send(formData);
 }
 
+
 function showNotification(message) {
     const notification = document.createElement("div");
     notification.className = "notification";
@@ -227,40 +238,3 @@ function showNotification(message) {
         notification.remove();
     }, 5000);
 }
-
-function submitQuenPassForm(event) {
-    event.preventDefault();
-
-    let email = document.getElementById("quenPassEmail").value.trim();
-    let quenPassMessage = document.getElementById("quenPassMessage");
-
-    quenPassMessage.innerText = ""; // Xóa thông báo cũ
-
-    let formData = new FormData();
-    formData.append("email", email);
-    formData.append("btnQuenMatKhau", true);
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "quenpass.php", true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            let response = JSON.parse(xhr.responseText);
-            if (response.status === "success") {
-                quenPassMessage.innerText = response.message; // Hiển thị thông báo thành công
-                closeModal("quenPassModal");
-                showLoginModal();
-                showNotification("Yêu cầu đã được gửi đi"); // Hiển thị thông báo như mong muốn
-            } else {
-                quenPassMessage.innerText = response.message; // Hiển thị thông báo lỗi
-            }
-        } else {
-            quenPassMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
-        }
-    };
-    xhr.send(formData);
-}
-
-// Sử dụng hàm này khi form "Quên mật khẩu" được gửi đi
-document
-    .getElementById("quenPassForm")
-    .addEventListener("submit", submitQuenPassForm);

@@ -8,23 +8,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
     $dia_chi = trim($_POST['Address']);
     $mat_khau = password_hash(trim($_POST['Password']), PASSWORD_DEFAULT); // Mã hóa mật khẩu
 
-    $query = "SELECT * FROM nguoi_dung WHERE email = ? OR so_dien_thoai = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $email, $so_dien_thoai);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Validate inputs
+    $errors = ["fullname" => "", "email" => "", "phone" => "", "address" => "", "password" => ""];
 
-    if ($result->num_rows > 0) {
-        echo json_encode(["status" => "error", "message" => "Email hoặc số điện thoại đã tồn tại."]);
+    if (empty($ho_ten)) {
+        $errors['fullname'] = "Vui lòng nhập Họ và Tên.";
+    }
+    if (empty($email)) {
+        $errors['email'] = "Vui lòng nhập Email.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Vui lòng nhập email hợp lệ.";
+    }
+    if (empty($so_dien_thoai)) {
+        $errors['phone'] = "Vui lòng nhập Số Điện Thoại.";
+    } elseif (!preg_match('/^\d{10}$/', $so_dien_thoai)) {
+        $errors['phone'] = "Vui lòng nhập đúng số điện thoại.";
+    }
+    if (empty($dia_chi)) {
+        $errors['address'] = "Vui lòng nhập Địa chỉ.";
+    }
+    if (strlen(trim($_POST['Password'])) < 6) {
+        $errors['password'] = "Mật khẩu phải có ít nhất 6 ký tự.";
+    }
+
+    // Check if there are any errors
+    if (array_filter($errors)) {
+        echo json_encode(["status" => "error", "errors" => $errors]);
     } else {
-        $query = "INSERT INTO nguoi_dung (ho_ten, email, so_dien_thoai, dia_chi, mat_khau, vai_tro) VALUES (?, ?, ?, ?, ?, 'khach_hang')";
+        $query = "SELECT * FROM nguoi_dung WHERE email = ? OR so_dien_thoai = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("sssss", $ho_ten, $email, $so_dien_thoai, $dia_chi, $mat_khau);
+        $stmt->bind_param("ss", $email, $so_dien_thoai);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "success", "redirect" => "dangnhap.php?message=success"]);
+        if ($result->num_rows > 0) {
+            echo json_encode(["status" => "error", "message" => "Email hoặc số điện thoại đã tồn tại."]);
         } else {
-            echo json_encode(["status" => "error", "message" => "Đăng ký thất bại. Vui lòng thử lại."]);
+            $query = "INSERT INTO nguoi_dung (ho_ten, email, so_dien_thoai, dia_chi, mat_khau, vai_tro) VALUES (?, ?, ?, ?, ?, 'khach_hang')";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("sssss", $ho_ten, $email, $so_dien_thoai, $dia_chi, $mat_khau);
+
+            if ($stmt->execute()) {
+                echo json_encode(["status" => "success", "redirect" => "dangnhap.php?message=success"]);
+            } else {
+                echo json_encode(["status" => "error", "message" => "Đăng ký thất bại. Vui lòng thử lại."]);
+            }
         }
     }
     exit();
@@ -46,19 +74,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
                 <p class="title">Tạo tài khoản</p>
                 <form id="registerForm" class="form" method="post" action="dangki.php" onsubmit="register(event)">
 
-                    <input type="text" id="regFullName" placeholder="Họ và Tên" name="Fullname" required />
+                    <input type="text" id="regFullName" placeholder="Họ và Tên" name="Fullname" />
                     <div id="fullnameError" class="error-message"></div>
                     
-                    <input type="email" id="regEmail" placeholder="Email" name="Email" required />
+                    <input type="email" id="regEmail" placeholder="Email" name="Email" />
                     <div id="emailError" class="error-message"></div>
 
-                    <input type="text" id="regPhone" placeholder="Số Điện Thoại" name="Phone" required />
+                    <input type="text" id="regPhone" placeholder="Số Điện Thoại" name="Phone" />
                     <div id="phoneError" class="error-message"></div>
 
-                    <input type="text" id="regAddress" placeholder="Địa chỉ" name="Address" required />
+                    <input type="text" id="regAddress" placeholder="Địa chỉ" name="Address" />
                     <div id="addressError" class="error-message"></div>
 
-                    <input type="password" id="regPassWord" placeholder="Mật khẩu" name="Password" required />
+                    <input type="password" id="regPassWord" placeholder="Mật khẩu" name="Password" />
                     <div id="passwordError" class="error-message"></div>
 
                     <button class="form-btn" type="submit">Tạo tài khoản</button>
