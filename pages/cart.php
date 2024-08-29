@@ -6,9 +6,20 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+
+if (isset($_SESSION['order_error'])) {
+    echo "<div class='error-message'>{$_SESSION['order_error']}</div>";
+    unset($_SESSION['order_error']);
+}
+
+if (isset($_SESSION['order_success'])) {
+    echo "<div class='success-message'>{$_SESSION['order_success']}</div>";
+    unset($_SESSION['order_success']);
+}
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8" />
@@ -23,7 +34,9 @@ $user_id = $_SESSION['user_id'];
         <div class="container">
             <div class="cart-container">
                 <div class="cart-header">
-                    <div class="header-select"><input type="checkbox" id="selectAll"></div>
+                    <div class="header-select">
+                        <input type="checkbox" id="selectAll" title="Chọn tất cả" onclick="toggleSelectAll()">
+                    </div>
                     <div class="header-stt">STT</div>
                     <div class="header-img">Hình ảnh</div>
                     <div class="header-desc">Tên sản phẩm</div>
@@ -79,14 +92,12 @@ $user_id = $_SESSION['user_id'];
                     ?>
                 </div>
             </div>
-            <div class="cart-summary" style="display:none;">
+            <div class="cart-summary">
                 <div class="product-total">
                     <h2>Tổng giá tiền: <span id="total">0 ₫</span></h2>
                 </div>
-                <!-- Form gửi dữ liệu giỏ hàng đến checkout.php -->
                 <form id="cartForm" method="POST" action="checkout2.php">
                     <input type="hidden" name="cart_items" id="cartItemsInput">
-                    <!-- Nút thanh toán -->
                     <div class="product-checkout">
                         <button type="submit" class="checkout">Thanh toán</button>
                         <button class="removeAll" type="button" onclick="clearCart()">Xóa giỏ hàng</button>
@@ -99,34 +110,6 @@ $user_id = $_SESSION['user_id'];
     <?php include("footer.php"); ?>
 
     <script src="../assets/js/cart.js"></script>
-    <script>
-document.querySelector(".checkout").addEventListener("click", function() {
-    const selectedItems = [];
-    document.querySelectorAll('.select-item:checked').forEach(item => {
-        const cartItem = item.closest('.cart-item');
-        const itemId = cartItem.getAttribute('data-item-id');
-        const quantity = cartItem.querySelector('.quantity-number').textContent.trim();
-        const price = cartItem.querySelector('.item-price').textContent.trim().replace(/[₫,.]/g, '');
-        const productName = cartItem.querySelector('.item-desc').textContent.trim();
-        const productImage = cartItem.querySelector('.item-img img').getAttribute('src');
-
-        selectedItems.push({
-            id: itemId,
-            quantity: parseInt(quantity),
-            price: parseInt(price),
-            name: productName,
-            image: productImage
-        });
-    });
-
-    if (selectedItems.length > 0) {
-        document.getElementById('cartItemsInput').value = JSON.stringify(selectedItems);
-    } else {
-        alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-        return false;
-    }
-});
-</script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+
     // Tự động điền thông tin người dùng nếu đã đăng nhập
     fetch('../admin/pages/api.php?action=get_user_info')
         .then(response => response.json())
@@ -73,3 +74,4 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+

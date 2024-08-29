@@ -48,6 +48,7 @@ if ($featured_result->num_rows > 0) {
 }
 
 // Hàm thêm sản phẩm vào giỏ hàng trong cơ sở dữ liệu
+// Hàm thêm sản phẩm vào giỏ hàng trong cơ sở dữ liệu
 function addToCart($productId, $userId, $conn)
 {
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
@@ -57,13 +58,22 @@ function addToCart($productId, $userId, $conn)
     if ($check_result->num_rows > 0) {
         // Nếu đã tồn tại, cập nhật số lượng
         $update_query = "UPDATE gio_hang SET so_luong = so_luong + 1 WHERE san_pham_id = $productId AND nguoi_dung_id = $userId";
-        $conn->query($update_query);
+        if ($conn->query($update_query) === TRUE) {
+            error_log("Cập nhật giỏ hàng thành công: sản phẩm ID $productId, người dùng ID $userId");
+        } else {
+            error_log("Lỗi cập nhật giỏ hàng: " . $conn->error);
+        }
     } else {
         // Nếu chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
         $insert_query = "INSERT INTO gio_hang (nguoi_dung_id, san_pham_id, so_luong) VALUES ($userId, $productId, 1)";
-        $conn->query($insert_query);
+        if ($conn->query($insert_query) === TRUE) {
+            error_log("Thêm sản phẩm vào giỏ hàng thành công: sản phẩm ID $productId, người dùng ID $userId");
+        } else {
+            error_log("Lỗi thêm sản phẩm vào giỏ hàng: " . $conn->error);
+        }
     }
 }
+
 
 // Kiểm tra yêu cầu thêm sản phẩm vào giỏ hàng
 if (isset($_GET['add_to_cart'])) {

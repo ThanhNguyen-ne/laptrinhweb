@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f4f4f9;
+    background-color: #caf0f8;
     color: #333;
 }
 
@@ -19,9 +19,6 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 }
 
 .cart-container {
@@ -30,23 +27,30 @@ main {
 
 .cart-header, .cart-item {
     display: grid;
-    grid-template-columns: 5% 15% 30% 15% 10% 15% 10%;
+    grid-template-columns: 5% 5% 15% 30% 15% 10% 10% 10%;
     align-items: center;
     font-weight: bold;
     padding: 10px;
     border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
 .cart-header {
-    background-color: #023e8a;
+    background-color: #0077b6;
     color: #ffffff;
 }
 
 .cart-item {
-    background-color: #f0f8ff;
+    background-color: #e0f7fa;
     color: #333;
     margin-top: 10px;
     border-bottom: 1px solid #ccc;
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.cart-item:hover {
+    background-color: #b2ebf2;
+    transform: scale(1.02);
 }
 
 .cart-item div {
@@ -106,7 +110,7 @@ main {
 .cart-summary {
     margin-top: 20px;
     padding: 20px;
-    background-color: #f0f8ff;
+    background-color: #e0f7fa;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -135,6 +139,25 @@ main {
 }
 
 .product-checkout a:hover {
+    background-color: #0077b6;
+}
+
+.checkout {
+    background-color: #00b4d8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 150px;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: auto;
+    display: block;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.checkout:hover {
     background-color: #0077b6;
 }
 
@@ -193,15 +216,6 @@ main {
 
 hr {
     border-color: #ccc;
-}
-/* Add CSS for the select column */
-.cart-header, .cart-item {
-    display: grid;
-    grid-template-columns: 5% 5% 15% 30% 15% 10% 10% 10%; /* Adjust for the new select column */
-    align-items: center;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 8px;
 }
 
 .header-select, .item-select {

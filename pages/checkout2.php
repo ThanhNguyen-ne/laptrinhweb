@@ -3,9 +3,19 @@ session_start();
 include('../admin/pages/db_connect.php');
 
 // Nhận dữ liệu giỏ hàng từ cart.php
-$cartItems = isset($_POST['cart_items']) ? json_decode($_POST['cart_items'], true) : [];
+$cartItemsRaw = isset($_POST['cart_items']) ? $_POST['cart_items'] : null;
+$cartItems = json_decode($cartItemsRaw, true);
+
+// Kiểm tra và ghi log
+error_log("Dữ liệu nhận được từ POST cart_items: " . $cartItemsRaw);
+if (json_last_error() !== JSON_ERROR_NONE) {
+    error_log("Lỗi JSON: " . json_last_error_msg());
+}
+
 if (empty($cartItems)) {
-    echo "Giỏ hàng trống.";
+    error_log("Giỏ hàng trống hoặc không có sản phẩm nào được chọn để thanh toán.", 0);
+    $_SESSION['order_error'] = 'Giỏ hàng trống hoặc không có sản phẩm nào được chọn để thanh toán.';
+    header("Location: cart.php");
     exit();
 }
 
@@ -14,6 +24,7 @@ $totalPrice = 0;
 foreach ($cartItems as $item) {
     $totalPrice += $item['price'] * $item['quantity'];
 }
+
 $userInfo = null;
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
@@ -23,48 +34,53 @@ if (isset($_SESSION['user_id'])) {
         $userInfo = $userResult->fetch_assoc();
     }
 }
+
 // Xử lý sau khi người dùng xác nhận thanh toán
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_payment'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $paymentMethod = $_POST['paymentMethod'];
-
-    // Bắt đầu giao dịch
     $conn->begin_transaction();
 
     try {
-        // Chèn thông tin vào bảng don_hang
-        $userIdOrNull = isset($userId) ? $userId : 'NULL';
         $orderQuery = "INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai)
-                    VALUES ($userIdOrNull, '$totalPrice', 'cho_xu_ly')";
-        if ($conn->query($orderQuery) === TRUE) {
-            $orderId = $conn->insert_id;
+                       VALUES ($userId, '$totalPrice', 'cho_xu_ly')";
 
-            // Chèn thông tin vào bảng chi_tiet_don_hang
-            foreach ($cartItems as $item) {
-                $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban)
-                                VALUES ('$orderId', '{$item['id']}', '{$item['quantity']}', '{$item['price']}')";
-                if (!$conn->query($detailQuery)) {
-                    throw new Exception("Lỗi: " . $conn->error);
-                }
+        if (!$conn->query($orderQuery)) {
+            throw new Exception("Lỗi khi chèn vào bảng don_hang: " . $conn->error);
+        }
+
+        $orderId = $conn->insert_id;
+
+        foreach ($cartItems as $item) {
+            $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban)
+                            VALUES ('$orderId', '{$item['id']}', '{$item['quantity']}', '{$item['price']}')";
+            if (!$conn->query($detailQuery)) {
+                throw new Exception("Lỗi khi chèn vào bảng chi_tiet_don_hang: " . $conn->error);
             }
 
-            // Cam kết giao dịch
-            $conn->commit();
-            echo "<script>alert('Đơn hàng của bạn đã được xác nhận!'); window.location.href = 'index.php';</script>";
-        } else {
-            throw new Exception("Lỗi: " . $conn->error);
+            $updateProductQuery = "UPDATE san_pham SET so_luong_ton = so_luong_ton - {$item['quantity']} WHERE id = {$item['id']}";
+            if (!$conn->query($updateProductQuery)) {
+                throw new Exception("Lỗi khi cập nhật số lượng sản phẩm: " . $conn->error);
+            }
         }
+
+        // Xóa các sản phẩm đã được thanh toán khỏi giỏ hàng
+        $selectedProductIds = implode(',', array_column($cartItems, 'id'));
+        $clearCartQuery = "DELETE FROM gio_hang WHERE nguoi_dung_id = $userId AND san_pham_id IN ($selectedProductIds)";
+        if (!$conn->query($clearCartQuery)) {
+            throw new Exception("Lỗi khi xóa giỏ hàng: " . $conn->error);
+        }
+
+        $conn->commit();
+        $_SESSION['order_success'] = 'Đặt hàng thành công!';
+        header("Location: index.php");
+        exit();
     } catch (Exception $e) {
         $conn->rollback();
         echo "Lỗi: " . $e->getMessage();
     }
-
-    exit();
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -96,14 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_payment'])) {
                             <img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>" class="checkout-cart-item-img">
                             <div class="checkout-cart-item-details">
                                 <p class="checkout-cart-item-title"><?= $item['name'] ?></p>
+                                <p class="checkout-cart-item-price">Giá: <?= number_format($item['price'], 0, ',', '.') ?> ₫</p>
                                 <p class="checkout-cart-item-quantity">Số lượng: <?= $item['quantity'] ?></p>
-                                <p class="checkout-cart-item-price"><?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?> ₫</p>
+                                <p class="checkout-cart-item-total">Tổng: <?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?> ₫</p>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
                 <div class="checkout-total">
-                    Tổng cộng: 
+                    Tổng cộng:
                     <span id="totalAmount">
                         <?= number_format($totalPrice, 0, ',', '.') ?> ₫
                     </span>
@@ -135,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_payment'])) {
                     <div class="checkout-form-group">
                         <label for="paymentMethod">Phương thức thanh toán:</label>
                         <select id="paymentMethod" name="paymentMethod" required>
-                            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                            <option value="cod">Thanh toán khi nhận hàng</option>
                             <option value="bank_transfer">Chuyển khoản ngân hàng</option>
                         </select>
                     </div>
@@ -147,20 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_payment'])) {
 
     <?php include("footer.php"); ?>
 
-    <script src="../assets/js/checkout.js"></script>
-    <script>
-    function showNotification(message) {
-            const notification = document.createElement("div");
-            notification.className = "notification";
-            notification.innerText = message;
-
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-    </script>
+    <script src="../assets/js/checkout2.js"></script>
 </body>
 
 </html>

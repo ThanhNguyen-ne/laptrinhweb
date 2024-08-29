@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,33 +99,33 @@
         </div>
 
         <div class="products1">
-        <?php
-        // Kết nối đến cơ sở dữ liệu
-        include("../admin/pages/db_connect.php");
+            <?php
+            // Kết nối đến cơ sở dữ liệu
+            include("../admin/pages/db_connect.php");
 
-        // Truy vấn lấy các sản phẩm có id từ 1 đến 4
-        $sql = "SELECT * FROM san_pham WHERE id BETWEEN 1 AND 4";
-        $result = $conn->query($sql);
+            // Truy vấn lấy các sản phẩm có id từ 1 đến 4
+            $sql = "SELECT * FROM san_pham WHERE id BETWEEN 1 AND 4";
+            $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='productCard' id='" . $row["id"] . "'>";
-                echo "<img src='../" . $row["hinh_anh"] . "' alt='" . $row["ten_san_pham"] . "' />";
-                echo "<p class='name'>" . $row["ten_san_pham"] . "</p>";
-                echo "<p class='price'>" . number_format($row["gia"], 0, ',', '.') . " ₫</p>";
-                echo "<div class='product-buttons'>";
-                echo "<a href='sanpham.php?add_to_cart=" . $row["id"] . "' class='btn-cart'><i class='fa-solid fa-cart-shopping'></i></a>";
-                echo "<button class='btn-buy' onclick=\"window.location.href = 'checkout.php?id=" . $row["id"] . "'\">Mua ngay</button>";
-                echo "</div>";
-                echo "</div>";
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='productCard' id='" . $row["id"] . "'>";
+                    echo "<img src='../" . $row["hinh_anh"] . "' alt='" . $row["ten_san_pham"] . "' />";
+                    echo "<p class='name'>" . $row["ten_san_pham"] . "</p>";
+                    echo "<p class='price'>" . number_format($row["gia"], 0, ',', '.') . " ₫</p>";
+                    echo "<div class='product-buttons'>";
+                    echo "<a href='sanpham.php?add_to_cart=" . $row["id"] . "' class='btn-cart'><i class='fa-solid fa-cart-shopping'></i></a>";
+                    echo "<button class='btn-buy' onclick=\"window.location.href = 'checkout.php?id=" . $row["id"] . "'\">Mua ngay</button>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+            } else {
+                echo "Không có sản phẩm nào.";
             }
-        } else {
-            echo "Không có sản phẩm nào.";
-        }
 
-        // Đóng kết nối
-        $conn->close();
-        ?>
+            // Đóng kết nối
+            $conn->close();
+            ?>
         </div>
     </div>
 
@@ -215,7 +219,7 @@
             </a>
         </div>
         <div class="products1">
-        <?php
+            <?php
             // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
@@ -255,7 +259,7 @@
             </a>
         </div>
         <div class="products1">
-        <?php
+            <?php
             // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
@@ -296,6 +300,25 @@
         referrerpolicy="no-referrer"></script>
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/sanpham.js"></script>
+
+    <div id="notificationBar" class="notification-bar"></div>
+
+    <?php
+    if (isset($_SESSION['order_message'])) {
+        $message = $_SESSION['order_message'];
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var notificationBar = document.getElementById('notificationBar');
+                notificationBar.textContent = '$message';
+                notificationBar.style.display = 'block';
+                setTimeout(function() {
+                    notificationBar.style.display = 'none';
+                }, 5000); // Ẩn sau 5 giây
+            });
+          </script>";
+        unset($_SESSION['order_message']);
+    }
+    ?>
 </body>
 
 </html>

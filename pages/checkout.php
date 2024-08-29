@@ -4,6 +4,7 @@ include('../admin/pages/db_connect.php');
 
 $productId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 $productInfo = null;
+$message = "";
 
 if ($productId) {
     $query = "SELECT * FROM san_pham WHERE id = $productId";
@@ -57,7 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($conn->query($detailQuery) === TRUE) {
                 // Nếu thành công, cam kết giao dịch
                 $conn->commit();
-                echo "<script>alert('Đơn hàng của bạn đã được xác nhận!'); window.location.href = 'index.php';</script>";
+                
+                // Lưu thông báo vào session
+                $_SESSION['order_message'] = "Đơn hàng đã được xác nhận";
+
+                // Chuyển hướng về index.php
+                header('Location: index.php');
+                exit();
             } else {
                 // Nếu lỗi, hủy giao dịch
                 $conn->rollback();
@@ -78,9 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -89,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Checkout</title>
+    <title>Thanh toán</title>
     <link rel="stylesheet" href="../assets/css/checkout.css">
     <link rel="stylesheet" href="../assets/css/sanpham.css">
 </head>
@@ -108,20 +114,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="../<?= $productInfo['hinh_anh'] ?>" alt="<?= $productInfo['ten_san_pham'] ?>" class="checkout-cart-item-img">
                         <div class="checkout-cart-item-details">
                             <p class="checkout-cart-item-title"><?= $productInfo['ten_san_pham'] ?></p>
+                            <p class="checkout-cart-item-price">Giá: <?= number_format($productInfo['gia'], 0, ',', '.') ?> ₫</p>
                             <p class="checkout-cart-item-quantity">Số lượng: 1</p>
-                            <p class="checkout-cart-item-price"><?= number_format($productInfo['gia'], 0, ',', '.') ?> ₫</p>
+                            <p class="checkout-cart-item-total">Tổng: <?= number_format($productInfo['gia'], 0, ',', '.') ?> ₫</p>
                         </div>
+                    </div>
+                    <div class="checkout-total">
+                        Tổng cộng:
+                        <span id="totalAmount">
+                            <?= number_format($productInfo['gia'], 0, ',', '.') . ' ₫' ?>
+                        </span>
                     </div>
                 <?php else: ?>
                     <p>Không tìm thấy sản phẩm.</p>
                 <?php endif; ?>
-                
-                <div class="checkout-total">
-                    Tổng cộng: 
-                    <span id="totalAmount">
-                        <?= $productInfo ? number_format($productInfo['gia'], 0, ',', '.') . '₫' : '0₫' ?>
-                    </span>
-                </div>
             </div>
 
             <div class="checkout-right">
@@ -149,8 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="checkout-form-group">
                         <label for="paymentMethod">Phương thức thanh toán:</label>
                         <select id="paymentMethod" name="paymentMethod">
-                            <option value="creditCard">Thẻ tín dụng</option>
                             <option value="cod">Thanh toán khi nhận hàng</option>
+                            <option value="bank_transfer">Chuyển khoản ngân hàng</option>
                         </select>
                     </div>
                     <button class="checkout-btn" type="submit">Xác nhận thanh toán</button>
@@ -163,18 +169,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script src="../assets/js/checkout.js"></script>
     <script>
-    function showNotification(message) {
-            const notification = document.createElement("div");
-            notification.className = "notification";
-            notification.innerText = message;
+        function showNotification(message) {
+            const notificationBar = document.createElement("div");
+            notificationBar.className = "notification-bar";
+            notificationBar.innerText = message;
 
-            document.body.appendChild(notification);
+            document.body.prepend(notificationBar);
 
             setTimeout(() => {
-                notification.remove();
+                notificationBar.remove();
+                window.location.href = 'index.php';
             }, 3000);
         }
-</script>
+
+    </script>
 </body>
 
 </html>

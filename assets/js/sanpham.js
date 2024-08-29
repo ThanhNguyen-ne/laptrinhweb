@@ -2,9 +2,9 @@
 document.querySelectorAll('.btn-cart').forEach(function(button) {
     button.addEventListener('click', function(event) {
         event.preventDefault(); // Ngăn không cho chuyển trang
-        
+
         const url = this.href;
-        
+
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -14,20 +14,38 @@ document.querySelectorAll('.btn-cart').forEach(function(button) {
                     notification.className = 'notification';
                     notification.innerText = data.message;
                     document.body.appendChild(notification);
-                    
+
                     setTimeout(() => {
                         notification.remove();
                     }, 3000);
                 } else if (data.status === "error") {
                     // Hiển thị thông báo lỗi nếu có
-                    alert(data.message);
+                    const notification = document.createElement('div');
+                    notification.className = 'notification';
+                    notification.style.color = 'white';
+                    notification.innerText = data.message;
+                    document.body.appendChild(notification);
+
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
                 }
             })
             .catch(error => {
                 console.error("Error:", error);
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.style.color = 'red';
+                notification.innerText = "Lỗi khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.";
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
             });
     });
 });
+
 
 // Sự kiện cho nút mua ngay
 document.querySelectorAll('.btn-buy').forEach(function(button) {
