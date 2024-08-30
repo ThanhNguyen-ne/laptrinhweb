@@ -11,6 +11,26 @@ window.addEventListener("scroll", function () {
     }
 });
 
+function validateSearch() {
+    var searchInput = document.getElementById("searchInput").value.trim();
+    if (searchInput === "") {
+        showNotification("Vui lòng nhập thông tin tìm kiếm!");
+        return false; // Ngăn form gửi đi nếu không có thông tin tìm kiếm
+    }
+    return true;
+}
+
+function showNotification(message) {
+    var notificationBar = document.getElementById("notification-bar");
+    var notificationMessage = document.getElementById("notification-message");
+    notificationMessage.textContent = message;
+    notificationBar.classList.add("show");
+
+    setTimeout(function() {
+        notificationBar.classList.remove("show");
+    }, 3000); // Ẩn thông báo sau 3 giây
+}
+
 document.getElementById("loginBtn").onclick = function() {
     showLoginModal();
 };
@@ -35,4 +55,3 @@ document.getElementById("cartBtn").onclick = function(event) {
         window.location.href = "cart.php";
     }
 };
-

@@ -1,111 +1,65 @@
-body{
-    font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-}
+@import url("sanpham.css"); /* Import the common styles */
 
-main {
-    padding: 20px;
-    margin: 5% 3%;
-}
-
-.search-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.search-results {
-    flex: 3;
-    padding: 20px;
-}
-
-.search-filters {
-    flex: 1;
-    padding: 20px;
-}
-
-h1{
-    font-size: 30px;
-    margin-bottom: 30px;
-    color: #000;
-}
-
-p.no-results {
-    font-size: 18px;
-    color: #999;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.product-card {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-10px);
-}
-
-.product-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.product-title {
-    font-size: 18px;
-    color: #333;
-    margin: 0 0 10px;
-}
-
-.product-price {
-    font-size: 16px;
-    color: #62B6CB;
-    font-weight: bold;
-}
-
-.search-filters h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.search-filters label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.search-filters select, 
-.search-filters input[type="range"] {
-    width: 100%;
-    margin-bottom: 20px;
+/* CSS cho thanh trượt lọc giá */
+.price-filter {
+    position: relative;
+    margin-top: 20px;
+    padding: 10px;
 }
 
 .price-values {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
+}
+
+.price-values span {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Tùy chỉnh tiêu đề và đoạn văn bản */
+.sidebar h2 {
     margin-bottom: 10px;
+    font-size: 18px;
+    color: #000;
 }
 
-.price-values input[type="number"] {
-    width: 48%;
-    padding: 5px;
+/* CSS cho phần sắp xếp sản phẩm */
+.sort-by-price {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.sort-container {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sort {
+    background-color: #00b4d8;
+    color: #fff;
+    padding: 10px 48px;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 48%;
+    text-align: center;
 }
 
-.btn-filter, .btn-sort {
-    background-color: #62B6CB;
+.btn-sort.active {
+    background-color: #0077b6;
+}
+
+.btn-sort:hover {
+    background-color: #0077b6;
+}
+
+#filterPriceBtn{
+    background-color: #00b4d8;
     color: white;
     padding: 10px;
     border: none;
@@ -114,17 +68,35 @@ p.no-results {
     width: 100%;
     transition: background-color 0.3s ease;
     margin-bottom: 10px;
+    font-size: 18px;
+}
+#filterPriceBtn:hover{
+    background-color: #0077b6;
 }
 
-.btn-sort {
-    width: 48%;
+.product-title{
+    margin-bottom: 10px;
 }
 
-.btn-sort.active {
-    background-color: #4893bf;
+.breadcrumb {
+    padding: 10px 20px;
+    background-color: #CAE9FF; /* Đổi màu nền */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    margin-left: 150px;
+    margin-top: 2%;
+
 }
 
-.btn-filter:hover, .btn-sort:hover {
-    background-color: #4893bf;
+.breadcrumb h3 {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
+.breadcrumb a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}

@@ -238,3 +238,54 @@ function showNotification(message) {
         notification.remove();
     }, 5000);
 }
+function showQuenPassModal() {
+    closeModal("loginModal");
+    var modal = document.getElementById("quenPassModal");
+    var modalBody = document.getElementById("quenPassModalBody");
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "quenpass.php", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            modalBody.innerHTML = xhr.responseText;
+            modal.style.display = "flex";
+        }
+    };
+    xhr.send();
+}
+function submitQuenPassForm(event) {
+    event.preventDefault();
+
+    let email = document.getElementById("quenPassEmail").value.trim();
+    let quenPassMessage = document.getElementById("quenPassMessage");
+
+    quenPassMessage.innerText = ""; // Xóa thông báo cũ
+
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("btnQuenMatKhau", true);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "quenpass.php", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.status === "success") {
+                quenPassMessage.innerText = response.message; // Hiển thị thông báo thành công
+                closeModal("quenPassModal");
+                showLoginModal();
+                showNotification("Yêu cầu đã được gửi đi"); // Hiển thị thông báo như mong muốn
+            } else {
+                quenPassMessage.innerText = response.message; // Hiển thị thông báo lỗi
+            }
+        } else {
+            quenPassMessage.innerText = "Có lỗi xảy ra, vui lòng thử lại.";
+        }
+    };
+    xhr.send(formData);
+}
+
+// Sử dụng hàm này khi form "Quên mật khẩu" được gửi đi
+document
+    .getElementById("quenPassForm")
+    .addEventListener("submit", submitQuenPassForm);

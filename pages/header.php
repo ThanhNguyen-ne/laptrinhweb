@@ -31,6 +31,9 @@ if (isset($_SESSION['user_id'])) {
 
 <body>
     <header>
+        <div id="notification-bar" class="notification">
+            <p id="notification-message"></p>
+        </div>
         <div id="main">
             <div class="header_tren">
                 <div class="info">
@@ -76,8 +79,8 @@ if (isset($_SESSION['user_id'])) {
                             <li><a href="thongtin.php">Thông tin</a></li>
                             <li><a href="cart.php" id="cartBtn" class="cart"><i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng</a></li>
                         </ul>
-                        <form action="search.php" method="get" class="search">
-                            <input type="text" name="q" class="search-text" placeholder="Tìm kiếm sản phẩm " required>
+                        <form action="search.php" method="get" class="search" onsubmit="return validateSearch()">
+                            <input type="text" name="q" class="search-text" placeholder="Tìm kiếm sản phẩm" id="searchInput">
                             <button type="submit" class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </div>
@@ -87,41 +90,63 @@ if (isset($_SESSION['user_id'])) {
     </header>
 
     <div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeLoginModal">&times;</span>
-        <div id="loginModalBody">
-            <!-- Nội dung form đăng nhập sẽ được tải động tại đây -->
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <div id="loginModalBody">
+                <!-- Nội dung form đăng nhập sẽ được tải động tại đây -->
+            </div>
         </div>
     </div>
-</div>
 
-<div id="signupModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeSignupModal">&times;</span>
-        <div id="signupModalBody">
-            <!-- Nội dung form đăng ký sẽ được tải động tại đây -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeSignupModal">&times;</span>
+            <div id="signupModalBody">
+                <!-- Nội dung form đăng ký sẽ được tải động tại đây -->
+            </div>
         </div>
     </div>
-</div>
 
-<div id="quenPassModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeQuenPassModal">&times;</span>
-        <div id="quenPassModalBody">
-            <!-- Nội dung form quên mật khẩu sẽ được tải động tại đây -->
+    <div id="quenPassModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeQuenPassModal">&times;</span>
+            <div id="quenPassModalBody">
+                <!-- Nội dung form quên mật khẩu sẽ được tải động tại đây -->
+            </div>
         </div>
     </div>
-</div>
 
     <script>
         var isLoggedIn = <?= isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     </script>
 
     <script src="../assets/js/dangnhap.js"></script>
+    <script src="../assets/js/header.js"></script>
     <script>
+        function validateSearch() {
+            var searchInput = document.getElementById("searchInput").value.trim();
+            if (searchInput === "") {
+                showNotification("Vui lòng nhập thông tin tìm kiếm.");
+                return false; // Ngăn form gửi đi nếu không có thông tin tìm kiếm
+            }
+            return true;
+        }
+
+        function showNotification(message) {
+            var notificationBar = document.getElementById("notification-bar");
+            var notificationMessage = document.getElementById("notification-message");
+            notificationMessage.textContent = message;
+            notificationBar.classList.add("show");
+
+            setTimeout(function() {
+                notificationBar.classList.remove("show");
+            }, 3000); // Ẩn thông báo sau 3 giây
+        }
+
         document.getElementById("loginBtn").onclick = function() {
             showLoginModal();
         };
+
         document.getElementById("signupBtn").onclick = function() {
             showSignupModal();
         };
@@ -129,6 +154,7 @@ if (isset($_SESSION['user_id'])) {
         document.getElementById("closeLoginModal").onclick = function() {
             closeModal("loginModal");
         };
+
         document.getElementById("closeSignupModal").onclick = function() {
             closeModal("signupModal");
         };
