@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function loadOrders() {
-        fetch("api.php?action=get_orders")
+    function loadOrders(searchQuery = "") {
+        fetch(`api.php?action=get_orders&search=${encodeURIComponent(searchQuery)}`)
             .then((response) => response.json())
             .then((data) => {
                 renderOrders(data);
@@ -32,12 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
             tbody.appendChild(tr);
         });
 
-        // Thêm sự kiện thay đổi trạng thái đơn hàng
         document.querySelectorAll(".order-status").forEach((select) => {
             select.addEventListener("change", handleChangeStatus);
         });
 
-        // Thêm sự kiện click cho nút xóa
         document.querySelectorAll(".delete-btn").forEach((btn) => {
             btn.addEventListener("click", handleDelete);
         });
@@ -76,6 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Khởi động bằng cách load các đơn hàng
-    loadOrders();
+    // Xử lý tìm kiếm
+    document.getElementById("ordersSearchForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const searchQuery = document.getElementById("ordersSearchInput").value;
+        loadOrders(searchQuery);
+    });
+
+    loadOrders(); // Load tất cả đơn hàng khi bắt đầu
 });

@@ -1,3 +1,5 @@
+// store.js
+
 document.addEventListener('DOMContentLoaded', function () {
     const productModal = document.getElementById("productModal");
     const productForm = document.getElementById("productForm");
@@ -13,6 +15,17 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentEditRow = null;
     let productIdToDelete = null;
 
+    // Thêm các biến mới cho tìm kiếm
+    const searchForm = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchInput");
+
+    // Sự kiện khi form tìm kiếm được submit
+    searchForm.addEventListener("submit", function(e) {
+        e.preventDefault(); // Ngăn không cho form submit theo cách mặc định
+        const query = searchInput.value.trim();
+        loadProducts(query); // Gọi hàm loadProducts với từ khóa tìm kiếm
+    });
+
     // Load danh sách loại sản phẩm
     function loadProductTypes() {
         fetch("api.php?action=get_product_types")
@@ -24,15 +37,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     option.textContent = type.ten_loai;
                     productTypeSelect.appendChild(option);
                 });
+            })
+            .catch((error) => {
+                console.error('Error fetching product types:', error);
+                showToast("Đã xảy ra lỗi khi tải loại sản phẩm.");
             });
     }
 
-    // Load sản phẩm từ cơ sở dữ liệu
-    function loadProducts() {
-        fetch("api.php?action=get_products")
+    // Load sản phẩm từ cơ sở dữ liệu với tham số tìm kiếm
+    function loadProducts(searchQuery = "") {
+        let url = "api.php?action=get_products";
+        if (searchQuery !== "") {
+            url += `&search=${encodeURIComponent(searchQuery)}`;
+        }
+        fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 renderProducts(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching products:', error);
+                showToast("Đã xảy ra lỗi khi tải sản phẩm.");
             });
     }
 
@@ -48,6 +73,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderProducts(products) {
         const tbody = document.querySelector(".product-table tbody");
         tbody.innerHTML = "";
+        if (products.length === 0) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td colspan="7" style="text-align:center;">Không tìm thấy sản phẩm nào.</td>`;
+            tbody.appendChild(tr);
+            return;
+        }
         products.forEach((product, index) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -106,7 +137,11 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((data) => {
                 showToast(successMessage);
                 productModal.style.display = "none";
-                loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi thêm hoặc sửa
+                loadProducts(searchInput.value.trim()); // Cập nhật lại danh sách sản phẩm sau khi thêm hoặc sửa
+            })
+            .catch((error) => {
+                console.error('Error saving product:', error);
+                showToast("Đã xảy ra lỗi khi lưu sản phẩm.");
             });
     });
 
@@ -124,6 +159,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 productModal.style.display = "block";
                 editMode = true;
                 currentEditRow = productId;
+            })
+            .catch((error) => {
+                console.error('Error fetching product details:', error);
+                showToast("Đã xảy ra lỗi khi tải thông tin sản phẩm.");
             });
     }
 
@@ -139,8 +178,12 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((response) => response.text())
             .then((data) => {
                 showToast("Xóa sản phẩm thành công!");
-                loadProducts(); // Cập nhật lại danh sách sản phẩm sau khi xóa
+                loadProducts(searchInput.value.trim()); // Cập nhật lại danh sách sản phẩm sau khi xóa
                 confirmDeleteModal.style.display = "none";
+            })
+            .catch((error) => {
+                console.error('Error deleting product:', error);
+                showToast("Đã xảy ra lỗi khi xóa sản phẩm.");
             });
     });
 

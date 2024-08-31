@@ -78,19 +78,39 @@ function deleteProduct($conn, $id) {
 
 // Hàm lấy danh sách sản phẩm
 function getProducts($conn) {
-    $result = $conn->query("SELECT san_pham.*, loai_san_pham.ten_loai 
-                            FROM san_pham 
-                            JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
-                            JOIN loai_san_pham ON san_pham_loai.loai_san_pham_id = loai_san_pham.id
-                            ORDER BY san_pham.ngay_tao DESC"); // Sắp xếp sản phẩm mới nhất lên đầu
+    $search = isset($_GET['search']) ? trim($_GET['search']) : "";
+
+    if ($search !== "") {
+        // Sử dụng prepared statement để ngăn ngừa SQL Injection
+        $stmt = $conn->prepare("SELECT san_pham.*, loai_san_pham.ten_loai 
+                                FROM san_pham 
+                                JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
+                                JOIN loai_san_pham ON san_pham_loai.loai_san_pham_id = loai_san_pham.id
+                                WHERE san_pham.ten_san_pham LIKE ? OR loai_san_pham.ten_loai LIKE ?
+                                ORDER BY san_pham.ngay_tao DESC");
+        $likeSearch = "%" . $search . "%";
+        $stmt->bind_param("ss", $likeSearch, $likeSearch);
+    } else {
+        // Nếu không có từ khóa tìm kiếm, lấy tất cả sản phẩm
+        $stmt = $conn->prepare("SELECT san_pham.*, loai_san_pham.ten_loai 
+                                FROM san_pham 
+                                JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
+                                JOIN loai_san_pham ON san_pham_loai.loai_san_pham_id = loai_san_pham.id
+                                ORDER BY san_pham.ngay_tao DESC");
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
     $products = [];
 
     while ($row = $result->fetch_assoc()) {
         $products[] = $row;
     }
 
+    $stmt->close();
+
     echo json_encode($products);
-}
+} 
 
 // Hàm lấy một sản phẩm
 function getProduct($conn, $id) {
@@ -175,15 +195,19 @@ function deleteUser($conn, $id) {
     echo "Người dùng đã được xóa thành công.";
 }
 
-// Hàm lấy danh sách người dùng
 function getUsers($conn) {
-    $result = $conn->query("SELECT * FROM nguoi_dung");
-    $users = [];
+    $search = isset($_GET['search']) ? '%' . $_GET['search'] . '%' : '%';
+    $stmt = $conn->prepare("SELECT * FROM nguoi_dung WHERE ho_ten LIKE ? OR email LIKE ?");
+    $stmt->bind_param("ss", $search, $search);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $users = array();
 
     while ($row = $result->fetch_assoc()) {
         $users[] = $row;
     }
 
+    $stmt->close();
     echo json_encode($users);
 }
 

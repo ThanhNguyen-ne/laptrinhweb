@@ -1,23 +1,31 @@
 <?php
 session_start();
+include('../admin/pages/db_connect.php');
+
 if (!isset($_SESSION['user_id'])) {
-    header("Location: dangnhap.php");
+    header("Location: login.php");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
-if (isset($_SESSION['order_error'])) {
-    echo "<div class='error-message'>{$_SESSION['order_error']}</div>";
-    unset($_SESSION['order_error']);
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
 }
 
-if (isset($_SESSION['order_success'])) {
-    echo "<div class='success-message'>{$_SESSION['order_success']}</div>";
-    unset($_SESSION['order_success']);
+// Thêm sản phẩm vào giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $productID = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Kiểm tra sản phẩm có tồn tại trong giỏ hàng chưa
+    if (isset($_SESSION['cart'][$productID])) {
+        $_SESSION['cart'][$productID] += $quantity;
+    } else {
+        $_SESSION['cart'][$productID] = $quantity;
+    }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -47,8 +55,6 @@ if (isset($_SESSION['order_success'])) {
                 </div>
                 <div class="cart-content">
                     <?php
-                    include('../admin/pages/db_connect.php');
-
                     $total_price = 0;
                     $cart_query = "SELECT gh.id, sp.ten_san_pham, sp.hinh_anh, sp.gia, gh.so_luong 
                                    FROM gio_hang gh
@@ -79,6 +85,7 @@ if (isset($_SESSION['order_success'])) {
                             echo "<div class='item-remove'><button onclick='removeItem(" . $row['id'] . ")'><i class='fa fa-trash'></i></button></div>";
                             echo "</div>";
                             $stt++;
+                            $total_price += $item_total;
                         }
                     } else {
                         echo "<div class='cart-empty'>
@@ -92,9 +99,9 @@ if (isset($_SESSION['order_success'])) {
                     ?>
                 </div>
             </div>
-            <div class="cart-summary">
+            <div class="cart-summary" style="display: <?php echo ($total_price > 0) ? 'block' : 'none'; ?>">
                 <div class="product-total">
-                    <h2>Tổng giá tiền: <span id="total">0 ₫</span></h2>
+                    <h2>Tổng giá tiền: <span id="total"><?php echo number_format($total_price, 0, ',', '.'); ?> ₫</span></h2>
                 </div>
                 <form id="cartForm" method="POST" action="checkout2.php">
                     <input type="hidden" name="cart_items" id="cartItemsInput">

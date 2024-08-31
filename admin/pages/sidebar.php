@@ -11,8 +11,6 @@
         $menu_items = [
             "store.php" => '<i class="bx bx-store-alt"></i>Cửa hàng',
             "orders.php" => '<i class="bx bx-cart"></i>Đơn hàng',
-            "analytics.php" => '<i class="bx bx-analyse"></i>Phân tích',
-            "feedback.php" => '<i class="bx bx-message-square-dots"></i>Phản hồi',
             "users.php" => '<i class="bx bx-group"></i>Người dùng',
             "settings.php" => '<i class="bx bx-cog"></i>Cài đặt',
         ];
@@ -25,7 +23,7 @@
     </ul>
     <ul class="side-menu">
         <li>
-            <a href="../../pages/dangxuat.php" class="logout">
+            <a href="dangxuat.php" class="logout">
                 <i class="bx bx-log-out-circle"></i>
                 Đăng xuất
             </a>

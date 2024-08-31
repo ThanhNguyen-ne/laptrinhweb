@@ -6,7 +6,10 @@ let editMode = false;
 let currentEditRow = null;
 
 function loadUsers() {
-    fetch("api.php?action=get_users")
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchQuery = searchParams.get('search') || '';
+
+    fetch(`api.php?action=get_users&search=${encodeURIComponent(searchQuery)}`)
         .then((response) => response.json())
         .then((data) => {
             renderUsers(data);

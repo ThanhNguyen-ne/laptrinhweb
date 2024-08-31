@@ -33,10 +33,7 @@
             </form>
             <input type="checkbox" id="theme-toggle" hidden />
             <label for="theme-toggle" class="theme-toggle"></label>
-            <a href="#" class="notif">
-                <i class="bx bx-bell"></i>
-                <span class="count">1</span>
-            </a>
+            
             <a href="#" class="profile">
                 <img src="../assets/images/logohdeader.webp" />
             </a>
@@ -48,9 +45,9 @@
                 <div class="left">
                     <h1>Cài đặt</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">Cài đặt</a></li>
+                        <a href="settings.php"><li>Cài đặt</a></li>
                         /
-                        <li><a href="#" class="active">Tài khoản</a></li>
+                        <li><a href="users.php" class="active">Tài khoản</a></li>
                     </ul>
                 </div>
             </div>
