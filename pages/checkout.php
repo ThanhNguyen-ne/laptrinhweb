@@ -2,20 +2,36 @@
 session_start();
 include('../admin/pages/db_connect.php');
 
-$productId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 $productInfo = null;
 $message = "";
 
-if ($productId) {
+// Kiểm tra xem có nhận được thông tin sản phẩm từ form (từ giỏ hàng) hay không
+if (isset($_POST['cart_items'])) {
+    $selectedProducts = json_decode($_POST['cart_items'], true);
+} 
+// Kiểm tra xem có nhận được sản phẩm qua GET (mua ngay) hay không
+elseif (isset($_GET['id'])) {
+    $productId = intval($_GET['id']);
     $query = "SELECT * FROM san_pham WHERE id = $productId";
     $result = $conn->query($query);
     if ($result && $result->num_rows > 0) {
         $productInfo = $result->fetch_assoc();
+        $selectedProducts = [
+            [
+                'id' => $productInfo['id'],
+                'name' => $productInfo['ten_san_pham'],
+                'price' => $productInfo['gia'],
+                'quantity' => 1,
+                'image' => $productInfo['hinh_anh'],
+            ]
+        ];
     } else {
         echo "Không tìm thấy sản phẩm với ID: $productId";
         exit();
     }
-} else {
+} 
+// Nếu không có thông tin sản phẩm được cung cấp
+else {
     echo "ID sản phẩm không được cung cấp.";
     exit();
 }
@@ -31,58 +47,6 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 
-// Xử lý sau khi form được submit
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $paymentMethod = $_POST['paymentMethod'];
-    $quantity = 1; // Số lượng cố định ở đây là 1, bạn có thể cập nhật nếu cần
-
-    // Bắt đầu giao dịch
-    $conn->begin_transaction();
-
-    try {
-        // Chèn thông tin vào bảng don_hang, người dùng có thể là khách không đăng nhập
-        $userIdOrNull = isset($userId) ? $userId : 'NULL';
-        $orderQuery = "INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai)
-                    VALUES ($userIdOrNull, '{$productInfo['gia']}', 'cho_xu_ly')";
-        if ($conn->query($orderQuery) === TRUE) {
-            // Lấy ID của đơn hàng vừa tạo
-            $orderId = $conn->insert_id;
-
-            // Chèn thông tin vào bảng chi_tiet_don_hang
-            $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban)
-                            VALUES ('$orderId', '$productId', '$quantity', '{$productInfo['gia']}')";
-            if ($conn->query($detailQuery) === TRUE) {
-                // Nếu thành công, cam kết giao dịch
-                $conn->commit();
-                
-                // Lưu thông báo vào session
-                $_SESSION['order_message'] = "Đơn hàng đã được xác nhận";
-
-                // Chuyển hướng về index.php
-                header('Location: index.php');
-                exit();
-            } else {
-                // Nếu lỗi, hủy giao dịch
-                $conn->rollback();
-                echo "Lỗi: " . $detailQuery . "<br>" . $conn->error;
-            }
-        } else {
-            // Nếu lỗi, hủy giao dịch
-            $conn->rollback();
-            echo "Lỗi: " . $orderQuery . "<br>" . $conn->error;
-        }
-    } catch (Exception $e) {
-        // Nếu có ngoại lệ, hủy giao dịch
-        $conn->rollback();
-        echo "Lỗi: " . $e->getMessage();
-    }
-
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -109,20 +73,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="checkout-wrapper">
             <div class="checkout-left">
-                <?php if ($productInfo): ?>
-                    <div class="checkout-cart-item">
-                        <img src="../<?= $productInfo['hinh_anh'] ?>" alt="<?= $productInfo['ten_san_pham'] ?>" class="checkout-cart-item-img">
-                        <div class="checkout-cart-item-details">
-                            <p class="checkout-cart-item-title"><?= $productInfo['ten_san_pham'] ?></p>
-                            <p class="checkout-cart-item-price">Giá: <?= number_format($productInfo['gia'], 0, ',', '.') ?> ₫</p>
-                            <p class="checkout-cart-item-quantity">Số lượng: 1</p>
-                            <p class="checkout-cart-item-total">Tổng: <?= number_format($productInfo['gia'], 0, ',', '.') ?> ₫</p>
+                <?php if ($selectedProducts): ?>
+                    <?php foreach ($selectedProducts as $product): ?>
+                        <div class="checkout-cart-item">
+                            <img src="../<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="checkout-cart-item-img">
+                            <div class="checkout-cart-item-details">
+                                <p class="checkout-cart-item-title"><?= htmlspecialchars($product['name']) ?></p>
+                                <p class="checkout-cart-item-price">Giá: <?= number_format($product['price'], 0, ',', '.') ?> ₫</p>
+                                <p class="checkout-cart-item-quantity">Số lượng: <?= $product['quantity'] ?></p>
+                                <p class="checkout-cart-item-total">Tổng: <?= number_format($product['price'] * $product['quantity'], 0, ',', '.') ?> ₫</p>
+                            </div>
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                     <div class="checkout-total">
                         Tổng cộng:
                         <span id="totalAmount">
-                            <?= number_format($productInfo['gia'], 0, ',', '.') . ' ₫' ?>
+                            <?= number_format(array_sum(array_map(function($product) {
+                                return $product['price'] * $product['quantity'];
+                            }, $selectedProducts)), 0, ',', '.') . ' ₫' ?>
                         </span>
                     </div>
                 <?php else: ?>
@@ -159,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <option value="bank_transfer">Chuyển khoản ngân hàng</option>
                         </select>
                     </div>
+                    <input type="hidden" name="cart_items" value="<?= htmlspecialchars(json_encode($selectedProducts)) ?>">
                     <button class="checkout-btn" type="submit">Xác nhận thanh toán</button>
                 </form>
             </div>
@@ -168,21 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include("footer.php"); ?>
 
     <script src="../assets/js/checkout.js"></script>
-    <script>
-        function showNotification(message) {
-            const notificationBar = document.createElement("div");
-            notificationBar.className = "notification-bar";
-            notificationBar.innerText = message;
-
-            document.body.prepend(notificationBar);
-
-            setTimeout(() => {
-                notificationBar.remove();
-                window.location.href = 'index.php';
-            }, 3000);
-        }
-
-    </script>
 </body>
 
 </html>

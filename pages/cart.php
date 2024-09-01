@@ -96,7 +96,7 @@ if (isset($_SESSION['order_success'])) {
                 <div class="product-total">
                     <h2>Tổng giá tiền: <span id="total">0 ₫</span></h2>
                 </div>
-                <form id="cartForm" method="POST" action="checkout2.php">
+                <form id="cartForm" method="POST" action="checkout.php">
                     <input type="hidden" name="cart_items" id="cartItemsInput">
                     <div class="product-checkout">
                         <button type="submit" class="checkout">Thanh toán</button>

@@ -126,7 +126,8 @@ document.querySelectorAll(".select-item").forEach((checkbox) => {
 });
 
 // Khi nhấn nút thanh toán
-document.querySelector(".checkout").addEventListener("click", function() {
+document.querySelector(".checkout").addEventListener("click", function(event) {
+    event.preventDefault();
     const selectedItems = [];
     document.querySelectorAll('.select-item:checked').forEach(item => {
         const cartItem = item.closest('.cart-item');
@@ -147,9 +148,8 @@ document.querySelector(".checkout").addEventListener("click", function() {
 
     if (selectedItems.length > 0) {
         document.getElementById('cartItemsInput').value = JSON.stringify(selectedItems);
-        document.getElementById('cartForm').submit(); // Đảm bảo form được submit sau khi có dữ liệu
+        document.getElementById('cartForm').submit(); 
     } else {
         alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-        return false;
     }
 });

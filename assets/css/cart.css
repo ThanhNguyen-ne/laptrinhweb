@@ -59,7 +59,7 @@ main {
 }
 
 .item-img img {
-    width: 100px;
+    /* width: 100px; */
     height: 100px;
     object-fit: contain;
     border-radius: 8px;

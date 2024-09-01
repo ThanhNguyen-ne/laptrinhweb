@@ -1,17 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Tự động điền thông tin người dùng nếu đã đăng nhập
-    fetch('../admin/pages/api.php?action=get_user_info')
-        .then(response => response.json())
-        .then(userInfo => {
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("../admin/pages/api.php?action=get_user_info")
+        .then((response) => response.json())
+        .then((userInfo) => {
             if (userInfo.logged_in) {
-                document.getElementById("name").value = userInfo.name;
-                document.getElementById("email").value = userInfo.email;
-                document.getElementById("address").value = userInfo.address;
-                document.getElementById("phone").value = userInfo.phone;
+                document.getElementById("name").value = userInfo.name || "";
+                document.getElementById("email").value = userInfo.email || "";
+                document.getElementById("address").value =
+                    userInfo.address || "";
+                document.getElementById("phone").value = userInfo.phone || "";
             }
         });
 
-    // Kiểm tra dữ liệu trước khi gửi form
     const checkoutForm = document.getElementById("checkoutForm");
 
     checkoutForm.addEventListener("submit", (e) => {
@@ -67,7 +66,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function clearErrors() {
-        const errorMessages = document.querySelectorAll(".checkout-error-message");
+        const errorMessages = document.querySelectorAll(
+            ".checkout-error-message"
+        );
         errorMessages.forEach((error) => {
             error.style.display = "none";
         });
