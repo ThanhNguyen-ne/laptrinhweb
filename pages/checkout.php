@@ -5,12 +5,10 @@ include('../admin/pages/db_connect.php');
 $productInfo = null;
 $message = "";
 
-// Kiểm tra xem có nhận được thông tin sản phẩm từ form (từ giỏ hàng) hay không
+// Kiểm tra thông tin sản phẩm từ form giỏ hàng
 if (isset($_POST['cart_items'])) {
     $selectedProducts = json_decode($_POST['cart_items'], true);
-} 
-// Kiểm tra xem có nhận được sản phẩm qua GET (mua ngay) hay không
-elseif (isset($_GET['id'])) {
+} elseif (isset($_GET['id'])) {
     $productId = intval($_GET['id']);
     $query = "SELECT * FROM san_pham WHERE id = $productId";
     $result = $conn->query($query);
@@ -29,9 +27,7 @@ elseif (isset($_GET['id'])) {
         echo "Không tìm thấy sản phẩm với ID: $productId";
         exit();
     }
-} 
-// Nếu không có thông tin sản phẩm được cung cấp
-else {
+} else {
     echo "ID sản phẩm không được cung cấp.";
     exit();
 }
@@ -45,6 +41,41 @@ if (isset($_SESSION['user_id'])) {
     if ($userResult && $userResult->num_rows > 0) {
         $userInfo = $userResult->fetch_assoc();
     }
+}
+
+// Xử lý khi người dùng xác nhận thanh toán
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['address'], $_POST['phone'], $_POST['paymentMethod'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    $paymentMethod = $_POST['paymentMethod'];
+    $totalAmount = array_sum(array_map(function ($product) {
+        return $product['price'] * $product['quantity'];
+    }, $selectedProducts));
+
+    // Thêm vào bảng don_hang
+    $orderQuery = "INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai) VALUES (?, ?, 'cho_xu_ly')";
+    $stmt = $conn->prepare($orderQuery);
+    $stmt->bind_param('id', $userId, $totalAmount);
+    $stmt->execute();
+    $orderId = $stmt->insert_id;
+
+    // Thêm vào bảng chi_tiet_don_hang
+    foreach ($selectedProducts as $product) {
+        $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($detailQuery);
+        $stmt->bind_param('iiid', $orderId, $product['id'], $product['quantity'], $product['price']);
+        $stmt->execute();
+    }
+
+    // Xóa sản phẩm trong giỏ hàng nếu có
+    if (isset($_SESSION['cart'])) {
+        unset($_SESSION['cart']);
+    }
+
+    // Hiển thị thông báo thành công
+    $message = "Thanh toán thành công. Đơn hàng của bạn đã được xử lý.";
 }
 
 ?>
@@ -93,43 +124,50 @@ if (isset($_SESSION['user_id'])) {
                             }, $selectedProducts)), 0, ',', '.') . ' ₫' ?>
                         </span>
                     </div>
+
                 <?php else: ?>
                     <p>Không tìm thấy sản phẩm.</p>
                 <?php endif; ?>
             </div>
 
             <div class="checkout-right">
-                <form id="checkoutForm" method="POST" action="">
-                    <div class="checkout-form-group">
-                        <label for="name">Họ và tên:</label>
-                        <input type="text" id="name" name="name" value="<?= $userInfo['ho_ten'] ?? '' ?>">
-                        <div id="nameError" class="checkout-error-message"></div>
+                <?php if ($message): ?>
+                    <div class="checkout-success-message">
+                        <?= $message ?>
                     </div>
-                    <div class="checkout-form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" value="<?= $userInfo['email'] ?? '' ?>">
-                        <div id="emailError" class="checkout-error-message"></div>
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="address">Địa chỉ:</label>
-                        <input type="text" id="address" name="address" value="<?= $userInfo['dia_chi'] ?? '' ?>">
-                        <div id="addressError" class="checkout-error-message"></div>
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="phone">Số điện thoại:</label>
-                        <input type="text" id="phone" name="phone" value="<?= $userInfo['so_dien_thoai'] ?? '' ?>">
-                        <div id="phoneError" class="checkout-error-message"></div>
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="paymentMethod">Phương thức thanh toán:</label>
-                        <select id="paymentMethod" name="paymentMethod">
-                            <option value="cod">Thanh toán khi nhận hàng</option>
-                            <option value="bank_transfer">Chuyển khoản ngân hàng</option>
-                        </select>
-                    </div>
-                    <input type="hidden" name="cart_items" value="<?= htmlspecialchars(json_encode($selectedProducts)) ?>">
-                    <button class="checkout-btn" type="submit">Xác nhận thanh toán</button>
-                </form>
+                <?php else: ?>
+                    <form id="checkoutForm" method="POST" action="">
+                        <div class="checkout-form-group">
+                            <label for="name">Họ và tên:</label>
+                            <input type="text" id="name" name="name" value="<?= $userInfo['ho_ten'] ?? '' ?>">
+                            <div id="nameError" class="checkout-error-message"></div>
+                        </div>
+                        <div class="checkout-form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" value="<?= $userInfo['email'] ?? '' ?>">
+                            <div id="emailError" class="checkout-error-message"></div>
+                        </div>
+                        <div class="checkout-form-group">
+                            <label for="address">Địa chỉ:</label>
+                            <input type="text" id="address" name="address" value="<?= $userInfo['dia_chi'] ?? '' ?>">
+                            <div id="addressError" class="checkout-error-message"></div>
+                        </div>
+                        <div class="checkout-form-group">
+                            <label for="phone">Số điện thoại:</label>
+                            <input type="text" id="phone" name="phone" value="<?= $userInfo['so_dien_thoai'] ?? '' ?>">
+                            <div id="phoneError" class="checkout-error-message"></div>
+                        </div>
+                        <div class="checkout-form-group">
+                            <label for="paymentMethod">Phương thức thanh toán:</label>
+                            <select id="paymentMethod" name="paymentMethod">
+                                <option value="cod">Thanh toán khi nhận hàng</option>
+                                <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="cart_items" value="<?= htmlspecialchars(json_encode($selectedProducts)) ?>">
+                        <button class="checkout-btn" type="submit">Xác nhận thanh toán</button>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>

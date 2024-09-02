@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (userInfo.logged_in) {
                 document.getElementById("name").value = userInfo.name || "";
                 document.getElementById("email").value = userInfo.email || "";
-                document.getElementById("address").value =
-                    userInfo.address || "";
+                document.getElementById("address").value = userInfo.address || "";
                 document.getElementById("phone").value = userInfo.phone || "";
             }
         });
@@ -30,24 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
             hasError = true;
         }
         if (!email) {
-            showError(
-                "emailError",
-                "Bạn cần nhập email để thực hiện thanh toán."
-            );
+            showError("emailError", "Bạn cần nhập email để thực hiện thanh toán.");
             hasError = true;
         }
         if (!address) {
-            showError(
-                "addressError",
-                "Bạn cần nhập địa chỉ để thực hiện thanh toán."
-            );
+            showError("addressError", "Bạn cần nhập địa chỉ để thực hiện thanh toán.");
             hasError = true;
         }
         if (!phone) {
-            showError(
-                "phoneError",
-                "Bạn cần nhập số điện thoại để thực hiện thanh toán."
-            );
+            showError("phoneError", "Bạn cần nhập số điện thoại để thực hiện thanh toán.");
             hasError = true;
         } else if (!/^\d{10}$/.test(phone)) {
             showError("phoneError", "Bạn cần nhập đúng số điện thoại (10 số).");
@@ -66,9 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function clearErrors() {
-        const errorMessages = document.querySelectorAll(
-            ".checkout-error-message"
-        );
+        const errorMessages = document.querySelectorAll(".checkout-error-message");
         errorMessages.forEach((error) => {
             error.style.display = "none";
         });
