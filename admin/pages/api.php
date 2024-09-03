@@ -444,6 +444,13 @@ if (isset($_GET['action'])) {
                 getSimilarProducts($conn, $_GET['type_id'], $_GET['exclude_id']);
             }
             break;
+        case 'get_order_details':
+                if (isset($_GET['id'])) {
+                    getOrderDetails($conn, $_GET['id']);
+                } else {
+                    echo json_encode(["error" => "Không có ID đơn hàng được cung cấp."]);
+                }
+                break;
         default:
             echo "Hành động không hợp lệ.";
             break;

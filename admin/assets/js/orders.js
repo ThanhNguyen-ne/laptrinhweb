@@ -78,9 +78,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Hàm xử lý hiển thị chi tiết đơn hàng
+    function convertStatus(status) {
+        const statusMap = {
+            'cho_xu_ly': 'Chờ xử lý',
+            'dang_xu_ly': 'Đang xử lý',
+            'hoan_thanh': 'Hoàn thành',
+            'da_huy': 'Đã Hủy'
+        };
+    
+        return statusMap[status] || status; // Trả về giá trị đã chuyển đổi hoặc giá trị gốc nếu không tìm thấy
+    }
+    
     function handleDetails(e) {
         const orderId = e.target.dataset.id;
-
+    
         // Gọi API để lấy chi tiết đơn hàng
         fetch(`api.php?action=get_order_details&id=${orderId}`)
             .then((response) => response.json())
@@ -91,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     order.products.forEach(product => {
                         productsHtml += `<p>Sản phẩm: ${product.ten_san_pham} - Số lượng: ${product.so_luong} - Giá: ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.gia_ban)}</p>`;
                     });
-
+    
                     orderDetails.innerHTML = `
                         <p>Mã đơn hàng: ${order.id}</p>
                         <p>Khách hàng: ${order.ho_ten}</p>
@@ -100,12 +111,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p>Địa chỉ: ${order.dia_chi}</p>
                         <p>Ngày đặt: ${new Date(order.ngay_dat).toLocaleString('vi-VN')}</p>
                         <p>Tổng tiền: ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.tong_tien)}</p>
-                        <p>Trạng thái: ${order.trang_thai}</p>
+                        <p>Trạng thái: ${convertStatus(order.trang_thai)}</p> <!-- Sử dụng hàm chuyển đổi -->
                         <hr />
                         ${productsHtml}
                     `;
                     orderModal.style.display = "flex"; // Hiển thị modal
+                } else {
+                    alert("Không tìm thấy thông tin đơn hàng.");
                 }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("Có lỗi xảy ra khi tải chi tiết đơn hàng.");
             });
     }
 

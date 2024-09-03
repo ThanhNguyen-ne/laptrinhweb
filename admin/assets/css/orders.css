@@ -80,8 +80,8 @@
 
 /* Dropdown hover: Hiển thị danh sách mà không cần click */
 .order-table table .order-status:hover {
-    background: var(--primary); /* Màu nền khi hover vào dropdown */
-    color: var(--light);
+    background:white; /* Màu nền khi hover vào dropdown */
+    color: black;
 }
 
 .order-table table .order-status option {
@@ -90,15 +90,11 @@
     padding: 8px;
 }
 
-/* Tùy chỉnh màu nền của các lựa chọn khi hover */
-.order-table table .order-status:hover option {
-    background: #66BB6A; /* Màu nền khi hover vào từng option */
-    color: var(--light);
-}
+
 
 .order-table table .order-status option:hover {
-    background: #4CAF50; /* Màu nền khi chọn vào option */
-    color: var(--light);
+    background: #5fa8d3; /* Màu nền khi chọn vào option */
+    color: white;
 }
 
 /* Hover effect on actions buttons */
@@ -124,4 +120,75 @@
 
 .order-table table .actions .details-btn:hover {
     background: #1565C0;
+}
+/* Cơ bản cho modal */
+.modal {
+    display: none; /* Ẩn modal mặc định */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Màu nền mờ */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nội dung của modal */
+.modal-content {
+    background-color: #ffffff; /* Nền trắng */
+    padding: 20px;
+    border-radius: 8px; /* Góc bo tròn */
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    animation: fadeIn 0.3s ease-in-out; /* Hiệu ứng xuất hiện */
+}
+
+/* Nút đóng modal */
+.close {
+    color: #333333;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff0000; /* Màu đỏ khi hover hoặc focus */
+}
+
+/* Tiêu đề của modal */
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333333;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 10px;
+}
+
+/* Chi tiết đơn hàng */
+#orderDetails p {
+    font-size: 16px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+/* Hiệu ứng xuất hiện của modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
