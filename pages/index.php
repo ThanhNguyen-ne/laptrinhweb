@@ -301,24 +301,7 @@ session_start();
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/sanpham.js"></script>
 
-    <div id="notificationBar" class="notification-bar"></div>
 
-    <?php
-    if (isset($_SESSION['order_message'])) {
-        $message = $_SESSION['order_message'];
-        echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var notificationBar = document.getElementById('notificationBar');
-                notificationBar.textContent = '$message';
-                notificationBar.style.display = 'block';
-                setTimeout(function() {
-                    notificationBar.style.display = 'none';
-                }, 5000); // Ẩn sau 5 giây
-            });
-          </script>";
-        unset($_SESSION['order_message']);
-    }
-    ?>
 </body>
 
 </html>

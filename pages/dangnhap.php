@@ -69,7 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 session_regenerate_id(); // Tạo lại session ID để bảo mật
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_role'] = $user['vai_tro'];
-            
+                $_SESSION['notification_message'] = "Đăng nhập thành công!";
+
                 if ($user['vai_tro'] == 'admin') {
                     echo json_encode(["status" => "success", "redirect" => "../admin/pages/store.php"]);
                 } elseif ($user['vai_tro'] == 'khach_hang') {
@@ -127,4 +128,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     </html>
 <?php
 }
-?>

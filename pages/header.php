@@ -5,6 +5,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+$notification_message = '';
+
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $user_role = $_SESSION['user_role'];
@@ -16,6 +18,11 @@ if (isset($_SESSION['user_id'])) {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 }
+
+if (isset($_SESSION['notification_message'])) {
+    $notification_message = $_SESSION['notification_message'];
+    unset($_SESSION['notification_message']); // Xóa thông báo sau khi hiển thị
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -25,15 +32,17 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yến Sào Khánh Hòa</title>
     <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/modern.css"> <!-- Liên kết tới CSS mới -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
+    <?php if (!empty($notification_message)): ?>
+    <div id="notification-bar" class="notification">
+        <p id="notification-message"><?= htmlspecialchars($notification_message) ?></p>
+    </div>
+    <?php endif; ?>
+
     <header>
-        <div id="notification-bar" class="notification">
-            <p id="notification-message"></p>
-        </div>
         <div id="main">
             <div class="header_tren">
                 <div class="info">
@@ -49,6 +58,9 @@ if (isset($_SESSION['user_id'])) {
                             <div class="dropdown-content">
                                 <a href="profile.php">Tài khoản</a>
                                 <a href="donhang.php">Đơn hàng</a>
+                                <?php if ($user_role === 'admin'): ?>
+                                    <a href="../admin/pages/store.php">Trang quản trị</a>
+                                <?php endif; ?>
                                 <a href="dangxuat.php" class="dropdown-logout">Đăng xuất</a>
                             </div>
                         </div>
