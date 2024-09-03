@@ -35,7 +35,8 @@
             <label for="theme-toggle" class="theme-toggle"></label>
             
             <a href="#" class="profile">
-                <img src="../assets/images/logohdeader.webp" />
+            <img src="/assets/image/index/logohdeader.webp" />
+
             </a>
         </nav>
         <!-- End of Navbar -->
@@ -43,12 +44,7 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Cài đặt</h1>
-                    <ul class="breadcrumb">
-                        <a href="settings.php"><li>Cài đặt</a></li>
-                        /
-                        <li><a href="users.php" class="active">Tài khoản</a></li>
-                    </ul>
+                    <h1>CÀI ĐẶT</h1>
                 </div>
             </div>
 

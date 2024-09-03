@@ -34,7 +34,8 @@
                 <label for="theme-toggle" class="theme-toggle"></label>
                 
                 <a href="#" class="profile">
-                    <img src="../assets/images/logohdeader.webp" />
+                <img src="/assets/image/index/logohdeader.webp" />
+
                 </a>
             </nav>
             <!-- End of Navbar -->
@@ -42,12 +43,7 @@
             <main>
                 <div class="header">
                     <div class="left">
-                        <h1>Quản lí Người dùng</h1>
-                        <ul class="breadcrumb">
-                            <li><a href="#">Người dùng</a></li>
-                            /
-                            <li><a href="#" class="active">Danh sách</a></li>
-                        </ul>
+                        <h1>NGƯỜI DÙNG</h1>
                     </div>
                     <a href="#" class="btn add-user-btn">
                         <i class="bx bx-plus"></i>

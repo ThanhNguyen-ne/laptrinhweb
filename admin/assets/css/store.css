@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 @import url("analytics.css"); /* Import the common styles */
 
+
 .content main .header .btn {
     height: 36px;
     padding: 0 16px;
     border-radius: 36px;
-    background: var(--primary);
+    background: #00b4d8;
     color: var(--light);
     display: flex;
     align-items: center;
@@ -13,11 +14,17 @@
     grid-gap: 10px;
     font-weight: 500;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.content main .header .btn:hover {
+    background: #0077b6;
 }
 
 .product-table {
     margin-top: 24px;
     overflow-x: auto;
+    padding: 0 20px; /* Add padding for better spacing */
 }
 
 .product-table table {
@@ -26,13 +33,14 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    text-align: center; /* Center align text */
 }
 
 .product-table table th,
 .product-table table td {
-    padding: 12px;
+    padding: 15px; /* Increase padding for better spacing */
     border-bottom: 1px solid var(--grey);
-    text-align: left;
+    vertical-align: middle; /* Ensure content is vertically centered */
 }
 
 .product-table table th {
@@ -44,6 +52,7 @@
 
 .product-table table td {
     background: var(--light);
+    font-size: 14px; /* Ensure consistent font size */
 }
 
 .product-table table tr:hover {
@@ -60,6 +69,7 @@
 .product-table table .actions {
     display: flex;
     grid-gap: 10px;
+    padding: 23% 0;
 }
 
 .product-table table .actions .btn {
@@ -67,20 +77,32 @@
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
 .product-table table .actions .edit-btn {
-    background: var(--primary);
+    background: #00b4d8;
+    border: none;
     color: var(--light);
+}
+
+.product-table table .actions .edit-btn:hover {
+    background: #0077b6;
 }
 
 .product-table table .actions .delete-btn {
-    background: var(--danger);
+    background: #e4003a;
+    border: none;
     color: var(--light);
 }
 
-/* Xóa modal */
-#confirmDeleteModal {
+.product-table table .actions .delete-btn:hover {
+    background: #b1121f;
+}
+
+/* Đồng bộ modal từ dangnhap.css */
+#confirmDeleteModal,
+#productModal {
     display: none;
     position: fixed;
     z-index: 1002;
@@ -88,94 +110,49 @@
     top: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--light);
-    border: 1px solid var(--grey);
-    padding: 20px;
+    border: none;
+    padding: 20px 30px;
     border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    animation: modalFadeIn 0.3s ease-in-out;
 }
 
-#confirmDeleteModal .modal-header {
+@keyframes modalFadeIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
     font-size: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    color: var(--dark-primary);
+    font-weight: bold;
+    text-align: center;
 }
 
-#confirmDeleteModal .modal-actions {
+.modal-content h2 {
+    text-align: center;
+    color: var(--dark-primary);
+    margin-bottom: 20px;
+    border: none;
+}
+
+.modal-actions {
     display: flex;
     justify-content: space-between;
 }
 
-#confirmDeleteModal .modal-actions .btn {
-    padding: 10px 20px;
+.modal-actions .btn {
+    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-}
-
-#confirmDeleteBtn {
-    background: var(--danger);
-    color: var(--light);
-}
-
-#cancelDeleteBtn {
-    background: var(--primary);
-    color: var(--light);
-}
-
-.toast {
-    visibility: hidden;
-    max-width: 50%;
-    margin: 0 auto;
-    background-color: var(--primary);
-    color: var(--light);
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1003;
-    left: 50%;
-    top: 20px;
-    font-size: 17px;
-    transform: translateX(-50%);
-}
-
-.toast.show {
-    visibility: visible;
-    animation: fadeInOut 3s ease-in-out;
-}
-
-@keyframes fadeInOut {
-    0%,
-    100% {
-        opacity: 0;
-        top: 0;
-    }
-    10%,
-    90% {
-        opacity: 1;
-        top: 20px;
-    }
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: var(--light);
-    margin: 3% auto;
-    padding: 20px;
-    border: 1px solid var(--grey);
-    width: 80%;
-    max-width: 500px;
-    border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .close {
@@ -183,48 +160,50 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: var(--dark);
-    text-decoration: none;
     cursor: pointer;
 }
 
-.input-group {
-    margin-bottom: 16px;
+.close:hover {
+    color: darkred;
+}
+
+#confirmDeleteBtn {
+    background: #e4003a;
+    border: none;
+    color: var(--light);
+}
+
+#confirmDeleteBtn:hover {
+    background: darkred;
+}
+
+#cancelDeleteBtn {
+    border: none;
+    background-color: #5fa8d3;
+    color: var(--light);
+
+}
+
+#cancelDeleteBtn:hover {
+    background-color: #4893bf;
 }
 
 .input-group label {
     display: block;
     margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
 }
 
 .input-group input,
 .input-group select,
 .input-group textarea {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid var(--grey);
-    border-radius: 4px;
-}
-
-.input-group input[type="file"] {
-    padding: 3px;
-}
-
-.btn.submit-btn {
-    background: var(--primary);
-    color: var(--light);
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn.submit-btn:hover {
-    background: var(--dark-primary);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--dark);
 }
 
 textarea {
@@ -232,6 +211,53 @@ textarea {
     min-height: 100px;
 }
 
-#productForm {
-    margin-top: 3%;
+.btn.submit-btn {
+    width: 100%;
+    background: #5fa8d3;
+    color: var(--light);
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #5fa8d3;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+#productQuantity{
+    margin-bottom: 15px;
+}
+
+.modal-header{
+    background-color: #5fa8d3;
+    padding: 10px;
+    color: #fff;
+    margin: 5px;
+}
+
+.modal-content p{
+    margin: 18px 0;
 }

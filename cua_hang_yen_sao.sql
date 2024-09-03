@@ -63,7 +63,7 @@ CREATE TABLE chi_tiet_don_hang (
     don_hang_id INT,
     san_pham_id INT,
     so_luong INT NOT NULL,
-    gia_ban DECIMAL(10, 2) NOT NULL,
+    gia_ban INT NOT NULL,
     FOREIGN KEY (don_hang_id) REFERENCES don_hang(id),
     FOREIGN KEY (san_pham_id) REFERENCES san_pham(id)
 );

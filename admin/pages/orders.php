@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/orders.css" />
-    <title>Quản lý Đơn hàng</title>
+    <title>Đơn hàng</title>
 </head>
 
 <body>
@@ -20,18 +20,18 @@
         <nav class="navbar">
             <i class="bx bx-menu"></i>
             <form id="ordersSearchForm">
-        <div class="form-input">
-            <input type="search" id="ordersSearchInput" placeholder="Tìm kiếm đơn hàng..." />
-            <button class="search-btn" type="submit">
-                <i class="bx bx-search"></i>
-            </button>
-        </div>
-    </form>
+                <div class="form-input">
+                    <input type="search" id="ordersSearchInput" placeholder="Tìm kiếm đơn hàng theo mã..." />
+                    <button class="search-btn" type="submit">
+                        <i class="bx bx-search"></i>
+                    </button>
+                </div>
+            </form>
             <input type="checkbox" id="theme-toggle" hidden />
             <label for="theme-toggle" class="theme-toggle"></label>
-            
+
             <a href="#" class="profile">
-                <img src="../assets/images/logohdeader.webp" />
+                <img src="/assets/image/index/logohdeader.webp" />
             </a>
         </nav>
         <!-- End of Navbar -->
@@ -39,12 +39,7 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Quản lý Đơn hàng</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#">Trang chủ</a></li>
-                        /
-                        <li><a href="#" class="active">Đơn hàng</a></li>
-                    </ul>
+                    <h1>ĐƠN HÀNG</h1>
                 </div>
             </div>
 
@@ -67,6 +62,15 @@
                 </table>
             </div>
         </main>
+    </div>
+
+    <!-- Modal hiển thị chi tiết đơn hàng -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chi tiết đơn hàng</h2>
+            <div id="orderDetails"></div> <!-- Nơi hiển thị chi tiết đơn hàng -->
+        </div>
     </div>
 
     <script src="../assets/js/orders.js"></script>

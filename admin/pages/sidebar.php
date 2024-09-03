@@ -5,14 +5,14 @@
     </a>
     <ul class="side-menu">
         <?php
-        $current_page = basename($_SERVER['PHP_SELF']); // Lấy tên file hiện tại
+        $current_page = basename($_SERVER['PHP_SELF']);
 
-        // Tạo các mục sidebar với class 'active' nếu trùng với trang hiện tại
         $menu_items = [
             "store.php" => '<i class="bx bx-store-alt"></i>Cửa hàng',
             "orders.php" => '<i class="bx bx-cart"></i>Đơn hàng',
             "users.php" => '<i class="bx bx-group"></i>Người dùng',
             "settings.php" => '<i class="bx bx-cog"></i>Cài đặt',
+            "/pages/index.php" => '<i class="bx bx-home"></i>Trang chủ',
         ];
 
         foreach ($menu_items as $page => $label) {

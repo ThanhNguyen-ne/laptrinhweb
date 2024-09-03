@@ -224,17 +224,71 @@ function getUser($conn, $id) {
 
 // Hàm lấy danh sách đơn hàng
 function getOrders($conn) {
-    $result = $conn->query("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
-                            FROM don_hang 
-                            JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id");
+    $search = isset($_GET['search']) ? trim($_GET['search']) : "";
+
+    if ($search !== "") {
+        // Nếu có từ khóa tìm kiếm, tìm theo ID đơn hàng
+        $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
+                                FROM don_hang 
+                                JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
+                                WHERE don_hang.id = ? 
+                                ORDER BY don_hang.ngay_dat DESC");
+        $stmt->bind_param("i", $search);
+    } else {
+        // Nếu không có từ khóa tìm kiếm, lấy tất cả đơn hàng
+        $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
+                                FROM don_hang 
+                                JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
+                                ORDER BY don_hang.ngay_dat DESC");
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
     $orders = [];
 
     while ($row = $result->fetch_assoc()) {
         $orders[] = $row;
     }
 
+    $stmt->close();
+
     echo json_encode($orders);
 }
+
+function getOrderDetails($conn, $orderId) {
+    $stmt = $conn->prepare("SELECT don_hang.id, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai, nguoi_dung.ho_ten, nguoi_dung.email, nguoi_dung.so_dien_thoai, nguoi_dung.dia_chi
+                            FROM don_hang 
+                            JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
+                            WHERE don_hang.id = ?");
+    $stmt->bind_param("i", $orderId);
+    $stmt->execute();
+    $orderResult = $stmt->get_result();
+    $orderDetails = $orderResult->fetch_assoc();
+
+    $stmt->close();
+
+    // Lấy thông tin chi tiết các sản phẩm trong đơn hàng
+    $stmt = $conn->prepare("SELECT chi_tiet_don_hang.so_luong, chi_tiet_don_hang.gia_ban, san_pham.ten_san_pham 
+                            FROM chi_tiet_don_hang 
+                            JOIN san_pham ON chi_tiet_don_hang.san_pham_id = san_pham.id
+                            WHERE chi_tiet_don_hang.don_hang_id = ?");
+    $stmt->bind_param("i", $orderId);
+    $stmt->execute();
+    $productsResult = $stmt->get_result();
+    
+    $products = [];
+    while ($row = $productsResult->fetch_assoc()) {
+        $products[] = $row;
+    }
+
+    $stmt->close();
+
+    // Kết hợp thông tin đơn hàng và sản phẩm
+    $orderDetails['products'] = $products;
+
+    echo json_encode($orderDetails);
+}
+
 
 // Hàm cập nhật trạng thái đơn hàng
 function updateOrderStatus($conn) {
