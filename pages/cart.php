@@ -98,11 +98,13 @@ if (isset($_SESSION['order_success'])) {
                 </div>
                 <form id="cartForm" method="POST" action="checkout.php">
                     <input type="hidden" name="cart_items" id="cartItemsInput">
+                    <input type="hidden" name="selected_item_ids" id="selectedItemIdsInput">
                     <div class="product-checkout">
                         <button type="submit" class="checkout">Thanh toán</button>
                         <button class="removeAll" type="button" onclick="clearCart()">Xóa giỏ hàng</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </main>

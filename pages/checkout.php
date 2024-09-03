@@ -8,27 +8,9 @@ $message = "";
 // Kiểm tra thông tin sản phẩm từ form giỏ hàng
 if (isset($_POST['cart_items'])) {
     $selectedProducts = json_decode($_POST['cart_items'], true);
-} elseif (isset($_GET['id'])) {
-    $productId = intval($_GET['id']);
-    $query = "SELECT * FROM san_pham WHERE id = $productId";
-    $result = $conn->query($query);
-    if ($result && $result->num_rows > 0) {
-        $productInfo = $result->fetch_assoc();
-        $selectedProducts = [
-            [
-                'id' => $productInfo['id'],
-                'name' => $productInfo['ten_san_pham'],
-                'price' => $productInfo['gia'],
-                'quantity' => 1,
-                'image' => $productInfo['hinh_anh'],
-            ]
-        ];
-    } else {
-        echo "Không tìm thấy sản phẩm với ID: $productId";
-        exit();
-    }
+    $selectedItemIds = json_decode($_POST['selected_item_ids'], true);
 } else {
-    echo "ID sản phẩm không được cung cấp.";
+    echo "Không có sản phẩm nào được chọn.";
     exit();
 }
 
@@ -61,28 +43,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['addre
     $stmt->execute();
     $orderId = $stmt->insert_id;
 
-    // Thêm vào bảng chi_tiet_don_hang
+    // Thêm vào bảng chi_tiet_don_hang và cập nhật số lượng sản phẩm còn lại
     foreach ($selectedProducts as $product) {
         $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($detailQuery);
         $stmt->bind_param('iiid', $orderId, $product['id'], $product['quantity'], $product['price']);
         $stmt->execute();
+
+        // Cập nhật số lượng sản phẩm còn lại
+        $updateProductQuery = "UPDATE san_pham SET so_luong_ton = so_luong_ton - ? WHERE id = ?";
+        $stmt = $conn->prepare($updateProductQuery);
+        $stmt->bind_param('ii', $product['quantity'], $product['id']);
+        $stmt->execute();
     }
 
-    // Xóa sản phẩm trong giỏ hàng nếu có
-    if (isset($_SESSION['cart'])) {
-        unset($_SESSION['cart']);
+    // Xóa các sản phẩm đã được thanh toán khỏi giỏ hàng
+    if (!empty($selectedItemIds)) {
+        $itemIdsStr = implode(',', array_map('intval', $selectedItemIds));
+        $deleteCartItemsQuery = "DELETE FROM gio_hang WHERE nguoi_dung_id = ? AND id IN ($itemIdsStr)";
+        $stmt = $conn->prepare($deleteCartItemsQuery);
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
     }
 
-    // Hiển thị thông báo thành công
-    $message = "Thanh toán thành công. Đơn hàng của bạn đã được xử lý.";
+    // Hiển thị thông báo thành công và chuyển về trang chủ
+    $_SESSION['success_message'] = "Thanh toán thành công! Cảm ơn bạn đã mua hàng.";
+    header("Location: index.php");
+    exit();
 }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['addre
     <link rel="stylesheet" href="../assets/css/checkout.css">
     <link rel="stylesheet" href="../assets/css/sanpham.css">
 </head>
-
 <body>
 
     <?php include("header.php"); ?>
@@ -165,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['addre
                             </select>
                         </div>
                         <input type="hidden" name="cart_items" value="<?= htmlspecialchars(json_encode($selectedProducts)) ?>">
+                        <input type="hidden" name="selected_item_ids" value="<?= htmlspecialchars(json_encode($selectedItemIds)) ?>">
                         <button class="checkout-btn" type="submit">Xác nhận thanh toán</button>
                     </form>
                 <?php endif; ?>
@@ -176,6 +168,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['addre
 
     <script src="../assets/js/checkout.js"></script>
 </body>
-
 </html>
-<!-- bvc -->

@@ -22,6 +22,15 @@ session_start();
 <body>
     <?php include("header.php"); ?>
 
+    <?php if (isset($_SESSION['success_message'])) : ?>
+        <div class="notification-bar">
+            <?php
+            echo $_SESSION['success_message'];
+            unset($_SESSION['success_message']);
+            ?>
+        </div>
+    <?php endif; ?>
+
     <script src="../assets/js/dangnhap.js"></script>
     <div class="container1">
         <div class="sidebar">
@@ -100,10 +109,8 @@ session_start();
 
         <div class="products1">
             <?php
-            // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
-            // Truy vấn lấy các sản phẩm có id từ 1 đến 4
             $sql = "SELECT * FROM san_pham WHERE id BETWEEN 1 AND 4";
             $result = $conn->query($sql);
 
@@ -123,7 +130,6 @@ session_start();
                 echo "Không có sản phẩm nào.";
             }
 
-            // Đóng kết nối
             $conn->close();
             ?>
         </div>
@@ -140,10 +146,8 @@ session_start();
         </div>
         <div class="products1">
             <?php
-            // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
-            // Truy vấn lấy các sản phẩm có id từ 1 đến 4
             $sql = "SELECT * FROM san_pham WHERE id BETWEEN 51 AND 54";
             $result = $conn->query($sql);
 
@@ -163,7 +167,6 @@ session_start();
                 echo "Không có sản phẩm nào.";
             }
 
-            // Đóng kết nối
             $conn->close();
             ?>
         </div>
@@ -180,10 +183,8 @@ session_start();
         </div>
         <div class="products1">
             <?php
-            // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
-            // Truy vấn lấy các sản phẩm có id từ 1 đến 4
             $sql = "SELECT * FROM san_pham WHERE id BETWEEN 16 AND 19";
             $result = $conn->query($sql);
 
@@ -203,7 +204,6 @@ session_start();
                 echo "Không có sản phẩm nào.";
             }
 
-            // Đóng kết nối
             $conn->close();
             ?>
         </div>
@@ -220,10 +220,8 @@ session_start();
         </div>
         <div class="products1">
             <?php
-            // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
-            // Truy vấn lấy các sản phẩm có id từ 1 đến 4
             $sql = "SELECT * FROM san_pham WHERE id BETWEEN 31 AND 34";
             $result = $conn->query($sql);
 
@@ -243,7 +241,6 @@ session_start();
                 echo "Không có sản phẩm nào.";
             }
 
-            // Đóng kết nối
             $conn->close();
             ?>
         </div>
@@ -260,10 +257,8 @@ session_start();
         </div>
         <div class="products1">
             <?php
-            // Kết nối đến cơ sở dữ liệu
             include("../admin/pages/db_connect.php");
 
-            // Truy vấn lấy các sản phẩm có id từ 1 đến 4
             $sql = "SELECT * FROM san_pham WHERE id BETWEEN 46 AND 49";
             $result = $conn->query($sql);
 
@@ -283,7 +278,6 @@ session_start();
                 echo "Không có sản phẩm nào.";
             }
 
-            // Đóng kết nối
             $conn->close();
             ?>
         </div>
@@ -300,7 +294,6 @@ session_start();
         referrerpolicy="no-referrer"></script>
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/sanpham.js"></script>
-
 
 </body>
 
