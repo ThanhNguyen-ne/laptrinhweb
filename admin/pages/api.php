@@ -2,7 +2,8 @@
 include('db_connect.php');
 
 // Hàm thêm sản phẩm
-function addProduct($conn) {
+function addProduct($conn)
+{
     $stmt = $conn->prepare("INSERT INTO san_pham (ten_san_pham, mo_ta, gia, so_luong_ton, ngay_tao, ngay_cap_nhat) VALUES (?, ?, ?, ?, NOW(), NOW())");
     $stmt->bind_param("ssdi", $_POST['productName'], $_POST['productDescription'], $_POST['productPrice'], $_POST['productQuantity']);
     $stmt->execute();
@@ -32,7 +33,8 @@ function addProduct($conn) {
 }
 
 // Hàm cập nhật sản phẩm
-function updateProduct($conn) {
+function updateProduct($conn)
+{
     $stmt = $conn->prepare("UPDATE san_pham SET ten_san_pham=?, mo_ta=?, gia=?, so_luong_ton=?, ngay_cap_nhat=NOW() WHERE id=?");
     $stmt->bind_param("ssdii", $_POST['productName'], $_POST['productDescription'], $_POST['productPrice'], $_POST['productQuantity'], $_POST['productId']);
     $stmt->execute();
@@ -60,7 +62,8 @@ function updateProduct($conn) {
 }
 
 // Hàm xóa sản phẩm
-function deleteProduct($conn, $id) {
+function deleteProduct($conn, $id)
+{
     // Xóa loại sản phẩm liên quan
     $stmt = $conn->prepare("DELETE FROM san_pham_loai WHERE san_pham_id = ?");
     $stmt->bind_param("i", $id);
@@ -77,7 +80,8 @@ function deleteProduct($conn, $id) {
 }
 
 // Hàm lấy danh sách sản phẩm
-function getProducts($conn) {
+function getProducts($conn)
+{
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
     if ($search !== "") {
@@ -110,10 +114,11 @@ function getProducts($conn) {
     $stmt->close();
 
     echo json_encode($products);
-} 
+}
 
 // Hàm lấy một sản phẩm
-function getProduct($conn, $id) {
+function getProduct($conn, $id)
+{
     $stmt = $conn->prepare("SELECT san_pham.*, san_pham_loai.loai_san_pham_id 
                             FROM san_pham 
                             JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
@@ -127,7 +132,8 @@ function getProduct($conn, $id) {
 }
 
 // Hàm lấy danh sách sản phẩm tương tự
-function getSimilarProducts($conn, $type_id, $exclude_id) {
+function getSimilarProducts($conn, $type_id, $exclude_id)
+{
     $stmt = $conn->prepare("SELECT * FROM san_pham WHERE id != ? AND id IN (SELECT san_pham_id FROM san_pham_loai WHERE loai_san_pham_id = ?) LIMIT 12");
     $stmt->bind_param("ii", $exclude_id, $type_id);
     $stmt->execute();
@@ -143,7 +149,8 @@ function getSimilarProducts($conn, $type_id, $exclude_id) {
 }
 
 // Hàm lấy danh sách loại sản phẩm
-function getProductTypes($conn) {
+function getProductTypes($conn)
+{
     $result = $conn->query("SELECT * FROM loai_san_pham");
     $productTypes = [];
 
@@ -155,7 +162,8 @@ function getProductTypes($conn) {
 }
 
 // Hàm thêm người dùng
-function addUser($conn) {
+function addUser($conn)
+{
     $stmt = $conn->prepare("INSERT INTO nguoi_dung (ho_ten, email, mat_khau, vai_tro, ngay_dang_ky) VALUES (?, ?, ?, ?, NOW())");
     $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
     $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
@@ -167,7 +175,8 @@ function addUser($conn) {
 }
 
 // Hàm cập nhật người dùng
-function updateUser($conn) {
+function updateUser($conn)
+{
     $stmt = $conn->prepare("UPDATE nguoi_dung SET ho_ten=?, email=?, vai_tro=? WHERE id=?");
     $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
     $stmt->bind_param("sssi", $full_name, $_POST['userEmail'], $_POST['userRole'], $_POST['userId']);
@@ -186,7 +195,8 @@ function updateUser($conn) {
 }
 
 // Hàm xóa người dùng
-function deleteUser($conn, $id) {
+function deleteUser($conn, $id)
+{
     $stmt = $conn->prepare("DELETE FROM nguoi_dung WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -195,7 +205,8 @@ function deleteUser($conn, $id) {
     echo "Người dùng đã được xóa thành công.";
 }
 
-function getUsers($conn) {
+function getUsers($conn)
+{
     $search = isset($_GET['search']) ? '%' . $_GET['search'] . '%' : '%';
     $stmt = $conn->prepare("SELECT * FROM nguoi_dung WHERE ho_ten LIKE ? OR email LIKE ?");
     $stmt->bind_param("ss", $search, $search);
@@ -212,7 +223,8 @@ function getUsers($conn) {
 }
 
 // Hàm lấy thông tin một người dùng
-function getUser($conn, $id) {
+function getUser($conn, $id)
+{
     $stmt = $conn->prepare("SELECT * FROM nguoi_dung WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -223,7 +235,8 @@ function getUser($conn, $id) {
 }
 
 // Hàm lấy danh sách đơn hàng
-function getOrders($conn) {
+function getOrders($conn)
+{
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
     if ($search !== "") {
@@ -255,7 +268,8 @@ function getOrders($conn) {
     echo json_encode($orders);
 }
 
-function getOrderDetails($conn, $orderId) {
+function getOrderDetails($conn, $orderId)
+{
     $stmt = $conn->prepare("SELECT don_hang.id, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai, nguoi_dung.ho_ten, nguoi_dung.email, nguoi_dung.so_dien_thoai, nguoi_dung.dia_chi
                             FROM don_hang 
                             JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
@@ -275,7 +289,7 @@ function getOrderDetails($conn, $orderId) {
     $stmt->bind_param("i", $orderId);
     $stmt->execute();
     $productsResult = $stmt->get_result();
-    
+
     $products = [];
     while ($row = $productsResult->fetch_assoc()) {
         $products[] = $row;
@@ -292,7 +306,8 @@ function getOrderDetails($conn, $orderId) {
 
 
 // Hàm cập nhật trạng thái đơn hàng
-function updateOrderStatus($conn) {
+function updateOrderStatus($conn)
+{
     $stmt = $conn->prepare("UPDATE don_hang SET trang_thai = ? WHERE id = ?");
     $stmt->bind_param("si", $_POST['orderStatus'], $_POST['orderId']);
     $stmt->execute();
@@ -302,7 +317,8 @@ function updateOrderStatus($conn) {
 }
 
 // Hàm xóa đơn hàng
-function deleteOrder($conn, $id) {
+function deleteOrder($conn, $id)
+{
     $stmt = $conn->prepare("DELETE FROM don_hang WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -312,7 +328,8 @@ function deleteOrder($conn, $id) {
 }
 
 // Hàm lấy danh sách phản hồi
-function getFeedbacks($conn) {
+function getFeedbacks($conn)
+{
     $result = $conn->query("SELECT phan_hoi.id, nguoi_dung.ho_ten, nguoi_dung.email, phan_hoi.noi_dung, phan_hoi.ngay_gui 
                             FROM phan_hoi 
                             JOIN nguoi_dung ON phan_hoi.nguoi_dung_id = nguoi_dung.id");
@@ -326,7 +343,8 @@ function getFeedbacks($conn) {
 }
 
 // Hàm xóa phản hồi
-function deleteFeedback($conn, $id) {
+function deleteFeedback($conn, $id)
+{
     $stmt = $conn->prepare("DELETE FROM phan_hoi WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -337,7 +355,8 @@ function deleteFeedback($conn, $id) {
 
 // Thêm vào api.php phần lưu trữ và lấy lại giỏ hàng từ cơ sở dữ liệu.
 
-function saveCart($conn, $userId, $cart) {
+function saveCart($conn, $userId, $cart)
+{
     // Xóa giỏ hàng cũ của người dùng
     $stmt = $conn->prepare("DELETE FROM gio_hang WHERE nguoi_dung_id = ?");
     $stmt->bind_param("i", $userId);
@@ -352,7 +371,8 @@ function saveCart($conn, $userId, $cart) {
     }
     $stmt->close();
 }
-function loadCart($conn, $userId) {
+function loadCart($conn, $userId)
+{
     $stmt = $conn->prepare("SELECT san_pham.id, san_pham.ten_san_pham, san_pham.gia, san_pham.hinh_anh, gio_hang.so_luong 
                             FROM san_pham 
                             JOIN gio_hang ON san_pham.id = gio_hang.san_pham_id 
@@ -368,6 +388,73 @@ function loadCart($conn, $userId) {
     $stmt->close();
 }
 
+// Hàm xác thực mã PIN và trả về mật khẩu nếu đúng
+function verifyPin($conn)
+{
+    $userId = $_GET['user_id'];
+    $inputPin = $_GET['pin'];
+
+    // Khởi tạo số lần thử nếu chưa có
+    if (!isset($_SESSION['pin_attempts'][$userId])) {
+        $_SESSION['pin_attempts'][$userId] = [
+            'count' => 0,
+            'last_attempt' => time()
+        ];
+    }
+
+    $attemptData = $_SESSION['pin_attempts'][$userId];
+
+    // Nếu đã vượt quá 5 lần thử và chưa qua 24 giờ
+    if ($attemptData['count'] >= 5 && (time() - $attemptData['last_attempt']) < 86400) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'Bạn đã vượt quá số lần nhập mã PIN. Vui lòng thử lại sau 24 giờ.'
+        ]);
+        return;
+    }
+
+    // Reset số lần thử nếu đã qua 24 giờ
+    if ((time() - $attemptData['last_attempt']) >= 86400) {
+        $_SESSION['pin_attempts'][$userId] = [
+            'count' => 0,
+            'last_attempt' => time()
+        ];
+        $attemptData = $_SESSION['pin_attempts'][$userId];
+    }
+
+    // Giả sử mã PIN đúng là "1234" (thay bằng mã PIN thực tế)
+    $correctPin = "1234";
+
+    if ($inputPin === $correctPin) {
+        // Lấy mật khẩu của người dùng
+        $stmt = $conn->prepare("SELECT mat_khau FROM nguoi_dung WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+
+        echo json_encode([
+            'success' => true,
+            'password' => $user['mat_khau']
+        ]);
+
+        // Reset số lần thử nếu thành công
+        $_SESSION['pin_attempts'][$userId] = [
+            'count' => 0,
+            'last_attempt' => time()
+        ];
+    } else {
+        // Tăng số lần thử
+        $_SESSION['pin_attempts'][$userId]['count'] += 1;
+        $_SESSION['pin_attempts'][$userId]['last_attempt'] = time();
+
+        echo json_encode([
+            'success' => false,
+            'attempts_left' => 5 - $_SESSION['pin_attempts'][$userId]['count']
+        ]);
+    }
+}
 
 
 // Xử lý yêu cầu AJAX
@@ -436,22 +523,25 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'load_cart': // Thêm hành động để tải giỏ hàng
-                if (isset($_GET['user_id'])) {
-                    loadCart($conn, $_GET['user_id']);
-                }
-                break;
+            if (isset($_GET['user_id'])) {
+                loadCart($conn, $_GET['user_id']);
+            }
+            break;
         case 'get_similar_products': // Trường hợp mới cho sản phẩm tương tự
             if (isset($_GET['type_id']) && isset($_GET['exclude_id'])) {
                 getSimilarProducts($conn, $_GET['type_id'], $_GET['exclude_id']);
             }
             break;
         case 'get_order_details':
-                if (isset($_GET['id'])) {
-                    getOrderDetails($conn, $_GET['id']);
-                } else {
-                    echo json_encode(["error" => "Không có ID đơn hàng được cung cấp."]);
-                }
-                break;
+            if (isset($_GET['id'])) {
+                getOrderDetails($conn, $_GET['id']);
+            } else {
+                echo json_encode(["error" => "Không có ID đơn hàng được cung cấp."]);
+            }
+            break;
+        case 'verify_pin':
+            verifyPin($conn);
+            break;
         default:
             echo "Hành động không hợp lệ.";
             break;
@@ -459,4 +549,3 @@ if (isset($_GET['action'])) {
 }
 
 $conn->close();
-?>

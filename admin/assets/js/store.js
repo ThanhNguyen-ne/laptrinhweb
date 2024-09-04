@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add product event
     addProductBtn.addEventListener("click", function () {
         document.getElementById("productForm").reset();
-        document.getElementById("modalTitle").textContent = "Thêm sản phẩm";
+        document.getElementById("modalTitle").textContent = "THÊM SẢN PHẨM";
         productModal.style.display = "block";
     });
 
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 ).value = data.so_luong_ton;
                                 document.getElementById(
                                     "modalTitle"
-                                ).textContent = "Chỉnh sửa sản phẩm";
+                                ).textContent = "CHỈNH SỬA THÔNG TIN";
                                 productModal.style.display = "block";
                             });
                     });

@@ -18,7 +18,7 @@
             <!-- Navbar -->
             <nav>
                 <i class="bx bx-menu"></i>
-                <form id="SearchForm"  method="GET">
+                <form id="SearchForm" method="GET">
                     <div class="form-input">
                         <input
                             type="search"
@@ -32,10 +32,9 @@
                 </form>
                 <input type="checkbox" id="theme-toggle" hidden />
                 <label for="theme-toggle" class="theme-toggle"></label>
-                
-                <a href="#" class="profile">
-                <img src="/assets/image/index/logohdeader.webp" />
 
+                <a href="#" class="profile">
+                    <img src="/assets/image/index/logohdeader.webp" />
                 </a>
             </nav>
             <!-- End of Navbar -->
@@ -56,8 +55,11 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Tên người dùng</th>
                                 <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Mật khẩu</th>
                                 <th>Vai trò</th>
                                 <th>Hành động</th>
                             </tr>
@@ -74,7 +76,7 @@
         <div class="modal" id="userModal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h2>Thêm Người dùng</h2>
+                <h2>THÊM NGƯỜI DÙNG</h2>
                 <form id="userForm">
                     <div class="input-group">
                         <label for="userFullName">Họ và Tên</label>
@@ -105,6 +107,22 @@
                     </div>
                     <button type="submit" class="btn submit-btn">Lưu</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- PIN Verification Modal -->
+        <div class="modal" id="pinModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Xác thực Mã PIN</h2>
+                <form id="pinForm">
+                    <div class="input-group">
+                        <label for="pinInput">Nhập Mã PIN</label>
+                        <input type="password" id="pinInput" name="pinInput" required maxlength="4" />
+                    </div>
+                    <button type="submit" class="btn submit-btn">Xác nhận</button>
+                </form>
+                <p id="pinError" class="error"></p>
             </div>
         </div>
 
