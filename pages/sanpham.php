@@ -22,7 +22,7 @@ if ($sort == 'price_asc') {
 }
 
 // Truy vấn sản phẩm
-$query = "SELECT * FROM san_pham ORDER BY $order_by LIMIT $limit OFFSET $offset";
+$query = "SELECT * FROM san_pham WHERE so_luong_ton > 0 ORDER BY $order_by LIMIT $limit OFFSET $offset";
 $result = $conn->query($query);
 
 // Kiểm tra kết quả truy vấn
@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
 }
 
 // Truy vấn sản phẩm nổi bật
-$featured_query = "SELECT * FROM san_pham LIMIT 6";
+$featured_query = "SELECT * FROM san_pham WHERE so_luong_ton > 0 LIMIT 6";
 $featured_result = $conn->query($featured_query);
 
 // Kiểm tra kết quả truy vấn sản phẩm nổi bật
@@ -170,7 +170,7 @@ $conn->close();
                 <ul class="listPage">
                     <?php
                     // Pagination controls
-                    $count_query = "SELECT COUNT(*) as total FROM san_pham";
+                    $count_query = "SELECT COUNT(*) as total FROM san_pham WHERE so_luong_ton > 0";
                     $count_result = $conn->query($count_query);
                     $total_products = $count_result->fetch_assoc()['total'];
                     $total_pages = ceil($total_products / $limit);

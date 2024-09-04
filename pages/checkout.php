@@ -1,96 +1,95 @@
 <?php
-session_start();
-include('../admin/pages/db_connect.php');
+session_start(); // Bắt đầu một session để có thể truy cập hoặc khởi tạo session cho người dùng hiện tại.
 
-$productInfo = null;
-$message = "";
+include('../admin/pages/db_connect.php'); // Kết nối đến cơ sở dữ liệu bằng cách bao gồm tập tin `db_connect.php`.
 
-// Kiểm tra thông tin sản phẩm từ form giỏ hàng
-if (isset($_POST['cart_items'])) {
-    $selectedProducts = json_decode($_POST['cart_items'], true);
-    $selectedItemIds = json_decode($_POST['selected_item_ids'], true);
-} elseif (isset($_GET['id'])) {
-    $productId = intval($_GET['id']);
-    $query = "SELECT * FROM san_pham WHERE id = $productId";
-    $result = $conn->query($query);
-    if ($result && $result->num_rows > 0) {
-        $productInfo = $result->fetch_assoc();
-        $selectedProducts = [
+$productInfo = null; // Khởi tạo biến `$productInfo` với giá trị null để lưu trữ thông tin sản phẩm sau này.
+$message = ""; // Khởi tạo biến `$message` với một chuỗi rỗng để lưu trữ thông báo.
+
+if (isset($_POST['cart_items'])) { // Kiểm tra nếu dữ liệu giỏ hàng đã được gửi thông qua POST.
+    $selectedProducts = json_decode($_POST['cart_items'], true); // Giải mã JSON thành mảng PHP chứa thông tin sản phẩm đã chọn.
+    $selectedItemIds = json_decode($_POST['selected_item_ids'], true); // Giải mã JSON thành mảng PHP chứa các ID sản phẩm đã chọn.
+} elseif (isset($_GET['id'])) { // Nếu không có dữ liệu giỏ hàng, kiểm tra xem có ID sản phẩm trong URL không.
+    $productId = intval($_GET['id']); // Chuyển ID sản phẩm sang kiểu số nguyên để tránh lỗi SQL injection.
+    $query = "SELECT * FROM san_pham WHERE id = $productId"; // Truy vấn để lấy thông tin sản phẩm từ cơ sở dữ liệu.
+    $result = $conn->query($query); // Thực hiện truy vấn và lưu kết quả vào biến `$result`.
+    if ($result && $result->num_rows > 0) { // Kiểm tra nếu kết quả không rỗng và có ít nhất một dòng dữ liệu.
+        $productInfo = $result->fetch_assoc(); // Lấy thông tin sản phẩm dưới dạng mảng kết hợp (associative array).
+        $selectedProducts = [ // Tạo mảng chứa sản phẩm đã chọn.
             [
-                'id' => $productInfo['id'],
-                'name' => $productInfo['ten_san_pham'],
-                'price' => $productInfo['gia'],
-                'quantity' => 1,
-                'image' => $productInfo['hinh_anh'],
+                'id' => $productInfo['id'], // ID của sản phẩm.
+                'name' => $productInfo['ten_san_pham'], // Tên của sản phẩm.
+                'price' => $productInfo['gia'], // Giá của sản phẩm.
+                'quantity' => 1, // Số lượng sản phẩm mặc định là 1.
+                'image' => $productInfo['hinh_anh'], // Hình ảnh của sản phẩm.
             ]
         ];
-    } else {
-        echo "Không tìm thấy sản phẩm với ID: $productId";
-        exit();
+    } else { // Nếu không tìm thấy sản phẩm.
+        echo "Không tìm thấy sản phẩm với ID: $productId"; // Thông báo lỗi.
+        exit(); // Dừng thực thi kịch bản.
     }
-} else {
-    echo "ID sản phẩm không được cung cấp.";
-    exit();
+} else { // Nếu không có ID sản phẩm trong URL.
+    echo "ID sản phẩm không được cung cấp."; // Thông báo lỗi.
+    exit(); // Dừng thực thi kịch bản.
 }
 
-// Lấy thông tin người dùng nếu đã đăng nhập
-$userInfo = null;
-if (isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    $userQuery = "SELECT * FROM nguoi_dung WHERE id = $userId";
-    $userResult = $conn->query($userQuery);
-    if ($userResult && $userResult->num_rows > 0) {
-        $userInfo = $userResult->fetch_assoc();
+$userInfo = null; // Khởi tạo biến `$userInfo` với giá trị null để lưu trữ thông tin người dùng sau này.
+if (isset($_SESSION['user_id'])) { // Kiểm tra nếu người dùng đã đăng nhập.
+    $userId = $_SESSION['user_id']; // Lấy ID người dùng từ session.
+    $userQuery = "SELECT * FROM nguoi_dung WHERE id = $userId"; // Truy vấn để lấy thông tin người dùng từ cơ sở dữ liệu.
+    $userResult = $conn->query($userQuery); // Thực hiện truy vấn và lưu kết quả vào biến `$userResult`.
+    if ($userResult && $userResult->num_rows > 0) { // Kiểm tra nếu kết quả không rỗng và có ít nhất một dòng dữ liệu.
+        $userInfo = $userResult->fetch_assoc(); // Lấy thông tin người dùng dưới dạng mảng kết hợp.
     }
 }
 
-// Xử lý khi người dùng xác nhận thanh toán
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['address'], $_POST['phone'], $_POST['paymentMethod'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $paymentMethod = $_POST['paymentMethod'];
-    $totalAmount = array_sum(array_map(function ($product) {
-        return $product['price'] * $product['quantity'];
+    // Xử lý đơn hàng khi người dùng nhấn nút thanh toán và POST form.
+    $name = $_POST['name']; // Lấy tên người dùng từ form.
+    $email = $_POST['email']; // Lấy email từ form.
+    $address = $_POST['address']; // Lấy địa chỉ từ form.
+    $phone = $_POST['phone']; // Lấy số điện thoại từ form.
+    $paymentMethod = $_POST['paymentMethod']; // Lấy phương thức thanh toán từ form.
+    $totalAmount = array_sum(array_map(function ($product) { // Tính tổng số tiền của đơn hàng.
+        return $product['price'] * $product['quantity']; // Giá * số lượng cho mỗi sản phẩm.
     }, $selectedProducts));
 
-    // Thêm vào bảng don_hang
     $orderQuery = "INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai) VALUES (?, ?, 'cho_xu_ly')";
-    $stmt = $conn->prepare($orderQuery);
-    $stmt->bind_param('id', $userId, $totalAmount);
-    $stmt->execute();
-    $orderId = $stmt->insert_id;
+    // Truy vấn để thêm thông tin đơn hàng vào bảng `don_hang` với trạng thái "chờ xử lý".
+    $stmt = $conn->prepare($orderQuery); // Chuẩn bị truy vấn SQL để tránh lỗi SQL injection.
+    $stmt->bind_param('id', $userId, $totalAmount); // Gắn giá trị cho các tham số của truy vấn.
+    $stmt->execute(); // Thực thi truy vấn.
+    $orderId = $stmt->insert_id; // Lấy ID của đơn hàng vừa tạo.
 
-    // Thêm vào bảng chi_tiet_don_hang và cập nhật số lượng sản phẩm còn lại
-    foreach ($selectedProducts as $product) {
+    foreach ($selectedProducts as $product) { // Duyệt qua từng sản phẩm đã chọn.
         $detailQuery = "INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($detailQuery);
-        $stmt->bind_param('iiid', $orderId, $product['id'], $product['quantity'], $product['price']);
-        $stmt->execute();
+        // Truy vấn để thêm chi tiết đơn hàng vào bảng `chi_tiet_don_hang`.
+        $stmt = $conn->prepare($detailQuery); // Chuẩn bị truy vấn SQL.
+        $stmt->bind_param('iiid', $orderId, $product['id'], $product['quantity'], $product['price']); // Gắn giá trị cho các tham số.
+        $stmt->execute(); // Thực thi truy vấn.
 
-        // Cập nhật số lượng sản phẩm còn lại
         $updateProductQuery = "UPDATE san_pham SET so_luong_ton = so_luong_ton - ? WHERE id = ?";
-        $stmt = $conn->prepare($updateProductQuery);
-        $stmt->bind_param('ii', $product['quantity'], $product['id']);
-        $stmt->execute();
+        // Truy vấn để cập nhật số lượng sản phẩm còn lại trong kho.
+        $stmt = $conn->prepare($updateProductQuery); // Chuẩn bị truy vấn SQL.
+        $stmt->bind_param('ii', $product['quantity'], $product['id']); // Gắn giá trị cho các tham số.
+        $stmt->execute(); // Thực thi truy vấn.
     }
 
-    // Xóa các sản phẩm đã được thanh toán khỏi giỏ hàng
-    if (!empty($selectedItemIds)) {
-        $itemIdsStr = implode(',', array_map('intval', $selectedItemIds));
+    if (!empty($selectedItemIds)) { // Kiểm tra nếu có sản phẩm trong giỏ hàng cần xóa.
+        $itemIdsStr = implode(',', array_map('intval', $selectedItemIds)); // Tạo chuỗi các ID sản phẩm đã chọn.
         $deleteCartItemsQuery = "DELETE FROM gio_hang WHERE nguoi_dung_id = ? AND id IN ($itemIdsStr)";
-        $stmt = $conn->prepare($deleteCartItemsQuery);
-        $stmt->bind_param('i', $userId);
-        $stmt->execute();
+        // Truy vấn để xóa các sản phẩm đã thanh toán khỏi giỏ hàng.
+        $stmt = $conn->prepare($deleteCartItemsQuery); // Chuẩn bị truy vấn SQL.
+        $stmt->bind_param('i', $userId); // Gắn giá trị cho tham số.
+        $stmt->execute(); // Thực thi truy vấn.
     }
 
-    // Hiển thị thông báo thành công và chuyển về trang chủ
-    $_SESSION['success_message'] = "Thanh toán thành công! Cảm ơn bạn đã mua hàng.";
-    header("Location: index.php");
-    exit();
+    $_SESSION['success_message'] = "Thanh toán thành công! Cảm ơn bạn đã mua hàng."; // Đặt thông báo thành công vào session.
+    header("Location: index.php"); // Chuyển hướng người dùng về trang chủ.
+    exit(); // Dừng thực thi kịch bản.
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="vi">

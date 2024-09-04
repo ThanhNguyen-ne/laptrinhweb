@@ -10,13 +10,9 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
     <?php include("sidebar.php"); ?>
-    <!-- End of Sidebar -->
 
-    <!-- Main Content -->
     <div class="content">
-        <!-- Navbar -->
         <nav class="navbar">
             <i class="bx bx-menu"></i>
             <form id="ordersSearchForm">
@@ -34,7 +30,6 @@
                 <img src="/assets/image/index/logohdeader.webp" />
             </a>
         </nav>
-        <!-- End of Navbar -->
 
         <main>
             <div class="header">
@@ -43,7 +38,6 @@
                 </div>
             </div>
 
-            <!-- Orders Table -->
             <div class="order-table">
                 <table>
                     <thead>
@@ -64,12 +58,11 @@
         </main>
     </div>
 
-    <!-- Modal hiển thị chi tiết đơn hàng -->
     <div class="modal" id="orderModal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Chi tiết đơn hàng</h2>
-            <div id="orderDetails"></div> <!-- Nơi hiển thị chi tiết đơn hàng -->
+            <div id="orderDetails"></div>
         </div>
     </div>
 

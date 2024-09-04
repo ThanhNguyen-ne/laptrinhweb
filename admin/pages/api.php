@@ -268,7 +268,7 @@ function getOrderDetails($conn, $orderId) {
     $stmt->close();
 
     // Lấy thông tin chi tiết các sản phẩm trong đơn hàng
-    $stmt = $conn->prepare("SELECT chi_tiet_don_hang.so_luong, chi_tiet_don_hang.gia_ban, san_pham.ten_san_pham 
+    $stmt = $conn->prepare("SELECT chi_tiet_don_hang.so_luong, chi_tiet_don_hang.gia_ban, san_pham.ten_san_pham, san_pham.hinh_anh 
                             FROM chi_tiet_don_hang 
                             JOIN san_pham ON chi_tiet_don_hang.san_pham_id = san_pham.id
                             WHERE chi_tiet_don_hang.don_hang_id = ?");
@@ -288,6 +288,7 @@ function getOrderDetails($conn, $orderId) {
 
     echo json_encode($orderDetails);
 }
+
 
 
 // Hàm cập nhật trạng thái đơn hàng

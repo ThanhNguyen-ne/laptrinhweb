@@ -694,15 +694,3 @@ VALUES (
         '',
         'admin'
     );
--- Chèn dữ liệu vào bảng phan_hoi
-INSERT INTO phan_hoi (nguoi_dung_id, san_pham_id, noi_dung, danh_gia)
-VALUES (1, 1, 'Sản phẩm rất tốt, tôi rất hài lòng.', 5),
-    (2, 2, 'Yến thô chưa sạch lắm, cần cải thiện.', 3);
--- Chèn dữ liệu vào bảng don_hang
-INSERT INTO don_hang (nguoi_dung_id, tong_tien, trang_thai)
-VALUES (1, 37800000, 'hoan_thanh'),
-    (2, 23760000, 'cho_xu_ly');
--- Chèn dữ liệu vào bảng chi_tiet_don_hang
-INSERT INTO chi_tiet_don_hang (don_hang_id, san_pham_id, so_luong, gia_ban)
-VALUES (1, 1, 1, 37800000),
-    (2, 2, 1, 23760000);
