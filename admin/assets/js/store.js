@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add product event
     addProductBtn.addEventListener("click", function () {
         document.getElementById("productForm").reset();
-        document.getElementById("modalTitle").textContent = "Thêm sản phẩm";
+        document.getElementById("modalTitle").textContent = "THÊM SẢN PHẨM";
         productModal.style.display = "block";
     });
 
@@ -107,9 +107,59 @@ document.addEventListener("DOMContentLoaded", function () {
                     productTableBody.insertAdjacentHTML("beforeend", row);
                 });
 
-                // Attach events after loading products
-                attachDeleteEvents();
-                attachEditEvents();
+                // Attach edit event after loading products
+                document.querySelectorAll(".edit-btn").forEach((button) => {
+                    button.addEventListener("click", function () {
+                        const productId = this.getAttribute("data-id");
+                        fetch(`api.php?action=get_product&id=${productId}`)
+                            .then((response) => response.json())
+                            .then((data) => {
+                                document.getElementById("productId").value =
+                                    data.id;
+                                document.getElementById("productName").value =
+                                    data.ten_san_pham;
+                                document.getElementById(
+                                    "productDescription"
+                                ).value = data.mo_ta;
+                                document.getElementById("productType").value =
+                                    data.loai_san_pham_id;
+                                document.getElementById("productPrice").value =
+                                    data.gia;
+                                document.getElementById(
+                                    "productQuantity"
+                                ).value = data.so_luong_ton;
+                                document.getElementById(
+                                    "modalTitle"
+                                ).textContent = "CHỈNH SỬA THÔNG TIN";
+                                productModal.style.display = "block";
+                            });
+                    });
+                });
+
+                // Attach delete event after loading products
+                document.querySelectorAll(".delete-btn").forEach((button) => {
+                    button.addEventListener("click", function () {
+                        const productId = this.getAttribute("data-id");
+                        confirmDeleteModal.style.display = "block";
+
+                        confirmDeleteBtn.addEventListener("click", function () {
+                            fetch(
+                                `api.php?action=delete_product&id=${productId}`,
+                                { method: "GET" }
+                            )
+                                .then((response) => response.text())
+                                .then((data) => {
+                                    showNotification(data);
+                                    confirmDeleteModal.style.display = "none";
+                                    loadProducts(); // Cập nhật lại danh sách sản phẩm mà không cần tải lại trang
+                                });
+                        });
+
+                        cancelDeleteBtn.addEventListener("click", function () {
+                            confirmDeleteModal.style.display = "none";
+                        });
+                    });
+                });
             });
     }
 

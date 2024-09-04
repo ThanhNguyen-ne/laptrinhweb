@@ -24,7 +24,7 @@ if ($sort == 'price_asc') {
 // Truy vấn sản phẩm
 $query = "SELECT * FROM san_pham 
           INNER JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
-          WHERE san_pham_loai.loai_san_pham_id = 5 
+          WHERE san_pham_loai.loai_san_pham_id = 5 AND san_pham.so_luong_ton > 0 
           ORDER BY $order_by 
           LIMIT $limit OFFSET $offset";
 $result = $conn->query($query);
@@ -38,7 +38,7 @@ if ($result->num_rows > 0) {
 }
 
 // Truy vấn sản phẩm nổi bật
-$featured_query = "SELECT * FROM san_pham LIMIT 6";
+$featured_query = "SELECT * FROM san_pham WHERE so_luong_ton > 0 LIMIT 6";
 $featured_result = $conn->query($featured_query);
 
 // Kiểm tra kết quả truy vấn sản phẩm nổi bật
@@ -93,6 +93,7 @@ if (isset($_GET['add_to_cart'])) {
 // Đóng kết nối
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>

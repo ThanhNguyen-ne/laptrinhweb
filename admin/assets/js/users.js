@@ -1,9 +1,12 @@
 const userModal = document.getElementById("userModal");
+const pinModal = document.getElementById("pinModal");
 const userForm = document.getElementById("userForm");
-const closeModal = document.querySelector(".close");
+const pinForm = document.getElementById("pinForm");
+const closeModal = document.querySelectorAll(".close");
 const addUserBtn = document.querySelector(".add-user-btn");
 let editMode = false;
 let currentEditRow = null;
+let currentPassword = null;
 
 function loadUsers() {
     const searchParams = new URLSearchParams(window.location.search);
@@ -23,8 +26,15 @@ function renderUsers(users) {
     users.forEach((user) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
+            <td>${user.id}</td>
             <td>${user.ho_ten}</td>
             <td>${user.email}</td>
+            <td>${user.so_dien_thoai || 'Không có'}</td>
+            <td class="password-cell">
+                <span class="hidden-password">****</span>
+                <button class="btn show-password-btn" data-id="${user.id}">Hiện</button>
+                <button class="btn hide-password-btn" data-id="${user.id}" style="display:none;">Ẩn</button>
+            </td>
             <td>${user.vai_tro}</td>
             <td class="actions">
                 <button class="btn edit-btn" data-id="${user.id}">Sửa</button>
@@ -34,7 +44,7 @@ function renderUsers(users) {
         tbody.appendChild(tr);
     });
 
-    // Thêm sự kiện click cho nút sửa và xóa
+    // Thêm sự kiện click cho nút sửa, xóa và hiển thị mật khẩu
     document.querySelectorAll(".edit-btn").forEach((btn) => {
         btn.addEventListener("click", handleEdit);
     });
@@ -42,6 +52,49 @@ function renderUsers(users) {
     document.querySelectorAll(".delete-btn").forEach((btn) => {
         btn.addEventListener("click", handleDelete);
     });
+
+    document.querySelectorAll(".show-password-btn").forEach((btn) => {
+        btn.addEventListener("click", handleShowPassword);
+    });
+
+    document.querySelectorAll(".hide-password-btn").forEach((btn) => {
+        btn.addEventListener("click", handleHidePassword);
+    });
+}
+
+function handleShowPassword(e) {
+    const userId = e.target.dataset.id;
+    currentPassword = null;
+    pinModal.style.display = "block";
+    pinForm.reset();
+    document.getElementById('pinError').innerText = '';
+
+    pinForm.onsubmit = function(event) {
+        event.preventDefault();
+        const pin = document.getElementById('pinInput').value;
+
+        fetch(`api.php?action=verify_pin&user_id=${userId}&pin=${pin}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    currentPassword = data.password;
+                    const passwordCell = e.target.closest('.password-cell');
+                    passwordCell.querySelector('.hidden-password').innerText = currentPassword;
+                    e.target.style.display = 'none';  // Ẩn nút "Hiện"
+                    passwordCell.querySelector('.hide-password-btn').style.display = 'inline-block';  // Hiện nút "Ẩn"
+                    pinModal.style.display = "none";
+                } else {
+                    document.getElementById('pinError').innerText = `Sai mã PIN! Bạn còn ${data.attempts_left} lần thử.`;
+                }
+            });
+    };
+}
+
+function handleHidePassword(e) {
+    const passwordCell = e.target.closest('.password-cell');
+    passwordCell.querySelector('.hidden-password').innerText = '****';
+    e.target.style.display = 'none';  // Ẩn nút "Ẩn"
+    passwordCell.querySelector('.show-password-btn').style.display = 'inline-block';  // Hiện nút "Hiện"
 }
 
 addUserBtn.addEventListener("click", () => {
@@ -49,10 +102,14 @@ addUserBtn.addEventListener("click", () => {
     userForm.reset();
     editMode = false;
     currentEditRow = null;
+    userModal.querySelector("h2").innerText = "THÊM NGƯỜI DÙNG";  // Đặt tiêu đề modal là "Thêm Người dùng"
 });
 
-closeModal.addEventListener("click", () => {
-    userModal.style.display = "none";
+closeModal.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        userModal.style.display = "none";
+        pinModal.style.display = "none";
+    });
 });
 
 userForm.addEventListener("submit", (e) => {
@@ -91,6 +148,7 @@ function handleEdit(e) {
             userModal.style.display = "block";
             editMode = true;
             currentEditRow = userId;
+            userModal.querySelector("h2").innerText = "CHỈNH SỬA THÔNG TIN";  // Đặt tiêu đề modal là "Chỉnh sửa Người dùng"
         });
 }
 
