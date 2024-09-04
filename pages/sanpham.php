@@ -48,7 +48,6 @@ if ($featured_result->num_rows > 0) {
 }
 
 // Hàm thêm sản phẩm vào giỏ hàng trong cơ sở dữ liệu
-// Hàm thêm sản phẩm vào giỏ hàng trong cơ sở dữ liệu
 function addToCart($productId, $userId, $conn)
 {
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
@@ -73,7 +72,6 @@ function addToCart($productId, $userId, $conn)
         }
     }
 }
-
 
 // Kiểm tra yêu cầu thêm sản phẩm vào giỏ hàng
 if (isset($_GET['add_to_cart'])) {
@@ -159,8 +157,8 @@ $conn->close();
                                 <p class="price"><?= number_format($product['gia'], 0, ',', '.') ?> ₫</p>
                                 <div class="product-buttons">
                                     <a href="sanpham.php?add_to_cart=<?= $product['id'] ?>" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                                    <button class="btn-buy" onclick="window.location.href = 'checkout.php?id=<?= $product['id'] ?>'">Mua ngay</button>
-
+                                    <!-- Nút Mua Ngay sẽ chuyển hướng tới checkout.php với ID sản phẩm -->
+                                    <button class="btn-buy" onclick="window.location.href = 'checkout.php?product_id=<?= $product['id'] ?>'">Mua ngay</button>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -178,7 +176,6 @@ $conn->close();
                     $total_pages = ceil($total_products / $limit);
 
                     // Previous
-                    // Previous page link
                     if ($thisPage > 1) {
                         echo '<li><a href="sanpham.php?page=' . ($thisPage - 1) . '&sort=' . $sort . '">TRƯỚC</a></li>';
                     }

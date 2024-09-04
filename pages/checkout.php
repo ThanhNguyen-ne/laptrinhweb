@@ -9,8 +9,27 @@ $message = "";
 if (isset($_POST['cart_items'])) {
     $selectedProducts = json_decode($_POST['cart_items'], true);
     $selectedItemIds = json_decode($_POST['selected_item_ids'], true);
+} elseif (isset($_GET['id'])) {
+    $productId = intval($_GET['id']);
+    $query = "SELECT * FROM san_pham WHERE id = $productId";
+    $result = $conn->query($query);
+    if ($result && $result->num_rows > 0) {
+        $productInfo = $result->fetch_assoc();
+        $selectedProducts = [
+            [
+                'id' => $productInfo['id'],
+                'name' => $productInfo['ten_san_pham'],
+                'price' => $productInfo['gia'],
+                'quantity' => 1,
+                'image' => $productInfo['hinh_anh'],
+            ]
+        ];
+    } else {
+        echo "Không tìm thấy sản phẩm với ID: $productId";
+        exit();
+    }
 } else {
-    echo "Không có sản phẩm nào được chọn.";
+    echo "ID sản phẩm không được cung cấp.";
     exit();
 }
 

@@ -25,12 +25,14 @@ $result_orders = $stmt_orders->get_result();
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/donhang.css">
     <title>Đơn hàng của bạn</title>
 </head>
+
 <body>
     <?php include('header.php'); ?>
     <div class="container">
@@ -46,10 +48,10 @@ $result_orders = $stmt_orders->get_result();
                 </tr>
                 <?php
                 $i = 1;
-                while ($order = $result_orders->fetch_assoc()) { 
+                while ($order = $result_orders->fetch_assoc()) {
                     // Chuyển đổi định dạng thời gian sang kiểu Việt Nam
                     $ngay_dat = date("H:i:s - d/m/Y", strtotime($order['ngay_dat']));
-                    
+
                     // Chuyển đổi trạng thái đơn hàng sang tiếng Việt
                     switch ($order['trang_thai']) {
                         case 'cho_xu_ly':
@@ -81,6 +83,7 @@ $result_orders = $stmt_orders->get_result();
     </div>
     <?php include('footer.php'); ?>
 </body>
+
 </html>
 
 <?php

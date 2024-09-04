@@ -27,7 +27,7 @@ CREATE TABLE nguoi_dung (
     so_dien_thoai VARCHAR(20),
     dia_chi TEXT,
     vai_tro ENUM('admin', 'khach_hang') DEFAULT 'khach_hang',
-    ngay_dang_ky DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ngay_dang_ky DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tạo bảng phan_hoi
