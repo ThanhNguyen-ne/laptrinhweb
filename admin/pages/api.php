@@ -61,19 +61,19 @@ function updateProduct($conn) {
 
 // Hàm xóa sản phẩm
 function deleteProduct($conn, $id) {
-    // Xóa loại sản phẩm liên quan
-    $stmt = $conn->prepare("DELETE FROM san_pham_loai WHERE san_pham_id = ?");
+    // Xóa các chi tiết đơn hàng liên quan trước
+    $stmt = $conn->prepare("DELETE FROM chi_tiet_don_hang WHERE san_pham_id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
 
-    // Xóa sản phẩm
+    // Sau đó, mới xóa sản phẩm
     $stmt = $conn->prepare("DELETE FROM san_pham WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
 
-    echo "Sản phẩm đã được xóa thành công.";
+    return ['success' => true, 'message' => 'Product deleted successfully'];
 }
 
 // Hàm lấy danh sách sản phẩm

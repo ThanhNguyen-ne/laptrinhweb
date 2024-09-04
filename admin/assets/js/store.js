@@ -45,52 +45,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         });
 
-    // Delete product event
-    document.querySelectorAll(".delete-btn").forEach((button) => {
-        button.addEventListener("click", function () {
-            const productId = this.getAttribute("data-id");
-            confirmDeleteModal.style.display = "block";
+    // Function to attach delete event to buttons
+    function attachDeleteEvents() {
+        document.querySelectorAll(".delete-btn").forEach((button) => {
+            button.addEventListener("click", function () {
+                const productId = this.getAttribute("data-id");
+                confirmDeleteModal.style.display = "block";
 
-            confirmDeleteBtn.addEventListener("click", function () {
-                fetch(`api.php?action=delete_product&id=${productId}`, {
-                    method: "GET",
-                })
-                    .then((response) => response.text())
-                    .then((data) => {
-                        showNotification(data);
-                        confirmDeleteModal.style.display = "none";
-                        loadProducts(); // Cập nhật lại danh sách sản phẩm mà không cần tải lại trang
-                    });
-            });
+                confirmDeleteBtn.onclick = function () {
+                    fetch(`api.php?action=delete_product&id=${productId}`, {
+                        method: "GET",
+                    })
+                        .then((response) => response.text())
+                        .then((data) => {
+                            showNotification(data);
+                            confirmDeleteModal.style.display = "none";
+                            loadProducts(); // Cập nhật lại danh sách sản phẩm mà không cần tải lại trang
+                        });
+                };
 
-            cancelDeleteBtn.addEventListener("click", function () {
-                confirmDeleteModal.style.display = "none";
+                cancelDeleteBtn.onclick = function () {
+                    confirmDeleteModal.style.display = "none";
+                };
             });
         });
-    });
-
-    // Show notification function
-    function showNotification(message) {
-        const notification = document.createElement("div");
-        notification.className = "notification";
-        notification.innerText = message;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-        }, 5000); // Notification disappears after 5 seconds
     }
-
-    // Close modal when clicking outside of it
-    window.onclick = function (event) {
-        if (event.target === productModal) {
-            productModal.style.display = "none";
-        }
-        if (event.target === confirmDeleteModal) {
-            confirmDeleteModal.style.display = "none";
-        }
-    };
 
     // Load products
     function loadProducts() {
@@ -128,60 +107,41 @@ document.addEventListener("DOMContentLoaded", function () {
                     productTableBody.insertAdjacentHTML("beforeend", row);
                 });
 
-                // Attach edit event after loading products
-                document.querySelectorAll(".edit-btn").forEach((button) => {
-                    button.addEventListener("click", function () {
-                        const productId = this.getAttribute("data-id");
-                        fetch(`api.php?action=get_product&id=${productId}`)
-                            .then((response) => response.json())
-                            .then((data) => {
-                                document.getElementById("productId").value =
-                                    data.id;
-                                document.getElementById("productName").value =
-                                    data.ten_san_pham;
-                                document.getElementById(
-                                    "productDescription"
-                                ).value = data.mo_ta;
-                                document.getElementById("productType").value =
-                                    data.loai_san_pham_id;
-                                document.getElementById("productPrice").value =
-                                    data.gia;
-                                document.getElementById(
-                                    "productQuantity"
-                                ).value = data.so_luong_ton;
-                                document.getElementById(
-                                    "modalTitle"
-                                ).textContent = "Chỉnh sửa sản phẩm";
-                                productModal.style.display = "block";
-                            });
-                    });
-                });
-
-                // Attach delete event after loading products
-                document.querySelectorAll(".delete-btn").forEach((button) => {
-                    button.addEventListener("click", function () {
-                        const productId = this.getAttribute("data-id");
-                        confirmDeleteModal.style.display = "block";
-
-                        confirmDeleteBtn.addEventListener("click", function () {
-                            fetch(
-                                `api.php?action=delete_product&id=${productId}`,
-                                { method: "GET" }
-                            )
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    showNotification(data);
-                                    confirmDeleteModal.style.display = "none";
-                                    loadProducts(); // Cập nhật lại danh sách sản phẩm mà không cần tải lại trang
-                                });
-                        });
-
-                        cancelDeleteBtn.addEventListener("click", function () {
-                            confirmDeleteModal.style.display = "none";
-                        });
-                    });
-                });
+                // Attach events after loading products
+                attachDeleteEvents();
+                attachEditEvents();
             });
+    }
+
+    // Attach edit events to buttons (existing code)
+    function attachEditEvents() {
+        document.querySelectorAll(".edit-btn").forEach((button) => {
+            button.addEventListener("click", function () {
+                const productId = this.getAttribute("data-id");
+                fetch(`api.php?action=get_product&id=${productId}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        document.getElementById("productId").value =
+                            data.id;
+                        document.getElementById("productName").value =
+                            data.ten_san_pham;
+                        document.getElementById(
+                            "productDescription"
+                        ).value = data.mo_ta;
+                        document.getElementById("productType").value =
+                            data.loai_san_pham_id;
+                        document.getElementById("productPrice").value =
+                            data.gia;
+                        document.getElementById(
+                            "productQuantity"
+                        ).value = data.so_luong_ton;
+                        document.getElementById(
+                            "modalTitle"
+                        ).textContent = "Chỉnh sửa sản phẩm";
+                        productModal.style.display = "block";
+                    });
+            });
+        });
     }
 
     // Load product types
@@ -198,4 +158,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
     }
+
+    // Show notification function
+    function showNotification(message) {
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.innerText = message;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 5000); // Notification disappears after 5 seconds
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === productModal) {
+            productModal.style.display = "none";
+        }
+        if (event.target === confirmDeleteModal) {
+            confirmDeleteModal.style.display = "none";
+        }
+    };
 });

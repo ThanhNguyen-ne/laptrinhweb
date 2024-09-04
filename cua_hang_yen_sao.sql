@@ -1,12 +1,15 @@
 -- Tạo cơ sở dữ liệu
+-- Tạo cơ sở dữ liệu
 CREATE DATABASE IF NOT EXISTS cua_hang_yen_sao;
 USE cua_hang_yen_sao;
+
 -- Tạo bảng loai_san_pham
 CREATE TABLE loai_san_pham (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ten_loai VARCHAR(255) NOT NULL,
     mo_ta TEXT
 );
+
 -- Tạo bảng san_pham
 CREATE TABLE san_pham (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,6 +21,7 @@ CREATE TABLE san_pham (
     ngay_tao DATETIME DEFAULT CURRENT_TIMESTAMP,
     ngay_cap_nhat DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 -- Tạo bảng nguoi_dung
 CREATE TABLE nguoi_dung (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,7 +31,7 @@ CREATE TABLE nguoi_dung (
     so_dien_thoai VARCHAR(20),
     dia_chi TEXT,
     vai_tro ENUM('admin', 'khach_hang') DEFAULT 'khach_hang',
-    ngay_dang_ky DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ngay_dang_ky DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tạo bảng phan_hoi
@@ -36,27 +40,22 @@ CREATE TABLE phan_hoi (
     nguoi_dung_id INT,
     san_pham_id INT,
     noi_dung TEXT,
-    danh_gia INT CHECK (
-        danh_gia BETWEEN 1 AND 5
-    ),
+    danh_gia INT CHECK (danh_gia BETWEEN 1 AND 5),
     ngay_gui DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id),
-    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id)
+    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id) ON DELETE CASCADE,
+    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id) ON DELETE CASCADE
 );
+
 -- Tạo bảng don_hang
 CREATE TABLE don_hang (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nguoi_dung_id INT,
     tong_tien DECIMAL(10, 2),
     ngay_dat DATETIME DEFAULT CURRENT_TIMESTAMP,
-    trang_thai ENUM(
-        'cho_xu_ly',
-        'dang_xu_ly',
-        'hoan_thanh',
-        'da_huy'
-    ) DEFAULT 'cho_xu_ly',
-    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id)
+    trang_thai ENUM('cho_xu_ly', 'dang_xu_ly', 'hoan_thanh', 'da_huy') DEFAULT 'cho_xu_ly',
+    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id) ON DELETE CASCADE
 );
+
 -- Tạo bảng chi_tiet_don_hang
 CREATE TABLE chi_tiet_don_hang (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -64,16 +63,17 @@ CREATE TABLE chi_tiet_don_hang (
     san_pham_id INT,
     so_luong INT NOT NULL,
     gia_ban INT NOT NULL,
-    FOREIGN KEY (don_hang_id) REFERENCES don_hang(id),
-    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id)
+    FOREIGN KEY (don_hang_id) REFERENCES don_hang(id) ON DELETE CASCADE,
+    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id) ON DELETE CASCADE
 );
+
 -- Tạo bảng san_pham_loai
 CREATE TABLE san_pham_loai (
     san_pham_id INT,
     loai_san_pham_id INT,
     PRIMARY KEY (san_pham_id, loai_san_pham_id),
-    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id),
-    FOREIGN KEY (loai_san_pham_id) REFERENCES loai_san_pham(id)
+    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id) ON DELETE CASCADE,
+    FOREIGN KEY (loai_san_pham_id) REFERENCES loai_san_pham(id) ON DELETE CASCADE
 );
 
 -- Tạo bảng gio_hang
@@ -85,7 +85,6 @@ CREATE TABLE gio_hang (
     FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id) ON DELETE CASCADE,
     FOREIGN KEY (san_pham_id) REFERENCES san_pham(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 
 -- Chèn dữ liệu vào bảng loai_san_pham
