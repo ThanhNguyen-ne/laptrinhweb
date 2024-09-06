@@ -11,7 +11,6 @@
             "store.php" => '<i class="bx bx-store-alt"></i>Cửa hàng',
             "orders.php" => '<i class="bx bx-cart"></i>Đơn hàng',
             "users.php" => '<i class="bx bx-group"></i>Người dùng',
-            "settings.php" => '<i class="bx bx-cog"></i>Cài đặt',
             "/pages/index.php" => '<i class="bx bx-home"></i>Trang chủ',
         ];
 

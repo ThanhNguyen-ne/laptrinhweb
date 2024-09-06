@@ -16,17 +16,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
     }
     if (empty($email)) {
         $errors['email'] = "Vui lòng nhập Email.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } elseif (strpos($email, ' ') !== false) {
         $errors['email'] = "Vui lòng nhập email hợp lệ.";
+    } elseif (strpos($email, '@') === false) {
+        // Nếu thiếu "@"
+        $errors['email'] = "Email phải có ký tự '@'.";
+    } elseif (strpos($email, '.') === false) {
+        // Nếu thiếu "."
+        $errors['email'] = "Email phải có dấu chấm '.'";
     }
+
     if (empty($so_dien_thoai)) {
         $errors['phone'] = "Vui lòng nhập Số Điện Thoại.";
     } elseif (!preg_match('/^\d{10}$/', $so_dien_thoai)) {
         $errors['phone'] = "Vui lòng nhập đúng số điện thoại.";
     }
+
     if (empty($dia_chi)) {
         $errors['address'] = "Vui lòng nhập Địa chỉ.";
     }
+
     if (strlen(trim($_POST['Password'])) < 6) {
         $errors['password'] = "Mật khẩu phải có ít nhất 6 ký tự.";
     }
@@ -77,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
                     <input type="text" id="regFullName" placeholder="Họ và Tên" name="Fullname" />
                     <div id="fullnameError" class="error-message"></div>
                     
-                    <input type="email" id="regEmail" placeholder="Email" name="Email" />
+                    <input type="text" id="regEmail" placeholder="Email" name="Email" />
                     <div id="emailError" class="error-message"></div>
 
                     <input type="text" id="regPhone" placeholder="Số Điện Thoại" name="Phone" />
@@ -102,4 +111,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangki'])) {
     </html>
 <?php
 }
-?>

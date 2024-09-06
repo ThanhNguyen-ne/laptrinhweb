@@ -17,26 +17,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     $error_messages = ["email" => "", "phone" => "", "password" => ""];
     $user = null;
 
+    // Kiểm tra email và số điện thoại
     if (empty($email) && empty($so_dien_thoai)) {
         $error_messages["email"] = "Vui lòng nhập email hoặc số điện thoại.";
     } elseif (!empty($email)) {
-        $query = "SELECT * FROM nguoi_dung WHERE email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("s", $email);
+        if (strpos($email, ' ') !== false) {
+            $error_messages["email"] = "Vui lòng nhập email hợp lệ.";
+        } elseif (strpos($email, '@') === false) {
+            $error_messages["email"] = "Email phải có ký tự '@'.";
+        } elseif (strpos($email, '.') === false) {
+            $error_messages["email"] = "Email phải có dấu chấm '.' sau '@'.";
+        } else {
+            // Truy vấn kiểm tra người dùng với email
+            $query = "SELECT * FROM nguoi_dung WHERE email = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("s", $email);
+        }
     } elseif (!empty($so_dien_thoai)) {
         if (!preg_match('/^\d{10}$/', $so_dien_thoai)) {
             $error_messages["phone"] = "Vui lòng nhập đúng số điện thoại.";
         } else {
+            // Truy vấn kiểm tra người dùng với số điện thoại
             $query = "SELECT * FROM nguoi_dung WHERE so_dien_thoai = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("s", $so_dien_thoai);
         }
     }
 
+    // Kiểm tra mật khẩu
     if (empty($mat_khau)) {
         $error_messages["password"] = "Vui lòng nhập mật khẩu.";
     }
 
+    // Nếu có lỗi, trả về thông báo lỗi
     if (empty($stmt) || array_filter($error_messages)) {
         echo json_encode(["status" => "error", "messages" => $error_messages]);
     } else {
@@ -44,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
+        // Kiểm tra người dùng tồn tại
         if (!$user) {
             if (!empty($email)) {
                 $error_messages["email"] = "Email không tồn tại.";
@@ -51,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 $error_messages["phone"] = "Số điện thoại không tồn tại.";
             }
         } else {
+            // Kiểm tra mật khẩu
             if (password_verify($mat_khau, $user['mat_khau'])) {
                 $is_authenticated = true;
             } elseif ($mat_khau === $user['mat_khau']) {
@@ -65,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 $error_messages["password"] = "Mật khẩu không đúng.";
             }
 
+            // Xác thực thành công
             if ($is_authenticated) {
                 session_regenerate_id(); // Tạo lại session ID để bảo mật
                 $_SESSION['user_id'] = $user['id'];
@@ -83,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
         }
     }
 
+    // Trả về lỗi nếu có
     echo json_encode(["status" => "error", "messages" => $error_messages]);
     exit();
 } else {
@@ -106,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                     <button id="phoneTab" class="tab-button" onclick="switchToPhoneLogin()">Số Điện Thoại</button>
                 </div>
                 <form id="loginForm" class="form" method="post" action="dangnhap.php" onsubmit="login(event)">
-                    <input id="loginEmail" class="input" placeholder="Email" type="email" name="Email" />
+                    <input id="loginEmail" class="input" placeholder="Email" type="text" name="Email" />
                     <input id="loginPhone" class="input" placeholder="Số Điện Thoại" type="text" name="Phone" />
                     <div id="emailError" class="error-message"></div>
                     <div id="phoneError" class="error-message"></div>

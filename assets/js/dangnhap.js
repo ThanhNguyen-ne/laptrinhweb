@@ -88,7 +88,17 @@ function login(event) {
         if (!email) {
             emailError.innerText = "Vui lòng nhập email.";
             hasError = true;
-        } 
+        } else if (email.indexOf('@') === -1) {
+            emailError.innerText = "Email phải có ký tự '@'.";
+            hasError = true;
+        } else if (email.indexOf('.') === -1) {
+            emailError.innerText = "Email phải có dấu chấm '.'";
+            hasError = true;
+        } else if (email.indexOf(' ') !== -1) {
+            // Kiểm tra nếu có khoảng trắng trong email
+            emailError.innerText = "Vui lòng không để khoảng trắng.";
+            hasError = true;
+        }
     } else {
         if (!phone) {
             phoneError.innerText = "Vui lòng nhập số điện thoại.";
@@ -141,6 +151,7 @@ function login(event) {
     xhr.send(formData);
 }
 
+
 function register(event) {
     event.preventDefault();
 
@@ -167,15 +178,32 @@ function register(event) {
 
     let hasError = false;
 
-    // Check each field and update error messages
+    // Kiểm tra họ và tên
     if (!fullname) {
         fullnameError.innerText = "Vui lòng nhập họ và tên.";
         hasError = true;
     }
+
+    // Kiểm tra email
     if (!email) {
         emailError.innerText = "Vui lòng nhập email.";
         hasError = true;
+    } else if (!email.includes('@')) {
+        emailError.innerText = "Email phải có ký tự '@'.";
+        hasError = true;
+    } else if (!email.includes('.')) {
+        emailError.innerText = "Email phải có dấu chấm '.'";
+        hasError = true;
+    } else if (email.indexOf(' ') !== -1) {
+        // Kiểm tra nếu có khoảng trắng trong email
+        emailError.innerText = "Vui lòng không để khoảng trắng.";
+        hasError = true;
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        emailError.innerText = "Vui lòng nhập email hợp lệ.";
+        hasError = true;
     }
+
+    // Kiểm tra số điện thoại
     if (!phone) {
         phoneError.innerText = "Vui lòng nhập số điện thoại.";
         hasError = true;
@@ -183,10 +211,14 @@ function register(event) {
         phoneError.innerText = "Vui lòng nhập đúng số điện thoại.";
         hasError = true;
     }
+
+    // Kiểm tra địa chỉ
     if (!address) {
         addressError.innerText = "Vui lòng nhập địa chỉ.";
         hasError = true;
     }
+
+    // Kiểm tra mật khẩu
     if (!password) {
         passwordError.innerText = "Vui lòng nhập mật khẩu.";
         hasError = true;
@@ -195,9 +227,10 @@ function register(event) {
         hasError = true;
     }
 
-    // If there's any error, stop the form submission
+    // Nếu có lỗi, dừng việc submit
     if (hasError) return;
 
+    // Chuẩn bị dữ liệu form
     let formData = new FormData();
     formData.append("Fullname", fullname);
     formData.append("Email", email);
@@ -206,6 +239,7 @@ function register(event) {
     formData.append("Password", password);
     formData.append("dangki", true);
 
+    // Gửi yêu cầu đăng ký
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "dangki.php", true);
     xhr.onload = function () {
@@ -214,7 +248,6 @@ function register(event) {
             if (response.status === "success") {
                 showNotification("Đăng ký thành công!");
                 closeModal("signupModal");
-
                 showLoginModal();
             } else {
                 regMessage.innerHTML = response.message;
@@ -225,7 +258,6 @@ function register(event) {
     };
     xhr.send(formData);
 }
-
 
 function showNotification(message) {
     const notification = document.createElement("div");
@@ -238,6 +270,7 @@ function showNotification(message) {
         notification.remove();
     }, 5000);
 }
+
 function showQuenPassModal() {
     closeModal("loginModal");
     var modal = document.getElementById("quenPassModal");
@@ -253,6 +286,7 @@ function showQuenPassModal() {
     };
     xhr.send();
 }
+
 function submitQuenPassForm(event) {
     event.preventDefault();
 
@@ -285,7 +319,4 @@ function submitQuenPassForm(event) {
     xhr.send(formData);
 }
 
-// Sử dụng hàm này khi form "Quên mật khẩu" được gửi đi
-document
-    .getElementById("quenPassForm")
-    .addEventListener("submit", submitQuenPassForm);
+document.getElementById("quenPassForm").addEventListener("submit", submitQuenPassForm);

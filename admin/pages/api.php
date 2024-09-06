@@ -2,8 +2,7 @@
 include('db_connect.php');
 
 // Hàm thêm sản phẩm
-function addProduct($conn)
-{
+function addProduct($conn) {
     $stmt = $conn->prepare("INSERT INTO san_pham (ten_san_pham, mo_ta, gia, so_luong_ton, ngay_tao, ngay_cap_nhat) VALUES (?, ?, ?, ?, NOW(), NOW())");
     $stmt->bind_param("ssdi", $_POST['productName'], $_POST['productDescription'], $_POST['productPrice'], $_POST['productQuantity']);
     $stmt->execute();
@@ -33,8 +32,7 @@ function addProduct($conn)
 }
 
 // Hàm cập nhật sản phẩm
-function updateProduct($conn)
-{
+function updateProduct($conn) {
     $stmt = $conn->prepare("UPDATE san_pham SET ten_san_pham=?, mo_ta=?, gia=?, so_luong_ton=?, ngay_cap_nhat=NOW() WHERE id=?");
     $stmt->bind_param("ssdii", $_POST['productName'], $_POST['productDescription'], $_POST['productPrice'], $_POST['productQuantity'], $_POST['productId']);
     $stmt->execute();
@@ -76,16 +74,16 @@ function deleteProduct($conn, $id)
     $stmt->execute();
     $stmt->close();
 
-    return ['success' => true, 'message' => 'Product deleted successfully'];
+    // Trả về thông báo sau khi xóa
+    echo json_encode(['success' => true, 'message' => 'Sản phẩm đã được xóa thành công']);
 }
 
+
 // Hàm lấy danh sách sản phẩm
-function getProducts($conn)
-{
+function getProducts($conn) {
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
     if ($search !== "") {
-        // Sử dụng prepared statement để ngăn ngừa SQL Injection
         $stmt = $conn->prepare("SELECT san_pham.*, loai_san_pham.ten_loai 
                                 FROM san_pham 
                                 JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
@@ -95,7 +93,6 @@ function getProducts($conn)
         $likeSearch = "%" . $search . "%";
         $stmt->bind_param("ss", $likeSearch, $likeSearch);
     } else {
-        // Nếu không có từ khóa tìm kiếm, lấy tất cả sản phẩm
         $stmt = $conn->prepare("SELECT san_pham.*, loai_san_pham.ten_loai 
                                 FROM san_pham 
                                 JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
@@ -116,9 +113,9 @@ function getProducts($conn)
     echo json_encode($products);
 }
 
+
 // Hàm lấy một sản phẩm
-function getProduct($conn, $id)
-{
+function getProduct($conn, $id) {
     $stmt = $conn->prepare("SELECT san_pham.*, san_pham_loai.loai_san_pham_id 
                             FROM san_pham 
                             JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 

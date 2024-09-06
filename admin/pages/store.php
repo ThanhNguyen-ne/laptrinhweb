@@ -93,25 +93,25 @@
                     </div>
                     <div class="input-group">
                         <label for="productName">Tên sản phẩm</label>
-                        <input type="text" id="productName" name="productName" required />
+                        <input type="text" id="productName" name="productName" />
                     </div>
                     <div class="input-group">
                         <label for="productDescription">Mô tả</label>
-                        <textarea id="productDescription" name="productDescription" required></textarea>
+                        <textarea id="productDescription" name="productDescription"></textarea>
                     </div>
                     <div class="input-group">
                         <label for="productType">Loại sản phẩm</label>
-                        <select id="productType" name="productType" required>
+                        <select id="productType" name="productType">
                             <!-- Nội dung loại sản phẩm sẽ được load tại đây -->
                         </select>
                     </div>
                     <div class="input-group">
                         <label for="productPrice">Giá</label>
-                        <input type="number" id="productPrice" name="productPrice" required />
+                        <input type="text" id="productPrice" name="productPrice" oninput="formatPrice(this)" />
                     </div>
                     <div class="input-group">
                         <label for="productQuantity">Số lượng</label>
-                        <input type="number" id="productQuantity" name="productQuantity" required />
+                        <input type="text" id="productQuantity" name="productQuantity" oninput="formatQuantity(this)" />
                     </div>
                     <button type="submit" class="btn submit-btn">Lưu</button>
                 </form>
