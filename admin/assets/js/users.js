@@ -19,6 +19,29 @@ function loadUsers() {
         });
 }
 
+// Hàm chuyển đổi vai trò từ tiếng Việt về định dạng cơ sở dữ liệu
+function reverseTranslateRole(role) {
+    switch (role) {
+        case 'Quản trị viên':
+            return 'admin';
+        case 'Khách hàng':
+            return 'khach_hang';
+        default:
+            return role;
+    }
+}
+
+function translateRole(role) {
+    switch (role) {
+        case 'admin':
+            return 'Quản trị viên';
+        case 'khach_hang':
+            return 'Khách hàng';
+        default:
+            return role;
+    }
+}
+
 // Hàm để render người dùng
 function renderUsers(users) {
     const tbody = document.querySelector(".user-table tbody");
@@ -35,7 +58,7 @@ function renderUsers(users) {
                 <button class="btn show-password-btn" data-id="${user.id}">Hiện</button>
                 <button class="btn hide-password-btn" data-id="${user.id}" style="display:none;">Ẩn</button>
             </td>
-            <td>${user.vai_tro}</td>
+            <td>${translateRole(user.vai_tro)}</td>
             <td class="actions">
                 <button class="btn edit-btn" data-id="${user.id}">Sửa</button>
                 <button class="btn delete-btn" data-id="${user.id}">Xóa</button>
@@ -111,10 +134,13 @@ closeModal.forEach((btn) => {
         pinModal.style.display = "none";
     });
 });
-
 userForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(userForm);
+
+    // Chuyển vai trò thành dạng lưu trữ trong cơ sở dữ liệu
+    const role = document.getElementById("userRole").value;
+    formData.set("userRole", reverseTranslateRole(role)); // Đổi vai trò thành giá trị nguyên bản (admin, khach_hang)
 
     let actionUrl = "api.php?action=add_user";
     if (editMode) {
@@ -143,7 +169,7 @@ function handleEdit(e) {
             document.getElementById("userPhone").value = data.so_dien_thoai;
             document.getElementById("userEmail").value = data.email;
             document.getElementById("userAddress").value = data.dia_chi;
-            document.getElementById("userRole").value = data.vai_tro;
+            document.getElementById("userRole").value = translateRole(data.vai_tro); // Dịch vai trò ra tiếng Việt
 
             userModal.style.display = "block";
             editMode = true;

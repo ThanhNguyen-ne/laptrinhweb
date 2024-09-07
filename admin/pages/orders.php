@@ -36,6 +36,12 @@
                 <div class="left">
                     <h1>ĐƠN HÀNG</h1>
                 </div>
+                <div class="notifications">
+                    <h2>Thông báo</h2>
+                    <ul id="notificationList">
+                        <!-- Thông báo sẽ được hiển thị ở đây -->
+                    </ul>
+                </div>
             </div>
 
             <div class="order-table">

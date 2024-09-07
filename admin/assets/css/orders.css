@@ -64,13 +64,13 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
+    text-align: center;
 }
 
 #orderDetails table th,
 #orderDetails table td {
     padding: 10px;
     border: 1px solid #ddd;
-    text-align: left;
 }
 
 #orderDetails table td img {
@@ -79,7 +79,6 @@
     object-fit: cover;
     border-radius: 4px;
 }
-
 
 .order-table {
     margin-top: 24px;
@@ -153,6 +152,32 @@
 
 .order-table table .actions .details-btn:hover {
     background: #1565C0;
+}
+
+.notifications {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.notifications h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.notifications ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.notifications ul li {
+    background: #e0f7fa;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 4px;
+    color: #006064;
 }
 
 @keyframes fadeIn {

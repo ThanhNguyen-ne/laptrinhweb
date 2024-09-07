@@ -2,14 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const orderModal = document.getElementById("orderModal");
     const closeModal = document.querySelector(".close");
     const orderDetails = document.getElementById("orderDetails");
+    const notificationList = document.getElementById("notificationList");
 
     orderModal.style.display = "none";
+
+    let lastOrderId = 0;
 
     function loadOrders(searchQuery = "") {
         fetch(`api.php?action=get_orders&search=${encodeURIComponent(searchQuery)}`)
             .then((response) => response.json())
             .then((data) => {
                 renderOrders(data);
+                checkForNewOrders(data);
             });
     }
 
@@ -34,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <option value="dang_xu_ly" ${order.trang_thai === "dang_xu_ly" ? "selected" : ""}>Đang xử lý</option>
                         <option value="hoan_thanh" ${order.trang_thai === "hoan_thanh" ? "selected" : ""}>Hoàn thành</option>
                         <option value="da_huy" ${order.trang_thai === "da_huy" ? "selected" : ""}>Đã hủy</option>
+                        <option value="da_thanh_toan" ${order.trang_thai === "da_thanh_toan" ? "selected" : ""}>Đã thanh toán</option>
                     </select>
                 </td>
                 <td class="actions">
@@ -68,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 console.log(data);
                 loadOrders();
+                addNotification(`Đơn hàng ${orderId} đã được cập nhật trạng thái thành "${convertStatus(orderStatus)}".`);
             });
     }
 
@@ -76,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
             'cho_xu_ly': 'Chờ xử lý',
             'dang_xu_ly': 'Đang xử lý',
             'hoan_thanh': 'Hoàn thành',
-            'da_huy': 'Đã Hủy'
+            'da_huy': 'Đã Hủy',
+            'da_thanh_toan': 'Đã thanh toán'
         };
     
         return statusMap[status] || status;
@@ -90,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((response) => response.json())
             .then((order) => {
                 if (order) {
-                    let productsHtml = '<table><tr><th>Sản phẩm</th><th>Số lượng</th><th>Giá</th><th>Hình ảnh</th></tr>';
+                    let productsHtml = '<table><tr><th>Hình ảnh</th><th>Sản phẩm</th><th>Số lượng</th><th>Giá</th></tr>';
                     order.products.forEach(product => {
                         productsHtml += `
                             <tr>
@@ -124,8 +131,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Có lỗi xảy ra khi tải chi tiết đơn hàng.");
             });
     }
-    
-    
+
+    function addNotification(message) {
+        const li = document.createElement("li");
+        li.textContent = message;
+        notificationList.prepend(li);
+    }
+
+    function checkForNewOrders(orders) {
+        if (orders.length > 0) {
+            const latestOrder = orders[0];
+            if (latestOrder.id > lastOrderId) {
+                lastOrderId = latestOrder.id;
+                addNotification(`Đơn hàng mới: Mã ${latestOrder.id} từ khách hàng ${latestOrder.ho_ten}.`);
+            }
+        }
+    }
+
+    // Polling every 30 seconds to check for new orders
+    setInterval(() => {
+        loadOrders();
+    }, 30000);
 
     closeModal.addEventListener("click", () => {
         orderModal.style.display = "none";
