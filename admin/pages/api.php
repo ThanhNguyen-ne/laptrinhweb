@@ -237,19 +237,17 @@ function getOrders($conn)
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
     if ($search !== "") {
-        // Nếu có từ khóa tìm kiếm, tìm theo ID đơn hàng
         $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
                                 FROM don_hang 
                                 JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
                                 WHERE don_hang.id = ? 
-                                ORDER BY don_hang.ngay_dat DESC");
+                                ORDER BY don_hang.ngay_dat DESC");  // Sắp xếp theo ngày đặt từ mới đến cũ
         $stmt->bind_param("i", $search);
     } else {
-        // Nếu không có từ khóa tìm kiếm, lấy tất cả đơn hàng
         $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
                                 FROM don_hang 
                                 JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
-                                ORDER BY don_hang.ngay_dat DESC");
+                                ORDER BY don_hang.ngay_dat DESC");  // Sắp xếp theo ngày đặt từ mới đến cũ
     }
 
     $stmt->execute();
@@ -267,7 +265,7 @@ function getOrders($conn)
 
 function getOrderDetails($conn, $orderId)
 {
-    $stmt = $conn->prepare("SELECT don_hang.id, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai, nguoi_dung.ho_ten, nguoi_dung.email, nguoi_dung.so_dien_thoai, nguoi_dung.dia_chi
+    $stmt = $conn->prepare("SELECT don_hang.id, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai, don_hang.ly_do_huy, nguoi_dung.ho_ten, nguoi_dung.email, nguoi_dung.so_dien_thoai, nguoi_dung.dia_chi
                             FROM don_hang 
                             JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
                             WHERE don_hang.id = ?");
@@ -305,13 +303,14 @@ function getOrderDetails($conn, $orderId)
 // Hàm cập nhật trạng thái đơn hàng
 function updateOrderStatus($conn)
 {
-    $stmt = $conn->prepare("UPDATE don_hang SET trang_thai = ? WHERE id = ?");
-    $stmt->bind_param("si", $_POST['orderStatus'], $_POST['orderId']);
+    $stmt = $conn->prepare("UPDATE don_hang SET trang_thai = ?, ly_do_huy = ? WHERE id = ?");
+    $stmt->bind_param("ssi", $_POST['orderStatus'], $_POST['cancelReason'], $_POST['orderId']);
     $stmt->execute();
     $stmt->close();
 
     echo "Trạng thái đơn hàng đã được cập nhật thành công.";
 }
+
 
 // Hàm xóa đơn hàng
 function deleteOrder($conn, $id)
@@ -457,7 +456,23 @@ function verifyPin($conn)
 // Xử lý yêu cầu AJAX
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
+    if ($action === 'update_order_status' && isset($_POST['orderId'], $_POST['orderStatus'], $_POST['cancelReason'])) {
+        $orderId = $_POST['orderId'];
+        $orderStatus = $_POST['orderStatus'];
+        $cancelReason = $_POST['cancelReason'];
 
+        // Cập nhật trạng thái và lý do hủy
+        $stmt = $conn->prepare("UPDATE don_hang SET trang_thai = ?, ly_do_huy = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $orderStatus, $cancelReason, $orderId);
+        
+        if ($stmt->execute()) {
+            echo "Đơn hàng đã được hủy thành công.";
+        } else {
+            echo "Có lỗi xảy ra.";
+        }
+        $stmt->close();
+    }
+    
     switch ($action) {
         case 'get_products':
             getProducts($conn);
@@ -543,6 +558,8 @@ if (isset($_GET['action'])) {
             echo "Hành động không hợp lệ.";
             break;
     }
+
+    
 }
 
 $conn->close();

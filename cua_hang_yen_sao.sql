@@ -50,9 +50,10 @@ CREATE TABLE phan_hoi (
 CREATE TABLE don_hang (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nguoi_dung_id INT,
-    tong_tien DECIMAL(10, 2),
+    tong_tien INT,
     ngay_dat DATETIME DEFAULT CURRENT_TIMESTAMP,
     trang_thai ENUM('cho_xu_ly', 'dang_xu_ly', 'hoan_thanh', 'da_huy') DEFAULT 'cho_xu_ly',
+    ly_do_huy TEXT,
     FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id) ON DELETE CASCADE
 );
 

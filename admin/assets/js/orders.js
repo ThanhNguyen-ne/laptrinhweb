@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
             'cho_xu_ly': 'Chờ xử lý',
             'dang_xu_ly': 'Đang xử lý',
             'hoan_thanh': 'Hoàn thành',
-            'da_huy': 'Đã Hủy',
+            'da_huy': 'Đã hủy',
             'da_thanh_toan': 'Đã thanh toán'
         };
     
@@ -109,6 +109,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                     productsHtml += '</table>';
     
+                    let cancelReasonHtml = '';
+                    if (order.trang_thai === 'da_huy' && order.ly_do_huy) {
+                        cancelReasonHtml = `<p><strong>Lý do hủy:</strong> ${order.ly_do_huy}</p>`;
+                    }
+    
                     orderDetails.innerHTML = `
                         <p><strong>Mã đơn hàng:</strong> ${order.id}</p>
                         <p><strong>Khách hàng:</strong> ${order.ho_ten}</p>
@@ -118,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p><strong>Ngày đặt:</strong> ${new Date(order.ngay_dat).toLocaleString('vi-VN')}</p>
                         <p><strong>Tổng tiền:</strong> ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.tong_tien)}</p>
                         <p><strong>Trạng thái:</strong> ${convertStatus(order.trang_thai)}</p>
+                        ${cancelReasonHtml}
                         <hr />
                         ${productsHtml}
                     `;
