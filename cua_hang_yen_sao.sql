@@ -30,7 +30,7 @@ CREATE TABLE nguoi_dung (
     mat_khau VARCHAR(255) NOT NULL,
     so_dien_thoai VARCHAR(20),
     dia_chi TEXT,
-    vai_tro ENUM('admin', 'khach_hang') DEFAULT 'khach_hang',
+    vai_tro ENUM('admin', 'khach_hang', 'nhan_vien') DEFAULT 'khach_hang', 
     ngay_dang_ky DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

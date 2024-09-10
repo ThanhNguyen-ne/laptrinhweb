@@ -17,7 +17,7 @@ $sql_orders = "
     JOIN san_pham sp ON ctdh.san_pham_id = sp.id
     WHERE dh.nguoi_dung_id = ?
     GROUP BY dh.id
-    ORDER BY dh.ngay_dat DESC";  // Thêm ORDER BY để sắp xếp theo ngày đặt
+    ORDER BY dh.ngay_dat DESC";  
 $stmt_orders = $conn->prepare($sql_orders);
 $stmt_orders->bind_param("i", $user_id);
 $stmt_orders->execute();
@@ -87,7 +87,8 @@ $result_orders = $stmt_orders->get_result();
                         <td>
                             <?php if ($order['trang_thai'] === 'da_huy') { ?>
                                 <p>Lý do hủy: <?php echo htmlspecialchars($order['ly_do_huy']); ?></p>
-                            <?php } else { ?>
+                            <?php } elseif ($order['trang_thai'] !== 'hoan_thanh') { ?>
+                                <!-- Ẩn nút hủy nếu trạng thái đơn hàng là "hoàn thành" -->
                                 <button class="btn-cancel" onclick="openCancelModal(<?php echo $order['id']; ?>)">Hủy</button>
                             <?php } ?>
                         </td>

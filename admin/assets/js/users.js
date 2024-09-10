@@ -23,6 +23,8 @@ function reverseTranslateRole(role) {
             return "admin";
         case "Khách hàng":
             return "khach_hang";
+        case "Nhân viên":
+            return "nhan_vien";
         default:
             return role;
     }
@@ -34,6 +36,8 @@ function translateRole(role) {
             return "Quản trị viên";
         case "khach_hang":
             return "Khách hàng";
+        case "nhan_vien":
+            return "Nhân viên";
         default:
             return role;
     }
@@ -51,11 +55,11 @@ function renderUsers(users) {
             <td>${user.email}</td>
             <td>${user.so_dien_thoai || "Không có"}</td>
             <td>${translateRole(user.vai_tro)}</td>
-<td class="actions">
-    <button class="btn edit-btn" data-id="${user.id}" >
-        <i class="bx bx-pencil"></i>
-    </button>
-</td>
+            <td class="actions">
+                <button class="btn edit-btn" data-id="${user.id}" >
+                    <i class="bx bx-pencil"></i>
+                </button>
+            </td>
 
         `;
         tbody.appendChild(tr);

@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const orderModal = document.getElementById("orderModal");
-    const closeModal = document.querySelector(".close");
+    const closeModalBtn = document.querySelectorAll(".close");
     const orderDetails = document.getElementById("orderDetails");
     const notificationList = document.getElementById("notificationList");
 
+    const cancelModal = document.getElementById("cancelModal");
+    let orderToCancel = null;
+
     orderModal.style.display = "none";
+    cancelModal.style.display = "none";
 
     let lastOrderId = 0;
 
@@ -22,85 +26,46 @@ document.addEventListener("DOMContentLoaded", function () {
         tbody.innerHTML = "";
         orders.forEach((order) => {
             const formattedTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.tong_tien);
-
+    
             const date = new Date(order.ngay_dat);
             const formattedDate = `${date.toLocaleTimeString('vi-VN')} ${date.toLocaleDateString('vi-VN')}`;
-
+    
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.ho_ten}</td>
                 <td>${formattedTotal}</td>
                 <td>${formattedDate}</td>
-                <td>
-                    <select class="order-status" data-id="${order.id}">
-                        <option value="cho_xu_ly" ${order.trang_thai === "cho_xu_ly" ? "selected" : ""}>Chờ xử lý</option>
-                        <option value="dang_xu_ly" ${order.trang_thai === "dang_xu_ly" ? "selected" : ""}>Đang xử lý</option>
-                        <option value="hoan_thanh" ${order.trang_thai === "hoan_thanh" ? "selected" : ""}>Hoàn thành</option>
-                        <option value="da_huy" ${order.trang_thai === "da_huy" ? "selected" : ""}>Đã hủy</option>
-                        <option value="da_thanh_toan" ${order.trang_thai === "da_thanh_toan" ? "selected" : ""}>Đã thanh toán</option>
-                    </select>
-                </td>
+                <td>${order.dia_chi || "N/A"}</td>
                 <td class="actions">
                     <button class="btn details-btn" data-id="${order.id}">Chi tiết</button>
+                    ${
+                        order.trang_thai === 'hoan_thanh' 
+                        ? `<button class="btn complete-btn" disabled>Đã hoàn thành</button>`
+                        : `<button class="btn complete-btn" data-id="${order.id}">Hoàn thành</button>`
+                    }
+                    ${order.trang_thai !== 'hoan_thanh' ? `<button class="btn cancel-btn" data-id="${order.id}">Hủy</button>` : ''}
                 </td>
             `;
             tbody.appendChild(tr);
         });
-
+    
         document.querySelectorAll(".details-btn").forEach((btn) => {
             btn.addEventListener("click", handleDetails);
         });
-
-        document.querySelectorAll(".order-status").forEach((select) => {
-            select.addEventListener("change", handleChangeStatus);
+    
+        document.querySelectorAll(".complete-btn").forEach((btn) => {
+            btn.addEventListener("click", handleComplete);
+        });
+    
+        document.querySelectorAll(".cancel-btn").forEach((btn) => {
+            btn.addEventListener("click", openCancelModal);
         });
     }
 
-    function handleChangeStatus(e) {
-        const orderId = e.target.dataset.id;
-        const orderStatus = e.target.value;
-
-        const formData = new FormData();
-        formData.append("orderId", orderId);
-        formData.append("orderStatus", orderStatus);
-
-        fetch("api.php?action=update_order_status", {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => response.text())
-            .then((data) => {
-                console.log(data);
-                loadOrders();
-                let message = `Đơn hàng ${orderId} đã được cập nhật trạng thái thành "${convertStatus(orderStatus)}".`;
-
-                if (orderStatus === "hoan_thanh") {
-                    message = `Đơn hàng ${orderId} đã giao hàng thành công.`;
-                } else if (orderStatus === "da_huy") {
-                    message = `Đơn hàng ${orderId} đã bị hủy.`;
-                }
-
-                addNotification(message);
-            });
-    }
-
-    function convertStatus(status) {
-        const statusMap = {
-            'cho_xu_ly': 'Chờ xử lý',
-            'dang_xu_ly': 'Đang xử lý',
-            'hoan_thanh': 'Hoàn thành',
-            'da_huy': 'Đã hủy',
-            'da_thanh_toan': 'Đã thanh toán'
-        };
-    
-        return statusMap[status] || status;
-    }
-    
     function handleDetails(e) {
         const orderId = e.target.dataset.id;
-    
-        // Gọi API để lấy chi tiết đơn hàng
+
         fetch(`api.php?action=get_order_details&id=${orderId}`)
             .then((response) => response.json())
             .then((order) => {
@@ -116,12 +81,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             </tr>`;
                     });
                     productsHtml += '</table>';
-    
+
                     let cancelReasonHtml = '';
                     if (order.trang_thai === 'da_huy' && order.ly_do_huy) {
                         cancelReasonHtml = `<p><strong>Lý do hủy:</strong> ${order.ly_do_huy}</p>`;
                     }
-    
+
                     orderDetails.innerHTML = `
                         <p><strong>Mã đơn hàng:</strong> ${order.id}</p>
                         <p><strong>Khách hàng:</strong> ${order.ho_ten}</p>
@@ -146,10 +111,79 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    function addNotification(message) {
-        const li = document.createElement("li");
-        li.textContent = message;
-        notificationList.prepend(li);
+    function handleComplete(e) {
+        const orderId = e.target.dataset.id;
+    
+        fetch(`api.php?action=update_order_status`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `orderId=${orderId}&orderStatus=hoan_thanh`,
+        })
+        .then((response) => response.text())
+        .then(() => {
+            // Chuyển đổi nút hoàn thành thành "Đã hoàn thành"
+            const completeButton = e.target;
+            completeButton.textContent = "Đã hoàn thành";
+            completeButton.disabled = true;
+    
+            // Loại bỏ nút hủy
+            const cancelButton = completeButton.nextElementSibling;
+            if (cancelButton && cancelButton.classList.contains("cancel-btn")) {
+                cancelButton.remove();
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.");
+        });
+    }
+    
+
+    function openCancelModal(e) {
+        orderToCancel = e.target.dataset.id;
+        cancelModal.style.display = "block";
+    }
+
+    function confirmCancel() {
+        const reasonInput = document.querySelector('input[name="cancelReason"]:checked');
+        const reason = reasonInput.value === 'Khác' ? document.getElementById('customCancelReason').value : reasonInput.value;
+
+        if (reason.trim() === '') {
+            alert("Vui lòng nhập lý do hủy đơn hàng.");
+            return;
+        }
+
+        fetch(`api.php?action=update_order_status`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `orderId=${orderToCancel}&orderStatus=da_huy&cancelReason=${encodeURIComponent(reason)}`,
+        })
+            .then((response) => response.text())
+            .then((message) => {
+                alert(message);
+                loadOrders();
+                cancelModal.style.display = "none";
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Có lỗi xảy ra khi hủy đơn hàng.");
+            });
+    }
+
+    function convertStatus(status) {
+        const statusMap = {
+            'cho_xu_ly': 'Chờ xử lý',
+            'dang_xu_ly': 'Đang xử lý',
+            'hoan_thanh': 'Hoàn thành',
+            'da_huy': 'Đã hủy',
+            'da_thanh_toan': 'Đã thanh toán'
+        };
+    
+        return statusMap[status] || status;
     }
 
     function checkForNewOrders(orders) {
@@ -162,18 +196,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Polling every 30 seconds to check for new orders
+    function addNotification(message) {
+        const li = document.createElement("li");
+        li.textContent = message;
+        notificationList.prepend(li);
+    }
+
     setInterval(() => {
         loadOrders();
     }, 30000);
 
-    closeModal.addEventListener("click", () => {
-        orderModal.style.display = "none";
+    closeModalBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            orderModal.style.display = "none";
+            cancelModal.style.display = "none";
+        });
     });
 
     window.addEventListener("click", (e) => {
-        if (e.target == orderModal) {
+        if (e.target == orderModal || e.target == cancelModal) {
             orderModal.style.display = "none";
+            cancelModal.style.display = "none";
         }
     });
 

@@ -84,6 +84,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                     echo json_encode(["status" => "success", "redirect" => "../admin/pages/store.php"]);
                 } elseif ($user['vai_tro'] == 'khach_hang') {
                     echo json_encode(["status" => "success", "redirect" => $current_page]);
+                } elseif ($user['vai_tro'] == 'nhan_vien') {
+                    // Chuyển hướng sang trang delivery.php cho nhân viên
+                    echo json_encode(["status" => "success", "redirect" => "../admin/pages/delivery.php"]);
                 } else {
                     echo json_encode(["status" => "error", "message" => "Vai trò người dùng không xác định."]);
                 }
@@ -138,3 +141,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
     </html>
 <?php
 }
+?>

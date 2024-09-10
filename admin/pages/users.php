@@ -108,6 +108,7 @@
                         <select id="userRole" name="userRole">
                             <option value="Admin">Quản trị viên</option>
                             <option value="khach_hang">Khách hàng</option>
+                            <option value="nhan_vien">Nhân viên</option>
                         </select>
                         <div id="roleError" class="error-message"></div>
                     </div>

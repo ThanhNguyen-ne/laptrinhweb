@@ -189,18 +189,6 @@ function updateUser($conn)
     echo "Người dùng đã được cập nhật thành công.";
 }
 
-
-// Hàm xóa người dùng
-function deleteUser($conn, $id)
-{
-    $stmt = $conn->prepare("DELETE FROM nguoi_dung WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "Người dùng đã được xóa thành công.";
-}
-
 function getUsers($conn)
 {
     $search = isset($_GET['search']) ? '%' . $_GET['search'] . '%' : '%';
@@ -236,14 +224,14 @@ function getOrders($conn)
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
     if ($search !== "") {
-        $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
+        $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, nguoi_dung.dia_chi, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
                                 FROM don_hang 
                                 JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
                                 WHERE don_hang.id = ? 
                                 ORDER BY don_hang.ngay_dat DESC");  // Sắp xếp theo ngày đặt từ mới đến cũ
         $stmt->bind_param("i", $search);
     } else {
-        $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
+        $stmt = $conn->prepare("SELECT don_hang.id, nguoi_dung.ho_ten, nguoi_dung.dia_chi, don_hang.tong_tien, don_hang.ngay_dat, don_hang.trang_thai 
                                 FROM don_hang 
                                 JOIN nguoi_dung ON don_hang.nguoi_dung_id = nguoi_dung.id
                                 ORDER BY don_hang.ngay_dat DESC");  // Sắp xếp theo ngày đặt từ mới đến cũ
@@ -261,6 +249,7 @@ function getOrders($conn)
 
     echo json_encode($orders);
 }
+
 
 function getOrderDetails($conn, $orderId)
 {
@@ -413,11 +402,6 @@ if (isset($_GET['action'])) {
             break;
         case 'update_user':
             updateUser($conn);
-            break;
-        case 'delete_user':
-            if (isset($_GET['id'])) {
-                deleteUser($conn, $_GET['id']);
-            }
             break;
         case 'get_orders':
             getOrders($conn);
