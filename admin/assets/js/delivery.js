@@ -4,11 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const orderDetails = document.getElementById("orderDetails");
     const notificationList = document.getElementById("notificationList");
 
-    const cancelModal = document.getElementById("cancelModal");
-    let orderToCancel = null;
-
     orderModal.style.display = "none";
-    cancelModal.style.display = "none";
 
     let lastOrderId = 0;
 
@@ -42,9 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     ${
                         order.trang_thai === 'hoan_thanh' 
                         ? `<button class="btn complete-btn" disabled>Đã hoàn thành</button>`
-                        : `<button class="btn complete-btn" data-id="${order.id}">Hoàn thành</button>`
+                        : (order.trang_thai === 'da_huy'
+                        ? `<button class="btn cancel-btn" disabled>Đã hủy</button>`
+                        : `<button class="btn complete-btn" data-id="${order.id}">Hoàn thành</button>`)
                     }
-                    ${order.trang_thai !== 'hoan_thanh' ? `<button class="btn cancel-btn" data-id="${order.id}">Hủy</button>` : ''}
                 </td>
             `;
             tbody.appendChild(tr);
@@ -56,10 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
         document.querySelectorAll(".complete-btn").forEach((btn) => {
             btn.addEventListener("click", handleComplete);
-        });
-    
-        document.querySelectorAll(".cancel-btn").forEach((btn) => {
-            btn.addEventListener("click", openCancelModal);
         });
     }
 
@@ -127,51 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const completeButton = e.target;
             completeButton.textContent = "Đã hoàn thành";
             completeButton.disabled = true;
-    
-            // Loại bỏ nút hủy
-            const cancelButton = completeButton.nextElementSibling;
-            if (cancelButton && cancelButton.classList.contains("cancel-btn")) {
-                cancelButton.remove();
-            }
         })
         .catch((error) => {
             console.error("Error:", error);
             alert("Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.");
         });
-    }
-    
-
-    function openCancelModal(e) {
-        orderToCancel = e.target.dataset.id;
-        cancelModal.style.display = "block";
-    }
-
-    function confirmCancel() {
-        const reasonInput = document.querySelector('input[name="cancelReason"]:checked');
-        const reason = reasonInput.value === 'Khác' ? document.getElementById('customCancelReason').value : reasonInput.value;
-
-        if (reason.trim() === '') {
-            alert("Vui lòng nhập lý do hủy đơn hàng.");
-            return;
-        }
-
-        fetch(`api.php?action=update_order_status`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: `orderId=${orderToCancel}&orderStatus=da_huy&cancelReason=${encodeURIComponent(reason)}`,
-        })
-            .then((response) => response.text())
-            .then((message) => {
-                alert(message);
-                loadOrders();
-                cancelModal.style.display = "none";
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                alert("Có lỗi xảy ra khi hủy đơn hàng.");
-            });
     }
 
     function convertStatus(status) {
@@ -209,14 +162,12 @@ document.addEventListener("DOMContentLoaded", function () {
     closeModalBtn.forEach((btn) => {
         btn.addEventListener("click", () => {
             orderModal.style.display = "none";
-            cancelModal.style.display = "none";
         });
     });
 
     window.addEventListener("click", (e) => {
-        if (e.target == orderModal || e.target == cancelModal) {
+        if (e.target == orderModal) {
             orderModal.style.display = "none";
-            cancelModal.style.display = "none";
         }
     });
 

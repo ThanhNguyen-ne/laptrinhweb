@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
-@import url("orders.css"); /* Import the common styles */
+@import url("orders.css"); 
 
-/* Modal Styling */
 /* Modal Styling */
 .modal {
     display: none;
@@ -14,7 +13,7 @@
     background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
-    display: flex;  /* Sử dụng flexbox để căn giữa nội dung */
+    display: flex;
 }
 
 .modal-content {
@@ -25,10 +24,7 @@
     max-width: 600px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease-in-out;
-    /* Không cần position hay transform, do flexbox đã căn giữa */
 }
-
-
 
 .close {
     color: #ef233c;
@@ -102,35 +98,12 @@
 
 .cancel-btn {
     background-color: #dc3545;
+    cursor: not-allowed;
 }
 
-/* Modal for cancel order */
-.cancel-content {
-    background-color: #fff3cd;
-}
-
-.cancel-content h2 {
-    color: #000;
-}
-
-.cancel-reasons {
-    margin-top: 15px;
-}
-
-.cancel-reasons label {
-    font-size: 16px;
-    margin-bottom: 10px;
-    display: block;
-    cursor: pointer;
-}
-
-#customCancelReason {
-    display: none;
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.complete-btn[disabled] {
+    background-color: #28a745;
+    cursor: not-allowed;
 }
 
 @keyframes fadeIn {
@@ -142,8 +115,4 @@
         opacity: 1;
         transform: scale(1);
     }
-}
-.complete-btn[disabled] {
-    background-color: #6c757d;
-    cursor: not-allowed;
 }

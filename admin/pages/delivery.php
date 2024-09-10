@@ -72,24 +72,6 @@
         </div>
     </div>
 
-    <!-- Modal Hủy đơn hàng -->
-    <div class="modal" id="cancelModal">
-        <div class="modal-content cancel-content">
-            <span class="close" onclick="closeModal('cancelModal')">&times;</span>
-            <h2>Hủy đơn hàng</h2>
-            <p>Vui lòng chọn lý do hủy đơn hàng:</p>
-            <div class="cancel-reasons">
-                <label><input type="radio" name="cancelReason" value="Không muốn mua nữa"> Không muốn mua nữa</label><br>
-                <label><input type="radio" name="cancelReason" value="Thời gian giao hàng quá lâu"> Thời gian giao hàng quá lâu</label><br>
-                <label><input type="radio" name="cancelReason" value="Tìm thấy giá rẻ hơn ở nơi khác"> Tìm thấy giá rẻ hơn ở nơi khác</label><br>
-                <label><input type="radio" name="cancelReason" value="Sản phẩm không còn cần thiết"> Sản phẩm không còn cần thiết</label><br>
-                <label><input type="radio" name="cancelReason" value="Khác"> Khác</label>
-                <textarea id="customCancelReason" rows="4" placeholder="Nhập lý do khác..."></textarea>
-            </div>
-            <button class="btn-confirm" onclick="confirmCancel()">Xác nhận hủy</button>
-        </div>
-    </div>
-
     <script src="../assets/js/delivery.js"></script>
 </body>
 
