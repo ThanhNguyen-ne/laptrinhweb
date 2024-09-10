@@ -109,6 +109,10 @@ VALUES (
     (
         'Thực phẩm Sanest Food',
         'Các sản phẩm thực phẩm chế biến từ yến sào và hạt điều.'
+    ),
+    (
+        'Khác',
+        'Khác.'
     );
 -- Chèn dữ liệu vào bảng san_pham
 INSERT INTO san_pham (
