@@ -680,11 +680,11 @@ VALUES (
         '$2y$10$4S..GDXTd5Q4TlVTY4A/Ie35HGw.0jFB0R/iGl/beYwcCncB0G7Ty',
         '0123456789',
         '70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh',
-        'khach_hang'
+        'nhan_vien'
     ),
     (
         'Nguyễn Võ Thành',
-        'thanh@gmail.com',
+        'nguyenvothanh2004@gmail.com',
         '$2y$10$4S..GDXTd5Q4TlVTY4A/Ie35HGw.0jFB0R/iGl/beYwcCncB0G7Ty',
         '0987654321',
         '70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh',
@@ -698,3 +698,10 @@ VALUES (
         '',
         'admin'
     );
+
+
+-- Thêm cột `deletable` vào bảng `san_pham` để xác định xem sản phẩm có thể xóa được hay không
+ALTER TABLE san_pham ADD COLUMN deletable TINYINT(1) DEFAULT 0;
+
+-- Cập nhật các sản phẩm đã có sẵn để `deletable` là 0
+UPDATE san_pham SET deletable = 0;

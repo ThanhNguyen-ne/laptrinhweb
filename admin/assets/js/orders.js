@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const date = new Date(order.ngay_dat);
             const formattedDate = `${date.toLocaleTimeString('vi-VN')} ${date.toLocaleDateString('vi-VN')}`;
 
+            const isCompleted = order.trang_thai === "hoan_thanh";
+            const disabled = isCompleted ? "disabled" : "";
+
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${order.id}</td>
@@ -33,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${formattedTotal}</td>
                 <td>${formattedDate}</td>
                 <td>
-                    <select class="order-status" data-id="${order.id}">
+                    <select class="order-status" data-id="${order.id}" ${disabled}>
                         <option value="cho_xu_ly" ${order.trang_thai === "cho_xu_ly" ? "selected" : ""}>Chờ xử lý</option>
                         <option value="dang_xu_ly" ${order.trang_thai === "dang_xu_ly" ? "selected" : ""}>Đang xử lý</option>
                         <option value="hoan_thanh" ${order.trang_thai === "hoan_thanh" ? "selected" : ""}>Hoàn thành</option>
@@ -100,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleDetails(e) {
         const orderId = e.target.dataset.id;
     
-        // Gọi API để lấy chi tiết đơn hàng
         fetch(`api.php?action=get_order_details&id=${orderId}`)
             .then((response) => response.json())
             .then((order) => {
@@ -162,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Polling every 30 seconds to check for new orders
     setInterval(() => {
         loadOrders();
     }, 30000);

@@ -2,8 +2,10 @@
 include('db_connect.php');
 
 // Hàm thêm sản phẩm
-function addProduct($conn) {
-    $stmt = $conn->prepare("INSERT INTO san_pham (ten_san_pham, mo_ta, gia, so_luong_ton, ngay_tao, ngay_cap_nhat) VALUES (?, ?, ?, ?, NOW(), NOW())");
+function addProduct($conn)
+{
+    // Đặt `deletable` là 1 cho các sản phẩm mới
+    $stmt = $conn->prepare("INSERT INTO san_pham (ten_san_pham, mo_ta, gia, so_luong_ton, ngay_tao, ngay_cap_nhat, deletable) VALUES (?, ?, ?, ?, NOW(), NOW(), 1)");
     $stmt->bind_param("ssdi", $_POST['productName'], $_POST['productDescription'], $_POST['productPrice'], $_POST['productQuantity']);
     $stmt->execute();
     $product_id = $stmt->insert_id;
@@ -32,7 +34,8 @@ function addProduct($conn) {
 }
 
 // Hàm cập nhật sản phẩm
-function updateProduct($conn) {
+function updateProduct($conn)
+{
     $stmt = $conn->prepare("UPDATE san_pham SET ten_san_pham=?, mo_ta=?, gia=?, so_luong_ton=?, ngay_cap_nhat=NOW() WHERE id=?");
     $stmt->bind_param("ssdii", $_POST['productName'], $_POST['productDescription'], $_POST['productPrice'], $_POST['productQuantity'], $_POST['productId']);
     $stmt->execute();
@@ -59,28 +62,47 @@ function updateProduct($conn) {
     echo "Sản phẩm đã được cập nhật thành công.";
 }
 
-// Hàm xóa sản phẩm
-function deleteProduct($conn, $id)
-{
-    // Xóa loại sản phẩm liên quan
-    $stmt = $conn->prepare("DELETE FROM san_pham_loai WHERE san_pham_id = ?");
+function deleteProduct($conn, $id) {
+    // Khởi tạo giá trị cho biến $deletable
+    $deletable = 0;
+
+    // Kiểm tra nếu sản phẩm có thể xóa được
+    $stmt = $conn->prepare("SELECT deletable FROM san_pham WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
+    
+    // Store result before binding
+    $stmt->store_result();
+    $stmt->bind_result($deletable);
+    $stmt->fetch();
     $stmt->close();
 
-    // Sau đó, mới xóa sản phẩm
-    $stmt = $conn->prepare("DELETE FROM san_pham WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
+    // Kiểm tra giá trị của $deletable
+    if ($deletable == 1) {
+        // Xóa loại sản phẩm liên quan
+        $stmt = $conn->prepare("DELETE FROM san_pham_loai WHERE san_pham_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
 
-    // Trả về thông báo sau khi xóa
-    echo json_encode(['success' => true, 'message' => 'Sản phẩm đã được xóa thành công']);
+        // Sau đó, mới xóa sản phẩm
+        $stmt = $conn->prepare("DELETE FROM san_pham WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+
+        echo json_encode(['success' => true, 'message' => 'Sản phẩm đã được xóa thành công.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Sản phẩm này không thể xóa.']);
+    }
 }
 
 
+
+
 // Hàm lấy danh sách sản phẩm
-function getProducts($conn) {
+function getProducts($conn)
+{
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
     if ($search !== "") {
@@ -115,7 +137,8 @@ function getProducts($conn) {
 
 
 // Hàm lấy một sản phẩm
-function getProduct($conn, $id) {
+function getProduct($conn, $id)
+{
     $stmt = $conn->prepare("SELECT san_pham.*, san_pham_loai.loai_san_pham_id 
                             FROM san_pham 
                             JOIN san_pham_loai ON san_pham.id = san_pham_loai.san_pham_id 
@@ -357,7 +380,7 @@ if (isset($_GET['action'])) {
         // Cập nhật trạng thái và lý do hủy
         $stmt = $conn->prepare("UPDATE don_hang SET trang_thai = ?, ly_do_huy = ? WHERE id = ?");
         $stmt->bind_param("ssi", $orderStatus, $cancelReason, $orderId);
-        
+
         if ($stmt->execute()) {
             echo "Đơn hàng đã được hủy thành công.";
         } else {
@@ -365,7 +388,7 @@ if (isset($_GET['action'])) {
         }
         $stmt->close();
     }
-    
+
     switch ($action) {
         case 'get_products':
             getProducts($conn);
@@ -435,8 +458,6 @@ if (isset($_GET['action'])) {
             echo "Hành động không hợp lệ.";
             break;
     }
-
-    
 }
 
 $conn->close();
