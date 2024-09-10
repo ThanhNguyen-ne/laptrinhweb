@@ -161,25 +161,23 @@ function getProductTypes($conn)
 // Hàm thêm người dùng
 function addUser($conn)
 {
-    $stmt = $conn->prepare("INSERT INTO nguoi_dung (ho_ten, email, mat_khau, vai_tro, ngay_dang_ky) VALUES (?, ?, ?, ?, NOW())");
+    $stmt = $conn->prepare("INSERT INTO nguoi_dung (ho_ten, email, mat_khau, so_dien_thoai, dia_chi, vai_tro, ngay_dang_ky) VALUES (?, ?, ?, ?, ?, ?, NOW())");
     $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
-    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
-    $stmt->bind_param("ssss", $full_name, $_POST['userEmail'], $hashed_password, $_POST['userRole']);
+    $stmt->bind_param("ssssss", $_POST['userFullName'], $_POST['userEmail'], $hashed_password, $_POST['userPhone'], $_POST['userAddress'], $_POST['userRole']);
     $stmt->execute();
     $stmt->close();
 
     echo "Người dùng đã được thêm thành công.";
 }
 
+
 // Hàm cập nhật người dùng
 function updateUser($conn)
 {
-    $stmt = $conn->prepare("UPDATE nguoi_dung SET ho_ten=?, email=?, vai_tro=? WHERE id=?");
-    $full_name = $_POST['userFirstName'] . " " . $_POST['userLastName'];
-    $stmt->bind_param("sssi", $full_name, $_POST['userEmail'], $_POST['userRole'], $_POST['userId']);
+    $stmt = $conn->prepare("UPDATE nguoi_dung SET ho_ten=?, email=?, so_dien_thoai=?, dia_chi=?, vai_tro=? WHERE id=?");
+    $stmt->bind_param("sssssi", $_POST['userFullName'], $_POST['userEmail'], $_POST['userPhone'], $_POST['userAddress'], $_POST['userRole'], $_POST['userId']);
     $stmt->execute();
 
-    // Nếu mật khẩu được gửi lên (tức là có thay đổi mật khẩu)
     if (!empty($_POST['userPassword'])) {
         $hashed_password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT);
         $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
@@ -190,6 +188,7 @@ function updateUser($conn)
     $stmt->close();
     echo "Người dùng đã được cập nhật thành công.";
 }
+
 
 // Hàm xóa người dùng
 function deleteUser($conn, $id)
@@ -323,32 +322,6 @@ function deleteOrder($conn, $id)
     echo "Đơn hàng đã được xóa thành công.";
 }
 
-// Hàm lấy danh sách phản hồi
-function getFeedbacks($conn)
-{
-    $result = $conn->query("SELECT phan_hoi.id, nguoi_dung.ho_ten, nguoi_dung.email, phan_hoi.noi_dung, phan_hoi.ngay_gui 
-                            FROM phan_hoi 
-                            JOIN nguoi_dung ON phan_hoi.nguoi_dung_id = nguoi_dung.id");
-    $feedbacks = [];
-
-    while ($row = $result->fetch_assoc()) {
-        $feedbacks[] = $row;
-    }
-
-    echo json_encode($feedbacks);
-}
-
-// Hàm xóa phản hồi
-function deleteFeedback($conn, $id)
-{
-    $stmt = $conn->prepare("DELETE FROM phan_hoi WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
-
-    echo "Phản hồi đã được xóa thành công.";
-}
-
 // Thêm vào api.php phần lưu trữ và lấy lại giỏ hàng từ cơ sở dữ liệu.
 
 function saveCart($conn, $userId, $cart)
@@ -383,75 +356,6 @@ function loadCart($conn, $userId)
     echo json_encode($cart);
     $stmt->close();
 }
-
-// Hàm xác thực mã PIN và trả về mật khẩu nếu đúng
-function verifyPin($conn)
-{
-    $userId = $_GET['user_id'];
-    $inputPin = $_GET['pin'];
-
-    // Khởi tạo số lần thử nếu chưa có
-    if (!isset($_SESSION['pin_attempts'][$userId])) {
-        $_SESSION['pin_attempts'][$userId] = [
-            'count' => 0,
-            'last_attempt' => time()
-        ];
-    }
-
-    $attemptData = $_SESSION['pin_attempts'][$userId];
-
-    // Nếu đã vượt quá 5 lần thử và chưa qua 24 giờ
-    if ($attemptData['count'] >= 5 && (time() - $attemptData['last_attempt']) < 86400) {
-        echo json_encode([
-            'success' => false,
-            'error' => 'Bạn đã vượt quá số lần nhập mã PIN. Vui lòng thử lại sau 24 giờ.'
-        ]);
-        return;
-    }
-
-    // Reset số lần thử nếu đã qua 24 giờ
-    if ((time() - $attemptData['last_attempt']) >= 86400) {
-        $_SESSION['pin_attempts'][$userId] = [
-            'count' => 0,
-            'last_attempt' => time()
-        ];
-        $attemptData = $_SESSION['pin_attempts'][$userId];
-    }
-
-    // Giả sử mã PIN đúng là "1234" (thay bằng mã PIN thực tế)
-    $correctPin = "1234";
-
-    if ($inputPin === $correctPin) {
-        // Lấy mật khẩu của người dùng
-        $stmt = $conn->prepare("SELECT mat_khau FROM nguoi_dung WHERE id = ?");
-        $stmt->bind_param("i", $userId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-        $stmt->close();
-
-        echo json_encode([
-            'success' => true,
-            'password' => $user['mat_khau']
-        ]);
-
-        // Reset số lần thử nếu thành công
-        $_SESSION['pin_attempts'][$userId] = [
-            'count' => 0,
-            'last_attempt' => time()
-        ];
-    } else {
-        // Tăng số lần thử
-        $_SESSION['pin_attempts'][$userId]['count'] += 1;
-        $_SESSION['pin_attempts'][$userId]['last_attempt'] = time();
-
-        echo json_encode([
-            'success' => false,
-            'attempts_left' => 5 - $_SESSION['pin_attempts'][$userId]['count']
-        ]);
-    }
-}
-
 
 // Xử lý yêu cầu AJAX
 if (isset($_GET['action'])) {
@@ -526,14 +430,6 @@ if (isset($_GET['action'])) {
                 deleteOrder($conn, $_GET['id']);
             }
             break;
-        case 'get_feedbacks':
-            getFeedbacks($conn);
-            break;
-        case 'delete_feedback':
-            if (isset($_GET['id'])) {
-                deleteFeedback($conn, $_GET['id']);
-            }
-            break;
         case 'load_cart': // Thêm hành động để tải giỏ hàng
             if (isset($_GET['user_id'])) {
                 loadCart($conn, $_GET['user_id']);
@@ -550,9 +446,6 @@ if (isset($_GET['action'])) {
             } else {
                 echo json_encode(["error" => "Không có ID đơn hàng được cung cấp."]);
             }
-            break;
-        case 'verify_pin':
-            verifyPin($conn);
             break;
         default:
             echo "Hành động không hợp lệ.";

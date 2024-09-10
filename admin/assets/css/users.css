@@ -1,5 +1,6 @@
+/* CSS đã chỉnh sửa, đã loại bỏ các phần liên quan đến modal xóa */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
-@import url("analytics.css"); /* Import the common styles */
+@import url("analytics.css");
 
 .content main .header .btn {
     height: 36px;
@@ -23,7 +24,8 @@
 .user-table {
     margin-top: 24px;
     overflow-x: auto;
-    padding: 0 20px; /* Add padding for better spacing */
+    padding: 0;
+    background-color: #f6f6f9;
 }
 
 .user-table table {
@@ -32,14 +34,14 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    text-align: center; /* Center align text */
+    text-align: center;
 }
 
 .user-table table th,
 .user-table table td {
-    padding: 15px; /* Increase padding for better spacing */
+    padding: 15px;
     border-bottom: 1px solid var(--grey);
-    vertical-align: middle; /* Ensure content is vertically centered */
+    vertical-align: middle;
 }
 
 .user-table table th {
@@ -51,7 +53,7 @@
 
 .user-table table td {
     background: var(--light);
-    font-size: 14px; /* Ensure consistent font size */
+    font-size: 14px;
 }
 
 .user-table table tr:hover {
@@ -61,7 +63,7 @@
 .user-table table .actions {
     display: flex;
     grid-gap: 10px;
-    padding: 9% 20%;
+    padding: 9% 32%;
 }
 
 .user-table table .actions .btn {
@@ -76,24 +78,18 @@
     background: #00b4d8;
     border: none;
     color: var(--light);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px;
 }
 
 .user-table table .actions .edit-btn:hover {
     background: #0077b6;
 }
 
-.user-table table .actions .delete-btn {
-    background: #e4003a;
-    border: none;
-    color: var(--light);
-}
-
-.user-table table .actions .delete-btn:hover {
-    background: #b1121f;
-}
-
-/* Đồng bộ modal từ dangnhap.css */
-#confirmDeleteModal,
 #userModal,
 #pinModal {
     width: 40%;
@@ -159,27 +155,6 @@
 
 .close:hover {
     color: darkred;
-}
-
-#confirmDeleteBtn {
-    background: #e4003a;
-    border: none;
-    color: var(--light);
-}
-
-#confirmDeleteBtn:hover {
-    background: darkred;
-}
-
-#cancelDeleteBtn {
-    border: none;
-    background-color: #5fa8d3;
-    color: var(--light);
-
-}
-
-#cancelDeleteBtn:hover {
-    background-color: #4893bf;
 }
 
 .input-group label {
@@ -280,9 +255,12 @@ textarea {
 }
 
 
-.modal .error {
+.error-message {
     color: red;
     font-size: 14px;
-    text-align: center;
-    margin-top: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
 }

@@ -65,16 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dangnhap'])) {
                 $error_messages["phone"] = "Số điện thoại không tồn tại.";
             }
         } else {
-            // Kiểm tra mật khẩu
+            // Kiểm tra mật khẩu với password_verify
             if (password_verify($mat_khau, $user['mat_khau'])) {
                 $is_authenticated = true;
-            } elseif ($mat_khau === $user['mat_khau']) {
-                $is_authenticated = true;
-                $hashed_password = password_hash($mat_khau, PASSWORD_DEFAULT);
-                $stmt = $conn->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
-                $stmt->bind_param("si", $hashed_password, $user['id']);
-                $stmt->execute();
-                $stmt->close();
             } else {
                 $is_authenticated = false;
                 $error_messages["password"] = "Mật khẩu không đúng.";

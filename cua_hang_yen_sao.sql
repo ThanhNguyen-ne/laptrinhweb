@@ -671,9 +671,9 @@ INSERT INTO nguoi_dung (
         vai_tro
     )
 VALUES (
-        'Nguyen Quoc Tung',
-        'tung@gmail.com',
-        'password123',
+        'Nguyễn Quốc Tùng',
+        'tung29197@gmail.com',
+        '$2y$10$4S..GDXTd5Q4TlVTY4A/Ie35HGw.0jFB0R/iGl/beYwcCncB0G7Ty',
         '0123456789',
         '70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh',
         'khach_hang'
@@ -681,7 +681,7 @@ VALUES (
     (
         'Nguyễn Võ Thành',
         'thanh@gmail.com',
-        'password123',
+        '$2y$10$4S..GDXTd5Q4TlVTY4A/Ie35HGw.0jFB0R/iGl/beYwcCncB0G7Ty',
         '0987654321',
         '70 Đ. Tô Ký, Tân Chánh Hiệp, Quận 12, Hồ Chí Minh',
         'khach_hang'
@@ -689,7 +689,7 @@ VALUES (
     (
         'Admin',
         'admin@gmail.com',
-        'adminpassword',
+        '$2y$10$4S..GDXTd5Q4TlVTY4A/Ie35HGw.0jFB0R/iGl/beYwcCncB0G7Ty',
         '',
         '',
         'admin'

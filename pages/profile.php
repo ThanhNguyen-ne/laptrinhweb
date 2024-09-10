@@ -18,6 +18,12 @@
 <body>
     <?php 
     include('header.php'); 
+
+    // Kiểm tra nếu phiên đã được bắt đầu trước đó
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start(); // Chỉ gọi session_start() nếu chưa có phiên nào hoạt động
+    }
+
     // Kiểm tra nếu người dùng chưa đăng nhập
     if (!isset($_SESSION['user_id'])) {
         $user = [
@@ -27,9 +33,10 @@
             'dia_chi' => ''
         ];
     } else {
-    include("../admin/pages/db_connect.php");
-        
+        include("../admin/pages/db_connect.php");
+
         // Truy vấn thông tin người dùng
+        $user_id = $_SESSION['user_id'];
         $sql = "SELECT * FROM nguoi_dung WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $user_id);
@@ -41,16 +48,19 @@
     // Cập nhật thông tin người dùng
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
         $ho_ten = $_POST['ho_ten'];
+        $email = $_POST['email'];
         $so_dien_thoai = $_POST['so_dien_thoai'];
         $dia_chi = $_POST['dia_chi'];
 
-        $sql_update = "UPDATE nguoi_dung SET ho_ten = ?, so_dien_thoai = ?, dia_chi = ? WHERE id = ?";
+        // Cập nhật thông tin người dùng bao gồm cả email
+        $sql_update = "UPDATE nguoi_dung SET ho_ten = ?, email = ?, so_dien_thoai = ?, dia_chi = ? WHERE id = ?";
         $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->bind_param("sssi", $ho_ten, $so_dien_thoai, $dia_chi, $user_id);
+        $stmt_update->bind_param("ssssi", $ho_ten, $email, $so_dien_thoai, $dia_chi, $user_id);
         $stmt_update->execute();
 
         // Cập nhật lại thông tin người dùng sau khi lưu
         $user['ho_ten'] = $ho_ten;
+        $user['email'] = $email;
         $user['so_dien_thoai'] = $so_dien_thoai;
         $user['dia_chi'] = $dia_chi;
 
@@ -68,7 +78,7 @@
                     <input type="text" name="ho_ten" value="<?php echo htmlspecialchars($user['ho_ten']); ?>" required><br>
                     
                     <label for="email">Email:</label>
-                    <input type="text" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" disabled><br>
+                    <input type="text" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
 
                     <label for="so_dien_thoai">Số điện thoại:</label>
                     <input type="text" name="so_dien_thoai" value="<?php echo htmlspecialchars($user['so_dien_thoai']); ?>"><br>

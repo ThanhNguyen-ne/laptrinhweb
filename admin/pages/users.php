@@ -59,7 +59,6 @@
                                 <th>Tên người dùng</th>
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
-                                <th>Mật khẩu</th>
                                 <th>Vai trò</th>
                                 <th>Hành động</th>
                             </tr>
@@ -78,51 +77,42 @@
                 <span class="close">&times;</span>
                 <h2>THÊM NGƯỜI DÙNG</h2>
                 <form id="userForm">
+                    <!-- Form input fields -->
                     <div class="input-group">
                         <label for="userFullName">Họ và Tên</label>
-                        <input type="text" id="userFullName" name="userFullName" required />
+                        <input type="text" id="userFullName" name="userFullName" />
+                        <div id="fullnameError" class="error-message"></div>
                     </div>
                     <div class="input-group">
                         <label for="userPhone">Số Điện Thoại</label>
-                        <input type="text" id="userPhone" name="userPhone" required />
+                        <input type="text" id="userPhone" name="userPhone" />
+                        <div id="phoneError" class="error-message"></div>
                     </div>
                     <div class="input-group">
                         <label for="userEmail">Email</label>
-                        <input type="email" id="userEmail" name="userEmail" required />
+                        <input type="email" id="userEmail" name="userEmail" />
+                        <div id="emailError" class="error-message"></div>
                     </div>
                     <div class="input-group">
                         <label for="userAddress">Địa Chỉ</label>
-                        <input type="text" id="userAddress" name="userAddress" required />
+                        <input type="text" id="userAddress" name="userAddress" />
+                        <div id="addressError" class="error-message"></div>
                     </div>
                     <div class="input-group">
                         <label for="userPassword">Mật khẩu</label>
-                        <input type="password" id="userPassword" name="userPassword" required />
+                        <input type="password" id="userPassword" name="userPassword" />
+                        <div id="passwordError" class="error-message"></div>
                     </div>
                     <div class="input-group">
                         <label for="userRole">Vai trò</label>
-                        <select id="userRole" name="userRole" required>
-                            <option value="Admin">Admin</option>
-                            <option value="khach_hang">User</option>
+                        <select id="userRole" name="userRole">
+                            <option value="Admin">Quản trị viên</option>
+                            <option value="khach_hang">Khách hàng</option>
                         </select>
+                        <div id="roleError" class="error-message"></div>
                     </div>
                     <button type="submit" class="btn submit-btn">Lưu</button>
                 </form>
-            </div>
-        </div>
-
-        <!-- PIN Verification Modal -->
-        <div class="modal" id="pinModal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Xác thực Mã PIN</h2>
-                <form id="pinForm">
-                    <div class="input-group">
-                        <label for="pinInput">Nhập Mã PIN</label>
-                        <input type="password" id="pinInput" name="pinInput" required maxlength="4" />
-                    </div>
-                    <button type="submit" class="btn submit-btn">Xác nhận</button>
-                </form>
-                <p id="pinError" class="error"></p>
             </div>
         </div>
 
